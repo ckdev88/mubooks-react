@@ -1,0 +1,66 @@
+.card {
+	margin: 1rem;
+	padding: 0.75rem;
+	background-color: #f4f1ea;
+	background-color: hsl(
+		42,
+		31%,
+		97%
+	); /* iets lichter dan basis: hsl(42, 31%, 94%) / #f4f1ea, rgb(244, 242, 235) */
+}
+.card header {
+	font-weight: bold;
+	font-size: 1.4rem;
+	margin-bottom: 1rem;
+}
+.card footer {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.9rem;
+	padding-top: 0.5rem;
+}
+.card footer.content-right {
+	justify-content: right;
+}
+
+.cards-draaideur {
+	perspective: 500px;
+	/* height: 26rem; */ /* vervangen door js: de hoogte van de hoogste bevattende card wordt
+gebruikt */
+	margin: 0 auto;
+	background: #f4f1ea;
+	background: hsl(
+		42,
+		31%,
+		91%
+	); /* iets donkderder dan basis: hsl(42, 31%, 94%) / #f4f1ea, rgb(244, 242, 235) */
+	padding: 2px;
+	/* border: 1px dashed #aaa; */
+}
+.cards-draaideur .card {
+	margin: 0;
+	box-sizing: border-box;
+}
+.cards-draaideur.rotate .axis {
+	transform: rotateY(180deg);
+}
+.cards-draaideur .axis {
+	transition: transform 0.85s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+.cards-draaideur .card {
+	backface-visibility: hidden;
+	position: absolute;
+	width: 100%;
+
+	/* height: 26rem; */ /* vervangen door js: de hoogte van de hoogste bevattende card wordt
+gebruikt */
+}
+.cards-draaideur .card:first-child {
+	z-index: 2;
+}
+.cards-draaideur .card + .card {
+	transform: rotateY(180deg);
+	z-index: 3;
+}

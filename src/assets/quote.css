@@ -1,0 +1,21 @@
+.quote {
+	font-style: italic;
+	text-align: center;
+	font-size: 1.3rem;
+	margin: 3rem auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+.quote main::before {
+	display: inline-block;
+	content: '“';
+}
+.quote main::after {
+	display: inline-block;
+	content: '”';
+}
+.quote footer {
+	margin-top: 0.7em;
+	font-weight: 600;
+	font-size: 0.7em;
+}

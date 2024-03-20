@@ -1,0 +1,7 @@
+.dashboard .readingnow .book-summary {
+	display: flex;
+	align-items: center;
+}
+.dashboard .readingnow h2 {
+	line-height: 1.5em;
+}
