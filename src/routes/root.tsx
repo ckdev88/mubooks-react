@@ -8,6 +8,7 @@ export default function Root() {
 			<header id="header">header hier, containing NavWrapper</header>
 			<main id="main" className={navigation.state==="loading"?"loading...":""}>
 				main hier, bevat Routerview... moet dit niet in het bestand index.tsx?
+
 			</main>
 			<footer id="footer">Hier de onderkant, counter-scripts enzo</footer>
 		</>
