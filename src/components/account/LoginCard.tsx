@@ -1,23 +1,25 @@
-// @ts-nocheck
-export default function LoginCard() {
+import useCardRotate from '../../hooks/useCardRotate'
+const LoginCard = () => {
+	const { recover, signup } = useCardRotate()
 	return (
 		<>
 			<article className="card" id="card-login">
-				<header>Log in</header>
 				<main>
+					<header>Log in</header>
 					<form>
-					<label for="email">Email</label>
-					<input type="email" id="login-email"  required /> 
-					<label for="password">Password</label>
-					<input type="password" id="login-password"  /> 
-					<button>Log in</button>
-				</form>
-			</main>
-			<footer>
-				<a onClick="useCardRotate('login', 'recover')">Forgot password</a>
-				<a onClick="useCardRotate('login', 'signup')">New here? Join now.</a>
-			</footer>
-		</article>
-	</>
+						<label htmlFor="email">Email</label>
+						<input type="email" id="login-email" required />
+						<label htmlFor="password">Password</label>
+						<input type="password" id="login-password" />
+						<button>Log in</button>
+					</form>
+				</main>
+				<footer>
+					<a onClick={recover}>Forgot password</a>
+					<a onClick={signup}>New here? Join now.</a>
+				</footer>
+			</article>
+		</>
 	)
 }
+export default LoginCard

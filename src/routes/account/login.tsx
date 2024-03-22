@@ -29,7 +29,7 @@ function toProfile() {
 				<img id="welcome-logo-img" src="/img/logo.svg" style={{	maxWidth: '33%',
 	display: 'block', margin: '0 auto', position: 'relative', zIndex: 2 }} />
 			</div>
-			<div className="cards-draaideur">
+			<div id="cards-draaideur" className="cards-draaideur">
 				<div className="axis">
 					<LoginCard />
 					<SignupCard />
