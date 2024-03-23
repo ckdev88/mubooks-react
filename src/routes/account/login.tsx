@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import LoginCard from '../../components/account/LoginCard'
 import SignupCard from '../../components/account/SignupCard'
 import RecoverCard from '../../components/account/RecoverCard'
-// TODO: set setDraaideurHeight composable equivalent in react
+import setDraaideurHeight from '../../hooks/setDraaideurHeight'
 
 async function loginAccount() {
 	console.log('login into account')
@@ -16,43 +16,13 @@ async function logoutAccount() {
 	console.log('log out of account')
 }
 
-
 export default function Login() {
-	function CalcHeight() {
-		// const axis = document.getElementsByClassName('axis')[0]
-		// const cards = axis.getElementsByClassName('card')
-		// const [cardheight, setCardheight] = useState(cards[0].offsetHeight)
-		// document.getElementById('cards-draaideur').height=cardheight+'px'
-
-		// console.log(cardheight,'asdasdasd')
-
-		return <>asdfasdf</>
-	}
 	function toProfile() {
 		console.log('click toProfile')
 		useNavigate('/profile') // TODO: invalid hook call
 	}
-	// const draaideurHeight =()=>{
-	// in vue this is composable, setDraaideurHeight.js
-	function bla() {
-		// console.log('bla')
-		alert('bla')
-	}
 
-	// useEffect(()=>{
-	// 	const axis = document.getElementsByClassName('axis')[0]
-	// 	const cards = axis.getElementsByClassName('card')
-	// 	const [cardheight, setCardheight] = useState(cards[0].offsetHeight)
-	//
-	// 	for (let i = 0; i < cards.length; i++) {
-	// 		// get max height
-	// 		if (cards[i].offsetHeight > cardheight) setCardheight(cards[i].offsetHeight)
-	// 	}
-	// 	for (let i = 0; i < cards.length; i++) {
-	// 		//	apply max height to all inner draaideur-cards
-	// 		cards[i].style.height = cardheight + 'px'
-	// 	}
-	// 	}
+	useEffect(() => setDraaideurHeight()) // apply "composable" when DOM is loaded
 
 	return (
 		<>
@@ -89,9 +59,6 @@ export default function Login() {
 				Or...
 				<br />
 				Use google auth, apple id, etc
-			</div>
-			<div>
-				<CalcHeight/>
 			</div>
 		</>
 	)

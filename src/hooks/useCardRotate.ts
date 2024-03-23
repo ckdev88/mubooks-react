@@ -4,7 +4,6 @@ const useCardRotate = () => {
 		document.getElementById('cards-draaideur').classList.add('rotate')
 		document.getElementById('card-signup').style.display = 'none'
 		document.getElementById('card-recover').style.display = 'block'
-		document.getElementById('cards-draaideur').style.height=500+'px'
 	}
 	function signup() {
 		document.getElementById('cards-draaideur').classList.add('rotate')
