@@ -36,6 +36,8 @@ gebruikt */
 	); /* iets donkderder dan basis: hsl(42, 31%, 94%) / #f4f1ea, rgb(244, 242, 235) */
 	padding: 2px;
 	/* border: 1px dashed #aaa; */
+	height: 420px; /* should be dynamic like vue-version */
+	overflow: hidden;
 }
 .cards-draaideur .card {
 	margin: 0;

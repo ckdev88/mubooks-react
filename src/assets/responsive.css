@@ -1,5 +1,5 @@
 @media screen and (max-width: 600px) and (min-width: 320px) {
-	#app {
+	#root {
 		max-width: calc(100vw - 1rem);
 	}
 	#header,
@@ -14,7 +14,7 @@
 	}
 }
 @media screen and (max-width: 320px) {
-	#app {
+	#root {
 		min-width: auto;
 	}
 	#navIcons {

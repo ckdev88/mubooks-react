@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/countries',
-		element: <Countries />
+		element: <Countries />,
 	},
 	// {
 	// 	path: '/account',
@@ -49,6 +49,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<main id="main">
+			<RouterProvider router={router} />
+		</main>
 	</React.StrictMode>
 )

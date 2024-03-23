@@ -30,14 +30,14 @@ export default function NavWrapper() {
 					</button>
 				</div>
 			</nav>
-			<nav id="nav0" className="nav-collapsable collapsed" aria-expanded="collapsed">
+			<nav id="nav0" className="nav-collapsable collapsed">
 				<ul></ul>
 				<div className="history">
 					<button>&lt;</button>
 					<button>&gt;</button>
 				</div>
 			</nav>
-			<nav id="nav1" className="nav-collapsable collapsed" aria-expanded="collapsed">
+			<nav id="nav1" className="nav-collapsable collapsed">
 				<ul></ul>
 			</nav>
 		</>

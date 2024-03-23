@@ -1,4 +1,4 @@
-main button.alt {
+main button.alt, .card footer button.alt {
 	background: white;
 	color: #333;
 	border-color: transparent;

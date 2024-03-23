@@ -1,5 +1,12 @@
 import useCardRotate from '../../hooks/useCardRotate'
 const LoginCard = () => {
+
+	const numm = (inn:number = 3, out = 3) => {
+		return inn + out
+	}
+	const bla = Number(numm)
+	console.log(bla)
+
 	const { recover, signup } = useCardRotate()
 	return (
 		<>
