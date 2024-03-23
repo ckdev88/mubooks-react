@@ -1,4 +1,3 @@
-// @ts-nocheck
 const useCardRotate = () => {
 	function recover() {
 		document.getElementById('cards-draaideur').classList.add('rotate')
