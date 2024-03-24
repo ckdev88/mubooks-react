@@ -14,5 +14,4 @@ export default function setDraaideurHeight(): void {
 	}
 	draaideur.style.height = max + 'px'
 	axis.style.height = max + 'px'
-
 }

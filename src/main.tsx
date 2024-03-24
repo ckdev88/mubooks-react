@@ -2,8 +2,9 @@
 import './index.css'
 
 import React from 'react'
+import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, redirect, RouterProvider, useNavigate } from 'react-router-dom'
 
 import Root from './routes/root'
 import Contact from './routes/contact'
