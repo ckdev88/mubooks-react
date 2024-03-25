@@ -22,6 +22,7 @@ export default function SignupCard() {
 		}
 		createAccount(user)
 	}
+	const navigate = useNavigate()
 	async function createAccount(user: User) {
 		const { data, error } = await supabase.auth.signUp({
 			email: user.email,
@@ -34,11 +35,11 @@ export default function SignupCard() {
 			console.log(error)
 		} else {
 			console.log('adding user:', data)
-			console.log(' user:', data.user.id)
 			console.log('Account created, referring...')
-			const navigate = useNavigate()
 			// TODO: redirect to check mail- page
-			navigate('checkmail')
+			navigate(`/account/new?addr=${user.email}`) // beetje unsafe dit, beter via sessie of api
+			// key zodat max. 1 (browser)sessie 1 account kan maken
+
 			// TODO: set session & global state
 			// authStore.setEmail(f.email)
 			// authStore.setScreenname(f.screenname)

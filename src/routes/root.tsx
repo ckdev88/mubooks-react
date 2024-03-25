@@ -19,13 +19,14 @@ function Yahs() {
 
 		return () => subscription.unsubscribe()
 	}, [])
-if (!session) {
 		const navigate = useNavigate()
+if (!session) {
 		useEffect(() => {
 			navigate('/account/login')
 		})
 	} else {
 		console.log(session)
+		useEffect(()=>{navigate('/dashboard')})
 		return <div>Logged in!</div>
 	}
 }
