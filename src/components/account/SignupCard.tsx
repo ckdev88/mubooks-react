@@ -1,22 +1,28 @@
-// @ts-nocheck
-import { Router } from 'react-router-dom'
+// import { Router } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
-import { useRef, useState } from 'react'
+// import {  useState } from 'react'
 import useCardRotate from '../../hooks/useCardRotate'
 export default function SignupCard() {
-	const [user, setUser] = useState<{}>({})
+	// const [user, setUser] = useState<{}>({})
 	const { login } = useCardRotate()
 
-	function processSignupForm(event) {
+	type User = {
+		email: string
+		screenname: string
+		password: string
+	}
+
+	function processSignupForm(event: any) {
 		event.preventDefault()
-		const user = {
+		const user: User = {
 			email: event.target.email.value,
 			screenname: event.target.screenname.value,
 			password: event.target.password.value,
 		}
 		createAccount(user)
 	}
-	async function createAccount(user) {
+	async function createAccount(user: User) {
 		const { data, error } = await supabase.auth.signUp({
 			email: user.email,
 			password: user.password,
@@ -30,13 +36,14 @@ export default function SignupCard() {
 			console.log('adding user:', data)
 			console.log(' user:', data.user.id)
 			console.log('Account created, referring...')
-			router.push({ name: 'checkmail' })
+			const navigate = useNavigate()
+			// TODO: redirect to check mail- page
+			navigate('checkmail')
 			// TODO: set session & global state
 			// authStore.setEmail(f.email)
 			// authStore.setScreenname(f.screenname)
 			// authStore.setUid(data.user.id)
 			//
-			// TODO: redirect to login page
 		}
 	}
 

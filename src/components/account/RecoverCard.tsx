@@ -1,15 +1,17 @@
-// @ts-nocheck
 import useCardRotate from '../../hooks/useCardRotate'
 import { supabase } from '../../../utils/supabase'
 
 const RecoverCard = () => {
 	const { login } = useCardRotate()
-	function processRecoverForm(event) {
+
+	function processRecoverForm(event: any) {
 		event.preventDefault()
 		console.log('doe iets')
 		console.log('recover', event.target.email.value)
+		const email: string = event.target.email.value
+		recoverAccount(email)
 	}
-	async function recoverAccount(email) {
+	async function recoverAccount(email: string) {
 		console.log('recovering..')
 		let { data, error } = await supabase.auth.resetPasswordForEmail(email)
 		if (error) console.log(error)

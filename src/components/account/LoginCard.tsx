@@ -1,26 +1,26 @@
-// @ts-nocheck
-import { useState } from 'react'
 import { supabase } from '../../../utils/supabase'
 import useCardRotate from '../../hooks/useCardRotate'
 
 const LoginCard = () => {
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-
-	function processLoginForm(event) {
+	type User = {
+		email: string
+		password: string
+	}
+	function processLoginForm(event: any) {
 		event.preventDefault()
 		// const formData = new FormData(event.target)
 		/* still not really seeing the added value of this "FormData" */
 		// formData.get('loginemail') would return the same as: event.target.loginemail.value
-		const user ={
+		const user:User = {
 			email: event.target.loginemail.value,
-			password : event.target.loginpassword.value
+			password: event.target.loginpassword.value,
 		}
 		loginAccount(user)
 	}
-	async function loginAccount(user) {
+
+	async function loginAccount(user: User) {
 		let { data, error } = await supabase.auth.signInWithPassword({
 			email: user.email,
 			password: user.password,

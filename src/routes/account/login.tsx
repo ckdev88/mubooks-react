@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LoginCard from '../../components/account/LoginCard'
 import SignupCard from '../../components/account/SignupCard'
@@ -17,9 +16,10 @@ async function logoutAccount() {
 }
 
 export default function Login() {
-	function toProfile() {
+	function toProfile(): void {
 		console.log('click toProfile')
-		useNavigate('/profile') // TODO: invalid hook call
+		const navigate = useNavigate() // TODO: invalid hook call
+		navigate('/profile')
 	}
 
 	useEffect(() => setDraaideurHeight()) // apply "composable" when DOM is loaded
