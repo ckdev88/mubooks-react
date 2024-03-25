@@ -13,6 +13,9 @@ import Countries from './routes/countries'
 import TestPage from './routes/test'
 import Error404 from './routes/error404'
 import Search from './routes/search'
+import CheckMailPage from './routes/account/CheckMailPage'
+import CheckMailPasswordPage from './routes/account/CheckMailPasswordPage'
+import CheckMailNewAccountPage from './routes/account/CheckMailNewAccountPage'
 
 const router = createBrowserRouter([
 	{
@@ -39,10 +42,25 @@ const router = createBrowserRouter([
 		errorElement: <ErrorAccountNotFound />,
 	},
 	{
+		path: '/account/checkmail',
+		element: <CheckMailPage />,
+		errorElement: <Error404 />,
+		// component: () => import('./views/account/CheckMailPage.vue'),
+		// meta: { requiresAuth: false, requiresNoAuth: false, includeNav: false },
+		// props: true
+	},
+	{
+		path: '/account/forgotpassword',
+		element: <CheckMailPasswordPage />,
+		errorElement: <Error404 />,
+	},
+	{ path: '/account/new', element: <CheckMailNewAccountPage />, errorElement: <Error404 /> },
+	{
 		path: '/account/*',
 		element: <Login />,
 		errorElement: <ErrorAccountNotFound />,
 	},
+
 	{
 		path: '/test/',
 		element: <TestPage />,

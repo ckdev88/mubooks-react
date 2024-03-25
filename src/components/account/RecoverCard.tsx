@@ -1,7 +1,11 @@
 import useCardRotate from '../../hooks/useCardRotate'
+import { redirect, useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
 
+// const navigate = useNavigate()
+
 const RecoverCard = () => {
+	const navigate = useNavigate()
 	const { login } = useCardRotate()
 
 	function processRecoverForm(event: any) {
@@ -11,12 +15,17 @@ const RecoverCard = () => {
 		const email: string = event.target.email.value
 		recoverAccount(email)
 	}
+
 	async function recoverAccount(email: string) {
 		console.log('recovering..')
 		let { data, error } = await supabase.auth.resetPasswordForEmail(email)
 		if (error) console.log(error)
-		else console.log('check email!')
+		else {
+			console.log('data:', data)
+			navigate(`/account/checkmail?addr=${email}`)
+		}
 	}
+
 	return (
 		<>
 			<article className="card" id="card-recover">
@@ -26,7 +35,7 @@ const RecoverCard = () => {
 					<form onSubmit={processRecoverForm}>
 						<label htmlFor="recover-email">Email address: *</label>
 						<input type="email" id="recover-email" name="email" required />
-						<p>We'll send a link to this email if it matches an existing MuBOOKS account.</p>
+						<p>We'll send a link to this email if it matches an existing account.</p>
 						<button type="submit">Next</button>
 					</form>
 				</main>
