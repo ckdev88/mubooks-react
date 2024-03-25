@@ -7,8 +7,6 @@ export default function ErrorPage() {
 	}
 
 	const error: Error = useRouteError() //as object
-	console.error(error)
-	console.log(typeof error) // object
 
 	return (
 		<div id="error-page">
@@ -17,11 +15,10 @@ export default function ErrorPage() {
 			<p>
 				<i>
 					{error.statusText || error.message}
-					<p>
+					<br/><br/>
 						Detailed...
 						<br />
 						{error.data}
-					</p>
 				</i>
 			</p>
 		</div>
