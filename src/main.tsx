@@ -12,6 +12,9 @@ import ErrorPage from './error-page'
 import Login from './routes/account/login'
 import ErrorAccountNotFound from './routes/account/ErrorAccountNotFound'
 import Countries from './routes/countries'
+import TestPage from './routes/test'
+import Error404 from './routes/error404'
+import Search from './routes/search'
 
 const router = createBrowserRouter([
 	{
@@ -42,6 +45,13 @@ const router = createBrowserRouter([
 		element: <Login />,
 		errorElement: <ErrorAccountNotFound />,
 	},
+	{
+		path: '/test/',
+		element: <TestPage />,
+		errorElement: <Error404 />,
+	},
+	{ path: '/search/', element: <Search />, errorElement: <Error404 /> },
+
 	// {
 	// 	path: '*',
 	// 	element: <div>Got lost? 404</div>,
