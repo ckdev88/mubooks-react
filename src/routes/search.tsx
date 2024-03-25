@@ -1,6 +1,4 @@
-// @ts-nocheck
-import React, { useRef } from 'react'
-import { RouterProvider } from 'react-router-dom'
+import  { useRef } from 'react'
 
 export default function Search() {
 	const form=useRef(null)

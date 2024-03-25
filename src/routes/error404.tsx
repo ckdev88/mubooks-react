@@ -1,4 +1,3 @@
-// @ts-nocheck
 export default function Error404() {
 	return (
 		<>
