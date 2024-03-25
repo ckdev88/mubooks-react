@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { supabase } from '../../../utils/supabase'
 import { useNavigate } from 'react-router-dom'
+import QuoteCard from '../../components/QuoteCard'
 
 let { data: { user }, } = await supabase.auth.getUser()
 
@@ -25,6 +26,7 @@ const DashboardPage = () => {
 				<br />
 				Let's get started!
 			</p>
+			<QuoteCard />
 		</>
 	)
 }
