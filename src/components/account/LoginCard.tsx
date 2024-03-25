@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
 import useCardRotate from '../../hooks/useCardRotate'
+
 
 const LoginCard = () => {
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
+	const navigate = useNavigate()
 	type User = {
 		email: string
 		password: string
@@ -28,8 +31,9 @@ const LoginCard = () => {
 		if (error) console.log(error)
 		else {
 			console.log('logged in!')
-			// TODO: set session & global state
-			// TODO: redirect to dashboard page
+			console.log('data',data)
+			// TODO: set session & global state, just use session saved in localstorage
+			navigate('/dashboard')
 		}
 	}
 	const { recover, signup } = useCardRotate()

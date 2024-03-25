@@ -1,8 +1,25 @@
+import { useEffect } from 'react'
+import { supabase } from '../../../utils/supabase'
+import { useNavigate } from 'react-router-dom'
+
+let { data: { user }, } = await supabase.auth.getUser()
+
+type User_metadata = {
+	email: string
+	email_verified: boolean
+	screenname: string
+	sub: string
+}
+
 const DashboardPage = () => {
-	// TODO: make sure user is logged in
+	const navigate = useNavigate()
+	useEffect(() => {
+		if (!user) navigate('/account/login')
+	})
+	const usermeta = user.user_metadata as User_metadata
 	return (
 		<>
-			<h1>Hi,</h1>
+			<h1>Hi, {usermeta.screenname}</h1>
 			<p>
 				MuBOOKS is your journal for your books.
 				<br />

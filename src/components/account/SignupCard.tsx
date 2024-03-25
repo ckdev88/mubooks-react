@@ -39,12 +39,6 @@ export default function SignupCard() {
 			// TODO: redirect to check mail- page
 			navigate(`/account/new?addr=${user.email}`) // beetje unsafe dit, beter via sessie of api
 			// key zodat max. 1 (browser)sessie 1 account kan maken
-
-			// TODO: set session & global state
-			// authStore.setEmail(f.email)
-			// authStore.setScreenname(f.screenname)
-			// authStore.setUid(data.user.id)
-			//
 		}
 	}
 
