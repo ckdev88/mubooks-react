@@ -16,6 +16,7 @@ import Search from './routes/search'
 import CheckMailPasswordPage from './routes/account/CheckMailPasswordPage'
 import CheckMailNewAccountPage from './routes/account/CheckMailNewAccountPage'
 import DashboardPage from './routes/account/DashboardPage'
+import NavWrapper from './components/NavWrapper'
 
 const router = createBrowserRouter([
 	{
@@ -63,6 +64,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
+		<header id="header">
+			<NavWrapper />
+		</header>
 		<main id="main">
 			<RouterProvider router={router} />
 		</main>

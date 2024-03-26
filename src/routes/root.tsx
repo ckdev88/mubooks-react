@@ -37,6 +37,7 @@ export default function Root() {
 	return (
 		<>
 			<header id="header">
+				askjdfh
 				<NavWrapper />
 			</header>
 			<main id="main" className={navigation.state === 'loading' ? 'loading...' : ''}>

@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+// import { Link, NavLink } from 'react-router-dom'
+import { supabase } from '../../utils/supabase'
+const {
+	data: { user },
+} = await supabase.auth.getUser()
+console.log(user)
+// <NavLink to="account">account</NavLink>
 
-// @ts-nocheck
-export default function NavWrapper() {
+const NavWrapper = () => {
+	if(!user)return <>Please, log in</>
 	return (
 		<>
-			<Link to="account">account</Link>
 			<nav id="navIcons">
 				<button id="toggleNavBurger" className="collapsed">
 					<div className="burger">
@@ -43,3 +48,4 @@ export default function NavWrapper() {
 		</>
 	)
 }
+export default NavWrapper

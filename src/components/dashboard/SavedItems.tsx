@@ -25,12 +25,13 @@
 			</article>
 		</div>
 	</main>
+			<main v-else onClick="$router.push({ name: 'search' })" className="toadd">
 */
 
 export default function SavedItems() {
 	return (
 		<>
-			<main v-else onClick="$router.push({ name: 'search' })" className="toadd">
+			<main className="toadd">
 				<aside>
 					<button>
 						<img src="/img/save-books-icon.png" />
