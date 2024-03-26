@@ -1,9 +1,22 @@
 import { useEffect } from 'react'
+import { supabase } from '../../../utils/supabase'
 import { useNavigate } from 'react-router-dom'
 import LoginCard from '../../components/account/LoginCard'
 import SignupCard from '../../components/account/SignupCard'
 import RecoverCard from '../../components/account/RecoverCard'
 import setDraaideurHeight from '../../hooks/setDraaideurHeight'
+
+const {
+	data: { user },
+} = await supabase.auth.getUser()
+function toDashboardIfLoggedin() {
+	const navigate = useNavigate()
+	if (user) {
+		useEffect(() => {
+			navigate('/dashboard')
+		})
+	} 
+}
 
 async function loginAccount() {
 	console.log('login into account')
@@ -16,6 +29,7 @@ async function logoutAccount() {
 }
 
 export default function Login() {
+	toDashboardIfLoggedin()
 	function toProfile(): void {
 		console.log('click toProfile')
 		const navigate = useNavigate() // TODO: invalid hook call
