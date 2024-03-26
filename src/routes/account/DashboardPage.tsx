@@ -2,8 +2,16 @@ import { useEffect } from 'react'
 import { supabase } from '../../../utils/supabase'
 import { useNavigate } from 'react-router-dom'
 import QuoteCard from '../../components/QuoteCard'
+import Reading from '../../components/dashboard/Reading'
+import Saved from '../../components/dashboard/Saved'
+import Favorites from '../../components/dashboard/Favorites'
+import Tropes from '../../components/dashboard/Tropes'
+import Stats from '../../components/dashboard/Stats'
+import Explore from '../../components/dashboard/Explore'
 
-let { data: { user }, } = await supabase.auth.getUser()
+let {
+	data: { user },
+} = await supabase.auth.getUser()
 
 type User_metadata = {
 	email: string
@@ -27,6 +35,13 @@ const DashboardPage = () => {
 				Let's get started!
 			</p>
 			<QuoteCard />
+			<Reading />
+			<Saved />
+			<Favorites />
+
+			<Tropes />
+			<Stats />
+			<Explore />
 		</>
 	)
 }

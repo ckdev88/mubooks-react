@@ -1,0 +1,22 @@
+import ReadingItem from './ReadingItem'
+// check if there are any saved books
+// if yes, check if any of saved books are marked as reading
+// if yes, router.push to saved books
+// if no, router.push to saved books?
+// if no, router.push to search
+
+// import { useMuBooksStore } from '../../stores/MuBooksStore'
+// const muBooksStore = useMuBooksStore()
+// const readingBook = muBooksStore.getReadingBook
+// console.log('readingBook:', readingBook)
+export default function Reading(){
+	return (
+<>
+	<article className="adder">
+		<header>
+			What I'm reading now <span>›</span>
+		</header>
+		<ReadingItem />
+	</article>
+</>
+)}
