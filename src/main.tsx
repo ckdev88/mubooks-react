@@ -17,6 +17,7 @@ import CheckMailPasswordPage from './routes/account/CheckMailPasswordPage'
 import CheckMailNewAccountPage from './routes/account/CheckMailNewAccountPage'
 import DashboardPage from './routes/account/DashboardPage'
 import NavWrapper from './components/NavWrapper'
+import LogoutPage from './routes/account/LogoutPage'
 
 const router = createBrowserRouter([
 	{
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
 		errorElement: <Error404 />,
 	},
 	{ path: '/account/new', element: <CheckMailNewAccountPage />, errorElement: <Error404 /> },
+	{ path: '/account/logout', element: <LogoutPage />, errorElement: <Error404 /> },
 	{
 		path: '/account/*',
 		element: <Login />,
