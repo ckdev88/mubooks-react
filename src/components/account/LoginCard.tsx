@@ -1,39 +1,52 @@
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../../../utils/supabase'
+import { localStorageKey, supabase } from '../../../utils/supabase'
 import useCardRotate from '../../hooks/useCardRotate'
-
+import { useContext } from 'react'
+import { AppContext } from '../../App'
 
 const LoginCard = () => {
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
-	const navigate = useNavigate()
 	type User = {
 		email: string
 		password: string
 	}
-	function processLoginForm(event: any) {
+
+	function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
+		interface FormInput {
+			loginemail: { value: string }
+			loginpassword: { value: string }
+		}
+		const formInput: FormInput = event.target
 		// const formData = new FormData(event.target)
 		/* still not really seeing the added value of this "FormData" */
 		// formData.get('loginemail') would return the same as: event.target.loginemail.value
-		const user:User = {
-			email: event.target.loginemail.value,
-			password: event.target.loginpassword.value,
+		const user: User = {
+			email: formInput.loginemail.value,
+			password: formInput.loginpassword.value,
 		}
 		loginAccount(user)
 	}
+
+	const navigate = useNavigate()
+
+	const { setUsername, setLoginstatus } = useContext(AppContext)
 
 	async function loginAccount(user: User) {
 		let { data, error } = await supabase.auth.signInWithPassword({
 			email: user.email,
 			password: user.password,
 		})
-		if (error) console.log(error)
+		if (error) console.log(error) // TODO: use error message to show user
 		else {
-			console.log('logged in!')
-			console.log('data',data)
 			// TODO: set session & global state, just use session saved in localstorage
+			setUsername(data.user.user_metadata.screenname)
+			setLoginstatus(true)
 			navigate('/dashboard')
+
+			// copy localStorage to sessionStorage
+			sessionStorage.setItem(localStorageKey, localStorage.getItem(localStorageKey))
 		}
 	}
 	const { recover, signup } = useCardRotate()

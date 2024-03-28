@@ -1,25 +1,34 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { supabase } from '../../../utils/supabase'
 import { useNavigate } from 'react-router-dom'
-const toLoginIfLogout=()=>{
-	const navigate=useNavigate()
+import { AppContext } from '../../App'
+import { AuthError } from '@supabase/supabase-js'
 
-	useEffect(() => {
-		navigate('/account/login')
-	})
-}
-let { error } = await supabase.auth.signOut()
 export default function LogoutPage() {
-	let msg: string
-	if (error) msg = error.message
-	else {
-		msg = '... succesful'
-		toLoginIfLogout()
+	sessionStorage.clear()
+	const { setUsername, setLoginstatus } = useContext(AppContext)
+	const navigate = useNavigate()
+
+	async function logoutAccount(): Promise<AuthError | undefined> {
+		const { error } = await supabase.auth.signOut()
+		if (error === null) {
+			setUsername('')
+			setLoginstatus(false)
+			sessionStorage.clear()
+			navigate('/account/login')
+		} else {
+			return error
+		}
 	}
+
 	return (
 		<>
 			<h1>Logging out...</h1>
-			<p>{msg}</p>
+			<p>
+				{useEffect(() => {
+					logoutAccount()
+				}, [])}
+			</p>
 		</>
 	)
 }

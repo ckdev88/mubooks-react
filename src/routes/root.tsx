@@ -5,6 +5,7 @@ import { createBrowserRouter, redirect, RouterProvider, useNavigate } from 'reac
 import { useState, useEffect } from 'react'
 
 function Yahs() {
+	console.log('running yahs')
 	const [session, setSession] = useState(null)
 
 	useEffect(() => {
@@ -19,14 +20,17 @@ function Yahs() {
 
 		return () => subscription.unsubscribe()
 	}, [])
-		const navigate = useNavigate()
-if (!session) {
+
+	console.log('session:',session)
+	const navigate = useNavigate()
+
+	if (!session) {
 		useEffect(() => {
 			navigate('/account/login')
-		})
+		}, [])
 	} else {
 		console.log(session)
-		useEffect(()=>{navigate('/dashboard')})
+		// useEffect(() => { navigate('/dashboard') }, [])
 		return <div>Logged in!</div>
 	}
 }
@@ -37,7 +41,6 @@ export default function Root() {
 	return (
 		<>
 			<header id="header">
-				askjdfh
 				<NavWrapper />
 			</header>
 			<main id="main" className={navigation.state === 'loading' ? 'loading...' : ''}>

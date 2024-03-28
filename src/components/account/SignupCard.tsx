@@ -24,6 +24,7 @@ export default function SignupCard() {
 	}
 	const navigate = useNavigate()
 	async function createAccount(user: User) {
+		console.log('create account from SignupCard.tsx')
 		const { data, error } = await supabase.auth.signUp({
 			email: user.email,
 			password: user.password,
