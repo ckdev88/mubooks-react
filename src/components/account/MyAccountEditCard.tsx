@@ -1,47 +1,59 @@
 import useCardRotate from '../../hooks/useCardRotate'
 import { supabase } from '../../../utils/supabase'
-
-async function loadCurrentUser() {
-	const { data, error } = await supabase.auth.getUser()
-	// if (error) {
-	// 	router.push({ name: 'login' })
-	// 	console.log('error:', error)
-	// }
-	// else {
-	// 	authStore.setStatus(true,data.user.user_metadata.screenname,data.user.email,data.user.username,data.user.id)
-	// 	}
-	// TODO: add screen name
-	// TODO: add possibilities to modify data
-}
-
-// async function handleSubmit(e) {
-// 	e.preventDefault()
-// 	// const newscreenname = authStore.screenname
-// 	const newscreenname: string = 'testnewscreenname' // TODO: use state or something
-// 	const { data, error } = await supabase.auth.updateUser({
-// 		data: { screenname: newscreenname },
-// 	})
-// 	if (error) console.log(error)
-// 	else console.log('data:', data)
-// 	loadCurrentUser()
-// 	useCardRotate()
-// }
-
-
-// onBeforeMount(() => {
-loadCurrentUser()
-// })
+import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../../App'
+import { useEffect, useState, useContext } from 'react'
 
 export default function MyAccountEditCard() {
 	const { see } = useCardRotate()
-	function handleSubmit(e) {
-		e.preventDefault()
-		console.log('handle is')
-		// TODO: form handling
-		see()
+	const navigate = useNavigate()
+	const { username, setUsername, usermail, setUsermail, loginstatus } = useContext(AppContext)
+	const [sbUsermail, setSbUsermail] = useState(usermail)
+	const [sbUsername, setSbUsername] = useState(username)
+
+	useEffect(() => {
+		userdata()
+	}, [])
+
+	const userdata = async () => {
+		const { data, error } = await supabase.auth.getUser()
+		if (error) {
+			navigate('/account/login')
+		} else {
+			setSbUsermail(data.user.email)
+			setSbUsername(data.user.user_metadata?.screenname)
+		}
 	}
-	const screenname = 'tempscreenname' // TODO: fix
-	const email = 'tempemail' // TODO: fix
+	async function updateUser(form_username: string, form_usermail: string, form_userpass: string) {
+		if (form_userpass !== '') { // TODO: ugly conditional, make nice
+			const { data, error } = await supabase.auth.updateUser({
+				email: form_usermail,
+				password: form_userpass,
+				data: { screenname: form_username },
+			})
+			see()
+		} else {
+			const { data, error } = await supabase.auth.updateUser({
+				email: form_usermail,
+				data: { screenname: form_username },
+			})
+			see()
+		}
+		setUsername(form_username)
+		setUsermail(form_usermail)
+	}
+
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+		const formInput = e.target as HTMLInputElement
+
+		const form_username: string = formInput.account_screenname.value.trim()
+		const form_usermail: string = formInput.account_email.value.trim()
+		const form_userpass: string = formInput.account_password.value.trim()
+
+		updateUser(form_username, form_usermail, form_userpass)
+	}
+
 	return (
 		<>
 			<div className="card">
@@ -49,11 +61,21 @@ export default function MyAccountEditCard() {
 				<main>
 					<form onSubmit={handleSubmit}>
 						<label>Screen name</label>
-						<input type="text" id="account-screenname" />
-						<label htmlFor="account-email">Email address</label>
-						<input type="email" id="account-email" />
-						<label htmlFor="account-password">Password (leave empty to keep current)</label>
-						<input type="password" id="account-password" />
+						<input
+							type="text"
+							id="account_screenname"
+							name="account_screenname"
+							defaultValue={sbUsername}
+						/>
+						<label htmlFor="account_email">Email address</label>
+						<input type="email" id="account_email" name="account_email" defaultValue={sbUsermail} />
+						<label htmlFor="account_password">Password (leave empty to keep current)</label>
+						<input
+							type="password"
+							id="account_password"
+							name="account_password"
+							defaultValue=""
+						/>
 						<button>Save and return</button>
 					</form>
 				</main>
