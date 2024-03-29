@@ -18,16 +18,6 @@ const NavWrapper = () => {
 		setNav0Expanded(false)
 	}
 
-	function goto(path: string, navnr: number = 0) {
-		toggleNav1()
-		console.log('go to', path)
-		// navigate(path)
-	}
-	// const nav = (nr) => router.options.routes[nr].children
-	// const nav0 = nav(0).filter((item) => item.meta.includeNav === true)
-	let nav0
-	let nav1
-
 	if (loginstatus === false) return <></>
 	return (
 		<>
@@ -88,14 +78,10 @@ const NavWrapper = () => {
 			>
 				<ul>
 					<li>
-						<Link to={'/account/profile'} onClick={toggleNav0}>
-							Profile
-						</Link>
+						<Link to={'/account/profile'} onClick={toggleNav1}>Profile</Link>
 					</li>
 					<li>
-						<Link to={'/account/logout'} onClick={toggleNav0}>
-							Logout
-						</Link>
+						<Link to={'/account/logout'} onClick={toggleNav1}>Logout</Link>
 					</li>
 				</ul>
 			</nav>
