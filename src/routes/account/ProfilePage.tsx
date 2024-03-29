@@ -4,7 +4,7 @@ import MyAccountCard from '../../components/account/MyAccountCard'
 import MyAccountEditCard from '../../components/account/MyAccountEditCard'
 const ProfilePage = () => {
 	useEffect(() => {
-		console.log('ddhoogte',setDraaideurHeight())
+		setDraaideurHeight()
 	}, [])
 	return (
 		<>
