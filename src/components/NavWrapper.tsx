@@ -20,7 +20,7 @@ const NavWrapper = () => {
 
 	function goto(path: string, navnr: number = 0) {
 		toggleNav1()
-		console.log('go to',path)
+		console.log('go to', path)
 		// navigate(path)
 	}
 	// const nav = (nr) => router.options.routes[nr].children
@@ -32,7 +32,11 @@ const NavWrapper = () => {
 	return (
 		<>
 			<nav id="navIcons">
-				<button id="toggleNavBurger" className="collapsed">
+				<button
+					id="toggleNavBurger"
+					className={nav0Expanded ? 'expanded' : 'collapsed'}
+					onClick={toggleNav0}
+				>
 					<div className="burger">
 						<div className="burgerbar bar1"></div>
 						<div className="burgerbar bar2"></div>
@@ -60,8 +64,18 @@ const NavWrapper = () => {
 					</button>
 				</div>
 			</nav>
-			<nav id="nav0" className="nav-collapsable collapsed">
-				<ul></ul>
+			<nav
+				id="nav0"
+				className={nav0Expanded ? 'expanded nav-collapsable' : 'collapsed nav-collapsable'}
+				aria-expanded={nav0Expanded ? 'expanded' : 'collapsed'}
+			>
+				<ul>
+					<li>
+						<Link to={'/dashboard'} onClick={toggleNav0}>
+							Dashboard
+						</Link>
+					</li>
+				</ul>
 				<div className="history">
 					<button>&lt;</button>
 					<button>&gt;</button>
@@ -74,10 +88,14 @@ const NavWrapper = () => {
 			>
 				<ul>
 					<li>
-						<Link to={'/account/profile'} onClick={toggleNav0}>Profile</Link>
+						<Link to={'/account/profile'} onClick={toggleNav0}>
+							Profile
+						</Link>
 					</li>
 					<li>
-						<Link to={'/account/logout'} onClick={toggleNav0}>Logout</Link>
+						<Link to={'/account/logout'} onClick={toggleNav0}>
+							Logout
+						</Link>
 					</li>
 				</ul>
 			</nav>
