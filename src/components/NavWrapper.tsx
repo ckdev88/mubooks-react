@@ -64,6 +64,9 @@ const NavWrapper = () => {
 						<Link to={'/dashboard'} onClick={toggleNav0}>
 							Dashboard
 						</Link>
+						<Link to={'/search'} onClick={toggleNav0}>
+							Search
+						</Link>
 					</li>
 				</ul>
 				<div className="history">
