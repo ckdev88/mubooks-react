@@ -24,23 +24,31 @@ export default function MyAccountEditCard() {
 			setSbUsername(data.user.user_metadata?.screenname)
 		}
 	}
+	function afterUpdateSb(name, mail) {
+		setUsername(name)
+		setUsermail(mail)
+		setSbUsername(name)
+		setSbUsermail(mail)
+		see()
+	}
 	async function updateUser(form_username: string, form_usermail: string, form_userpass: string) {
-		if (form_userpass !== '') { // TODO: ugly conditional, make nice
+		if (form_userpass !== '') {
+			// TODO: ugly conditional, make nice
 			const { data, error } = await supabase.auth.updateUser({
 				email: form_usermail,
 				password: form_userpass,
 				data: { screenname: form_username },
 			})
-			see()
+			// TODO: use error to show to user
+			if (!error) afterUpdateSb(form_username, form_usermail)
 		} else {
 			const { data, error } = await supabase.auth.updateUser({
 				email: form_usermail,
 				data: { screenname: form_username },
 			})
-			see()
+			// TODO: use error to show to user
+			if (!error) afterUpdateSb(form_username, form_usermail)
 		}
-		setUsername(form_username)
-		setUsermail(form_usermail)
 	}
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -70,12 +78,7 @@ export default function MyAccountEditCard() {
 						<label htmlFor="account_email">Email address</label>
 						<input type="email" id="account_email" name="account_email" defaultValue={sbUsermail} />
 						<label htmlFor="account_password">Password (leave empty to keep current)</label>
-						<input
-							type="password"
-							id="account_password"
-							name="account_password"
-							defaultValue=""
-						/>
+						<input type="password" id="account_password" name="account_password" defaultValue="" />
 						<button>Save and return</button>
 					</form>
 				</main>
