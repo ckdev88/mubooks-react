@@ -31,17 +31,19 @@ const LoginCard = () => {
 
 	const navigate = useNavigate()
 
-	const { setUsername, setLoginstatus } = useContext(AppContext)
+	const { setUsername, setUsermail, setLoginstatus } = useContext(AppContext)
 
 	async function loginAccount(user: User) {
 		let { data, error } = await supabase.auth.signInWithPassword({
 			email: user.email,
 			password: user.password,
 		})
-		if (error) console.log(error) // TODO: use error message to show user
+		if (error)
+			console.log(error) // TODO: use error message to show user
 		else {
 			// TODO: set session & global state, just use session saved in localstorage
 			setUsername(data.user.user_metadata.screenname)
+			setUsermail(data.user.email)
 			setLoginstatus(true)
 			navigate('/dashboard')
 

@@ -13,6 +13,8 @@ import DashboardPage from './routes/account/DashboardPage'
 interface AppContextType {
 	username: string
 	setUsername(username: string): void
+	usermail: string
+	setUsermail(usermail: string): void
 	loginstatus: boolean
 	setLoginstatus(loginstatus: boolean): void
 }
@@ -20,11 +22,14 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 const App = () => {
 	const [username, setUsername] = useState<string>('')
+	const [usermail, setUsermail] = useState<string>('')
 	const [loginstatus, setLoginstatus] = useState<boolean>(false)
 
 	return (
 		<>
-			<AppContext.Provider value={{ username, setUsername, loginstatus, setLoginstatus }}>
+			<AppContext.Provider
+				value={{ username, setUsername, usermail, setUsermail, loginstatus, setLoginstatus }}
+			>
 				<header id="header">
 					<NavWrapper />
 				</header>

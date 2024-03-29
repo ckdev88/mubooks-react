@@ -1,34 +1,28 @@
-// const router = useRouter()
+import { useContext, useEffect, useState } from 'react'
 import useCardRotate from '../../hooks/useCardRotate'
-import { Link } from 'react-router-dom'
-// import { supabase } from '../../../utils/supabase'
+import { Link, useNavigate } from 'react-router-dom'
+import { AppContext } from '../../App'
+import { supabase } from '../../../utils/supabase'
 
-// onBeforeMount(() => {
-// 	showCurrentUser()
-// })
 export default function MyAccountCard() {
+	const { username, usermail, loginstatus } = useContext(AppContext)
 	const { change } = useCardRotate()
-	// const userdata = async()=> {
+	const navigate = useNavigate()
+	const [sbUsermail, setSbUsermail] = useState(usermail)
+	const [sbUsername, setSbUsername] = useState(username)
 
-	// TODO: needs proper fix, not dirty like this...  pinia, store, login
-	// if (authStore.status !== true) {
-	// 	const { data, error } = await supabase.auth.getUser()
-	// 	if (error) {
-	// 		// router.push({ name: 'login' })
-	// 		console.log('error:', error)
-	// 	} else {
-	// 	console.log('data',data)
-	// 		return data
-	// }
-	// 		authStore.email = data.user.email
-	// 		authStore.screenname = data.user.user_metadata.screenname
-	// 		authStore.username = data.user.email
-	// 		authStore.status = true
-	// 		authStore.uid = data.user.id
-	// 	}
-	// }
-	// TODO: add screen name
-	// TODO: add possibilities to modify data
+	useEffect(() => {
+		userdata()
+	}, [])
+	const userdata = async () => {
+		const { data, error } = await supabase.auth.getUser()
+		if (error) {
+			navigate('/account/login')
+		} else {
+			setSbUsermail(data.user.email)
+			setSbUsername(data.user.user_metadata?.screenname)
+		}
+	}
 
 	return (
 		<div className="card">
@@ -36,9 +30,9 @@ export default function MyAccountCard() {
 			<main>
 				<dl>
 					<dt>Screen name:</dt>
-					<dd>asdfasdf{/* authStore.screenname */}</dd>
+					<dd>{sbUsername}</dd>
 					<dt>Email address</dt>
-					<dd>fdsadfau{/*authStore.email*/}</dd>
+					<dd>{sbUsermail}</dd>
 					<dt>Password</dt>
 					<dd>******</dd>
 				</dl>
