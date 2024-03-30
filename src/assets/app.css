@@ -34,7 +34,7 @@
 	position: fixed;
 	background: #df8506ee;
 	width: 100%;
-	max-width:calc(600px - .5rem);
+	max-width: calc(600px - 0.5rem);
 	border-radius: 0.75rem;
 	text-align: center;
 	bottom: 3rem;
@@ -46,5 +46,9 @@
 	padding: 0.75rem;
 	font-weight: bold;
 }
-.dblock{display:block;}
-.dnone{display:none!important;}
+.dblock {
+	display: block;
+}
+.dnone {
+	display: none !important;
+}

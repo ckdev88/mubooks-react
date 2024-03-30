@@ -1,4 +1,4 @@
-import { Link, NavLink, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { AppContext } from '../App'
 import { useNavigate } from 'react-router-dom'
@@ -72,6 +72,9 @@ const NavWrapper = () => {
 						</Link>
 						<Link to={'/search'} onClick={toggleNav0}>
 							Search
+						</Link>
+						<Link to={'/saved-books'} onClick={toggleNav0}>
+							Saved books
 						</Link>
 					</li>
 				</ul>

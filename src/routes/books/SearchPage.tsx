@@ -3,7 +3,6 @@ import bookData from '../../../data/books.json'
 import addBookToSaved from '../../stores/addBookToSaved'
 import removeBookFromSaved from '../../stores/removeBookFromSaved'
 
-
 const SearchPage = () => {
 	type Author = string
 	interface Authors {
@@ -134,10 +133,13 @@ const SearchPage = () => {
 									<a onClick={() => addBookToSaved(result)}>
 										<span className="icon icon-add"></span>Save in my books
 									</a>
-									<a onClick={()=>removeBookFromSaved(result.id)}>
-									<span className='icon icon-remove'></span>Remove from my books</a>
+									<br />
+									<a onClick={() => removeBookFromSaved(result.id)}>
+										<span className="icon icon-remove"></span>Remove from my books
+									</a>
 								</div>
 							</div>
+							<hr />
 						</footer>
 					</article>
 				)

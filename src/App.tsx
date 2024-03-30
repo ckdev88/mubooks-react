@@ -10,6 +10,7 @@ import ProfilePage from './routes/account/ProfilePage'
 import LogoutPage from './routes/account/LogoutPage'
 import DashboardPage from './routes/account/DashboardPage'
 import SearchPage from './routes/books/SearchPage'
+import SavedBooksPage from './routes/books/SavedBooksPage'
 
 interface AppContextType {
 	username: string
@@ -57,6 +58,7 @@ const App = () => {
 						<Route path="/account/*" element={<Login />} errorElement={<ErrorAccountNotFound />} />
 						<Route path="/dashboard" element={<DashboardPage />} errorElement={<Error404 />} />
 						<Route path="/search" element={<SearchPage />} errorElement={<Error404 />} />
+						<Route path="/saved-books" element={<SavedBooksPage/>} errorElement={<Error404/>}/>
 					</Routes>
 				</main>
 			</AppContext.Provider>

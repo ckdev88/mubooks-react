@@ -1,39 +1,17 @@
-// import { ref } from 'vue'
-// import { useMuBooksStore } from '../../stores/MuBooksStore'
-// const muBooksStore = useMuBooksStore()
+import { useNavigate } from 'react-router-dom'
 
-// let hasbooks = false
-// let books = []
+// TODO: add deck of "cards" to show first n of saved books (covers)
 
-// if (muBooksStore.getSavedBooks !== false) {
-// 	books = ref(muBooksStore.getSavedBooks.slice(0, 4))
-// 	if (books.value.length > 0) hasbooks = true
-// }
-
-/*
-	<main v-if="hasbooks" className="savedbooks deck">
-		<div className="deck-container">
-			<article
-				className="book-cover"
-				v-for="(book, index) in books"
-				key="index"
-				style={"index ? 'z-index:' + (10 - index) : 'z-index:10'"}
-			>
-				<div>
-					<img src={book.image} alt={ book.title } />
-				</div>
-			</article>
-		</div>
-	</main>
-			<main v-else onClick="$router.push({ name: 'search' })" className="toadd">
-*/
-
-export default function SavedItems() {
+const SavedItems = () => {
+	const navigate = useNavigate()
+	function goSavedBooks() {
+		navigate('/saved-books')
+	}
 	return (
 		<>
 			<main className="toadd">
 				<aside>
-					<button>
+					<button onClick={() => goSavedBooks()}>
 						<img src="/img/save-books-icon.png" />
 					</button>
 				</aside>
@@ -42,3 +20,4 @@ export default function SavedItems() {
 		</>
 	)
 }
+export default SavedItems
