@@ -2,8 +2,25 @@ import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 
 const SearchPage = () => {
+	type Author = string
+	interface Authors {
+		author: Author
+	}
+	interface Result {
+		id: number
+		title_short: string
+		authors: Authors
+		cover: string | undefined
+		date_published: string
+		pages: number
+	}
+	interface Results {
+		result: Result
+	}
+
 	const boeken = bookData
 	const searchForm = useRef(null)
+	// TODO: ENTER on input field must properly submit, like button does
 	let searchTermToShow = useRef('')
 
 	const [isSearched, setIsSearched] = useState<boolean>(false)
@@ -11,9 +28,10 @@ const SearchPage = () => {
 	const [resultCount, setResultCount] = useState<number>(0)
 
 	const [currentAlert, setCurrentAlert] = useState<string>('')
-	const [results, setResults] = useState<[{}]>([])
+	const [results, setResults] = useState<Results>([])
 
 	const [searchTerm, setSearchTerm] = useState('')
+
 	function refreshResults(event) {
 		event.preventDefault()
 		let formData = new FormData(searchForm.current)
@@ -32,7 +50,7 @@ const SearchPage = () => {
 		// search loop exact match
 		// console.log(boeken)
 
-		console.log('s', '#' + s + '#')
+		// console.log('s', '#' + s + '#')
 		const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
 		// console.log('totalbooks:', totalBooks) // 934.236
 		// console.log('length:', boeken.length) // 155.706 - lijkt overeen te komen met for-loop
@@ -42,6 +60,7 @@ const SearchPage = () => {
 			if (s === boeken[i].title.toLowerCase()) {
 				// TODO: marker isSaved to highlight saved books in results
 				bookToAdd[count] = boeken[i]
+				bookToAdd[count].id = i
 
 				if (boeken[i].title.length > 35) {
 					bookToAdd[i].title_short = boeken[i].title.slice(0, 35)
@@ -62,6 +81,7 @@ const SearchPage = () => {
 			if (boeken[i].title.toLowerCase().includes(s) && boeken[i].title.toLowerCase() !== s) {
 				// TODO: marker isSaved to highlight saved books in results
 				bookToAdd[count] = boeken[i]
+				bookToAdd[count].id = i
 				if (boeken[i].title.length > 35) {
 					bookToAdd[count].title_short = boeken[i].title.slice(0, 35)
 					bookToAdd[count].title_short += '...'
@@ -76,6 +96,35 @@ const SearchPage = () => {
 		setResultCount(count)
 	}
 
+	function showResults() {
+		if (resultsWarning === '') {
+			return results.map((result: Result ) => {
+				// TODO: add className for when marked as saved
+				return (
+					<article className="book-summary" key={result.id}>
+						<header>
+							<aside className="cover">
+								<img src={result.cover} alt="" />
+							</aside>
+							<div className="in-short">
+								<h2>
+									{result.title_short}
+									<sub>
+										{result.authors.map((author: Author, index: number) => {
+											return <div key={index}>{author}</div>
+										})}
+									</sub>
+								</h2>
+								{result.date_published}
+								<br />
+								{result.pages} pages
+							</div>
+						</header>
+					</article>
+				)
+			})
+		}
+	}
 	return (
 		<>
 			<h1>Search</h1>
@@ -92,13 +141,11 @@ const SearchPage = () => {
 			</div>
 			<div>
 				<div className={resultsWarning !== '' ? 'dblock' : 'dnone'}>{resultsWarning}</div>
-				<div className={resultCount > 0 ? 'dblock' : 'dnone'}>
+				<div className={resultCount > 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
 					<h2 className="resultsfound">
 						{resultCount} books found for <em>"{searchTerm}"</em>
 					</h2>
-					{results.map((result) => {
-						return <div key={result.id}>{result.title_short}</div>
-					})}
+					{showResults()}
 				</div>
 			</div>
 		</>

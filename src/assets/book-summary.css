@@ -1,3 +1,9 @@
+.resultsfound {
+	font-weight: normal;
+	font-family: 'merriweather', 'serif';
+	font-size: 1.3rem;
+	margin: 1.5em 0;
+}
 .book-summary {
 	list-style: none;
 	padding: 0 0 1rem;
@@ -145,4 +151,3 @@
 	color: hsl(325, 55%, 46%);
 	font-weight: bold;
 }
-/* it ends with us colleen hoover */
