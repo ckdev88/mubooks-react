@@ -4,6 +4,7 @@ import { AppContext } from '../App'
 import { useNavigate } from 'react-router-dom'
 
 const NavWrapper = () => {
+	const navigate = useNavigate()
 	const { loginstatus } = useContext(AppContext)
 
 	const [nav0Expanded, setNav0Expanded] = useState(false)
@@ -16,6 +17,11 @@ const NavWrapper = () => {
 	function toggleNav1() {
 		setNav1Expanded(!nav1Expanded)
 		setNav0Expanded(false)
+	}
+	function goSearch() {
+		setNav0Expanded(false)
+		setNav1Expanded(false)
+		navigate('/search')
 	}
 
 	if (loginstatus === false) return <></>
@@ -35,7 +41,7 @@ const NavWrapper = () => {
 					</div>
 				</button>
 				<div>
-					<button className="toggleZoekNav">
+					<button className="toggleZoekNav" onClick={() => goSearch()}>
 						<div className="zoekIcon">
 							<div className="glass"></div>
 							<div className="glassOuter"></div>
@@ -81,10 +87,14 @@ const NavWrapper = () => {
 			>
 				<ul>
 					<li>
-						<Link to={'/account/profile'} onClick={toggleNav1}>Profile</Link>
+						<Link to={'/account/profile'} onClick={toggleNav1}>
+							Profile
+						</Link>
 					</li>
 					<li>
-						<Link to={'/account/logout'} onClick={toggleNav1}>Logout</Link>
+						<Link to={'/account/logout'} onClick={toggleNav1}>
+							Logout
+						</Link>
 					</li>
 				</ul>
 			</nav>
