@@ -1,12 +1,10 @@
-import { useState } from 'react'
-
 type Author = string
 interface Authors {
 	author: Author
 }
 interface Book {
-	id?: number
-	authors: [Authors]
+	id: number
+	authors: Authors[]
 	cover?: string
 	date_published: string
 	image?: string
@@ -16,20 +14,18 @@ interface Book {
 	title: string
 	title_short: string
 }
-interface Booklist {
-	book: Book
-}
+type Booklist = [book: Book]
 
 export default function addBookToSaved(book: Book): void {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
-	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
-	
-	if (!myBooks) myBooks = []
+	let myBooks:Booklist  = JSON.parse(localStorage.getItem('MyBooks'))
 
-	if(myBooks.filter(presentbook=>presentbook.id===book.id).length>0)return // keep unique
-	
+	// if (!myBooks) myBooks = []
+
+	if (myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
+
 	myBooks.push({
 		id: book.id,
 		authors: book.authors,
@@ -45,6 +41,4 @@ export default function addBookToSaved(book: Book): void {
 
 	// stringify array into localstorage
 	localStorage.setItem('MyBooks', JSON.stringify(myBooks))
-	const booklist_end = JSON.parse(localStorage.getItem('MyBooks'))
-	console.log(booklist_end)
 }

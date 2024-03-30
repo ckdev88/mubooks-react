@@ -39,15 +39,6 @@ const SearchPage = () => {
 
 	const [searchTerm, setSearchTerm] = useState('')
 
-	function saveBook(book: Book) {
-		addBookToSaved(book)
-		setCurrentAlert('Adding book to Saved list')
-		console.log('save book', book)
-	}
-	function removeBook(id:number){
-		removeBookFromSaved(id)
-		console.log('removed book')
-	}
 	function refreshResults(event) {
 		event.preventDefault()
 		let formData = new FormData(searchForm.current)
