@@ -98,7 +98,7 @@ const SearchPage = () => {
 
 	function showResults() {
 		if (resultsWarning === '') {
-			return results.map((result: Result ) => {
+			return results.map((result: Result) => {
 				// TODO: add className for when marked as saved
 				return (
 					<article className="book-summary" key={result.id}>
