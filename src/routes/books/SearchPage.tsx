@@ -1,21 +1,26 @@
 import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
+import addBookToSaved from '../../stores/addBookToSaved'
 
 const SearchPage = () => {
 	type Author = string
 	interface Authors {
 		author: Author
 	}
-	interface Result {
-		id: number
-		title_short: string
-		authors: Authors
-		cover: string | undefined
+	interface Book {
+		id?: number
+		authors: [Authors]
+		cover?: string
 		date_published: string
+		image?: string
+		language: string
 		pages: number
+		saved?: boolean
+		title?: string
+		title_short: string
 	}
 	interface Results {
-		result: Result
+		result: Book
 	}
 
 	const boeken = bookData
@@ -27,11 +32,16 @@ const SearchPage = () => {
 	const [resultsWarning, setResultsWarning] = useState<string>('keep typing...')
 	const [resultCount, setResultCount] = useState<number>(0)
 
-	const [currentAlert, setCurrentAlert] = useState<string>('')
+	const [currentAlert, setCurrentAlert] = useState<string>('') // TODO doesnt show properly yet
 	const [results, setResults] = useState<Results>([])
 
 	const [searchTerm, setSearchTerm] = useState('')
 
+	function saveBook(book: Book) {
+		addBookToSaved(book)
+		setCurrentAlert('Adding book to Saved list')
+		console.log('save book', book)
+	}
 	function refreshResults(event) {
 		event.preventDefault()
 		let formData = new FormData(searchForm.current)
@@ -98,7 +108,7 @@ const SearchPage = () => {
 
 	function showResults() {
 		if (resultsWarning === '') {
-			return results.map((result: Result) => {
+			return results.map((result: Book) => {
 				// TODO: add className for when marked as saved
 				return (
 					<article className="book-summary" key={result.id}>
@@ -118,8 +128,18 @@ const SearchPage = () => {
 								{result.date_published}
 								<br />
 								{result.pages} pages
+								<br />
 							</div>
 						</header>
+						<footer>
+							<div className="marks">
+								<div className="mark">
+									<a onClick={() => addBookToSaved(result)}>
+										<span className="icon icon-add"></span>Save in my books
+									</a>
+								</div>
+							</div>
+						</footer>
 					</article>
 				)
 			})
