@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 import addBookToSaved from '../../stores/addBookToSaved'
+import removeBookFromSaved from '../../stores/removeBookFromSaved'
+
 
 const SearchPage = () => {
 	type Author = string
@@ -8,7 +10,7 @@ const SearchPage = () => {
 		author: Author
 	}
 	interface Book {
-		id?: number
+		id: number
 		authors: [Authors]
 		cover?: string
 		date_published: string
@@ -41,6 +43,10 @@ const SearchPage = () => {
 		addBookToSaved(book)
 		setCurrentAlert('Adding book to Saved list')
 		console.log('save book', book)
+	}
+	function removeBook(id:number){
+		removeBookFromSaved(id)
+		console.log('removed book')
 	}
 	function refreshResults(event) {
 		event.preventDefault()
@@ -137,6 +143,8 @@ const SearchPage = () => {
 									<a onClick={() => addBookToSaved(result)}>
 										<span className="icon icon-add"></span>Save in my books
 									</a>
+									<a onClick={()=>removeBookFromSaved(result.id)}>
+									<span className='icon icon-remove'></span>Remove from my books</a>
 								</div>
 							</div>
 						</footer>
