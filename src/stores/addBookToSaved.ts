@@ -1,30 +1,11 @@
-type Author = string
-interface Authors {
-	author: Author
-}
-interface Book {
-	id: number
-	authors: Authors[]
-	cover?: string
-	date_published: string
-	image?: string
-	language: string
-	pages: number
-	saved?: boolean
-	title: string
-	title_short: string
-}
-type Booklist = [book: Book]
-
 export default function addBookToSaved(book: Book): void {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
-	let myBooks = JSON.parse(localStorage.getItem('MyBooks'))
+	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
+	if (myBooks !== null && myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
+
 	if (myBooks === null) myBooks = []
-
-	if (myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
-
 	myBooks.push({
 		id: book.id,
 		authors: book.authors,

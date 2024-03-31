@@ -1,45 +1,26 @@
 import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
-import addBookToSaved from '../../stores/addBookToSaved'
-import removeBookFromSaved from '../../stores/removeBookFromSaved'
-
-type Author = string
-interface Authors {
-	author: Author
-}
-interface Book {
-	id: number
-	authors: [Authors]
-	cover?: string
-	date_published: string
-	image?: string
-	language: string
-	pages: number
-	saved?: boolean
-	title?: string
-	title_short: string
-}
-interface Results {
-	result: Book
-}
+import BookSummary from '../../components/BookSummary'
 
 const SearchPage = () => {
-	const boeken = bookData
+	const boeken: BookData = bookData
 	const searchForm = useRef(null)
 	// TODO: ENTER on input field must properly submit, like button does
 
 	const [resultsWarning, setResultsWarning] = useState<string>('')
+	const [resultsMessage, setResultsMessage] = useState<string>('')
 	const [resultCount, setResultCount] = useState<number>(0)
 
-	const [results, setResults] = useState<Results>([])
+	const [results, setResults] = useState<Books>([])
 
 	const [searchTerm, setSearchTerm] = useState('')
 
-	function refreshResults(event) {
+	function refreshResults(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		let formData = new FormData(searchForm.current)
-		const searchTermToShow = formData.get('search_term')?.toString().trim()
-		
+		const formData: HTMLFormElement = new FormData(searchForm.current)
+		const searchTermToShow: string | undefined = formData.get('search_term')?.toString().trim() // TODO: rename
+		// variable into something better/concise
+
 		if (searchTermToShow !== undefined) {
 			if (searchTermToShow.length < 4) {
 				setResultsWarning('keep typing...')
@@ -47,101 +28,61 @@ const SearchPage = () => {
 			} else {
 				console.log('start new search')
 				setSearchTerm(searchTermToShow)
-				console.log('searchterm:',searchTerm,' - searchTermToShow:',searchTermToShow)
+				console.log('searchterm:', searchTerm, ' - searchTermToShow:', searchTermToShow)
 				setResultsWarning('')
 			}
 		}
 
-		let count = 0
-
-		const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
+		// const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
 		// console.log('totalbooks:', totalBooks) // 934.236
 		// console.log('length:', boeken.length) // 155.706 - lijkt overeen te komen met for-loop
 		// TODO: run proper test for above
-		let bookToAdd = []
+
+		let count = 0
+		let booksToAdd = []
 		for (let i = 0; i < boeken.length; i++) {
 			if (searchTermToShow === boeken[i].title.toLowerCase()) {
 				// TODO: marker isSaved to highlight saved books in results
-				bookToAdd[count] = boeken[i]
-				bookToAdd[count].id = i
+				booksToAdd[count] = boeken[i]
+				booksToAdd[count].id = i
 
 				if (boeken[i].title.length > 35) {
-					bookToAdd[i].title_short = boeken[i].title.slice(0, 35)
-					bookToAdd[count].title_short += '...'
-				} else bookToAdd[count].title_short = boeken[i].title
+					booksToAdd[i].title_short = boeken[i].title.slice(0, 35)
+					booksToAdd[count].title_short += '...'
+				} else booksToAdd[count].title_short = boeken[i].title
 				if (boeken[i].image !== null)
-					bookToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
+					booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
 				count++
 			}
 		}
 
 		// search loop less exact match
 		for (let i = 0; i < boeken.length; i++) {
-			if (count > 30) {
-				setResultsWarning('too many results')
-				break
-			}
-			if (boeken[i].title.toLowerCase().includes(searchTermToShow) && boeken[i].title.toLowerCase() !== searchTermToShow) {
+			if (count > 30) break
+			if (
+				boeken[i].title.toLowerCase().includes(String(searchTermToShow)) &&
+				boeken[i].title.toLowerCase() !== searchTermToShow
+			) {
+				// TODO: search could use some algorithmic tweaking
 				// TODO: marker isSaved to highlight saved books in results
-				bookToAdd[count] = boeken[i]
-				bookToAdd[count].id = i
+				booksToAdd[count] = boeken[i]
+				booksToAdd[count].id = i
 				if (boeken[i].title.length > 35) {
-					bookToAdd[count].title_short = boeken[i].title.slice(0, 35)
-					bookToAdd[count].title_short += '...'
-				} else bookToAdd[count].title_short = boeken[i].title
+					booksToAdd[count].title_short = boeken[i].title.slice(0, 35)
+					booksToAdd[count].title_short += '...'
+				} else booksToAdd[count].title_short = boeken[i].title
 				if (boeken[i].image !== null)
-					bookToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
+					booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
 				count++
 			}
 		}
-		setResults(bookToAdd)
+		if (count > 30) { setResultsMessage('Showing only 30 results. Specify a bit more.') } else setResultsMessage('')
+		setResults(booksToAdd)
 		setResultCount(count)
 	}
 
-	function showResults() {
-		if (resultsWarning === '') {
-			return results.map((result: Book) => {
-				// TODO: add className for when marked as saved
-				return (
-					<article className="book-summary" key={result.id}>
-						<header>
-							<aside className="cover">
-								<img src={result.cover} alt="" />
-							</aside>
-							<div className="in-short">
-								<h2>
-									{result.title_short}
-									<sub>
-										{result.authors.map((author: Author, index: number) => {
-											return <div key={index}>{author}</div>
-										})}
-									</sub>
-								</h2>
-								{result.date_published}
-								<br />
-								{result.pages} pages
-								<br />
-							</div>
-						</header>
-						<footer>
-							<div className="marks">
-								<div className="mark">
-									<a onClick={() => addBookToSaved(result)}>
-										<span className="icon icon-add"></span>Save in my books
-									</a>
-									<br />
-									<a onClick={() => removeBookFromSaved(result.id)}>
-										<span className="icon icon-remove"></span>Remove from my books
-									</a>
-								</div>
-							</div>
-							<hr />
-						</footer>
-					</article>
-				)
-			})
-		}
-	}
+	const showResults = (resultsWarning === '' ? results.map((book) => { return (BookSummary(book)) }) : '')
+
 	return (
 		<>
 			<h1>Search</h1>
@@ -155,11 +96,18 @@ const SearchPage = () => {
 			</form>
 			<div>
 				<div className={resultsWarning !== '' ? 'dblock' : 'dnone'}>{resultsWarning}</div>
+				<div className={resultCount === 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
+					No results found
+				</div>
+
 				<div className={resultCount > 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
 					<h2 className="resultsfound">
-						{resultCount} books found for <em>"{searchTerm}"</em>
+						{resultCount > 30 ? 'Over 30' : resultCount} {resultCount > 1 ? 'books' : 'book'} found for <em>"{searchTerm}"</em>
+						<sub className={resultsMessage !== '' ? 'dblock' : 'dnone'}>
+							{resultsMessage}
+						</sub>
 					</h2>
-					{showResults()}
+					{showResults}
 				</div>
 			</div>
 		</>
