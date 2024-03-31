@@ -30,7 +30,7 @@ const SearchPage = () => {
 	let searchTermToShow = useRef('')
 
 	const [isSearched, setIsSearched] = useState<boolean>(false)
-	const [resultsWarning, setResultsWarning] = useState<string>('keep typing...')
+	const [resultsWarning, setResultsWarning] = useState<string>('')
 	const [resultCount, setResultCount] = useState<number>(0)
 
 	const [currentAlert, setCurrentAlert] = useState<string>('') // TODO doesnt show properly yet
@@ -41,18 +41,20 @@ const SearchPage = () => {
 	function refreshResults(event) {
 		event.preventDefault()
 		let formData = new FormData(searchForm.current)
-		const searchTermToShow = formData.get('search_term')
-		setSearchTerm(searchTermToShow.toString().trim())
-		if (searchTermToShow.length < 4) {
-			setResultsWarning('keep typing...')
-			setIsSearched(true)
-			return
-		} else setResultsWarning('')
+		const searchTermToShow = formData.get('search_term')?.toString().trim()
+		if (searchTermToShow !== undefined) {
+			setSearchTerm(searchTermToShow)
+			if (searchTermToShow.length < 4) {
+				setResultsWarning('keep typing...')
+				setIsSearched(true)
+				return
+			} else setResultsWarning('')
+		}
 
 		let count = 0
 
 		let s = searchTerm.toLowerCase()
-		setResultsWarning('')
+		// setResultsWarning('')
 		// search loop exact match
 		// console.log(boeken)
 
