@@ -39,7 +39,7 @@ export default function SavedBooksPage() {
 		})
 	}
 
-	const savedbookslist = savedbooks.map((book: Book, index) => {
+	const savedbookslist = savedbooks.map((book: Book) => {
 		return (
 			<article key={book.id} className="book-summary">
 				<header>

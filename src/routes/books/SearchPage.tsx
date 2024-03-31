@@ -3,37 +3,34 @@ import bookData from '../../../data/books.json'
 import addBookToSaved from '../../stores/addBookToSaved'
 import removeBookFromSaved from '../../stores/removeBookFromSaved'
 
-const SearchPage = () => {
-	type Author = string
-	interface Authors {
-		author: Author
-	}
-	interface Book {
-		id: number
-		authors: [Authors]
-		cover?: string
-		date_published: string
-		image?: string
-		language: string
-		pages: number
-		saved?: boolean
-		title?: string
-		title_short: string
-	}
-	interface Results {
-		result: Book
-	}
+type Author = string
+interface Authors {
+	author: Author
+}
+interface Book {
+	id: number
+	authors: [Authors]
+	cover?: string
+	date_published: string
+	image?: string
+	language: string
+	pages: number
+	saved?: boolean
+	title?: string
+	title_short: string
+}
+interface Results {
+	result: Book
+}
 
+const SearchPage = () => {
 	const boeken = bookData
 	const searchForm = useRef(null)
 	// TODO: ENTER on input field must properly submit, like button does
-	let searchTermToShow = useRef('')
 
-	const [isSearched, setIsSearched] = useState<boolean>(false)
 	const [resultsWarning, setResultsWarning] = useState<string>('')
 	const [resultCount, setResultCount] = useState<number>(0)
 
-	const [currentAlert, setCurrentAlert] = useState<string>('') // TODO doesnt show properly yet
 	const [results, setResults] = useState<Results>([])
 
 	const [searchTerm, setSearchTerm] = useState('')
@@ -42,30 +39,28 @@ const SearchPage = () => {
 		event.preventDefault()
 		let formData = new FormData(searchForm.current)
 		const searchTermToShow = formData.get('search_term')?.toString().trim()
+		
 		if (searchTermToShow !== undefined) {
-			setSearchTerm(searchTermToShow)
 			if (searchTermToShow.length < 4) {
 				setResultsWarning('keep typing...')
-				setIsSearched(true)
 				return
-			} else setResultsWarning('')
+			} else {
+				console.log('start new search')
+				setSearchTerm(searchTermToShow)
+				console.log('searchterm:',searchTerm,' - searchTermToShow:',searchTermToShow)
+				setResultsWarning('')
+			}
 		}
 
 		let count = 0
 
-		let s = searchTerm.toLowerCase()
-		// setResultsWarning('')
-		// search loop exact match
-		// console.log(boeken)
-
-		// console.log('s', '#' + s + '#')
 		const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
 		// console.log('totalbooks:', totalBooks) // 934.236
 		// console.log('length:', boeken.length) // 155.706 - lijkt overeen te komen met for-loop
 		// TODO: run proper test for above
 		let bookToAdd = []
 		for (let i = 0; i < boeken.length; i++) {
-			if (s === boeken[i].title.toLowerCase()) {
+			if (searchTermToShow === boeken[i].title.toLowerCase()) {
 				// TODO: marker isSaved to highlight saved books in results
 				bookToAdd[count] = boeken[i]
 				bookToAdd[count].id = i
@@ -86,7 +81,7 @@ const SearchPage = () => {
 				setResultsWarning('too many results')
 				break
 			}
-			if (boeken[i].title.toLowerCase().includes(s) && boeken[i].title.toLowerCase() !== s) {
+			if (boeken[i].title.toLowerCase().includes(searchTermToShow) && boeken[i].title.toLowerCase() !== searchTermToShow) {
 				// TODO: marker isSaved to highlight saved books in results
 				bookToAdd[count] = boeken[i]
 				bookToAdd[count].id = i
@@ -100,7 +95,6 @@ const SearchPage = () => {
 			}
 		}
 		setResults(bookToAdd)
-		setIsSearched(true)
 		setResultCount(count)
 	}
 
@@ -159,9 +153,6 @@ const SearchPage = () => {
 				<input type="text" name="search_term" id="search_term" />
 				<button>Search</button>
 			</form>
-			<div id="alert" className={currentAlert !== '' ? 'dblock' : 'dnone'}>
-				<div>{currentAlert}</div>
-			</div>
 			<div>
 				<div className={resultsWarning !== '' ? 'dblock' : 'dnone'}>{resultsWarning}</div>
 				<div className={resultCount > 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
