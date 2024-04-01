@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 import BookSummary from '../../components/BookSummary'
 
 const SearchPage = () => {
-	const boeken: BookData = bookData
+	const boeken: Books = bookData
 	const searchForm = useRef(null)
 	// TODO: ENTER on input field must properly submit, like button does
 

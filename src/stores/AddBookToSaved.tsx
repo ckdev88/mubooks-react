@@ -1,5 +1,6 @@
 import UpdateMyBooks from "./UpdateMyBooks"
 
+
 export default function AddBookToSaved(book: Book) {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
@@ -21,9 +22,7 @@ export default function AddBookToSaved(book: Book) {
 		title_short: book.title_short,
 	})
 
-	// stringify array into localstorage
-
-	// update localstorage, database, state with saved booklist
+	// update localstorage, database, TODO: state with saved booklist
 	UpdateMyBooks(myBooks)
 }
 

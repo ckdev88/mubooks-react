@@ -12,20 +12,22 @@ import DashboardPage from './routes/account/DashboardPage'
 import SearchPage from './routes/books/SearchPage'
 import SavedBooksPage from './routes/books/SavedBooksPage'
 import { useNavigate } from 'react-router-dom'
+import { localStorageKey } from '../utils/supabase'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
 
 const App = () => {
 	const navigate = useNavigate()
+	useEffect(() => {
+		if (localStorage.getItem(localStorageKey) === null) navigate('/account/login')
+		else setLoginstatus(true)
+	}, [])
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
 	const [userMyBooks, setUserMyBooks] = useState<string>('')
 	const [loginstatus, setLoginstatus] = useState<boolean>(false)
 
-	useEffect(() => {
-		if (username === '') navigate('/account/login')
-	}, [])
 
 	return (
 		<>
@@ -36,6 +38,7 @@ const App = () => {
 					<NavWrapper />
 				</header>
 				<main id="main">
+					{userMyBooks}
 					<Routes>
 						<Route path="/" element={<Login />} errorElement={<ErrorAccountNotFound />} />
 						<Route

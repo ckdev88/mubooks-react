@@ -3,11 +3,23 @@ interface AppContextType {
 	setUsername(username: string): void
 	usermail: string
 	setUsermail(usermail: string): void
-	userMyBooks:string
-	setUserMyBooks(userMyBooks:string):void
+	userMyBooks: string
+	setUserMyBooks(userMyBooks: string): void
 	loginstatus: boolean
 	setLoginstatus(loginstatus: boolean): void
 }
+type BookData = [{
+	id?: number
+	index?: number
+	title: string
+	authors: [string]
+	pages: number
+	date_published: number
+	image?: string
+	language: string
+	title_short?: string
+	cover?: string
+}]
 
 interface Book {
 	index?: number
@@ -23,17 +35,5 @@ interface Book {
 	title_short: string
 }
 type Results = [Book]
-interface Books extends Array<Book>{}
- 
-type BookData = [{
-	id?:number
-	index?: number
-	title: string
-	authors: [string]
-	pages: number
-	date_published: number
-	image?: string
-	language: string
-	title_short?:string
-	cover?:string
-}]
+interface Books extends Array<Book> { }
+

@@ -1,6 +1,7 @@
-import BookAuthorList from "./BookAuthorList"
-import AddBookToSaved from "../stores/AddBookToSaved"
-import RemoveBookFromSaved from "../stores/RemoveBookFromSaved"
+import BookAuthorList from './BookAuthorList'
+import AddBookToSaved from '../stores/AddBookToSaved'
+import RemoveBookFromSaved from '../stores/RemoveBookFromSaved'
+
 export default function BookSummary(book: Book) {
 	return (
 		// TODO: add className for when marked as saved

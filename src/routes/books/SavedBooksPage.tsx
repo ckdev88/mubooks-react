@@ -1,30 +1,19 @@
 import { Link } from 'react-router-dom'
 import RemoveBookFromSaved from '../../stores/RemoveBookFromSaved'
-
-type Author = string
-interface Book {
-	id: number
-	authors: [Author]
-	cover?: string
-	date_published: string
-	image?: string
-	language: string
-	pages: number
-	saved?: boolean
-	title?: string
-	title_short: string
-}
-type Books = [Book]
+import { useContext } from 'react'
+import { AppContext } from '../../App'
 
 export default function SavedBooksPage() {
+	
 	let hasbooks = false // TODO: make dynamic with either Ref or State
-
+const {setUserMyBooks} = useContext(AppContext)
 	let  savedbooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
 	if(savedbooks===null)savedbooks=[]
 
 	function removeBook(id: number) {
 		RemoveBookFromSaved(id)
 		// TODO: manage global state array
+		
 	}
 
 	function authorlist(book: Book) {
@@ -66,7 +55,7 @@ export default function SavedBooksPage() {
 				<footer>
 					<div className="marks">
 						<div className="mark">
-							<a onClick={() => removeBook(book.id)}>
+							<a onClick={() => RemoveBookFromSaved(book.id)}>
 								<span className="icon icon-remove"></span>Remove from my books
 							</a>
 						</div>
