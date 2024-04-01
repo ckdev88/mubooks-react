@@ -3,6 +3,8 @@ interface AppContextType {
 	setUsername(username: string): void
 	usermail: string
 	setUsermail(usermail: string): void
+	userMyBooks:string
+	setUserMyBooks(userMyBooks:string):void
 	loginstatus: boolean
 	setLoginstatus(loginstatus: boolean): void
 }

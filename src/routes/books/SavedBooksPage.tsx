@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import removeBookFromSaved from '../../stores/removeBookFromSaved'
+import RemoveBookFromSaved from '../../stores/RemoveBookFromSaved'
 
 type Author = string
 interface Book {
@@ -19,11 +19,11 @@ type Books = [Book]
 export default function SavedBooksPage() {
 	let hasbooks = false // TODO: make dynamic with either Ref or State
 
-	let savedbooks: Books = []
-	savedbooks = JSON.parse(localStorage.getItem('MyBooks'))
+	let  savedbooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
+	if(savedbooks===null)savedbooks=[]
 
 	function removeBook(id: number) {
-		removeBookFromSaved(id)
+		RemoveBookFromSaved(id)
 		// TODO: manage global state array
 	}
 

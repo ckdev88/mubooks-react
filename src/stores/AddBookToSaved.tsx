@@ -1,32 +1,13 @@
-import { useState } from 'react'
+import UpdateMyBooks from "./UpdateMyBooks"
 
-type Author = string
-interface Authors {
-	author: Author
-}
-interface Book {
-	id?: number
-	authors: [Authors]
-	cover?: string
-	date_published: string
-	image?: string
-	language: string
-	pages: number
-	saved?: boolean
-	title?: string
-	title_short: string
-}
-interface Booklist {
-	book: Book
-}
-
-export default function AddBookToSaved(book: Book): Booklist {
-	const booklist_start = JSON.parse(localStorage.getItem('MyBooks'))
+export default function AddBookToSaved(book: Book) {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
 	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
-	if (!myBooks) myBooks = []
+	if (myBooks !== null && myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
+
+	if (myBooks === null) myBooks = []
 	myBooks.push({
 		id: book.id,
 		authors: book.authors,
@@ -41,10 +22,8 @@ export default function AddBookToSaved(book: Book): Booklist {
 	})
 
 	// stringify array into localstorage
-	localStorage.setItem('MyBooks', JSON.stringify(myBooks))
-	const booklist_end = JSON.parse(localStorage.getItem('MyBooks'))
-	console.log(booklist_end)
-	// ... and into this state
-	// setBookList(myBooks)
-	// return bookList // nodig?
+
+	// update localstorage, database, state with saved booklist
+	UpdateMyBooks(myBooks)
 }
+

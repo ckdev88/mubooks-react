@@ -31,7 +31,7 @@ const LoginCard = () => {
 
 	const navigate = useNavigate()
 
-	const { setUsername, setUsermail, setLoginstatus } = useContext(AppContext)
+	const { setUsername, setUsermail, setLoginstatus, setUserMyBooks } = useContext(AppContext)
 
 	async function loginAccount(user: User) {
 		let { data, error } = await supabase.auth.signInWithPassword({
@@ -44,6 +44,7 @@ const LoginCard = () => {
 			// TODO: set session & global state, just use session saved in localstorage
 			setUsername(data.user.user_metadata.screenname)
 			setUsermail(data.user.email)
+			setUserMyBooks(data.user?.user_metadata.myBooks)
 			setLoginstatus(true)
 			navigate('/dashboard')
 

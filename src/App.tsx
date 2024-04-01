@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import NavWrapper from './components/NavWrapper'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import Login from './routes/account/login'
 import ErrorAccountNotFound from './routes/account/ErrorAccountNotFound'
 import Error404 from './routes/error404'
@@ -11,18 +11,26 @@ import LogoutPage from './routes/account/LogoutPage'
 import DashboardPage from './routes/account/DashboardPage'
 import SearchPage from './routes/books/SearchPage'
 import SavedBooksPage from './routes/books/SavedBooksPage'
+import { useNavigate } from 'react-router-dom'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
+
 const App = () => {
+	const navigate = useNavigate()
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
+	const [userMyBooks, setUserMyBooks] = useState<string>('')
 	const [loginstatus, setLoginstatus] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (username === '') navigate('/account/login')
+	}, [])
 
 	return (
 		<>
 			<AppContext.Provider
-				value={{ username, setUsername, usermail, setUsermail, loginstatus, setLoginstatus }}
+				value={{ username, setUsername, usermail, setUsermail, userMyBooks, setUserMyBooks, loginstatus, setLoginstatus }}
 			>
 				<header id="header">
 					<NavWrapper />
