@@ -12,16 +12,8 @@ import DashboardPage from './routes/account/DashboardPage'
 import SearchPage from './routes/books/SearchPage'
 import SavedBooksPage from './routes/books/SavedBooksPage'
 
-interface AppContextType {
-	username: string
-	setUsername(username: string): void
-	usermail: string
-	setUsermail(usermail: string): void
-	loginstatus: boolean
-	setLoginstatus(loginstatus: boolean): void
-}
-
 export const AppContext = createContext<AppContextType>({} as AppContextType)
+
 const App = () => {
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
@@ -58,7 +50,7 @@ const App = () => {
 						<Route path="/account/*" element={<Login />} errorElement={<ErrorAccountNotFound />} />
 						<Route path="/dashboard" element={<DashboardPage />} errorElement={<Error404 />} />
 						<Route path="/search" element={<SearchPage />} errorElement={<Error404 />} />
-						<Route path="/saved-books" element={<SavedBooksPage/>} errorElement={<Error404/>}/>
+						<Route path="/saved-books" element={<SavedBooksPage />} errorElement={<Error404 />} />
 					</Routes>
 				</main>
 			</AppContext.Provider>

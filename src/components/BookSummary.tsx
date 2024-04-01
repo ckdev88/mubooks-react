@@ -2,7 +2,6 @@ import BookAuthorList from "./BookAuthorList"
 import addBookToSaved from "../stores/addBookToSaved"
 import removeBookFromSaved from "../stores/removeBookFromSaved"
 export default function BookSummary(book: Book) {
-	console.log('boek', book)
 	return (
 		// TODO: add className for when marked as saved
 		<article className="book-summary" key={book.id}>
