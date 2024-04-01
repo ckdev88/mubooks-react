@@ -11,10 +11,10 @@ import Explore from '../../components/dashboard/Explore'
 import { AppContext } from '../../App'
 
 const DashboardPage = () => {
-	const { username, loginstatus } = useContext(AppContext)
+	const { username, userIsLoggedIn } = useContext(AppContext)
 	const navigate = useNavigate()
 	useEffect(() => {
-		if (loginstatus === false) navigate('/account/login')
+		if (userIsLoggedIn === false) navigate('/account/login')
 	}, [])
 
 	return (

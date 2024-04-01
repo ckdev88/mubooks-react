@@ -7,7 +7,7 @@ import { useEffect, useState, useContext } from 'react'
 export default function MyAccountEditCard() {
 	const { see } = useCardRotate()
 	const navigate = useNavigate()
-	const { username, setUsername, usermail, setUsermail, loginstatus } = useContext(AppContext)
+	const { username, setUsername, usermail, setUsermail, userIsLoggedIn } = useContext(AppContext)
 	const [sbUsermail, setSbUsermail] = useState<string>(usermail)
 	const [sbUsername, setSbUsername] = useState<string>(username)
 

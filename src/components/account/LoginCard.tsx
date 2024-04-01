@@ -31,7 +31,7 @@ const LoginCard = () => {
 
 	const navigate = useNavigate()
 
-	const { setUsername, setUsermail, setLoginstatus, setUserMyBooks } = useContext(AppContext)
+	const { setUsername, setUsermail, setUserIsLoggedIn, setUserMyBooks } = useContext(AppContext)
 
 	async function loginAccount(user: User) {
 		let { data, error } = await supabase.auth.signInWithPassword({
@@ -41,15 +41,17 @@ const LoginCard = () => {
 		if (error)
 			console.log(error) // TODO: use error message to show user
 		else {
-			// TODO: set session & global state, just use session saved in localstorage
-			setUsername(data.user.user_metadata.screenname)
-			setUsermail(data.user.email)
-			setUserMyBooks(data.user?.user_metadata.myBooks)
-			setLoginstatus(true)
-			navigate('/dashboard')
+			if (data.user !== null) {
+				// TODO: set session & global state, just use session saved in localstorage
+				setUserIsLoggedIn(true)
+				setUsername(data.user.user_metadata.screenname)
+				setUsermail(data.user.email)
+				setUserMyBooks(data.user?.user_metadata.myBooks)
+				navigate('/dashboard')
 
-			// copy localStorage to sessionStorage
-			sessionStorage.setItem(localStorageKey, localStorage.getItem(localStorageKey))
+				// copy localStorage to sessionStorage
+				sessionStorage.setItem(localStorageKey, localStorage.getItem(localStorageKey))
+			}
 		}
 	}
 	const { recover, signup } = useCardRotate()

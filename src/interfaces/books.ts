@@ -5,8 +5,8 @@ interface AppContextType {
 	setUsermail(usermail: string): void
 	userMyBooks: string
 	setUserMyBooks(userMyBooks: string): void
-	loginstatus: boolean
-	setLoginstatus(loginstatus: boolean): void
+	userIsLoggedIn: boolean
+	setUserIsLoggedIn(userIsLoggedIn: boolean): void
 }
 type BookData = [{
 	id?: number

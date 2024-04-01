@@ -21,18 +21,17 @@ const App = () => {
 	const navigate = useNavigate()
 	useEffect(() => {
 		if (localStorage.getItem(localStorageKey) === null) navigate('/account/login')
-		else setLoginstatus(true)
+		else setUserIsLoggedIn(true)
 	}, [])
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
 	const [userMyBooks, setUserMyBooks] = useState<string>('')
-	const [loginstatus, setLoginstatus] = useState<boolean>(false)
-
+	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false)
 
 	return (
 		<>
 			<AppContext.Provider
-				value={{ username, setUsername, usermail, setUsermail, userMyBooks, setUserMyBooks, loginstatus, setLoginstatus }}
+				value={{ username, setUsername, usermail, setUsermail, userMyBooks, setUserMyBooks, userIsLoggedIn, setUserIsLoggedIn }}
 			>
 				<header id="header">
 					<NavWrapper />

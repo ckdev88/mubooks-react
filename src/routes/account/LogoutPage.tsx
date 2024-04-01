@@ -6,14 +6,14 @@ import { AuthError } from '@supabase/supabase-js'
 
 export default function LogoutPage() {
 	sessionStorage.clear()
-	const { setUsername, setLoginstatus } = useContext(AppContext)
+	const { setUsername, setUserIsLoggedIn } = useContext(AppContext)
 	const navigate = useNavigate()
 
 	async function logoutAccount(): Promise<AuthError | undefined> {
 		const { error } = await supabase.auth.signOut()
 		if (error === null) {
 			setUsername('')
-			setLoginstatus(false)
+			setUserIsLoggedIn(false)
 			sessionStorage.clear()
 			navigate('/account/login')
 		} else {

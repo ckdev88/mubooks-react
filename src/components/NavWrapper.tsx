@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const NavWrapper = () => {
 	const navigate = useNavigate()
-	const { loginstatus } = useContext(AppContext)
+	const { userIsLoggedIn } = useContext(AppContext)
 
 	const [nav0Expanded, setNav0Expanded] = useState(false)
 	const [nav1Expanded, setNav1Expanded] = useState(false)
@@ -24,7 +24,7 @@ const NavWrapper = () => {
 		navigate('/search')
 	}
 
-	if (loginstatus === false) return <></>
+	if (userIsLoggedIn === false) return <></>
 	return (
 		<>
 			<nav id="navIcons">
