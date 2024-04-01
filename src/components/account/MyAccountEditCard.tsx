@@ -8,8 +8,8 @@ export default function MyAccountEditCard() {
 	const { see } = useCardRotate()
 	const navigate = useNavigate()
 	const { username, setUsername, usermail, setUsermail, loginstatus } = useContext(AppContext)
-	const [sbUsermail, setSbUsermail] = useState(usermail)
-	const [sbUsername, setSbUsername] = useState(username)
+	const [sbUsermail, setSbUsermail] = useState<string>(usermail)
+	const [sbUsername, setSbUsername] = useState<string>(username)
 
 	useEffect(() => {
 		userdata()
@@ -24,7 +24,7 @@ export default function MyAccountEditCard() {
 			setSbUsername(data.user.user_metadata?.screenname)
 		}
 	}
-	function afterUpdateSb(name, mail) {
+	function afterUpdateSb(name:string, mail:string) {
 		setUsername(name)
 		setUsermail(mail)
 		setSbUsername(name)

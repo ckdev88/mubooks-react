@@ -1,3 +1,5 @@
+import updateMyBooks from "./updateMyBooks"
+
 export default function addBookToSaved(book: Book): void {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
@@ -20,5 +22,10 @@ export default function addBookToSaved(book: Book): void {
 	})
 
 	// stringify array into localstorage
-	localStorage.setItem('MyBooks', JSON.stringify(myBooks))
+	const myBooksNew = JSON.stringify(myBooks)
+	localStorage.setItem('MyBooks', myBooksNew)
+
+	// update database with saved booklist
+	updateMyBooks(myBooksNew)
 }
+
