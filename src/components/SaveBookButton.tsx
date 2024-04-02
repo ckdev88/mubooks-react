@@ -3,9 +3,9 @@ import { useContext } from 'react'
 import { AppContext } from '../App'
 
 const AddBookToSaved = (book: Book) => {
-	// if (book.title.length > 35) {
-	// 	book.title_short = book.title.slice(0, 35) + '...'
-	// } else book.title_short = book.title
+	if (book.title.length > 35) {
+		book.title_short = book.title.slice(0, 35) + '...'
+	} else book.title_short = book.title
 	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
 	if (myBooks !== null && myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
 
@@ -28,7 +28,7 @@ const AddBookToSaved = (book: Book) => {
 	return myBooksNew // return value for update global state
 }
 
-const SaveBookButton = ({ book }) => {
+const SaveBookButton = ({ book }:BookObject) => {
 	const { setUserMyBooks } = useContext(AppContext)
 	function SaveBookButtonAct() {
 		const newArr = AddBookToSaved(book) // update localstorage, database

@@ -46,3 +46,6 @@ interface BookObject {
 interface BooksObject {
 	books: Books
 }
+interface IdObject {
+	id: number
+}

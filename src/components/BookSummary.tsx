@@ -1,6 +1,6 @@
 import BookAuthorList from './BookAuthorList'
-import RemoveBookFromSaved from '../stores/RemoveBookFromSaved'
 import SaveBookButton from './SaveBookButton'
+import RemoveBookButton from './RemoveBookButton'
 
 const BookSummary = ({ book }: BookObject) => {
 	return (
@@ -26,9 +26,7 @@ const BookSummary = ({ book }: BookObject) => {
 					<div className="mark">
 						<SaveBookButton book={book} />
 						<br />
-						<a onClick={() => RemoveBookFromSaved(book.id)}>
-							<span className="icon icon-remove"></span>Remove from my books
-						</a>
+						<RemoveBookButton id={book.id} />
 					</div>
 				</div>
 				<hr />

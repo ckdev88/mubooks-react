@@ -16,7 +16,6 @@ import { localStorageKey } from '../utils/supabase'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-
 const App = () => {
 	const navigate = useNavigate()
 	useEffect(() => {
