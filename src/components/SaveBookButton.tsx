@@ -6,10 +6,14 @@ const AddBookToSaved = (book: Book) => {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
-	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
-	if (myBooks !== null && myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
+	let myBooks: Books
+	if (localStorage.getItem('MyBooks') === 'undefined') {
+		myBooks = []
+		console.log(myBooks)
+	}
+	else myBooks = JSON.parse(localStorage.getItem('MyBooks'))
+	if (myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
 
-	if (myBooks === null) myBooks = []
 	myBooks.push({
 		id: book.id,
 		authors: book.authors,
@@ -28,8 +32,9 @@ const AddBookToSaved = (book: Book) => {
 	return myBooksNew // return value for update global state
 }
 
-const SaveBookButton = ({ book }:BookObject) => {
+const SaveBookButton = ({ book }: BookObject) => {
 	const { setUserMyBooks } = useContext(AppContext)
+
 	function SaveBookButtonAct() {
 		const newArr = AddBookToSaved(book) // update localstorage, database
 		setUserMyBooks(newArr) // update global state

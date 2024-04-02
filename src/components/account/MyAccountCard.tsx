@@ -14,10 +14,12 @@ export default function MyAccountCard() {
 	useEffect(() => {
 		userdata()
 	}, [])
+
 	const userdata = async () => {
 		const { data, error } = await supabase.auth.getUser()
 		if (error) {
-			navigate('/account/login')
+			console.log('error updating userdata',error)
+			// navigate('/account/login')
 		} else {
 			setSbUsermail(data.user.email)
 			setSbUsername(data.user.user_metadata?.screenname)
@@ -29,7 +31,7 @@ export default function MyAccountCard() {
 			<header>My account</header>
 			<main>
 				<dl>
-					<dt>Screen name:</dt>
+					<dt>Screen name</dt>
 					<dd>{sbUsername}</dd>
 					<dt>Email address</dt>
 					<dd>{sbUsermail}</dd>

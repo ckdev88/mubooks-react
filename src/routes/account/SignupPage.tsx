@@ -7,14 +7,6 @@ import SignupCard from '../../components/account/SignupCard.vue'
 import LoginCard from '../../components/account/LoginCard.vue'
 import RecoverCard from '../../components/account/RecoverCard.vue'
 
-// const authStore = useAuthStore()
-// const router = useRouter()
-// const f = reactive({
-// 	screenname: '',
-// 	email: '',
-// 	password: ''
-// })
-
 const SignupPage  =()=>{
 async function createAccount() {
 	console.log('create account')

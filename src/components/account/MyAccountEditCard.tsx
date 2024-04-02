@@ -18,7 +18,8 @@ export default function MyAccountEditCard() {
 	const userdata = async () => {
 		const { data, error } = await supabase.auth.getUser()
 		if (error) {
-			navigate('/account/login')
+			console.log('error updating userdata',error)
+			// navigate('/account/login')
 		} else {
 			setSbUsermail(data.user.email)
 			setSbUsername(data.user.user_metadata?.screenname)

@@ -13,7 +13,6 @@ const RemoveBookFromSaved = (id: number) => {
 const RemoveBookButton = ({ id }: IdObject) => { // TODO: improve type
 	const { setUserMyBooks } = useContext(AppContext)
 	function RemoveBookButtonAct() {
-		console.log('remove book act', id)
 		const newArr = RemoveBookFromSaved(id) // update localstorage, database
 		setUserMyBooks(newArr) // update global state
 	}

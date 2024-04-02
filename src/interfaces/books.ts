@@ -10,6 +10,14 @@ interface AppContextType {
 	userTest: string
 	setUserTest(userTest: string): void
 }
+type User = {
+	email: string
+	password: string
+}
+interface LoginFormInput {
+	loginemail: { value: string }
+	loginpassword: { value: string }
+}
 type BookData = [
 	{
 		id?: number
@@ -39,7 +47,7 @@ interface Book {
 	title_short: string
 }
 type Results = [Book]
-interface Books extends Array<Book> {}
+interface Books extends Array<Book> { }
 interface BookObject {
 	book: Book
 }

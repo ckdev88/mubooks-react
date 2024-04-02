@@ -7,18 +7,10 @@ import { AppContext } from '../../App'
 const LoginCard = () => {
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
-	type User = {
-		email: string
-		password: string
-	}
 
 	function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		interface FormInput {
-			loginemail: { value: string }
-			loginpassword: { value: string }
-		}
-		const formInput: FormInput = event.target
+		const formInput: LoginFormInput = event.target
 		// const formData = new FormData(event.target)
 		/* still not really seeing the added value of this "FormData" */
 		// formData.get('loginemail') would return the same as: event.target.loginemail.value
@@ -37,20 +29,22 @@ const LoginCard = () => {
 		let { data, error } = await supabase.auth.signInWithPassword({
 			email: user.email,
 			password: user.password,
+			options: {
+				data: {
+					myBooks:""
+				}
+			}
 		})
 		if (error)
 			console.log(error) // TODO: use error message to show user
 		else {
 			if (data.user !== null) {
-				// TODO: set session & global state, just use session saved in localstorage
 				setUserIsLoggedIn(true)
 				setUsername(data.user.user_metadata.screenname)
 				setUsermail(data.user.email)
+				localStorage.setItem('MyBooks', data.user.user_metadata.myBooks)
 				setUserMyBooks(data.user?.user_metadata.myBooks)
 				navigate('/dashboard')
-
-				// copy localStorage to sessionStorage
-				sessionStorage.setItem(localStorageKey, localStorage.getItem(localStorageKey))
 			}
 		}
 	}

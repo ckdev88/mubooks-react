@@ -13,6 +13,7 @@ import SearchPage from './routes/books/SearchPage'
 import SavedBooksPage from './routes/books/SavedBooksPage'
 import { useNavigate } from 'react-router-dom'
 import { localStorageKey } from '../utils/supabase'
+import ClearMyBooks from './routes/books/ClearMyBooks'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
@@ -60,6 +61,7 @@ const App = () => {
 						<Route path="/dashboard" element={<DashboardPage />} errorElement={<Error404 />} />
 						<Route path="/search" element={<SearchPage />} errorElement={<Error404 />} />
 						<Route path="/saved-books" element={<SavedBooksPage />} errorElement={<Error404 />} />
+						<Route path="/clear-my-books" element={<ClearMyBooks />} errorElement={<Error404 />} />
 					</Routes>
 				</main>
 			</AppContext.Provider>

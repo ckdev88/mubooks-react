@@ -5,29 +5,28 @@ import { AppContext } from '../../App'
 import { AuthError } from '@supabase/supabase-js'
 
 export default function LogoutPage() {
-	sessionStorage.clear()
 	const { setUsername, setUserIsLoggedIn } = useContext(AppContext)
 	const navigate = useNavigate()
 
-	async function logoutAccount(): Promise<AuthError | undefined> {
-		const { error } = await supabase.auth.signOut()
+	// async function logoutAccount(): Promise<AuthError | undefined> {
+	const { error } = async () => {
+		await supabase.auth.signOut()
 		if (error === null) {
-			setUsername('')
+			// setUsername('')
 			setUserIsLoggedIn(false)
-			sessionStorage.clear()
 			navigate('/account/login')
 		} else {
 			return error
 		}
 	}
+	// }
 
+	// {logoutAccount()}
 	return (
 		<>
 			<h1>Logging out...</h1>
 			<p>
-				{useEffect(() => {
-					logoutAccount()
-				}, [])}
+				One moment..
 			</p>
 		</>
 	)

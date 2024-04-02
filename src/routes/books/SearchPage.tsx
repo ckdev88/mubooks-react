@@ -27,9 +27,7 @@ const SearchPage = () => {
 				setResultsWarning('keep typing...')
 				return
 			} else {
-				console.log('start new search')
 				setSearchTerm(searchTermToShow)
-				console.log('searchterm:', searchTerm, ' - searchTermToShow:', searchTermToShow)
 				setResultsWarning('')
 			}
 		}

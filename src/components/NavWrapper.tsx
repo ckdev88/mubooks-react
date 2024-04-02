@@ -76,6 +76,7 @@ const NavWrapper = () => {
 						<Link to={'/saved-books'} onClick={toggleNav0}>
 							Saved books
 						</Link>
+						<Link to={'/clear-my-books'} onClick={toggleNav0}>Clear My Books</Link>
 					</li>
 				</ul>
 				<div className="history">
