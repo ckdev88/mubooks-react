@@ -21,7 +21,6 @@ const LoginCard = () => {
 		console.log('user data (logincard):', login?.data)
 		if (login?.error === null) navigate('/dashboard')
 	}
-
 	const navigate = useNavigate()
 
 	const { recover, signup } = useCardRotate()

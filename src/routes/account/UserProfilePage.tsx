@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import setDraaideurHeight from '../../hooks/setDraaideurHeight'
 import MyAccountCard from '../../components/account/MyAccountCard'
 import MyAccountEditCard from '../../components/account/MyAccountEditCard'
-const ProfilePage = () => {
+const UserProfilePage = () => {
 	useEffect(() => {
 		setDraaideurHeight()
 	}, [])
@@ -17,4 +17,4 @@ const ProfilePage = () => {
 		</>
 	)
 }
-export default ProfilePage
+export default UserProfilePage
