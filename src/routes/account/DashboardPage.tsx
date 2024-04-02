@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react'
-// import { localStorageKey, supabase } from '../../../utils/supabase'
 import { Link, useNavigate } from 'react-router-dom'
 import QuoteCard from '../../components/QuoteCard'
 import Reading from '../../components/dashboard/Reading'

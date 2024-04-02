@@ -1,8 +1,7 @@
 import { supabase } from "../../utils/supabase"
 
-const UpdateMyBooks = (myBooks:Books) => {
-	const myBooksNew:string = JSON.stringify(myBooks)
-
+const UpdateMyBooks = (myBooksNew: Books) => {
+	// TODO: improve type safety
 	localStorage.setItem('MyBooks', myBooksNew)
 	async function executeFn(myBooksNew) {
 		const { data, error } = await supabase.auth.updateUser({

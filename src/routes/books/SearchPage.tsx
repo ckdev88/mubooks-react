@@ -1,6 +1,7 @@
-import {  useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 import BookSummary from '../../components/BookSummary'
+import BooksOverviewPage from './BooksOverviewPage'
 
 const SearchPage = () => {
 	const boeken: Books = bookData
@@ -81,8 +82,6 @@ const SearchPage = () => {
 		setResultCount(count)
 	}
 
-	const showResults = (resultsWarning === '' ? results.map((book) => { return (BookSummary(book)) }) : '')
-
 	return (
 		<>
 			<h1>Search</h1>
@@ -107,7 +106,7 @@ const SearchPage = () => {
 							{resultsMessage}
 						</sub>
 					</h2>
-					{showResults}
+					<BooksOverviewPage books={results} />
 				</div>
 			</div>
 		</>

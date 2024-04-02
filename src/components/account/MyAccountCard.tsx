@@ -7,7 +7,7 @@ import { supabase } from '../../../utils/supabase'
 export default function MyAccountCard() {
 	const { change } = useCardRotate()
 	const navigate = useNavigate()
-	const { username, usermail, userIsLoggedIn } = useContext(AppContext)
+	const { username, usermail } = useContext(AppContext)
 	const [sbUsermail, setSbUsermail] = useState(usermail)
 	const [sbUsername, setSbUsername] = useState(username)
 

@@ -24,7 +24,7 @@ export default function MyAccountEditCard() {
 			setSbUsername(data.user.user_metadata?.screenname)
 		}
 	}
-	function afterUpdateSb(name:string, mail:string) {
+	function afterUpdateSb(name: string, mail: string) {
 		setUsername(name)
 		setUsermail(mail)
 		setSbUsername(name)

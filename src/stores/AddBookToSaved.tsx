@@ -1,6 +1,5 @@
 import UpdateMyBooks from "./UpdateMyBooks"
 
-
 export default function AddBookToSaved(book: Book) {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'

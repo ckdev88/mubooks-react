@@ -1,8 +1,8 @@
 import BookAuthorList from './BookAuthorList'
-import AddBookToSaved from '../stores/AddBookToSaved'
 import RemoveBookFromSaved from '../stores/RemoveBookFromSaved'
+import SaveBookButton from './SaveBookButton'
 
-export default function BookSummary(book: Book) {
+const BookSummary = ({ book }: BookObject) => {
 	return (
 		// TODO: add className for when marked as saved
 		<article className="book-summary" key={book.id}>
@@ -24,9 +24,7 @@ export default function BookSummary(book: Book) {
 			<footer>
 				<div className="marks">
 					<div className="mark">
-						<a onClick={() => AddBookToSaved(book)}>
-							<span className="icon icon-add"></span>Save in my books
-						</a>
+						<SaveBookButton book={book} />
 						<br />
 						<a onClick={() => RemoveBookFromSaved(book.id)}>
 							<span className="icon icon-remove"></span>Remove from my books
@@ -38,3 +36,4 @@ export default function BookSummary(book: Book) {
 		</article>
 	)
 }
+export default BookSummary
