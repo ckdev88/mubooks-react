@@ -9,7 +9,7 @@ import setDraaideurHeight from '../../hooks/setDraaideurHeight'
 
 // TODO: 90% van dit kan wss weg
 
-export default function Login() {
+export default function UserLoginPage() {
 	const navigate = useNavigate()
 	async function getUserSession() {
 		const { data: session } = await supabase.auth.getSession()

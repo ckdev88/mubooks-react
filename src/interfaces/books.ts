@@ -13,6 +13,8 @@ interface AppContextType {
 type User = {
 	email: string
 	password: string
+	screenname?: string
+	mubooks?: string
 }
 interface LoginFormInput {
 	loginemail: { value: string }

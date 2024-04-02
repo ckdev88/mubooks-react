@@ -1,45 +1,21 @@
-// import { Router } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { supabase } from '../../../utils/supabase'
-// import {  useState } from 'react'
 import useCardRotate from '../../hooks/useCardRotate'
+import UserSignup from '../../stores/UserSignup'
+import { useNavigate } from 'react-router-dom'
+
 export default function SignupCard() {
-	// const [user, setUser] = useState<{}>({})
+	const navigate = useNavigate()
 	const { login } = useCardRotate()
 
-	type User = {
-		email: string
-		screenname: string
-		password: string
-	}
-
-	function processSignupForm(event: any) {
+	async function processSignupForm(event: any) {
 		event.preventDefault()
 		const user: User = {
 			email: event.target.email.value,
 			screenname: event.target.screenname.value,
 			password: event.target.password.value,
 		}
-		createAccount(user)
-	}
-	const navigate = useNavigate()
-	async function createAccount(user: User) {
-		console.log('create account from SignupCard.tsx')
-		const { data, error } = await supabase.auth.signUp({
-			email: user.email,
-			password: user.password,
-			options: {
-				data: { screenname: user.screenname },
-			},
-		})
-		if (error) {
-			console.log(error)
-		} else {
-			console.log('adding user:', data)
-			console.log('Account created, referring...')
-			// TODO: redirect to check mail- page
+		const isSignedUp = UserSignup(user)
+		if ((await isSignedUp).success === true) {
 			navigate(`/account/new?addr=${user.email}`) // beetje unsafe dit, beter via sessie of api
-			// key zodat max. 1 (browser)sessie 1 account kan maken
 		}
 	}
 

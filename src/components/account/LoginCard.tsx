@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { localStorageKey, supabase } from '../../../utils/supabase'
 import useCardRotate from '../../hooks/useCardRotate'
-import { useContext } from 'react'
-import { AppContext } from '../../App'
+// import UpdateMyBooks from '../../stores/UpdateMyBooks' // TODO: update state of mubooks
+// import { localStorageKey, supabase } from '../../../utils/supabase'
+import UserLogin from '../../stores/UserLogin'
 
 const LoginCard = () => {
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
-
-	function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
+	async function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		const formInput: LoginFormInput = event.target
 		// const formData = new FormData(event.target)
@@ -18,38 +17,14 @@ const LoginCard = () => {
 			email: formInput.loginemail.value,
 			password: formInput.loginpassword.value,
 		}
-		loginAccount(user)
+		const login = await UserLogin(user)
+		console.log('user data (logincard):', login?.data)
+		if (login?.error === null) navigate('/dashboard')
 	}
 
 	const navigate = useNavigate()
 
-	const { setUsername, setUsermail, setUserIsLoggedIn, setUserMyBooks } = useContext(AppContext)
-
-	async function loginAccount(user: User) {
-		let { data, error } = await supabase.auth.signInWithPassword({
-			email: user.email,
-			password: user.password,
-			options: {
-				data: {
-					myBooks:""
-				}
-			}
-		})
-		if (error)
-			console.log(error) // TODO: use error message to show user
-		else {
-			if (data.user !== null) {
-				setUserIsLoggedIn(true)
-				setUsername(data.user.user_metadata.screenname)
-				setUsermail(data.user.email)
-				localStorage.setItem('MyBooks', data.user.user_metadata.myBooks)
-				setUserMyBooks(data.user?.user_metadata.myBooks)
-				navigate('/dashboard')
-			}
-		}
-	}
 	const { recover, signup } = useCardRotate()
-
 	return (
 		<>
 			<article className="card" id="card-login">
