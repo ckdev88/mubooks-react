@@ -1,32 +1,11 @@
 import { Link } from 'react-router-dom'
-import RemoveBookFromSaved from '../../stores/RemoveBookFromSaved'
-import { useContext } from 'react'
-import { AppContext } from '../../App'
+import RemoveBookButton from '../../components/RemoveBookButton'
+import BookAuthorList from '../../components/BookAuthorList'
 
 export default function SavedBooksPage() {
-	
 	let hasbooks = false // TODO: make dynamic with either Ref or State
-const {setUserMyBooks} = useContext(AppContext)
-	let  savedbooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
-	if(savedbooks===null)savedbooks=[]
-
-	function removeBook(id: number) {
-		RemoveBookFromSaved(id)
-		// TODO: manage global state array
-		
-	}
-
-	function authorlist(book: Book) {
-		return book.authors.map((author: Author, index: number) => {
-			const key = book.id + '-' + index
-			return (
-				<span key={key} id={key}>
-					{author}
-					<br />
-				</span>
-			)
-		})
-	}
+	let savedbooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
+	if (savedbooks === null) savedbooks = []
 
 	const savedbookslist = savedbooks.map((book: Book) => {
 		return (
@@ -45,7 +24,7 @@ const {setUserMyBooks} = useContext(AppContext)
 					<div className="in-short">
 						<h2>
 							{book.title_short}
-							<sub>{authorlist(book)}</sub>
+							<sub>{BookAuthorList(book)}</sub>
 						</h2>
 						{book.date_published}
 						<br />
@@ -55,9 +34,7 @@ const {setUserMyBooks} = useContext(AppContext)
 				<footer>
 					<div className="marks">
 						<div className="mark">
-							<a onClick={() => RemoveBookFromSaved(book.id)}>
-								<span className="icon icon-remove"></span>Remove from my books
-							</a>
+							<RemoveBookButton id={book.id} />
 						</div>
 					</div>
 					<hr />
