@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
-import BookSummary from '../../components/BookSummary'
 import BooksOverviewPage from './BooksOverviewPage'
 
 const SearchPage = () => {
@@ -19,15 +18,14 @@ const SearchPage = () => {
 	function refreshResults(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		const formData: HTMLFormElement = new FormData(searchForm.current)
-		const searchTermToShow: string | undefined = formData.get('search_term')?.toString().trim() // TODO: rename
-		// variable into something better/concise
+		const searchTermInput: string | undefined = formData.get('search_term')?.toString().trim() 
 
-		if (searchTermToShow !== undefined) {
-			if (searchTermToShow.length < 4) {
+		if (searchTermInput !== undefined) {
+			if (searchTermInput.length < 4) {
 				setResultsWarning('keep typing...')
 				return
 			} else {
-				setSearchTerm(searchTermToShow)
+				setSearchTerm(searchTermInput)
 				setResultsWarning('')
 			}
 		}
@@ -40,7 +38,7 @@ const SearchPage = () => {
 		let count = 0
 		let booksToAdd = []
 		for (let i = 0; i < boeken.length; i++) {
-			if (searchTermToShow === boeken[i].title.toLowerCase()) {
+			if (searchTermInput === boeken[i].title.toLowerCase()) {
 				// TODO: marker isSaved to highlight saved books in results
 				booksToAdd[count] = boeken[i]
 				booksToAdd[count].id = i
@@ -59,8 +57,8 @@ const SearchPage = () => {
 		for (let i = 0; i < boeken.length; i++) {
 			if (count > 30) break
 			if (
-				boeken[i].title.toLowerCase().includes(String(searchTermToShow)) &&
-				boeken[i].title.toLowerCase() !== searchTermToShow
+				boeken[i].title.toLowerCase().includes(String(searchTermInput)) &&
+				boeken[i].title.toLowerCase() !== searchTermInput
 			) {
 				// TODO: search could use some algorithmic tweaking
 				// TODO: marker isSaved to highlight saved books in results
@@ -75,7 +73,9 @@ const SearchPage = () => {
 				count++
 			}
 		}
-		if (count > 30) { setResultsMessage('Showing only 30 results. Specify a bit more.') } else setResultsMessage('')
+		if (count > 30) setResultsMessage('Showing only 30 results. Specify a bit more.') 
+		else if(count===0)setResultsMessage('Loosen up your search a bit.')
+		else setResultsMessage('')
 		setResults(booksToAdd)
 		setResultCount(count)
 	}
@@ -93,13 +93,9 @@ const SearchPage = () => {
 			</form>
 			<div>
 				<div className={resultsWarning !== '' ? 'dblock' : 'dnone'}>{resultsWarning}</div>
-				<div className={resultCount === 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
-					No results found
-				</div>
-
-				<div className={resultCount > 0 && resultsWarning === '' ? 'dblock' : 'dnone'}>
+				<div className={searchTerm!=='' || resultsMessage !== '' ? 'dblock' : 'dnone'}>
 					<h2 className="resultsfound">
-						{resultCount > 30 ? 'Over 30' : resultCount} {resultCount > 1 ? 'books' : 'book'} found for <em>"{searchTerm}"</em>
+						{resultCount > 30 ? 'Over 30' : resultCount} {resultCount > 1 || resultCount===0 ? 'books' : 'book'} found for <em>"{searchTerm}"</em>
 						<sub className={resultsMessage !== '' ? 'dblock' : 'dnone'}>
 							{resultsMessage}
 						</sub>
