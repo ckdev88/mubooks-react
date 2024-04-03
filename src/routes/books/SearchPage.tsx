@@ -100,7 +100,7 @@ const SearchPage = () => {
 							{resultsMessage}
 						</sub>
 					</h2>
-					<BooksOverviewPage books={results} />
+					<BooksOverviewPage books={results} page="searchpage" />
 				</div>
 			</div>
 		</>

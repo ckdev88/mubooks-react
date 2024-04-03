@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import RemoveBookButton from '../../components/RemoveBookButton'
-import BookAuthorList from '../../components/BookAuthorList'
+import BooksOverviewPage from './BooksOverviewPage'
 
 export default function SavedBooksPage() {
 	let hasbooks = false // TODO: make dynamic with either Ref or State
@@ -10,42 +9,6 @@ export default function SavedBooksPage() {
 		savedbooks = []
 	}
 	else savedbooks = JSON.parse(localStorage.getItem('MyBooks'))
-
-	const savedbookslist = savedbooks.map((book: Book) => {
-		return (
-			<article key={book.id} className="book-summary">
-				<header>
-					<aside className="cover">
-						<img
-							src={
-								book.image !== 'https://images.isbndb.com/coversnull' && book.image
-									? book.image
-									: '/logo.svg'
-							}
-							alt=""
-						/>
-					</aside>
-					<div className="in-short">
-						<h2>
-							{book.title_short}
-							<sub>{BookAuthorList(book)}</sub>
-						</h2>
-						{book.date_published}
-						<br />
-						{book.pages} pages
-					</div>
-				</header>
-				<footer>
-					<div className="marks">
-						<div className="mark">
-							<RemoveBookButton id={book.id} />
-						</div>
-					</div>
-					<hr />
-				</footer>
-			</article>
-		)
-	})
 
 	return (
 		<>
@@ -62,7 +25,7 @@ export default function SavedBooksPage() {
 					</Link>
 				</p>
 			</div>
-			<div>{savedbookslist}</div>
+			<BooksOverviewPage books={savedbooks} page="savedbookspage" />
 		</>
 	)
 }
