@@ -2,7 +2,6 @@ import { supabase } from "../../utils/supabase"
 import UserUpdate from "./UserUpdate"
 import { useNavigate } from "react-router-dom"
 const UserLogin = async (user) => {
-	// const navigate=useNavigate()
 	let { data, error } = await supabase.auth.signInWithPassword({
 		email: user.email,
 		password: user.password

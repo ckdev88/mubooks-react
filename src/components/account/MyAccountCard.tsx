@@ -32,7 +32,7 @@ export default function MyAccountCard() {
 			<main>
 				<dl>
 					<dt>Screen name</dt>
-					<dd>{sbUsername}</dd>
+					<dd>{username}</dd>
 					<dt>Email address</dt>
 					<dd>{sbUsermail}</dd>
 					<dt>Password</dt>

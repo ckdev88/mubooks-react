@@ -3,8 +3,12 @@ import useCardRotate from '../../hooks/useCardRotate'
 // import UpdateMyBooks from '../../stores/UpdateMyBooks' // TODO: update state of mubooks
 // import { localStorageKey, supabase } from '../../../utils/supabase'
 import UserLogin from '../../stores/UserLogin'
+import { useContext } from "react"
+import { AppContext } from '../../App'
 
 const LoginCard = () => {
+	const navigate = useNavigate()
+	const { setUsername } = useContext(AppContext)
 	// this is probably redundant, keep an eye on root.tsx for this, later abstract is away in
 	// separate effect/composable/global state.
 	async function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
@@ -18,10 +22,10 @@ const LoginCard = () => {
 			password: formInput.loginpassword.value,
 		}
 		const login = await UserLogin(user)
+		setUsername(login?.data.user?.user_metadata.screenname)
 		console.log('user data (logincard):', login?.data)
 		if (login?.error === null) navigate('/dashboard')
 	}
-	const navigate = useNavigate()
 
 	const { recover, signup } = useCardRotate()
 	return (

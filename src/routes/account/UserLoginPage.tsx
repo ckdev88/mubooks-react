@@ -1,17 +1,12 @@
 import { useEffect } from 'react'
-import { localStorageKey } from '../../../utils/supabase'
-import { useNavigate } from 'react-router-dom'
 import LoginCard from '../../components/account/LoginCard'
 import SignupCard from '../../components/account/SignupCard'
 import RecoverCard from '../../components/account/RecoverCard'
 import setDraaideurHeight from '../../hooks/setDraaideurHeight'
 
 export default function UserLoginPage() {
-	const navigate = useNavigate()
-	if(localStorage.getItem(localStorageKey)!==null)navigate('/dashboard') // TODO: too simplistic
-
-	useEffect( () => { setDraaideurHeight() }, []) 
-
+	useEffect(() => { setDraaideurHeight() }, [])
+	// TODO: proper redirect if already logged in, probably has to be done in routes or app
 	return (
 		<>
 			<div id="welcome-logo" style={{ marginBottom: 1 + 'rem' }}>
