@@ -1,7 +1,7 @@
 import BookSummary from '../../components/BookSummary'
 const BooksOverviewPage = ({ books }: BooksObject, page: string) => {
 	let savedArr: Books
-	if (page === 'savedbookspage') savedArr = books // TODO: actually might be better to turn
+	if (page === 'savedbookspage' || page==='wishlistpage') savedArr = books // TODO: actually might be better to turn
 	// conditionals around, since saved books (reading/finished/wishlist) will always be saved,
 	// whereas search results are mostly not
 	else savedArr = JSON.parse(localStorage.getItem('MyBooks'))

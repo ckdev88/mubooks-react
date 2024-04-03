@@ -45,6 +45,7 @@ interface Book {
 	language: string
 	pages: number
 	saved?: boolean
+	wishlist?: boolean
 	title: string
 	title_short: string
 }
@@ -59,6 +60,6 @@ interface BooksObject {
 interface IdObject {
 	id: number
 }
-interface SavedObject{
-	saved:boolean
+interface SavedObject {
+	saved: boolean
 }

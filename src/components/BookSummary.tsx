@@ -1,6 +1,8 @@
 import BookAuthorList from './BookAuthorList'
 import SaveBookButton from './SaveBookButton'
 import RemoveBookButton from './RemoveBookButton'
+import AddToWishlistButton from './AddToWishlistButton'
+import RemoveFromWishlistButton from './RemoveFromWishlistButton'
 
 const BookSummary = ({ book }: BookObject) => {
 	return (
@@ -24,8 +26,10 @@ const BookSummary = ({ book }: BookObject) => {
 			<footer>
 				<div className="marks">
 					<div className="mark">
-						{SaveBookButton(book)}
-						{RemoveBookButton(book.id,book.saved)}
+						{!book.saved && SaveBookButton(book)}
+						{book.saved && RemoveBookButton(book.id, book.saved)}<br />
+						{!book.wishlist && AddToWishlistButton(book.id)}
+						{book.wishlist && RemoveFromWishlistButton(book.id)}<br />
 					</div>
 				</div>
 				<hr />

@@ -17,6 +17,7 @@ export default function AddBookToSaved(book: Book) {
 		language: book.language,
 		pages: book.pages,
 		saved: true,
+		wishlist: false,
 		title: book.title,
 		title_short: book.title_short,
 	})
