@@ -18,7 +18,7 @@ const SearchPage = () => {
 	function refreshResults(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		const formData: HTMLFormElement = new FormData(searchForm.current)
-		const searchTermInput: string | undefined = formData.get('search_term')?.toString().trim() 
+		const searchTermInput: string | undefined = formData.get('search_term')?.toString().trim()
 
 		if (searchTermInput !== undefined) {
 			if (searchTermInput.length < 4) {
@@ -47,8 +47,8 @@ const SearchPage = () => {
 					booksToAdd[i].title_short = boeken[i].title.slice(0, 35)
 					booksToAdd[count].title_short += '...'
 				} else booksToAdd[count].title_short = boeken[i].title
-				if (boeken[i].image !== null)
-					booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
+				if (boeken[i].image !== 'null') booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
+				if (booksToAdd[count].cover === 'https://images.isbndb.com/covers') booksToAdd[count].cover = ''
 				count++
 			}
 		}
@@ -73,8 +73,8 @@ const SearchPage = () => {
 				count++
 			}
 		}
-		if (count > 30) setResultsMessage('Showing only 30 results. Specify a bit more.') 
-		else if(count===0)setResultsMessage('Loosen up your search a bit.')
+		if (count > 30) setResultsMessage('Showing only 30 results. Specify a bit more.')
+		else if (count === 0) setResultsMessage('Loosen up your search a bit.')
 		else setResultsMessage('')
 		setResults(booksToAdd)
 		setResultCount(count)
@@ -93,9 +93,9 @@ const SearchPage = () => {
 			</form>
 			<div>
 				<div className={resultsWarning !== '' ? 'dblock' : 'dnone'}>{resultsWarning}</div>
-				<div className={searchTerm!=='' || resultsMessage !== '' ? 'dblock' : 'dnone'}>
+				<div className={searchTerm !== '' || resultsMessage !== '' ? 'dblock' : 'dnone'}>
 					<h2 className="resultsfound">
-						{resultCount > 30 ? 'Over 30' : resultCount} {resultCount > 1 || resultCount===0 ? 'books' : 'book'} found for <em>"{searchTerm}"</em>
+						{resultCount > 30 ? 'Over 30' : resultCount} {resultCount > 1 || resultCount === 0 ? 'books' : 'book'} found for <em>"{searchTerm}"</em>
 						<sub className={resultsMessage !== '' ? 'dblock' : 'dnone'}>
 							{resultsMessage}
 						</sub>
