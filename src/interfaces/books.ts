@@ -59,3 +59,6 @@ interface BooksObject {
 interface IdObject {
 	id: number
 }
+interface SavedObject{
+	saved:boolean
+}

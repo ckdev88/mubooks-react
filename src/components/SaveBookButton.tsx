@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import { AppContext } from '../App'
 
 const AddBookToSaved = (book: Book) => {
-
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
@@ -11,8 +10,7 @@ const AddBookToSaved = (book: Book) => {
 	if (localStorage.getItem('MyBooks') === 'undefined') {
 		myBooks = []
 		console.log(myBooks)
-	}
-	else myBooks = JSON.parse(localStorage.getItem('MyBooks'))
+	} else myBooks = JSON.parse(localStorage.getItem('MyBooks'))
 	if (myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
 
 	myBooks.push({
@@ -33,13 +31,14 @@ const AddBookToSaved = (book: Book) => {
 	return myBooksNew // return value for update global state
 }
 
-const SaveBookButton = ({ book }: BookObject) => {
+const SaveBookButton = (book: Book) => {
 	const { setUserMyBooks } = useContext(AppContext)
 
 	function SaveBookButtonAct() {
 		const newArr = AddBookToSaved(book) // update localstorage, database
 		setUserMyBooks(newArr) // update global state
 	}
+	if (book?.saved) return <></>
 	return (
 		<a onClick={() => SaveBookButtonAct()}>
 			<span className="icon icon-add"></span>Save in my books

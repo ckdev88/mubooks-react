@@ -24,9 +24,8 @@ const BookSummary = ({ book }: BookObject) => {
 			<footer>
 				<div className="marks">
 					<div className="mark">
-						<SaveBookButton book={book} />
-						<br />
-						<RemoveBookButton id={book.id} />
+						{SaveBookButton(book)}
+						{RemoveBookButton(book.id,book.saved)}
 					</div>
 				</div>
 				<hr />
