@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { AppContext } from '../App'
 
 const AddBookToSaved = (book: Book) => {
+
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title

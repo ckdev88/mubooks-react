@@ -6,7 +6,7 @@ const UserSignup = async (user: User) => {
 		email: user.email,
 		password: user.password,
 		options: {
-			data: { screenname: user.screenname, mubooks: '[]' },
+			data: { screenname: user.screenname, MyBooks: '[]' },
 		},
 	})
 	let success: boolean

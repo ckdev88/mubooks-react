@@ -14,7 +14,7 @@ type User = {
 	email: string
 	password: string
 	screenname?: string
-	mubooks?: string
+	MyBooks?: string
 }
 interface LoginFormInput {
 	loginemail: { value: string }
