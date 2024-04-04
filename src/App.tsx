@@ -15,6 +15,7 @@ import { localStorageKey } from '../utils/supabase'
 import ClearMyBooks from './routes/books/ClearMyBooks'
 import UserLoginPage from './routes/account/UserLoginPage'
 import WishlistPage from './routes/books/WishlistPage'
+import ReadingPage from './routes/books/ReadingPage'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
@@ -63,6 +64,7 @@ const App = () => {
 						<Route path="/search" element={<SearchPage />} errorElement={<Error404 />} />
 						<Route path="/saved-books" element={<SavedBooksPage />} errorElement={<Error404 />} />
 						<Route path="/wishlist" element={<WishlistPage />} errorElement={<Error404 />} />
+						<Route path="/reading" element={<ReadingPage />} errorElement={<Error404 />} />
 						<Route path="/clear-my-books" element={<ClearMyBooks />} errorElement={<Error404 />} />
 					</Routes>
 				</main>

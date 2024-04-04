@@ -60,6 +60,10 @@ const SearchPage = () => {
 				if (checkWishlist.length > 0) booksToAdd[count].wishlist = true
 				else booksToAdd[count].wishlist = false
 
+				var checkReading = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.reading === true)
+				if (checkReading.length > 0) booksToAdd[count].reading = true
+				else booksToAdd[count].reading = false
+
 				count++
 			}
 		}
@@ -85,6 +89,10 @@ const SearchPage = () => {
 				var checkWishlist = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.wishlist === true)
 				if (checkWishlist.length > 0) booksToAdd[count].wishlist = true
 				else booksToAdd[count].wishlist = false
+
+				var checkReading = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.reading === true)
+				if (checkReading.length > 0) booksToAdd[count].reading = true
+				else booksToAdd[count].reading = false
 
 				count++
 			}

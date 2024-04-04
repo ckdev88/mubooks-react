@@ -2,15 +2,16 @@ import UpdateMyBooks from '../stores/UpdateMyBooks'
 import { useContext } from 'react'
 import { AppContext } from '../App'
 
-
-const AddBookToWishlist = (id: number) => {
+// TODO: this could just be a toggle with addtoreading... its basically the same code
+// TODO: should also be a button, which is actually more important: done reading
+const RemoveBookFromReading = (id: number) => {
 	let myBooks: Books
 	if (localStorage.getItem('MyBooks') === 'undefined') {
 		myBooks = []
 	} else myBooks = JSON.parse(localStorage.getItem('MyBooks'))
 
 	for (let i = 0; i < myBooks.length; i++) {
-		if (myBooks[i].id === id) myBooks[i].wishlist = !myBooks[i].wishlist
+		if (myBooks[i].id === id) myBooks[i].reading = !myBooks[i].reading
 	}
 	const myBooksNew: string = JSON.stringify(myBooks)
 
@@ -18,18 +19,18 @@ const AddBookToWishlist = (id: number) => {
 	return myBooksNew // return value for update global state
 }
 
-const AddToWishlistButton = (id: number) => {
+const RemoveFromReadingButton = (id: number) => {
 	const { setUserMyBooks } = useContext(AppContext)
 
-	function AddToWishlistButtonAct() {
-		const newArr = AddBookToWishlist(id) // update localstorage, database
+	function RemoveFromReadingButtonAct() {
+		const newArr = RemoveBookFromReading(id) // update localstorage, database
 		setUserMyBooks(newArr) // update global state
 	}
 
 	return (
-		<a onClick={() => AddToWishlistButtonAct()}>
-			<span className="icon icon-wishlist"></span>Add to wishlist
+		<a onClick={() => RemoveFromReadingButtonAct()}>
+			<span className="icon icon-remove"></span>Remove from reading
 		</a>
 	)
 }
-export default AddToWishlistButton
+export default RemoveFromReadingButton

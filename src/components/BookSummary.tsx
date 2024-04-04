@@ -3,6 +3,8 @@ import SaveBookButton from './SaveBookButton'
 import RemoveBookButton from './RemoveBookButton'
 import AddToWishlistButton from './AddToWishlistButton'
 import RemoveFromWishlistButton from './RemoveFromWishlistButton'
+import AddToReadingButton from './AddToReadingButton'
+import RemoveFromReadingButton from './RemoveFromReadingButton'
 
 const BookSummary = ({ book }: BookObject) => {
 	return (
@@ -13,8 +15,8 @@ const BookSummary = ({ book }: BookObject) => {
 					<img src={book.cover} alt="" />
 				</aside>
 				<div className="in-short">
-					{book.saved?'saved':'not saved'}<br/>
-					{book.wishlist?'wishlist':'not wishlist?'}
+					{book.saved ? 'saved' : 'not saved'}<br />
+					{book.wishlist ? 'wishlist' : 'not wishlist?'}
 					<h2>
 						{book.title_short}
 						<sub>{BookAuthorList(book)}</sub>
@@ -32,6 +34,8 @@ const BookSummary = ({ book }: BookObject) => {
 						{book.saved && RemoveBookButton(book.id, book.saved)}<br />
 						{!book.wishlist && AddToWishlistButton(book.id)}
 						{book.wishlist && RemoveFromWishlistButton(book.id)}<br />
+						{!book.reading && AddToReadingButton(book.id)}
+						{book.reading && RemoveFromReadingButton(book.id)}<br />
 					</div>
 				</div>
 				<hr />
