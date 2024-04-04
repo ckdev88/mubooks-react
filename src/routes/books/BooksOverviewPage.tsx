@@ -17,15 +17,14 @@ const BooksOverviewPage = ({ books }: BooksObject, page: string) => {
 			if (savedbookCheck.length > 0) book.saved = true
 			else book.saved = false
 
-			// TODO: seems redundant in case of searchpage, see there if the duplicate code can be
-			// cleanup up there, same goes for reading-check below
-			const wishlistCheck =JSON.parse(userMyBooks).filter(stateBook=> stateBook.id === book.id && stateBook.wishlist === true)
+			const wishlistCheck = JSON.parse(userMyBooks).filter(stateBook => stateBook.id === book.id && stateBook.wishlist === true)
 			if (wishlistCheck.length > 0) book.wishlist = true
 			else book.wishlist = false
 
-			const readingCheck =JSON.parse(userMyBooks).filter(stateBook=> stateBook.id === book.id && stateBook.reading === true)
+			const readingCheck = JSON.parse(userMyBooks).filter(stateBook => stateBook.id === book.id && stateBook.reading === true)
 			if (readingCheck.length > 0) book.reading = true
 			else book.reading = false
+
 		}
 		return <BookSummary book={book} key={book.id} />
 	})

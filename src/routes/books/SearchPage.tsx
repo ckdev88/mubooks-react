@@ -1,21 +1,16 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 import BooksOverviewPage from './BooksOverviewPage'
 import { AppContext } from '../../App'
 
 const SearchPage = () => {
-	const { userMyBooks } = useContext(AppContext)
-	let userMyBooksArr: Books
-	if (userMyBooks !== 'undefined') userMyBooksArr = JSON.parse(userMyBooks)
 	const boeken: Books = bookData
 	const searchForm = useRef(null)
 
 	const [resultsWarning, setResultsWarning] = useState<string>('')
 	const [resultsMessage, setResultsMessage] = useState<string>('')
 	const [resultCount, setResultCount] = useState<number>(0)
-
 	const [results, setResults] = useState<Books>([])
-
 	const [searchTerm, setSearchTerm] = useState('')
 
 	function refreshResults(event: React.FormEvent<HTMLFormElement>) {
@@ -34,11 +29,11 @@ const SearchPage = () => {
 		}
 		getResults(searchTermInput)
 	}
+
 	// const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
 	// console.log('totalbooks:', totalBooks) // 934.236
 	// console.log('length:', boeken.length) // 155.706 - lijkt overeen te komen met for-loop
 	// TODO: run proper test for above
-
 
 	function getResults(searchTermInput: string) {
 		let count = 0
@@ -55,14 +50,6 @@ const SearchPage = () => {
 				} else booksToAdd[count].title_short = boeken[i].title
 				if (boeken[i].image !== 'null') booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
 				if (booksToAdd[count].cover === 'https://images.isbndb.com/covers') booksToAdd[count].cover = ''
-
-				var checkWishlist = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.wishlist === true)
-				if (checkWishlist.length > 0) booksToAdd[count].wishlist = true
-				else booksToAdd[count].wishlist = false
-
-				var checkReading = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.reading === true)
-				if (checkReading.length > 0) booksToAdd[count].reading = true
-				else booksToAdd[count].reading = false
 
 				count++
 			}
@@ -85,14 +72,6 @@ const SearchPage = () => {
 				} else booksToAdd[count].title_short = boeken[i].title
 				if (boeken[i].image !== null)
 					booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
-
-				var checkWishlist = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.wishlist === true)
-				if (checkWishlist.length > 0) booksToAdd[count].wishlist = true
-				else booksToAdd[count].wishlist = false
-
-				var checkReading = userMyBooksArr.filter((book) => boeken[i].id === book.id && book.reading === true)
-				if (checkReading.length > 0) booksToAdd[count].reading = true
-				else booksToAdd[count].reading = false
 
 				count++
 			}
