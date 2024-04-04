@@ -1,4 +1,5 @@
 import ReadingItem from './ReadingItem'
+import { Link } from 'react-router-dom'
 // check if there are any saved books
 // if yes, check if any of saved books are marked as reading
 // if yes, router.push to saved books
@@ -9,14 +10,17 @@ import ReadingItem from './ReadingItem'
 // const muBooksStore = useMuBooksStore()
 // const readingBook = muBooksStore.getReadingBook
 // console.log('readingBook:', readingBook)
-export default function Reading(){
+export default function Reading() {
 	return (
-<>
-	<article className="adder">
-		<header>
-			What I'm reading now <span>›</span>
-		</header>
-		<ReadingItem />
-	</article>
-</>
-)}
+		<>
+			<article className="adder">
+				<Link to="/reading">
+					<header>
+						What I'm reading now <span>›</span>
+					</header>
+					<ReadingItem />
+				</Link>
+			</article>
+		</>
+	)
+}

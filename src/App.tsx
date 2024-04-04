@@ -39,7 +39,6 @@ const App = () => {
 					<NavWrapper />
 				</header>
 				<main id="main">
-					{userMyBooks}
 					<Routes>
 						<Route path="/" element={<UserLoginPage />} errorElement={<ErrorAccountNotFound />} />
 						<Route
