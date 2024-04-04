@@ -24,9 +24,13 @@ const App = () => {
 	if (localStorage.getItem(localStorageKey)) userIsLoggedInInitval = true
 	else userIsLoggedInInitval = false
 
+	let userMyBooksInitval: string
+	if (localStorage.getItem('MyBooks')) userMyBooksInitval = localStorage.getItem('MyBooks')
+	else userMyBooksInitval = '[]'
+
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
-	const [userMyBooks, setUserMyBooks] = useState<string>('')
+	const [userMyBooks, setUserMyBooks] = useState<string>(userMyBooksInitval)
 	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitval)
 
 	return (
