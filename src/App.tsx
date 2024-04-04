@@ -15,18 +15,19 @@ import ClearMyBooks from './routes/books/ClearMyBooks'
 import UserLoginPage from './routes/account/UserLoginPage'
 import WishlistPage from './routes/books/WishlistPage'
 import ReadingPage from './routes/books/ReadingPage'
+import RootPage from './routes/RootPage'
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
 const App = () => {
-	useEffect(() => {
-		if (localStorage.getItem(localStorageKey)) setUserIsLoggedIn(true)
-		else setUserIsLoggedIn(false)
-	}, [])
+	let userIsLoggedInInitval: boolean
+	if (localStorage.getItem(localStorageKey)) userIsLoggedInInitval = true
+	else userIsLoggedInInitval = false
+
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
 	const [userMyBooks, setUserMyBooks] = useState<string>('')
-	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false)
+	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitval)
 
 	return (
 		<>
@@ -38,7 +39,7 @@ const App = () => {
 				</header>
 				<main id="main">
 					<Routes>
-						<Route path="/" element={<UserLoginPage />} errorElement={<ErrorAccountNotFound />} />
+						<Route path="/" element={<RootPage loggedin={userIsLoggedIn} />} errorElement={<ErrorAccountNotFound />} />
 						<Route
 							path="/account/login"
 							element={<UserLoginPage />}
