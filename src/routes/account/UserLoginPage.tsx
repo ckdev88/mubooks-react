@@ -4,7 +4,6 @@ import SignupCard from '../../components/account/SignupCard'
 import RecoverCard from '../../components/account/RecoverCard'
 import setDraaideurHeight from '../../hooks/setDraaideurHeight'
 
-
 export default function UserLoginPage() {
 	useEffect(() => { setDraaideurHeight() }, [])
 	// TODO: proper redirect if already logged in, probably has to be done in routes or app

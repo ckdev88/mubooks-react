@@ -20,15 +20,13 @@ export const AppContext = createContext<AppContextType>({} as AppContextType)
 
 const App = () => {
 	useEffect(() => {
-	if (localStorage.getItem(localStorageKey)) setUserIsLoggedIn(true)
+		if (localStorage.getItem(localStorageKey)) setUserIsLoggedIn(true)
 		else setUserIsLoggedIn(false)
-
 	}, [])
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
 	const [userMyBooks, setUserMyBooks] = useState<string>('')
 	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false)
-
 
 	return (
 		<>
