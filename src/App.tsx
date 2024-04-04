@@ -10,7 +10,6 @@ import UserLogoutPage from './routes/account/UserLogoutPage'
 import DashboardPage from './routes/account/DashboardPage'
 import SearchPage from './routes/books/SearchPage'
 import SavedBooksPage from './routes/books/SavedBooksPage'
-import { useNavigate } from 'react-router-dom'
 import { localStorageKey } from '../utils/supabase'
 import ClearMyBooks from './routes/books/ClearMyBooks'
 import UserLoginPage from './routes/account/UserLoginPage'
@@ -20,15 +19,16 @@ import ReadingPage from './routes/books/ReadingPage'
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
 const App = () => {
-	const navigate = useNavigate()
 	useEffect(() => {
-		if (localStorage.getItem(localStorageKey) === null) navigate('/account/login')
-		else setUserIsLoggedIn(true)
+	if (localStorage.getItem(localStorageKey)) setUserIsLoggedIn(true)
+		else setUserIsLoggedIn(false)
+
 	}, [])
 	const [username, setUsername] = useState<string>('')
 	const [usermail, setUsermail] = useState<string>('')
 	const [userMyBooks, setUserMyBooks] = useState<string>('')
 	const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false)
+
 
 	return (
 		<>

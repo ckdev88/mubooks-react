@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import useCardRotate from '../../hooks/useCardRotate'
 import UserLogin from '../../stores/UserLogin'
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { AppContext } from '../../App'
 
 const LoginCard = () => {
 	const navigate = useNavigate()
-	const { setUsername, setUserMyBooks, userMyBooks } = useContext(AppContext)
+	const { setUsername, setUserMyBooks, setUserIsLoggedIn } = useContext(AppContext)
 
 	async function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
@@ -17,12 +17,13 @@ const LoginCard = () => {
 		}
 		const login = await UserLogin(user as User)
 		if (login?.data) {
+			setUserIsLoggedIn(true)
 			setUsername(login?.data.user?.user_metadata.screenname)
 			localStorage.setItem('MyBooks', login?.data.user?.user_metadata.MyBooks)
 			setUserMyBooks(localStorage.getItem('MyBooks'))
 			setTimeout(() => {
 				navigate('/dashboard')
-			}, 800)
+			}, 600)
 		}
 	}
 

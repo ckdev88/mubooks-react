@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { Link  } from 'react-router-dom'
 import QuoteCard from '../../components/QuoteCard'
 import Reading from '../../components/dashboard/Reading'
 import Saved from '../../components/dashboard/Saved'
@@ -11,11 +11,7 @@ import Explore from '../../components/dashboard/Explore'
 import { AppContext } from '../../App'
 
 const DashboardPage = () => {
-	const { username, userIsLoggedIn } = useContext(AppContext)
-	const navigate = useNavigate()
-	useEffect(() => {
-		if (userIsLoggedIn === false) navigate('/account/login')
-	}, [])
+	const { username } = useContext(AppContext)
 
 	return (
 		<>
