@@ -22,7 +22,7 @@ const AddBookToSaved = (book: Book) => {
 		language: book.language,
 		pages: book.pages,
 		saved: true,
-		wishlist: true,
+		wishlist: book.wishlist,
 		title: book.title,
 		title_short: book.title_short,
 	})

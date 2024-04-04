@@ -9,7 +9,7 @@ export default function UserLogoutPage() {
 		// TODO: for now we assume there are no errors... this will need to change
 		setTimeout(() => {
 			navigate('/account/login')
-		}, 1000)
+		}, 800)
 	}
 	useEffect(() => { processLogout() }, [])
 

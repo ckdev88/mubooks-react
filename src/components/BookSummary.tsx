@@ -13,6 +13,8 @@ const BookSummary = ({ book }: BookObject) => {
 					<img src={book.cover} alt="" />
 				</aside>
 				<div className="in-short">
+					{book.saved?'saved':'not saved'}<br/>
+					{book.wishlist?'wishlist':'not wishlist?'}
 					<h2>
 						{book.title_short}
 						<sub>{BookAuthorList(book)}</sub>
