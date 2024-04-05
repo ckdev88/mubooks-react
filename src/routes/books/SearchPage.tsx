@@ -48,8 +48,7 @@ const SearchPage = () => {
 					booksToAdd[i].title_short = boeken[i].title.slice(0, 35)
 					booksToAdd[count].title_short += '...'
 				} else booksToAdd[count].title_short = boeken[i].title
-				if (boeken[i].image !== 'null') booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
-				if (booksToAdd[count].cover === 'https://images.isbndb.com/covers') booksToAdd[count].cover = ''
+				if (boeken[i].image !== null) booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
 
 				count++
 			}
@@ -70,8 +69,7 @@ const SearchPage = () => {
 					booksToAdd[count].title_short = boeken[i].title.slice(0, 35)
 					booksToAdd[count].title_short += '...'
 				} else booksToAdd[count].title_short = boeken[i].title
-				if (boeken[i].image !== null)
-					booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
+				if (boeken[i].image !== null) booksToAdd[count].cover = 'https://images.isbndb.com/covers' + boeken[i].image
 
 				count++
 			}

@@ -18,7 +18,7 @@ const AddBookToSaved = (book: Book) => {
 		authors: book.authors,
 		cover: book.cover,
 		date_published: book.date_published,
-		image: 'https://images.isbndb.com/covers' + book.image,
+		image: book.image,
 		language: book.language,
 		pages: book.pages,
 		saved: true,

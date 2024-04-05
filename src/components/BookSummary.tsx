@@ -12,7 +12,7 @@ const BookSummary = ({ book }: BookObject) => {
 		<article className="book-summary" key={book.id}>
 			<header>
 				<aside className="cover">
-					<img src={book.cover} alt="" />
+					<img src={book.cover !== undefined ? book.cover : 'img/coverless.png'} alt="" />
 				</aside>
 				<div className="in-short">
 					<h2>
