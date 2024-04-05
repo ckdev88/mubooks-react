@@ -4,7 +4,7 @@ echo 'Commit message:'
 read MSG
 git commit -m "$MSG" &&  
 git push &&
-yarn build --base=/mubooks/ && 
+bun run build --base=/mubooks/ && 
 cd dist && 
 cp . ~/Coding/ckdev88/ckdev88.github.io/mubooks -r && 
 cd ~/Coding/ckdev88/ckdev88.github.io/mubooks && 

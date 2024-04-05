@@ -28,6 +28,7 @@ const useAuthStore = () => {
 		getUserSession()
 	})
 	console.log('laatste:', getUserAuth())
+	console.log(sssa)
 
 	// const user: string = 'jan'
 	return { user, isLoggedIn }
