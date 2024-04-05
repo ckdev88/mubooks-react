@@ -1,15 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import useCardRotate from '../../hooks/useCardRotate'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AppContext } from '../../App'
 import { supabase } from '../../../utils/supabase'
 
 export default function MyAccountCard() {
 	const { change } = useCardRotate()
-	const navigate = useNavigate()
-	const { username, usermail } = useContext(AppContext)
-	const [sbUsermail, setSbUsermail] = useState(usermail)
-	const [sbUsername, setSbUsername] = useState(username)
+	const { username, usermail, setUsermail, setUsername } = useContext(AppContext)
 
 	useEffect(() => {
 		userdata()
@@ -18,11 +15,10 @@ export default function MyAccountCard() {
 	const userdata = async () => {
 		const { data, error } = await supabase.auth.getUser()
 		if (error) {
-			console.log('error updating userdata',error)
-			// navigate('/account/login')
+			console.log('error updating userdata', error)
 		} else {
-			setSbUsermail(data.user.email)
-			setSbUsername(data.user.user_metadata?.screenname)
+			if (data.user.email) setUsermail(data.user.email)
+			setUsername(data.user.user_metadata?.screenname)
 		}
 	}
 
@@ -34,7 +30,7 @@ export default function MyAccountCard() {
 					<dt>Screen name</dt>
 					<dd>{username}</dd>
 					<dt>Email address</dt>
-					<dd>{sbUsermail}</dd>
+					<dd>{usermail}</dd>
 					<dt>Password</dt>
 					<dd>******</dd>
 				</dl>

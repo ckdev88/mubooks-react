@@ -1,10 +1,9 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import bookData from '../../../data/books.json'
 import BooksOverviewPage from './BooksOverviewPage'
-import { AppContext } from '../../App'
 
 const SearchPage = () => {
-	const boeken: Books = bookData
+	const boeken: BookData = bookData as BookData
 	const searchForm = useRef(null)
 
 	const [resultsWarning, setResultsWarning] = useState<string>('')
@@ -15,8 +14,8 @@ const SearchPage = () => {
 
 	function refreshResults(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		const formData: HTMLFormElement = new FormData(searchForm.current)
-		const searchTermInput: string | undefined = formData.get('search_term')?.toString().trim()
+
+		const searchTermInput: string | undefined = event.currentTarget.search_term.value.trim()
 
 		if (searchTermInput !== undefined) {
 			if (searchTermInput.length < 4) {
@@ -27,7 +26,7 @@ const SearchPage = () => {
 				setResultsWarning('')
 			}
 		}
-		getResults(searchTermInput)
+		if (searchTermInput) getResults(searchTermInput)
 	}
 
 	// const totalBooks = boeken.reduce((a, obj) => a + Object.keys(obj).length, 0)
@@ -37,7 +36,7 @@ const SearchPage = () => {
 
 	function getResults(searchTermInput: string) {
 		let count = 0
-		let booksToAdd = []
+		let booksToAdd: any = [] // the only any... TODO: lets not have any any
 		for (let i = 0; i < boeken.length; i++) {
 			if (searchTermInput === boeken[i].title.toLowerCase()) {
 				// TODO: marker isSaved to highlight saved books in results
@@ -77,6 +76,7 @@ const SearchPage = () => {
 		if (count > 30) setResultsMessage('Showing only 30 results. Specify a bit more.')
 		else if (count === 0) setResultsMessage('Loosen up your search a bit.')
 		else setResultsMessage('')
+		// if(booksToAdd)
 		setResults(booksToAdd)
 		setResultCount(count)
 	}

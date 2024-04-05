@@ -63,7 +63,7 @@ const NavWrapper = () => {
 			<nav
 				id="nav0"
 				className={nav0Expanded ? 'expanded nav-collapsable' : 'collapsed nav-collapsable'}
-				aria-expanded={nav0Expanded ? 'expanded' : 'collapsed'}
+				aria-expanded={nav0Expanded ? 'true' : 'false'}
 			>
 				<ul>
 					<li>
@@ -83,7 +83,7 @@ const NavWrapper = () => {
 			<nav
 				id="nav1"
 				className={nav1Expanded ? 'expanded nav-collapsable' : 'collapsed nav-collapsable'}
-				aria-expanded={nav1Expanded ? 'expanded' : 'collapsed'}
+				aria-expanded={nav1Expanded ? 'true' : 'false'}
 			>
 				<ul>
 					<li>

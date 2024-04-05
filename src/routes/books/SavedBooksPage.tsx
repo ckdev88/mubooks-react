@@ -8,7 +8,7 @@ export default function SavedBooksPage() {
 	if (localStorage.getItem('MyBooks') === 'undefined') {
 		savedbooks = []
 	}
-	else savedbooks = JSON.parse(localStorage.getItem('MyBooks'))
+	else savedbooks = JSON.parse(localStorage.getItem('MyBooks') as string)
 
 	return (
 		<>

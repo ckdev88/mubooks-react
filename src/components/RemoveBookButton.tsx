@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { AppContext } from '../App'
 
 const RemoveBookFromSaved = (id: number) => {
-	let myBooks = JSON.parse(localStorage.getItem('MyBooks'))
+	let myBooks = JSON.parse(localStorage.getItem('MyBooks') as string)
 	myBooks = myBooks.filter((presentbook: Book) => presentbook.id !== id)
 	const myBooksNew: string = JSON.stringify(myBooks)
 	UpdateMyBooks(myBooksNew) // update localstorage, database, state with saved booklist

@@ -1,8 +1,6 @@
 import useCardRotate from '../../hooks/useCardRotate'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
-
-// const navigate = useNavigate()
 
 const RecoverCard = () => {
 	const navigate = useNavigate()

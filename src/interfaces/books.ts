@@ -7,8 +7,6 @@ interface AppContextType {
 	setUserMyBooks(userMyBooks: string): void
 	userIsLoggedIn: boolean
 	setUserIsLoggedIn(userIsLoggedIn: boolean): void
-	userTest: string
-	setUserTest(userTest: string): void
 }
 type User = {
 	email: string
@@ -34,7 +32,6 @@ type BookData = [
 		cover?: string
 	},
 ]
-
 interface Book {
 	index?: number
 	id: number
@@ -52,6 +49,7 @@ interface Book {
 }
 type Results = [Book]
 interface Books extends Array<Book> { }
+
 interface BookObject {
 	book: Book
 }

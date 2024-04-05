@@ -1,13 +1,11 @@
 import useCardRotate from '../../hooks/useCardRotate'
 import { supabase } from '../../../utils/supabase'
-import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../../App'
 import { useEffect, useState, useContext } from 'react'
 
 export default function MyAccountEditCard() {
 	const { see } = useCardRotate()
-	const navigate = useNavigate()
-	const { username, setUsername, usermail, setUsermail, userIsLoggedIn } = useContext(AppContext)
+	const { username, setUsername, usermail, setUsermail } = useContext(AppContext)
 	const [sbUsermail, setSbUsermail] = useState<string>(usermail)
 	const [sbUsername, setSbUsername] = useState<string>(username)
 
@@ -18,10 +16,9 @@ export default function MyAccountEditCard() {
 	const userdata = async () => {
 		const { data, error } = await supabase.auth.getUser()
 		if (error) {
-			console.log('error updating userdata',error)
-			// navigate('/account/login')
+			console.log('error updating userdata', error)
 		} else {
-			setSbUsermail(data.user.email)
+			if (data.user.email) setSbUsermail(data.user.email)
 			setSbUsername(data.user.user_metadata?.screenname)
 		}
 	}
@@ -35,7 +32,7 @@ export default function MyAccountEditCard() {
 	async function updateUser(form_username: string, form_usermail: string, form_userpass: string) {
 		if (form_userpass !== '') {
 			// TODO: ugly conditional, make nice
-			const { data, error } = await supabase.auth.updateUser({
+			const { error } = await supabase.auth.updateUser({
 				email: form_usermail,
 				password: form_userpass,
 				data: { screenname: form_username },
@@ -43,7 +40,7 @@ export default function MyAccountEditCard() {
 			// TODO: use error to show to user
 			if (!error) afterUpdateSb(form_username, form_usermail)
 		} else {
-			const { data, error } = await supabase.auth.updateUser({
+			const { error } = await supabase.auth.updateUser({
 				email: form_usermail,
 				data: { screenname: form_username },
 			})
@@ -54,12 +51,9 @@ export default function MyAccountEditCard() {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
-		const formInput = e.target as HTMLInputElement
-
-		const form_username: string = formInput.account_screenname.value.trim()
-		const form_usermail: string = formInput.account_email.value.trim()
-		const form_userpass: string = formInput.account_password.value.trim()
-
+		const form_username: string = e.currentTarget.account_screenname.value.trim()
+		const form_usermail: string = e.currentTarget.account_email.value.trim()
+		const form_userpass: string = e.currentTarget.account_password.value.trim()
 		updateUser(form_username, form_usermail, form_userpass)
 	}
 

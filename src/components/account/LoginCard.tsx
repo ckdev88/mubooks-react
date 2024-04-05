@@ -10,17 +10,16 @@ const LoginCard = () => {
 
 	async function processLoginForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
-		const formInput: LoginFormInput = event.target
 		const user: User = {
-			email: formInput.loginemail.value,
-			password: formInput.loginpassword.value,
+			email: event.currentTarget.loginemail.value,
+			password: event.currentTarget.loginpassword.value,
 		}
 		const login = await UserLogin(user as User)
 		if (login?.data) {
 			setUserIsLoggedIn(true)
 			setUsername(login?.data.user?.user_metadata.screenname)
 			localStorage.setItem('MyBooks', login?.data.user?.user_metadata.MyBooks)
-			setUserMyBooks(localStorage.getItem('MyBooks'))
+			setUserMyBooks(localStorage.getItem('MyBooks') as string)
 			setTimeout(() => {
 				navigate('/dashboard')
 			}, 600)

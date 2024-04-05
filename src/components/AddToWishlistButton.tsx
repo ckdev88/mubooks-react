@@ -7,7 +7,7 @@ const AddBookToWishlist = (id: number) => {
 	let myBooks: Books
 	if (localStorage.getItem('MyBooks') === 'undefined') {
 		myBooks = []
-	} else myBooks = JSON.parse(localStorage.getItem('MyBooks'))
+	} else myBooks = JSON.parse(localStorage.getItem('MyBooks') as string)
 
 	for (let i = 0; i < myBooks.length; i++) {
 		if (myBooks[i].id === id) myBooks[i].wishlist = !myBooks[i].wishlist

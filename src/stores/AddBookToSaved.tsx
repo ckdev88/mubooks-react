@@ -4,7 +4,7 @@ export default function AddBookToSaved(book: Book) {
 	if (book.title.length > 35) {
 		book.title_short = book.title.slice(0, 35) + '...'
 	} else book.title_short = book.title
-	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks'))
+	let myBooks: Books = JSON.parse(localStorage.getItem('MyBooks') as string)
 	if (myBooks !== null && myBooks.filter((presentbook) => presentbook.id === book.id).length > 0) return // keep unique
 
 	if (myBooks === null) myBooks = []
@@ -22,7 +22,6 @@ export default function AddBookToSaved(book: Book) {
 		title_short: book.title_short,
 	})
 
-	// update localstorage, database, TODO: state with saved booklist
-	UpdateMyBooks(myBooks)
+	UpdateMyBooks(JSON.stringify(myBooks))
 }
 

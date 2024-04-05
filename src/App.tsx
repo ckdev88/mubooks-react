@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import NavWrapper from './components/NavWrapper'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 import ErrorAccountNotFound from './routes/account/ErrorAccountNotFound'
 import Error404 from './routes/error404'
 import CheckMailPasswordPage from './routes/account/CheckMailPasswordPage'
@@ -25,7 +25,7 @@ const App = () => {
 	else userIsLoggedInInitval = false
 
 	let userMyBooksInitval: string
-	if (localStorage.getItem('MyBooks')) userMyBooksInitval = localStorage.getItem('MyBooks')
+	if (localStorage.getItem('MyBooks')) userMyBooksInitval = localStorage.getItem('MyBooks') as string
 	else userMyBooksInitval = '[]'
 
 	const [username, setUsername] = useState<string>('')
