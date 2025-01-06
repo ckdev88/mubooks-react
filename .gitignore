@@ -30,4 +30,4 @@ ideas
 todos.md
 protected
 PHPMailer-*
-.env
+*.env
