@@ -56,7 +56,7 @@ const App = () => {
 	const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
 
 	// Settings
-	const settingsHeadingIconsEnabled = false
+	const settingsHeadingIconsEnabled = false // OPTIMIZE where this is used as true, needs some work
 	const settingsSynopsisEnabled = false
 
 	/* NOTE

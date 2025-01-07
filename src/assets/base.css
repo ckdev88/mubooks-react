@@ -94,12 +94,19 @@ img {
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
 #main,
 #header {
-	padding: 0.25rem 0.5rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 	box-sizing: border-box;
+}
+#header {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
 }
 
 .loggedin #main {
