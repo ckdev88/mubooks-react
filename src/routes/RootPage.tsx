@@ -65,7 +65,8 @@ const RootPage = () => {
 		} else {
 			if (userIsLoggedIn) setUserIsLoggedIn(true)
 			setTimeout(() => {
-				if (getUrlParamVal(url, 'type') === 'recover') { // TODO cleanup: is this ever used? recover / recovery
+				if (getUrlParamVal(url, 'type') === 'recover') {
+					// TODO cleanup: is this ever used? recover / recovery
 					navigateTo = '/auth/resetpassword'
 				}
 			}, 1500)
