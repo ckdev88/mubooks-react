@@ -53,7 +53,9 @@ const NavWrapper = () => {
 					<button
 						id="toggleNavBurger"
 						className={nav0Expanded ? 'expanded' : 'collapsed'}
-						onClick={toggleNav0}
+						onClick={() => {
+							toggleNav0()
+						}}
 					>
 						<div className="burger">
 							<div className="burgerbar bar1"></div>

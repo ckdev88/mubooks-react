@@ -6,6 +6,7 @@ import { AppContext } from '../../App'
 import updateEntriesDb from '../../functions/updateEntriesDb'
 import { cleanAnchor, cleanInput } from '../../helpers/cleanInput'
 import Heading from '../../components/ui/Heading'
+import { motion } from 'motion/react'
 
 const pageTitle: string = 'Add a book'
 
@@ -195,7 +196,12 @@ const AddBookPage = () => {
 	}
 
 	return (
-		<>
+		<motion.div
+			initial={{ opacity: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 1 }}
+			animate={{ opacity: 1, transition: { duration: 2 } }}
+		>
 			<Heading text={pageTitle} sub="See your preview below" icon="icon-addbook.svg" />
 			<form onSubmit={processAbForm}>
 				<fieldset style={{ display: 'flex', flexDirection: 'column' }}>
@@ -373,7 +379,7 @@ const AddBookPage = () => {
 					</header>
 				</div>
 			</article>
-		</>
+		</motion.div>
 	)
 }
 export default AddBookPage

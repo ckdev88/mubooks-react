@@ -2,6 +2,7 @@ import QuoteCard from '../../components/QuoteCard'
 // import { localStorageKey } from '../../../utils/supabase'
 // import { useNavigate } from 'react-router-dom'
 import DashboardDeck from '../../components/dashboard/DashboardDeck'
+import { motion } from 'motion/react'
 
 export default function DashboardPage() {
 	// const navigate = useNavigate()
@@ -13,7 +14,12 @@ export default function DashboardPage() {
 	// }, [navigate])
 
 	return (
-		<>
+		<motion.div
+			initial={{ opacity: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 1 }}
+			animate={{ opacity: 1, transition: { duration: 2 } }}
+		>
 			<QuoteCard />
 			<DashboardDeck
 				page="reading"
@@ -40,7 +46,7 @@ export default function DashboardPage() {
 				noBooksText="Let&lsquo;s start saving books."
 				icon="savedbooks.svg"
 			/>
-		</>
+		</motion.div>
 	)
 }
 /* <Tropes /> <Stats />  */

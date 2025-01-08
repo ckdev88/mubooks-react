@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { useContext } from 'react'
 import { AppContext } from '../../App'
 
-// OPTIMIZE themes_icons: apply smart way of determining light or dark icon based on current theme, currently turned off via settingsHeadingIconsEnabled=false
+// OPTIMIZE themes_icons: apply smart way of determining light or dark icon based on current theme, currently turned off via GLOBALS.headingIconsEnabled=false
 const Heading = ({
 	el = 'h1',
 	text,
@@ -16,8 +16,8 @@ const Heading = ({
 	sub?: ReactNode
 	span?: ReactNode
 }) => {
-	const { settingsHeadingIconsEnabled } = useContext(AppContext)
-	if (settingsHeadingIconsEnabled && icon) {
+	const { GLOBALS } = useContext(AppContext)
+	if (GLOBALS.headingIconsEnabled && icon) {
 		return (
 			<div className={el + ' ' + `${el}-with-icon`}>
 				<div>

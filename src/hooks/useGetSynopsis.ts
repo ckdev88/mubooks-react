@@ -6,11 +6,11 @@ const useGetSynopsis = (
 	synopsisPages: string[],
 	currentPage: string
 ): string => {
-	const { settingsSynopsisEnabled } = useContext(AppContext)
+	const { GLOBALS } = useContext(AppContext)
 	const [synopsis, setSynopsis] = useState<string>('')
 
 	useEffect(() => {
-		if (!settingsSynopsisEnabled) return
+		if (!GLOBALS.synopsisEnabled) return
 
 		const fetchSynopsis = async (book_id: string): Promise<void> => {
 			if (book_id.slice(0, 2) !== 'OL') return

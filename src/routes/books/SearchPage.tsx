@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import BooksOverviewPage from './BooksOverviewPage'
 import { getOlCover } from '../../Helpers'
 import Heading from '../../components/ui/Heading'
+import { motion } from 'motion/react'
 
 const pageTitle = 'Search'
 const currentPage = 'search'
@@ -29,7 +30,10 @@ const SearchPage = () => {
 			const searchfields: string =
 				'title,author_name,isbn,cover_edition_key,author_key,edition_key,key,first_publish_year,number_of_pages_median,subject'
 			await fetch(
-				'https://openlibrary.org/search.json?q=' + search_term + '&mode=everything&limit=30&fields=' + searchfields
+				'https://openlibrary.org/search.json?q=' +
+					search_term +
+					'&mode=everything&limit=30&fields=' +
+					searchfields
 			)
 				.then((response) => response.json())
 				.then((json) =>
@@ -63,28 +67,39 @@ const SearchPage = () => {
 		else setResultsMessage('keep typing...')
 		// console.log('search performed in:', performance.now() - before)
 	}
+
 	return (
 		<>
-			<Heading text={pageTitle} sub="Find the book you want to add" />
-			<form onSubmit={processSearchForm}>
-				<label htmlFor="search_term">
-					<div className="description">Term or title</div>
-					<input type="text" id="search_term" />
-				</label>
-				<button className="btn-lg" disabled={loading}>
-					Search {loading && <span className="loader-dots"></span>}
-				</button>
-			</form>
-			<div>
-				<div className={searchTerm !== '' || resultsMessage !== '' ? 'dblock' : 'dnone'}>
-					<div className="h2 resultsfound">
-						{resultCount > 30 ? 'Over 30' : resultCount}
-						{resultCount > 1 || resultCount === 0 ? ' books' : ' book'} found for <em>"{searchTerm}"</em>
-						<sub className={resultsMessage !== '' ? 'dblock' : 'dnone'}>{resultsMessage}</sub>
+			<motion.div
+				initial={{ opacity: 0 }}
+				exit={{ opacity: 0 }}
+				transition={{ duration: 1 }}
+				animate={{ opacity: 1, transition: { duration: 2 } }}
+			>
+				<div>
+					<Heading text={pageTitle} sub="Find the book you want to add" />
+					<form onSubmit={processSearchForm}>
+						<label htmlFor="search_term">
+							<div className="description">Term or title</div>
+							<input type="text" id="search_term" />
+						</label>
+						<button className="btn-lg" disabled={loading}>
+							Search {loading && <span className="loader-dots"></span>}
+						</button>
+					</form>
+					<div>
+						<div className={searchTerm !== '' || resultsMessage !== '' ? 'dblock' : 'dnone'}>
+							<div className="h2 resultsfound">
+								{resultCount > 30 ? 'Over 30' : resultCount}
+								{resultCount > 1 || resultCount === 0 ? ' books' : ' book'} found for{' '}
+								<em>"{searchTerm}"</em>
+								<sub className={resultsMessage !== '' ? 'dblock' : 'dnone'}>{resultsMessage}</sub>
+							</div>
+							<BooksOverviewPage books={searchResults} page={currentPage} booklist={booklist} />
+						</div>
 					</div>
-					<BooksOverviewPage books={searchResults} page={currentPage} booklist={booklist} />
 				</div>
-			</div>
+			</motion.div>
 		</>
 	)
 }

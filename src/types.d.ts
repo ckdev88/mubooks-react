@@ -1,3 +1,10 @@
+interface GlobalSettings {
+	headingIconsEnabled: boolean
+	synopsisEnabled: boolean
+	pageAnimationDelay: number
+	pageAnimationDuration: number
+}
+
 interface AppContextType {
 	username: string
 	setUsername(username: username): void
@@ -18,8 +25,9 @@ interface AppContextType {
 	darkTheme: undefined | boolean
 	setDarkTheme(darkTheme: darkTheme): void
 	bodyBgColor: string
-	settingsHeadingIconsEnabled: boolean
-	settingsSynopsisEnabled: boolean
+	pageName: string
+	setPageName(pageName: pageName): void
+	GLOBALS: GlobalSettings
 }
 
 interface IsModdingPagesContextType {

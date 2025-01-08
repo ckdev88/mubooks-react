@@ -3,18 +3,24 @@ import BooksOverviewPage from './BooksOverviewPage'
 import { AppContext } from '../../App'
 import { Link } from 'react-router-dom'
 import Heading from '../../components/ui/Heading'
+import { motion } from 'motion/react'
 
 const pageTitle = 'Mu Wishlist'
 const currentPage = 'wishlist'
 const booklist = 1
 
 const WishlistPage = () => {
-	const { userMyBooks } = useContext(AppContext)
+	const { userMyBooks, GLOBALS } = useContext(AppContext)
 	let hasbooks = false
 	if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true // OPTIMIZE: this is a bit meh
 
 	return (
-		<>
+		<motion.div
+			initial={{ opacity: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: GLOBALS.pageAnimationDuration, delay: GLOBALS.pageAnimationDelay }}
+			animate={{ opacity: 1 }}
+		>
 			<Heading text={pageTitle} icon={'icon-wishlist.svg'} sub="All the books I will read soon" />
 			{!hasbooks && (
 				<>
@@ -31,7 +37,7 @@ const WishlistPage = () => {
 				</>
 			)}
 			<BooksOverviewPage page={currentPage} booklist={booklist} />
-		</>
+		</motion.div>
 	)
 }
 export default WishlistPage

@@ -62,8 +62,12 @@ const App = () => {
 	const [pageName, setPageName] = useState<string>('default')
 
 	// Settings
-	const settingsHeadingIconsEnabled = false // OPTIMIZE where this is used as true, needs some work
-	const settingsSynopsisEnabled = false
+	const GLOBALS: GlobalSettings = {
+		headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
+		synopsisEnabled: false,
+		pageAnimationDelay: 0.28,
+		pageAnimationDuration: 0.4,
+	}
 
 	/* NOTE
 	 * 3 kinds of settings?
@@ -163,8 +167,9 @@ const App = () => {
 				setDarkTheme,
 				darkTheme,
 				bodyBgColor,
-				settingsHeadingIconsEnabled,
-				settingsSynopsisEnabled,
+				pageName,
+				setPageName,
+				GLOBALS,
 			}}
 		>
 			<div id="top" style={{ position: 'absolute' }}></div>
@@ -173,7 +178,7 @@ const App = () => {
 					<NavWrapper />
 				</header>
 			)}
-			<main id="main" className="main">
+			<main id="main" className={pageName + ' main'}>
 				<PopupNotification />
 				<Routes>
 					<Route path="/*" element={<RootPage />} />

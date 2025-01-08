@@ -3,6 +3,7 @@ import BooksOverviewPage from './BooksOverviewPage'
 import { useContext } from 'react'
 import { AppContext } from '../../App'
 import Heading from '../../components/ui/Heading'
+import { motion } from 'motion/react'
 
 const pageTitle = 'Mu Quotes'
 const currentPage = 'quoted'
@@ -20,7 +21,12 @@ const QuotedPage = () => {
 	} else quotedbooks = []
 
 	return (
-		<>
+		<motion.div
+			initial={{ opacity: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 1 }}
+			animate={{ opacity: 1, transition: { duration: 2 } }}
+		>
 			<Heading
 				text={pageTitle}
 				icon={'icon-quoted.svg'}
@@ -35,7 +41,7 @@ const QuotedPage = () => {
 				</p>
 			</div>
 			<BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
-		</>
+		</motion.div>
 	)
 }
 export default QuotedPage

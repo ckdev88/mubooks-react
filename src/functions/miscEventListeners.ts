@@ -5,9 +5,7 @@ if (location.hostname === 'localhost') {
 			if (location.pathname !== '/mubooks') location.pathname = '/mubooks'
 			if (location.hash.split('/').pop() !== 'search') location.hash = '#/search'
 		}
-		if (keyboardEvent.key === 'j') window.scrollBy(0, 64)
-		else if (keyboardEvent.key === 'k') window.scrollBy(0, -64)
-		else if (keyboardEvent.key === '/') {
+		if (keyboardEvent.key === '/') {
 			keyboardEvent.preventDefault()
 			document.getElementById('search_term')?.setAttribute('value', 'calvin')
 			document.getElementById('search_term')?.focus()
