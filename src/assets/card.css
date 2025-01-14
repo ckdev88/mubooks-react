@@ -38,6 +38,10 @@
 	align-content: space-between;
 	flex-wrap: wrap;
 }
+.cards-draaideur,
+.cards-draaideur .card {
+	border-radius: 0.4rem;
+}
 .cards-draaideur .card main,
 .cards-draaideur .card footer {
 	width: 100%;
