@@ -134,7 +134,7 @@ label .description {
 	margin-left: 0.5em;
 	padding: 0.2em 0.5em;
 	background-color: white;
-	border-radius: 0.2rem;
+	border-radius: 0.3rem;
 	font-size: var(--smallerfontrem);
 	color: var(--gray);
 	transition: 0.18s font-weight ease-in-out, 0.18s background-color ease-in-out, 0.18s color ease-in-out,

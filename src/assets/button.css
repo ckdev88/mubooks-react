@@ -36,7 +36,7 @@ textarea,
 	padding: calc(0.75rem + 1px);
 	border-width: 1px;
 	border-style: solid;
-	border-radius: 0.2rem;
+	border-radius: 0.4rem;
 	margin-bottom: 0.75rem;
 	border-color: var(--primary);
 	transition: 0.18s border-color linear, 0.18s box-shadow linear, 0.18s border linear, 0.18s color linear,
@@ -330,7 +330,7 @@ input[type='number'] + .btn-submit-inside-caret-right {
 .badge,
 .btn-sm {
 	font-size: var(--smallerfontrem);
-	border-radius: 0.2rem;
+	border-radius: 0.3rem;
 	position: relative;
 	height: 1.4rem;
 	line-height: 1.4rem;
