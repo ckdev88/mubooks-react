@@ -31,3 +31,5 @@ todos.md
 protected
 PHPMailer-*
 *.env
+
+*storybook.log
