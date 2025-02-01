@@ -45,8 +45,7 @@ const NavWrapper = () => {
 	const navTitle = titleMap.get(location.pathname.slice(1))
 	document.title = 'Mu: ' + navTitle
 
-	if (userIsLoggedIn === false) return <></>
-	return (
+	if(userIsLoggedIn === true) return (
 		<>
 			<div className={nav0Expanded ? 'anyexpanded' : 'allcollapsed'}>
 				<nav id="navIcons">
@@ -241,6 +240,7 @@ const NavWrapper = () => {
 			</div>
 		</>
 	)
+	return  <></>
 }
 /*
 Current layout:
