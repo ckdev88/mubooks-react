@@ -5,7 +5,6 @@ import HeaderBranding from '../../components/HeaderBranding'
 import getNavTitle from '../../functions/getNavTitle'
 
 const pageTitle = 'Check your mailbox'
-// const currentPage = 'favorites'
 document.title = 'Mu: ' + getNavTitle(location.pathname.slice(1))
 
 const CheckMailPasswordPage = () => {
@@ -22,7 +21,8 @@ const CheckMailPasswordPage = () => {
 				<HeaderBranding />
 				<div className="h1">{pageTitle}</div>
 				<p>
-					You should receive an email on <span className="bu">{recipientAddress}</span>&nbsp; 
+					You should receive an email on{' '}
+					<span className="bu">{recipientAddress}</span>&nbsp;
 					containing a link to reset your password, click it.
 				</p>
 			</>
@@ -33,7 +33,8 @@ const CheckMailPasswordPage = () => {
 				<HeaderBranding />
 				<div className="h1">Not so fast!</div>
 				<p>
-					You're already logged in, do you want to <Link to="/dashboard">return to your dashboard</Link> or see
+					You're already logged in, do you want to{' '}
+					<Link to="/dashboard">return to your dashboard</Link> or see
 					<Link to="/account/profile">your profile here</Link>?
 				</p>
 			</>
@@ -46,7 +47,10 @@ const CheckMailPasswordPage = () => {
 				<p>
 					Are you trying to reset your password or log in?
 					<br />
-					<Link to="/account/login">Click here to log in or join</Link>.
+					<Link to="/account/login">
+						Click here to log in or join
+					</Link>
+					.
 				</p>
 			</>
 		)
