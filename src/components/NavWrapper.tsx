@@ -3,25 +3,7 @@ import { AppContext } from '../App'
 import { useNavigate, NavLink } from 'react-router-dom'
 import updatePreferences from '../functions/updatePreferences'
 import { isLocal } from '../Helpers'
-
-const titleMap = new Map()
-titleMap.set('dashboard', 'Dashboard')
-titleMap.set('search', 'Search')
-titleMap.set('wishlist', 'Wishlist')
-titleMap.set('reading', 'Currently reading')
-titleMap.set('finished', 'Finished books')
-titleMap.set('favorites', 'Favorite books')
-titleMap.set('savedbooks', 'Saved books')
-titleMap.set('quoted', 'Favorite quotes')
-titleMap.set('tropes', 'Tropes')
-titleMap.set('statistics', 'Stats')
-titleMap.set('account/profile', 'Profile')
-titleMap.set('account/login', 'Log in')
-titleMap.set('account/logout', 'Log out')
-titleMap.set('auth/confirm', 'Account confirmed')
-titleMap.set('addbook', 'Add a book')
-titleMap.set('suggestions', 'Suggestions & bugs')
-if (isLocal()) titleMap.set('clear-my-books', 'CUIDADO! Clear books')
+import getNavTitle from '../functions/getNavTitle'
 
 const NavWrapper = () => {
 	const navigate = useNavigate()
@@ -42,7 +24,7 @@ const NavWrapper = () => {
 		}, 80)
 	}
 
-	const navTitle = titleMap.get(location.pathname.slice(1))
+	const navTitle: string = getNavTitle(location.pathname.slice(1))
 	document.title = 'Mu: ' + navTitle
 
 	if(userIsLoggedIn === true) return (
@@ -242,16 +224,4 @@ const NavWrapper = () => {
 	)
 	return  <></>
 }
-/*
-Current layout:
-dashboard -- add book
-reading -- statistics
-wishlist -- profile
-favorites -- Logout
-finished
-Saved
-quoted
-tropes
-clear my books
-*/
 export default NavWrapper
