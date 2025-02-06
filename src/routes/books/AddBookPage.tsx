@@ -7,6 +7,7 @@ import updateEntriesDb from '../../functions/updateEntriesDb'
 import { cleanAnchor, cleanInput } from '../../helpers/cleanInput'
 import Heading from '../../components/ui/Heading'
 import { motion } from 'motion/react'
+import BaseBadge from '../../components/ui/BaseBadge'
 
 const pageTitle: string = 'Add a book'
 
@@ -232,12 +233,7 @@ const AddBookPage = () => {
 					{bookAuthors.length > 0 && (
 						<div className="mb1 mt-05">
 							{bookAuthors.map((author, index) => (
-								<div className="badge" key={`removeauthor${index}`}>
-									{author}
-									<span className="btn-x" onClick={() => removeAuthor(author)}>
-										x
-									</span>
-								</div>
+								<BaseBadge key={`removeAuthor${index}`} text={author} removeText={removeAuthor} type='author' />
 							))}
 							<br />
 						</div>
@@ -338,12 +334,7 @@ const AddBookPage = () => {
 					{bookTropes.length > 0 && (
 						<div className="mb1 mt-05">
 							{bookTropes.map((trope, index) => (
-								<div className="badge" key={`removetrope${index}`}>
-									{trope}
-									<span className="btn-x" onClick={() => removeTrope(trope)}>
-										x
-									</span>
-								</div>
+								<BaseBadge key={`removetrope${index}`} text={trope} removeText={removeTrope} type='trope' />
 							))}
 							<br />
 						</div>
@@ -371,9 +362,7 @@ const AddBookPage = () => {
 						{numberOfPages > 0 && <>{numberOfPages} pages</>}
 						<div className="tropes">
 							{bookTropes.map((trope, index) => (
-								<div className="trope badge" key={'trope' + index}>
-									{trope}
-								</div>
+								<BaseBadge key={'trope' + index} text={trope} type='trope' />
 							))}
 						</div>
 					</header>
