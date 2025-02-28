@@ -1,4 +1,4 @@
-# Clone of Mubooks written with the following technologies:
+# Mubooks written with the following technologies:
 - Main library:			React 
 - Routing:				React router
 - Types:				TypeScript 
