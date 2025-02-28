@@ -39,8 +39,8 @@ const todaysDateDigit = Number(timestampConverter(Date.now(), 'digit'))
 const bgColorLight: string = '#f4f1ea'
 const bgColorDark: string = '#152129'
 
+let userIsLoggedInInitVal: boolean
 const App = () => {
-	let userIsLoggedInInitVal: boolean
 	if (localStorage.getItem(localStorageKey)) userIsLoggedInInitVal = true
 	else userIsLoggedInInitVal = false
 

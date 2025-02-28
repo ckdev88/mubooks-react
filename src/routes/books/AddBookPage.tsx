@@ -7,11 +7,13 @@ import updateEntriesDb from '../../functions/updateEntriesDb'
 import { cleanAnchor, cleanInput } from '../../helpers/cleanInput'
 import Heading from '../../components/ui/Heading'
 import { motion } from 'motion/react'
+import BaseBadge from '../../components/ui/BaseBadge'
 
 const pageTitle: string = 'Add a book'
 
 const AddBookPage = () => {
-	const { userMyBooks, setUserMyBooks, userid, setPopupNotification } = useContext(AppContext)
+	const { userMyBooks, setUserMyBooks, userid, setPopupNotification } =
+		useContext(AppContext)
 	const [coverImg, setCoverImg] = useState<string>('')
 
 	useEffect(() => {
@@ -20,22 +22,30 @@ const AddBookPage = () => {
 	}, [])
 
 	const [title, setTitle] = useState<Book['title']>('')
-	const [firstPublishYear, setFirstPublishYear] = useState<Book['first_publish_year']>('')
+	const [firstPublishYear, setFirstPublishYear] =
+		useState<Book['first_publish_year']>('')
 	const bookId: Book['id'] = 'MU' + new Date().getTime().toString()
-	const [numberOfPages, setNumberOfPages] = useState<Book['number_of_pages_median']>(0)
+	const [numberOfPages, setNumberOfPages] =
+		useState<Book['number_of_pages_median']>(0)
 	const [selectedImage, setSelectedImage] = useState<null | File>(null)
 	const [bookAuthors, setBookAuthors] = useState<string[]>([])
-	const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>([])
+	const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>(
+		[]
+	)
 	useEffect(() => {
 		setBookAuthorsLowercase(bookAuthors.map((t) => t.toLowerCase()))
 	}, [bookAuthors])
 	const [bookTropes, setBookTropes] = useState<BookTropes>([])
-	const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
+	const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>(
+		[]
+	)
 	useEffect(() => {
 		setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
 	}, [bookTropes])
 
-	const [selectedImageType, setSelectedImageType] = useState<undefined | 'url' | 'upload'>(undefined)
+	const [selectedImageType, setSelectedImageType] = useState<
+		undefined | 'url' | 'upload'
+	>(undefined)
 
 	function changeTitle(e: React.ChangeEvent<HTMLInputElement>) {
 		setTitle(e.currentTarget.value)
@@ -51,7 +61,9 @@ const AddBookPage = () => {
 		if (isUrl(url)) setCoverImg(e.currentTarget.value.trim())
 	}
 
-	function changeFirstPublishYear(e: React.ChangeEvent<HTMLInputElement>): void {
+	function changeFirstPublishYear(
+		e: React.ChangeEvent<HTMLInputElement>
+	): void {
 		setFirstPublishYear(e.currentTarget.value)
 	}
 	// /for the preview
@@ -140,18 +152,34 @@ const AddBookPage = () => {
 	}
 	const showCover = (
 		<div>
-			{coverImg !== '' && <img alt="" src={coverImg} className="cover shade" />}
-			{selectedImage !== null && <img alt="" src={URL.createObjectURL(selectedImage)} className="cover shade" />}
+			{coverImg !== '' && (
+				<img alt="" src={coverImg} className="cover shade" />
+			)}
+			{selectedImage !== null && (
+				<img
+					alt=""
+					src={URL.createObjectURL(selectedImage)}
+					className="cover shade"
+				/>
+			)}
 		</div>
 	)
 
 	const [authorInputValue, setAuthorInputValue] = useState<string>('')
 	function addAuthor() {
 		if (authorInputValue.trim()) {
-			const authorToAdd: string = cleanInput(authorInputValue.trim(), true)
+			const authorToAdd: string = cleanInput(
+				authorInputValue.trim(),
+				true
+			)
 			if (authorToAdd !== undefined && authorToAdd.length > 1) {
-				const authorIndex = bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase())
-				if (bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1) bookTropes.splice(authorIndex, 1)
+				const authorIndex = bookAuthorsLowercase.indexOf(
+					authorToAdd.toLowerCase()
+				)
+				if (
+					bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1
+				)
+					bookTropes.splice(authorIndex, 1)
 				const newArr: string[] = [...bookAuthors, authorToAdd]
 				setBookAuthors(newArr)
 				setAuthorInputValue('')
@@ -169,8 +197,11 @@ const AddBookPage = () => {
 			const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
 
 			if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
-				const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
-				if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1) bookTropes.splice(tropeIndex, 1)
+				const tropeIndex = bookTropesLowercase.indexOf(
+					tropeToAdd.toLowerCase()
+				)
+				if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
+					bookTropes.splice(tropeIndex, 1)
 				const newArr: BookTropes = [...bookTropes, tropeToAdd]
 				newArr.sort((a, b) => a.localeCompare(b))
 				setBookTropes(newArr)
@@ -202,23 +233,36 @@ const AddBookPage = () => {
 			transition={{ duration: 1 }}
 			animate={{ opacity: 1, transition: { duration: 2 } }}
 		>
-			<Heading text={pageTitle} sub="See your preview below" icon="icon-addbook.svg" />
+			<Heading
+				text={pageTitle}
+				sub="See your preview below"
+				icon="icon-addbook.svg"
+			/>
 			<form onSubmit={processAbForm}>
 				<fieldset style={{ display: 'flex', flexDirection: 'column' }}>
 					<label htmlFor="abTitle">
 						<div className="description">Title</div>
-						<input type="text" id="abTitle" name="abTitle" required onChange={changeTitle} />
+						<input
+							type="text"
+							id="abTitle"
+							name="abTitle"
+							required
+							onChange={changeTitle}
+						/>
 					</label>
 					<label htmlFor="abAuthors">
 						<div className="description">
-							Author(s) <em>... separate with comma (,) or hit Enter</em>
+							Author(s){' '}
+							<em>... separate with comma (,) or hit Enter</em>
 						</div>
 						<div className="dflex ">
 							<input
 								type="text"
 								id="abAuthorAdd"
 								value={authorInputValue}
-								onChange={(e) => setAuthorInputValue(e.target.value)}
+								onChange={(e) =>
+									setAuthorInputValue(e.target.value)
+								}
 								onKeyDown={handleKeyDownAuthor}
 								placeholder="Add an author..."
 							/>
@@ -232,12 +276,7 @@ const AddBookPage = () => {
 					{bookAuthors.length > 0 && (
 						<div className="mb1 mt-05">
 							{bookAuthors.map((author, index) => (
-								<div className="badge" key={`removeauthor${index}`}>
-									{author}
-									<span className="btn-x" onClick={() => removeAuthor(author)}>
-										x
-									</span>
-								</div>
+								<BaseBadge key={`removeAuthor${index}`} text={author} removeText={removeAuthor} type='author' />
 							))}
 							<br />
 						</div>
@@ -252,7 +291,9 @@ const AddBookPage = () => {
 					>
 						<div>
 							<label htmlFor="abYearPublished">
-								<div className="description">Year published</div>
+								<div className="description">
+									Year published
+								</div>
 								<input
 									type="number"
 									name="abYearPublished"
@@ -264,13 +305,25 @@ const AddBookPage = () => {
 						<div>
 							<label htmlFor="abPages">
 								<div className="description">Pages</div>
-								<input type="number" name="abPages" id="abPages" onChange={changePages} />
+								<input
+									type="number"
+									name="abPages"
+									id="abPages"
+									onChange={changePages}
+								/>
 							</label>
 						</div>
 					</div>
-					<label htmlFor="abCover" className="dblock pb0" style={{ marginBottom: '.75rem' }}>
+					<label
+						htmlFor="abCover"
+						className="dblock pb0"
+						style={{ marginBottom: '.75rem' }}
+					>
 						<div className="description">
-							Cover {!selectedImage && <em>... paste URL or press Choose File</em>}
+							Cover{' '}
+							{!selectedImage && (
+								<em>... paste URL or press Choose File</em>
+							)}
 						</div>
 						{!selectedImage && (
 							<>
@@ -287,7 +340,10 @@ const AddBookPage = () => {
 									className={coverImg ? '' : 'mb0o'}
 								/>
 								{coverImg && (
-									<span className="btn-text-cancel btn-text sf2 mt-075 mb05" onClick={resetFile}>
+									<span
+										className="btn-text-cancel btn-text sf2 mt-075 mb05"
+										onClick={resetFile}
+									>
 										cancel
 									</span>
 								)}
@@ -306,10 +362,20 @@ const AddBookPage = () => {
 								</>
 							)}
 							<div className="dnone">
-								{selectedImage ? <>created blob: {URL.createObjectURL(selectedImage)} </> : ''}
+								{selectedImage ? (
+									<>
+										created blob:{' '}
+										{URL.createObjectURL(selectedImage)}{' '}
+									</>
+								) : (
+									''
+								)}
 							</div>
 							{selectedImage && (
-								<span className="btn-text-cancel btn-text sf2 mb05" onClick={resetFile}>
+								<span
+									className="btn-text-cancel btn-text sf2 mb05"
+									onClick={resetFile}
+								>
 									cancel
 								</span>
 							)}
@@ -317,14 +383,17 @@ const AddBookPage = () => {
 					</label>
 					<label htmlFor="abTropeAdd" className="dblock pb035">
 						<div className="description">
-							Tropes <em>... shown again when finished reading</em>
+							Tropes{' '}
+							<em>... shown again when finished reading</em>
 						</div>
 						<div className="dflex">
 							<input
 								type="text"
 								id="abTropeAdd"
 								value={tropeInputValue}
-								onChange={(e) => setTropeInputValue(e.target.value)}
+								onChange={(e) =>
+									setTropeInputValue(e.target.value)
+								}
 								onKeyDown={handleKeyDownTrope}
 								placeholder="Add a trope..."
 							/>
@@ -338,19 +407,19 @@ const AddBookPage = () => {
 					{bookTropes.length > 0 && (
 						<div className="mb1 mt-05">
 							{bookTropes.map((trope, index) => (
-								<div className="badge" key={`removetrope${index}`}>
-									{trope}
-									<span className="btn-x" onClick={() => removeTrope(trope)}>
-										x
-									</span>
-								</div>
+								<BaseBadge key={`removetrope${index}`} text={trope} removeText={removeTrope} type='trope' />
 							))}
 							<br />
 						</div>
 					)}
 				</fieldset>
-				<button className="btn-lg" type="submit" disabled={isSubmitting}>
-					Add book to wishlist {isSubmitting && <span className="loader-dots"></span>}
+				<button
+					className="btn-lg"
+					type="submit"
+					disabled={isSubmitting}
+				>
+					Add book to wishlist{' '}
+					{isSubmitting && <span className="loader-dots"></span>}
 				</button>
 			</form>
 			<div className="h2">
@@ -371,9 +440,7 @@ const AddBookPage = () => {
 						{numberOfPages > 0 && <>{numberOfPages} pages</>}
 						<div className="tropes">
 							{bookTropes.map((trope, index) => (
-								<div className="trope badge" key={'trope' + index}>
-									{trope}
-								</div>
+								<BaseBadge key={'trope' + index} text={trope} type='trope' />
 							))}
 						</div>
 					</header>

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import BaseBadge from './ui/BaseBadge';
+
 const SearchSubjects = ({ book_id, subjects }: { book_id: Book['id']; subjects: BookSubjects }) => {
 	const [showMore, setShowMore] = useState(false)
 
@@ -12,15 +14,11 @@ const SearchSubjects = ({ book_id, subjects }: { book_id: Book['id']; subjects: 
 			{subjects.map((subject, index) => {
 				if (showMore) {
 					return (
-						<div className="subject badge" key={'subject' + book_id + index}>
-							{subject}
-						</div>
+						<BaseBadge key={'subject' + book_id + index} type='subject' text={subject} />
 					)
 				} else if (index < 5) {
 					return (
-						<div className="subject badge" key={'subject' + book_id + index}>
-							{subject}
-						</div>
+						<BaseBadge key={'subject' + book_id + index} type='subject' text={subject} />
 					)
 				}
 			})}

@@ -4,6 +4,7 @@ import { cleanInput } from '../helpers/cleanInput'
 // TODO component_btn_inside_caret: remove or use BtnInsideCaret, a function should be able to be passed to make it useful
 // import BtnInsideCaret from './ui/BtnInsideCaret'
 import updateEntriesDbxxx from '../functions/updateEntriesDb'
+import BaseBadge from './ui/BaseBadge'
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
 	const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
@@ -41,12 +42,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
 		return (
 			<div className="tropes">
 				{bookTropes.map((trope, index) => (
-					<div className="trope badge" key={'trope' + bookid + index}>
-						{trope}
-						<button className="btn-x" onClick={() => removeTrope(trope)}>
-							x
-						</button>
-					</div>
+					<BaseBadge key={'trope'+bookid+index} text={trope} removeText={removeTrope} type='trope' />
 				))}
 				{!showTropesForm && (
 					<button

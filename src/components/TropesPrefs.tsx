@@ -6,6 +6,7 @@ import { supabase } from '../../utils/supabase'
 // import BtnInsideCaret from './ui/BtnInsideCaret'
 import { TropesPageContext } from '../routes/books/TropesPage'
 import updateTropesDb from '../functions/updateTropesDb'
+import BaseBadge from './ui/BaseBadge'
 
 const TropesPrefs = ({ field }: { field: 'tropes_liked' | 'tropes_disliked' }): JSX.Element => {
 	const {
@@ -88,15 +89,7 @@ const TropesPrefs = ({ field }: { field: 'tropes_liked' | 'tropes_disliked' }): 
 		return (
 			<div className="tropes">
 				{tropes.map((trope, index) => (
-					<div
-						className={field === 'tropes_liked' ? 'trope badge cgreen' : 'trope badge cred'}
-						key={cleanIndexKey(trope, index)}
-					>
-						{trope}
-						<button className="btn-x" onClick={() => removeTrope(trope, field)}>
-							x
-						</button>
-					</div>
+					<BaseBadge key={cleanIndexKey(trope, index)} text={trope} removeTrope={removeTrope} field={field} type="trope"/>
 				))}
 				<button
 					className={showTropesForm ? 'trope_add btn-sm mb0 active' : 'trope_add btn-sm mb0'}

@@ -16,9 +16,11 @@ export default function SignupCard() {
 	const navigate = useNavigate()
 	const { login } = useCardRotate()
 	const [error, setError] = useState('')
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	async function processSignupForm(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault()
+		setIsLoading(true)
 		const user: User = {
 			email: event.currentTarget.email.value,
 			screenname: event.currentTarget.screenname.value,
@@ -40,21 +42,21 @@ export default function SignupCard() {
 					<Heading text="Let's create an account" sub="Have your account in a few seconds" />
 				</header>
 				<main>
-					<form onSubmit={processSignupForm}>
+					<form onSubmit={processSignupForm} className={isLoading ? 'form-loading' : ''}>
 						<label htmlFor="signup_screenname">
 							<div className="description">Screen name</div>
-							<input type="text" id="signup_screenname" name="screenname" autoComplete="off" />
+							<input type="text" id="signup_screenname" name="screenname" autoComplete="off" readOnly={isLoading} />
 						</label>
 						<label htmlFor="signup_email">
 							<div className="description">Email address: *</div>
-							<input type="email" id="signup_email" name="email" required autoComplete="off" />
+							<input type="email" id="signup_email" name="email" required autoComplete="off" readOnly={isLoading} />
 						</label>
 						<label htmlFor="signup_password">
 							<div className="description">Password: *</div>
-							<input type="password" id="signup_password" name="password" required autoComplete="off" />
+							<input type="password" id="signup_password" name="password" required autoComplete="off" readOnly={isLoading} />
 						</label>
 						<div className={error !== '' ? 'dblock error' : 'dblock'}>{error}&nbsp;</div>
-						<button className="btn-lg">Create account</button>
+						<button className="btn-lg" disabled={isLoading}>Create account {isLoading && <span className="loader-dots"></span>}</button>
 					</form>
 				</main>
 				<footer className="content-right">
