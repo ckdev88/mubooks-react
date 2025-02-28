@@ -52,14 +52,14 @@ const LoginCard = () => {
 						<div className={error !== '' ? 'notification error' : 'notification'}>{error}</div>
 						<label htmlFor="login_email">
 							<div className="description">Email address</div>
-							<input type="email" id="login_email" name="login_email" required autoComplete="username" />
+							<input type="email" id="login_email" name="login_email" required autoComplete="username" readOnly={isLoading} />
 						</label>
 						<label htmlFor="login_password">
 							<div className="description">Password</div>
-							<input type="password" id="login_password" name="login_password" autoComplete="current-password" />
+							<input type="password" id="login_password" name="login_password" autoComplete="current-password" readOnly={isLoading} />
 						</label>
 						<button value="Log in" disabled={isLoading} className="btn-lg">
-							{isLoading ? 'Logging in...' : 'Log in'}
+							Log in {isLoading && <span className="loader-dots"></span>}
 						</button>
 					</form>
 				</main>
