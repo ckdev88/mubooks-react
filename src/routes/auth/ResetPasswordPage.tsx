@@ -30,8 +30,7 @@ const ResetPasswordPage = () => {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 
-		// TODO double check if this really helps autocompleting username/password on submit of changing
-		const emailaddress = JSON.parse(localStorage.getItem(localStorageKey) as string).user.email
+		const emailaddress:string = JSON.parse(localStorage.getItem(localStorageKey) as string).user.email
 		e.currentTarget.username.value = emailaddress
 
 		if (e.currentTarget.account_password.value === e.currentTarget.account_password_again.value) {
@@ -41,7 +40,7 @@ const ResetPasswordPage = () => {
 		} else setError('Passwords do not match, try again')
 	}
 
-	// TODO double check if this is useful for password managers
+	// TODO for password managers, convert to useLayoutEffect if possible
 	useEffect(() => {
 		const pwField = document.getElementById('account_password')
 		pwField?.focus()
