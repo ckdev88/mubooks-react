@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import BooksOverviewPage from './BooksOverviewPage'
 import { AppContext } from '../../App'
 import { Link } from 'react-router-dom'
@@ -11,7 +11,9 @@ const booklist = 4
 
 const FavoritesPage = () => {
 	const { userMyBooks, setPageName, GLOBALS } = useContext(AppContext)
-	setPageName(currentPage)
+	useEffect(() => {
+		setPageName(currentPage)
+	}, [])
 	let hasbooks = false
 	if (userMyBooks.filter((book) => book.list === booklist).length > 0)
 		hasbooks = true
