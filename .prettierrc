@@ -2,5 +2,6 @@
 	"trailingComma": "es5",
 	"semi": false,
 	"singleQuote": true,
-	"editor-tabsize": 4
+	"editor-tabsize": 4,
+	"useTabs": false
 }
