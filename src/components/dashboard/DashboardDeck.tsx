@@ -16,7 +16,7 @@ const DashboardDeck = ({
 	return (
 		<article className="adder">
 			<Link to={'/' + page}>
-				<Heading text={title} icon={icon} el="adder-header" span={'›'} />
+				<Heading text={title} icon={icon} el="adder-header" />
 			</Link>
 			<DashboardDeckItems page={page} noBooksText={noBooksText} />
 		</article>
