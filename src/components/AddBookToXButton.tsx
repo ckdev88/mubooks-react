@@ -22,7 +22,6 @@ interface Props {
 	book_review_fav_quote: Book['review_fav_quote']
 	book_review_tropes: Book['review_tropes']
 }
-
 const AddBookToXButton = ({
 	book_id,
 	book_list,
