@@ -32,16 +32,14 @@ const ReadingPage = () => {
                 sub="Currently enjoying books"
             />
             {!hasbooks && (
-                <>
-                    <p>
-                        Want to add a book to your reading list?
-                        <br />
-                        <Link to="/wishlist">View your wishlist</Link> or{" "}
-                        <Link to="/search">Search</Link> to add a book.
-                        <br />
-                        <br />
-                    </p>
-                </>
+                <p>
+                    Want to add a book to your reading list?
+                    <br />
+                    <Link to="/wishlist">View your wishlist</Link> or{" "}
+                    <Link to="/search">Search</Link> to add a book.
+                    <br />
+                    <br />
+                </p>
             )}
             <BooksOverviewPage
                 books={books}

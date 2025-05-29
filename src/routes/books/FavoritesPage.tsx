@@ -11,6 +11,7 @@ const booklist = 4
 
 const FavoritesPage = () => {
     const { userMyBooks, setPageName, GLOBALS } = useContext(AppContext)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         setPageName(currentPage)
     }, [])

@@ -30,6 +30,8 @@ const BookStartedFinished = ({
     const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
     const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
 
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: TODO OPTIMIZE
     useEffect(() => {
         // TODO: OPTIMIZE
         if (date_finished === 0) {

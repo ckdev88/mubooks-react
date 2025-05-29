@@ -96,9 +96,9 @@ const SearchPage = () => {
                             <div className="description">Term or title</div>
                             <input type="text" id="search_term" />
                         </label>
-                        <button className="btn-lg" disabled={loading}>
+                        <button type="button" className="btn-lg" disabled={loading}>
                             Search{" "}
-                            {loading && <span className="loader-dots"></span>}
+                            {loading && <span className="loader-dots" />}
                         </button>
                     </form>
                     <div>

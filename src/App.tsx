@@ -90,6 +90,7 @@ const App = () => {
         }
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: TODO uselayouteffect or use hook
     useEffect(() => {
         if (userIsLoggedIn === true && userMyBooks.length < 1) {
             persistentMyBooks()

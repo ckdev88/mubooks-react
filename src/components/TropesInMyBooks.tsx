@@ -51,6 +51,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
         }, 200)
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: TODO OPTIMIZE
     useEffect(() => {
         showTropeBooks(activeTrope)
     }, [activeTrope])

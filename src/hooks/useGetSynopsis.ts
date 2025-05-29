@@ -9,6 +9,7 @@ const useGetSynopsis = (
     const { GLOBALS } = useContext(AppContext)
     const [synopsis, setSynopsis] = useState<string>("")
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         if (!GLOBALS.synopsisEnabled) return
 

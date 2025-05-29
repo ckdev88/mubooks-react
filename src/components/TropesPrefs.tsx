@@ -38,10 +38,13 @@ const TropesPrefs = ({
             if (res.data) setDislikedTropes(res.data[0].tropes_disliked)
         }
     }
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         tropesDb()
     }, [])
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         // OPTIMIZE: apply useLayoutEffect is faster?
         if (field === "tropes_liked" && showTropesForm === true)

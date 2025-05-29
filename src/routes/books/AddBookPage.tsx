@@ -138,7 +138,8 @@ const AddBookPage = () => {
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
+        // if (e.target.files && e.target.files[0]) {
+        if (e.target.files?.[0]) {
             setSelectedImage(e.target.files[0])
         }
     }
@@ -270,19 +271,23 @@ const AddBookPage = () => {
                                 className="btn-submit-inside-caret-right wauto"
                                 style={{ marginTop: ".75rem" }}
                                 onClick={() => addAuthor()}
-                            ></span>
+                                onKeyDown={() => addAuthor()}
+                            />
                         </div>
                     </label>
                     {bookAuthors.length > 0 && (
                         <div className="mb1 mt-05">
-                            {bookAuthors.map((author, index) => (
-                                <BaseBadge
-                                    key={`removeAuthor${index}`}
-                                    text={author}
-                                    removeText={removeAuthor}
-                                    type="author"
-                                />
-                            ))}
+                            {bookAuthors.map((author, index) => {
+                                const key = "abpRemoveAuthor" + index
+                                return (
+                                    <BaseBadge
+                                        key={key}
+                                        text={author}
+                                        removeText={removeAuthor}
+                                        type="author"
+                                    />
+                                )
+                            })}
                             <br />
                         </div>
                     )}
@@ -348,6 +353,7 @@ const AddBookPage = () => {
                                     <span
                                         className="btn-text-cancel btn-text sf2 mt-075 mb05"
                                         onClick={resetFile}
+                                        onKeyDown={resetFile}
                                     >
                                         cancel
                                     </span>
@@ -356,15 +362,13 @@ const AddBookPage = () => {
                         )}
                         <div>
                             {selectedImageType !== "url" && (
-                                <>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleFileChange}
-                                        name="myImage"
-                                        className={coverImg ? "" : "mb0o"}
-                                    />
-                                </>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    name="myImage"
+                                    className={coverImg ? "" : "mb0o"}
+                                />
                             )}
                             <div className="dnone">
                                 {selectedImage ? (
@@ -382,6 +386,7 @@ const AddBookPage = () => {
                                 <span
                                     className="btn-text-cancel btn-text sf2 mb05"
                                     onClick={resetFile}
+                                    onKeyDown={resetFile}
                                 >
                                     cancel
                                 </span>
@@ -408,19 +413,23 @@ const AddBookPage = () => {
                                 className="btn-submit-inside-caret-right wauto"
                                 style={{ marginTop: ".75rem" }}
                                 onClick={() => addTrope()}
-                            ></span>
+                                onKeyDown={() => addTrope()}
+                            />
                         </div>
                     </label>
                     {bookTropes.length > 0 && (
                         <div className="mb1 mt-05">
-                            {bookTropes.map((trope, index) => (
-                                <BaseBadge
-                                    key={`removetrope${index}`}
-                                    text={trope}
-                                    removeText={removeTrope}
-                                    type="trope"
-                                />
-                            ))}
+                            {bookTropes.map((trope, index) => {
+                                const key = "abpRemoveTrope" + index
+                                return (
+                                    <BaseBadge
+                                        key={key}
+                                        text={trope}
+                                        removeText={removeTrope}
+                                        type="trope"
+                                    />
+                                )
+                            })}
                             <br />
                         </div>
                     )}
@@ -431,7 +440,7 @@ const AddBookPage = () => {
                     disabled={isSubmitting}
                 >
                     Add book to wishlist{" "}
-                    {isSubmitting && <span className="loader-dots"></span>}
+                    {isSubmitting && <span className="loader-dots" />}
                 </button>
             </form>
             <div className="h2">
@@ -451,13 +460,16 @@ const AddBookPage = () => {
                         />
                         {numberOfPages > 0 && <>{numberOfPages} pages</>}
                         <div className="tropes">
-                            {bookTropes.map((trope, index) => (
-                                <BaseBadge
-                                    key={"trope" + index}
-                                    text={trope}
-                                    type="trope"
-                                />
-                            ))}
+                            {bookTropes.map((trope, index) => {
+                                const key = "abpBookTrope" + index
+                                return (
+                                    <BaseBadge
+                                        key={key}
+                                        text={trope}
+                                        type="trope"
+                                    />
+                                )
+                            })}
                         </div>
                     </header>
                 </div>

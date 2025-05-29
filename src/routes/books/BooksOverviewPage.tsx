@@ -62,6 +62,7 @@ const BooksOverviewPage = ({
     const [booksList, setBooksList] = useState<Books>([])
 
     // PER LIST
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         let bookstmp: Books = []
         if (books.length > 0) bookstmp = books
@@ -84,13 +85,16 @@ const BooksOverviewPage = ({
     }, [userMyBooks, booklist])
 
     // TROPES
+    // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified
     useEffect(() => {
+        // TODO see if useLayoutEffect is better here
         if (page === "tropes") {
             setBooksList(tropesInMyBooksArr)
         }
     }, [tropesInMyBooksArr])
 
     // FILTERED
+    // biome-ignore lint/correctness/useExhaustiveDependencies: only trigger on booksFilter change
     useEffect(() => {
         if (hasfilter)
             setBooksList(
@@ -100,6 +104,7 @@ const BooksOverviewPage = ({
             )
     }, [booksFilter])
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <Only run once via []>
     useEffect(() => {
         if (fsPages.includes(page)) {
             if (
@@ -122,26 +127,24 @@ const BooksOverviewPage = ({
                             value={{ setBooksFilter, booksFilter }}
                         >
                             <BooksOverviewFilterSort />
-                            <>
-                                <div className="h2 resultsfound mt0i">
-                                    {booksFilter.length > 0 &&
-                                    booksList.length > 0 ? (
-                                        <>
-                                            {booksList.length} book
-                                            {booksList.length !== 1 && <>s</>}{" "}
-                                            found for <em>"{booksFilter}"</em>
-                                        </>
-                                    ) : booksFilter.length > 0 &&
-                                      booksList.length === 0 ? (
-                                        <>
-                                            No books found for{" "}
-                                            <em>"{booksFilter}"</em>
-                                        </>
-                                    ) : (
-                                        <></>
-                                    )}
-                                </div>
-                            </>
+                            <div className="h2 resultsfound mt0i">
+                                {booksFilter.length > 0 &&
+                                booksList.length > 0 ? (
+                                    <>
+                                        {booksList.length} book
+                                        {booksList.length !== 1 && "s"} found
+                                        for <em>"{booksFilter}"</em>
+                                    </>
+                                ) : booksFilter.length > 0 &&
+                                  booksList.length === 0 ? (
+                                    <>
+                                        No books found for{" "}
+                                        <em>"{booksFilter}"</em>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
                         </BooksOverviewFilterContext.Provider>
                     )}
                 </div>

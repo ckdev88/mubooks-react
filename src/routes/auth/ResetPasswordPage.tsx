@@ -123,7 +123,7 @@ const ResetPasswordPage = () => {
                                     required
                                 />
                             </label>
-                            <button className="btn-lg" disabled={isLoading}>
+                            <button type="submit" className="btn-lg" disabled={isLoading}>
                                 Save new password and login
                             </button>
                         </form>

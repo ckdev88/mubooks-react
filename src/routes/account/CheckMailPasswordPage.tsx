@@ -27,7 +27,9 @@ const CheckMailPasswordPage = () => {
                 </p>
             </>
         )
-    } else if (userIsLoggedIn) {
+    }
+
+    if (userIsLoggedIn) {
         return (
             <>
                 <HeaderBranding />
@@ -39,21 +41,18 @@ const CheckMailPasswordPage = () => {
                 </p>
             </>
         )
-    } else {
-        return (
-            <>
-                <HeaderBranding />
-                <div className="h1">New here?</div>
-                <p>
-                    Are you trying to reset your password or log in?
-                    <br />
-                    <Link to="/account/login">
-                        Click here to log in or join
-                    </Link>
-                    .
-                </p>
-            </>
-        )
     }
+
+    return (
+        <>
+            <HeaderBranding />
+            <div className="h1">New here?</div>
+            <p>
+                Are you trying to reset your password or log in?
+                <br />
+                <Link to="/account/login">Click here to log in or join</Link>.
+            </p>
+        </>
+    )
 }
 export default CheckMailPasswordPage

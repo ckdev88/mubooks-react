@@ -21,6 +21,7 @@ const ErrorPage = () => {
         errormessage = cleanSigns(errormsg)
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         setCountdown0("We will redirect you to the login page in ")
         setTimeout(() => {

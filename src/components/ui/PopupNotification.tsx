@@ -10,6 +10,8 @@ function PopupNotification() {
     }
     // online state checker & notifier
     const [isOnline, setIsOnline] = useState(navigator.onLine)
+
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         // OPTIMIZE apply useLayoutEffect?
         const handleStatusChange = () => setIsOnline(navigator.onLine)
