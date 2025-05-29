@@ -19,7 +19,8 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 
 	useEffect(() => {
 		setTropesInMyBooksArr(tropeBooks)
-	}, [tropeBooks])
+	}, [setTropesInMyBooksArr, tropeBooks])
+
 	const savedbookslink: Page = 'savedbooks'
 
 	userMyBooks.map((book) => {
@@ -27,7 +28,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 	})
 	const tropesArr = Array.from(tropesSet).sort((a, b) => a.localeCompare(b))
 
-	function showTropeBooks(trope: string) {
+	function showTropeBooks(trope: string) { // TODO OPTIMIZE: turn into hook and/or apply caching
 		const tropeBooksFiltered: Books = []
 		userMyBooks.map((b: Book) => {
 			if (b.review_tropes !== undefined && b.review_tropes.length > 0)
@@ -54,13 +55,14 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 				Tropes in my Books&nbsp;
 				{tropesArr.length > 0 && (
 					<button
+						type="button"
 						className={
 							isShowingTropesInMyBooks
 								? 'btn-text caret-right-toggle active wauto notext diblock'
 								: 'btn-text caret-right-toggle wauto notext diblock'
 						}
 						onClick={() => setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)}
-					></button>
+					/>
 				)}
 			</div>
 			{tropesArr.length > 0 ? (
@@ -69,11 +71,11 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 					aria-expanded={isShowingTropesInMyBooks}
 				>
 					{tropesArr.map((trope, index) => {
-						let cn: string = 'btn-sm mb0 badge'
+						let cn = 'btn-sm mb0 badge'
 						if (likedTropesLowercase.includes(trope.toLowerCase())) cn += ' cgreen'
 						else if (dislikedTropesLowercase.includes(trope.toLowerCase())) cn += ' cred'
 						return (
-							<button key={cleanIndexKey(trope, index)} className={cn} onClick={() => showTropeBooks(trope)}>
+							<button type="button" key={cleanIndexKey(trope, index)} className={cn} onClick={() => showTropeBooks(trope)}>
 								{trope}
 							</button>
 						)
@@ -91,7 +93,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 						<div
 							style={{ position: 'absolute', marginTop: '-4em' }}
 							id={cleanAnchor(activeTrope + '_' + 'books')}
-						></div>
+						/>
 					</div>
 					<br />
 					<BooksOverviewPage booklist={booklist} page={page} />

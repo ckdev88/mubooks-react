@@ -48,7 +48,7 @@ function getDpbData(userMyBooks: Books, year: number) {
 
 	const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
 
-	inputArray.forEach((bitem) => {
+	for(const bitem of inputArray){
 		const { id, title_short, days } = bitem
 		if (days) {
 			if (!groupedItems[days]) {
@@ -58,7 +58,7 @@ function getDpbData(userMyBooks: Books, year: number) {
 			groupedItems[days].amount++
 			groupedItems[days].books.push({ id, title_short, days })
 		}
-	})
+	}
 
 	for (const days in groupedItems) {
 		outputArray.push(groupedItems[days])
@@ -72,18 +72,21 @@ const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
 
 	return (
 		<div>
-			{dpbd.length > 0 &&
-				dpbd.map((b, index) => (
-					<div key={`dpbd${year}${index}`}>
+			{
+				dpbd.length > 0 &&
+				dpbd.map((b, index) => { 
+					const key = 'sdpbiy_dpbd' + year + index
+					return 	<div key={key}>
 						{b.days} days:{' '}
 						<b>
-							{b.amount} {b.amount === 1 ? 'book' : 'books'}{' '}
+						{b.amount} {b.amount === 1 ? 'book' : 'books'}{' '}
 						</b>
 						<ul className="mt0">
 							{b.books.map((book, index) => {
 								const refer: string = '/finished' + `#${cleanAnchor(book.title_short)}_${book.id}`
+								const key = 'sdpbiy_bokmap' + year + book.id + index
 								return (
-									<li key={`bokmap${index}`}>
+									<li key={key}>
 										<HashLink to={refer} className="a-text">
 											{book.title_short}
 										</HashLink>
@@ -91,8 +94,9 @@ const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
 								)
 							})}
 						</ul>
-					</div>
-				))}
+					</div> 
+				})
+			}
 		</div>
 	)
 }

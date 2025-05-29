@@ -56,11 +56,15 @@ export default function SignupCard() {
 							<input type="password" id="signup_password" name="password" required autoComplete="off" readOnly={isLoading} />
 						</label>
 						<div className={error !== '' ? 'dblock error' : 'dblock'}>{error}&nbsp;</div>
-						<button className="btn-lg" disabled={isLoading}>Create account {isLoading && <span className="loader-dots"></span>}</button>
+						<button 
+							type="submit"
+							className="btn-lg" 
+							disabled={isLoading}
+						>Create account {isLoading && <span className="loader-dots" />}</button>
 					</form>
 				</main>
 				<footer className="content-right">
-					<button className="btn-text" onClick={login}>
+					<button type="button" className="btn-text" onClick={login}>
 						I already have an account
 					</button>
 				</footer>

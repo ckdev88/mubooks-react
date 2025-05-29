@@ -1,5 +1,5 @@
 import { supabase } from '../../utils/supabase'
-async function updatePreferences(darkTheme: boolean = false): Promise<void> {
+async function updatePreferences(darkTheme = false): Promise<void> {
 	const { error } = await supabase.auth.updateUser({
 		data: { darktheme: darkTheme },
 	})

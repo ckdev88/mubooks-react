@@ -3,11 +3,11 @@ export default function convertDate(
 	outputFormat: 'human' | 'input' | 'digit'
 ): string {
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-	let a
-	let monthNum: number = 0
-	let monthName: string = ''
-	let year: number = 0
-	let dayNum: number = 0
+	let a:string[] | Date
+	let monthNum = 0
+	let monthName = ''
+	let year = 0
+	let dayNum = 0
 	if (typeof dateToConvert === 'number' && dateToConvert < 22221100) {
 		// date in digits, like 20230630
 		a = dateToConvert.toString().split('')

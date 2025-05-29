@@ -52,6 +52,7 @@ const AddToRemoveFromX = ({
 			)
 		}
 	} else {
+		const newLocal = "icon icon-dots"
 		return (
 			<>
 				{!book.list && (
@@ -146,11 +147,9 @@ const AddToRemoveFromX = ({
 				)}
 
 				{currentPage !== 'dashboard' && currentPage !== 'search' && (
-					<>
-						<button className="btn-icon" onClick={() => setShowHiddenMarks(!showHiddenMarks)}>
-							<span className="icon icon-dots"></span>
+						<button type='button' className="btn-icon" onClick={() => setShowHiddenMarks(!showHiddenMarks)}>
+							<span className={newLocal} />
 						</button>
-					</>
 				)}
 				<div className={showHiddenMarks ? 'marks' : 'marks dnone'}>
 					{book.list === 1 && (

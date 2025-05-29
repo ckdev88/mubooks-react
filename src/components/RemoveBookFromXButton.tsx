@@ -98,12 +98,12 @@ const RemoveBookFromXButton = ({
 		setIsLoading(false)
 	}
 
-	if (icon && targetList === 4) return <span className="icon-heart active" onClick={RemoveBookFromXButtonAct}></span>
+	if (icon && targetList === 4) return <span className="icon-heart active" onClick={RemoveBookFromXButtonAct} onKeyDown={RemoveBookFromXButtonAct}   />
 
 	return (
 		<div className="mark">
-			<button className="btn-text" onClick={RemoveBookFromXButtonAct} disabled={isLoading}>
-				<span className="icon icon-remove"></span>Remove from {getListName(targetList)}
+			<button type='button' className="btn-text" onClick={RemoveBookFromXButtonAct} disabled={isLoading}>
+				<span className="icon icon-remove" />Remove from {getListName(targetList)}
 			</button>
 		</div>
 	)

@@ -82,19 +82,28 @@ const AddBookToXButton = ({
 	}
 
 	if (icon && targetList === 4)
-		return <span className="icon-heart inactive" onClick={() => AddBookToXButtonAct()}></span>
+		return <span 
+			className="icon-heart inactive" 
+			onKeyDown={()=>AddBookToXButtonAct()} 
+			onClick={() => AddBookToXButtonAct()} 
+		/>
 
 	return (
 		<div className="mark">
 			<button
 				className="btn-text"
+				onKeyDown={()=>{
+					fadeout()
+					AddBookToXButtonAct()
+				}}
 				onClick={() => {
 					fadeout()
 					AddBookToXButtonAct()
 				}}
 				disabled={isLoading}
+				type="button"
 			>
-				<span className={iconClassName}></span>
+				<span className={iconClassName} />
 				{button_title} {isLoading && <span className="loader-dots"> </span>}
 			</button>
 		</div>

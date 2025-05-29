@@ -58,16 +58,16 @@ const LoginCard = () => {
 							<div className="description">Password</div>
 							<input type="password" id="login_password" name="login_password" autoComplete="current-password" readOnly={isLoading} />
 						</label>
-						<button value="Log in" disabled={isLoading} className="btn-lg">
-							Log in {isLoading && <span className="loader-dots"></span>}
+						<button type="submit" value="Log in" disabled={isLoading} className="btn-lg">
+							Log in {isLoading && <span className="loader-dots" />}
 						</button>
 					</form>
 				</main>
 				<footer>
-					<button className="btn-text wauto-md nowrap" onClick={recover}>
+					<button type="button" className="btn-text wauto-md nowrap" onClick={recover}>
 						Forgot password
 					</button>
-					<button className="btn-text ta-right wauto-md nowrap diblock" onClick={signup}>
+					<button type="button" className="btn-text ta-right wauto-md nowrap diblock" onClick={signup}>
 						<span className="dnone diblock-md">New here?&nbsp;</span>Join now
 					</button>
 				</footer>

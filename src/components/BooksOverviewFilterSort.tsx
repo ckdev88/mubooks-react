@@ -31,7 +31,7 @@ const BooksOverviewFilterSort = () => {
 				/>
 			</form>
 			{booksFilter.length > 0 && (
-				<button className="btn-text btn-text-cancel" onClick={() => cancelFilter()}>
+				<button type="button" className="btn-text btn-text-cancel" onClick={() => cancelFilter()}>
 					Reset filter
 				</button>
 			)}

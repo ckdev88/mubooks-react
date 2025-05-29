@@ -5,7 +5,7 @@ async function updateTropesDb(
 	userid: string,
 	field: 'tropes_liked' | 'tropes_disliked'
 ): Promise<string> {
-	let msg: string = ''
+	let msg = ''
 	if (field === 'tropes_liked') {
 		const { error } = await supabase
 			.from('user_entries')

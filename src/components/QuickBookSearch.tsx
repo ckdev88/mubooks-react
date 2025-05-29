@@ -89,9 +89,10 @@ const QuickBookSearch = () => {
 				<Heading text="Quick search" sub="Click on a book to prefill the fields" />
 				<form onSubmit={processSearchForm} className="single-small-form clr">
 					<input type="text" id="search_term" name="search_term" />
-					<button type="submit" className="btn-submit-inside-caret-right" disabled={loading}></button>
+					<button type="submit" className="btn-submit-inside-caret-right" disabled={loading} />
 				</form>
-				<button className="btn-text btn-text-cancel flex-start" onClick={cancelSearch}>
+				{/* TODO: replace type button by reset? button should prolly be in form element, cancelSearch might be eligible for removal */}
+				<button type="button" className="btn-text btn-text-cancel flex-start" onClick={cancelSearch}>
 					Cancel
 				</button>
 			</div>
@@ -104,13 +105,16 @@ const QuickBookSearch = () => {
 					<i>{resultsWarning}</i>
 				</div>
 				{searchResults.map((res, result_index) => {
+					const resultKey = 'result' + res.id + result_index
 					if (res.id !== undefined) {
 						let title: string
 						if (res.title.length > 55) title = res.title.slice(0, 55) + '...'
 						else title = res.title
+					  let authorKey:string
 						const authors = res.author_name.map((author, author_index) => {
+							authorKey = 'author' + authorKey + '-' + author_index
 							return (
-								<span key={'author' + result_index + author_index}>
+								<span key={authorKey}>
 									{author}
 									{author_index < res.author_name.length - 1 && ', '}
 								</span>
@@ -118,7 +122,7 @@ const QuickBookSearch = () => {
 						})
 
 						return (
-							<div key={'result' + result_index} className="result" onClick={checkit}>
+							<div key={resultKey} className="result" onKeyDown={checkit} onClick={checkit}>
 								<div className="wrapper">
 									<div className="text">
 										{title} <em className="sf2"> ({res.first_publish_year})</em>
@@ -126,7 +130,7 @@ const QuickBookSearch = () => {
 										<em className="sf2 cl">{authors}</em>
 									</div>
 								</div>
-								<img src={getOlCover(res.id, 'S')} className="thumbnail" />
+								<img src={getOlCover(res.id, 'S')} className="thumbnail" alt="" />
 							</div>
 						)
 					}

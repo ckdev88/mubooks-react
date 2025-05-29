@@ -16,7 +16,7 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
 	let slicedArr = booksarr.slice(-6)
 	if (page === 'finished' || page === 'savedbooks') slicedArr = booksarr.slice(0, 6)
 
-	let containerClasses: string = 'deck-container'
+	let containerClasses = 'deck-container'
 	if (booksarr.length < 4) containerClasses += ' spread shadeSub'
 	else {
 		containerClasses += ' stack'
@@ -26,10 +26,10 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
 	return (
 		<div className={containerClasses}>
 			{slicedArr.map((book: Book, index: number) => {
-				let marginLeft: number = 0
+				let marginLeft = 0
 				if (index > 0 && booksarr.length > 3) marginLeft = -20.01
 				const marginLeftStyle: string = `${marginLeft}%`
-				let extraArticleClass: string = ''
+				let extraArticleClass = ''
 				if (booksarr.length > 3) extraArticleClass += ' fl'
 				if (booksarr.length < 6) extraArticleClass += ' shade'
 				const articleClassNames = `book-cover${extraArticleClass}`

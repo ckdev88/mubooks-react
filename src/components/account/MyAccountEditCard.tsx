@@ -84,11 +84,11 @@ export default function MyAccountEditCard() {
 								autoComplete="new-password"
 							/>
 						</label>
-						<button className="btn-lg">Save and return</button>
+						<button type="submit" className="btn-lg">Save and return</button>
 					</form>
 				</main>
 				<footer>
-					<button className="btn-text" onClick={see}>
+					<button type="button" className="btn-text" onClick={see}>
 						Return without saving
 					</button>
 				</footer>

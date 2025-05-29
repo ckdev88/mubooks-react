@@ -46,7 +46,7 @@ function getDpbData(userMyBooks: Books, year: number) {
 
 	const groupedItems: { [rate_stars: number]: OutputPerStarsAmount } = {}
 
-	inputArray.forEach((bitem) => {
+	for(const bitem of inputArray){
 		const { id, title_short, rate_stars } = bitem
 		if (rate_stars) {
 			if (!groupedItems[rate_stars]) {
@@ -56,7 +56,7 @@ function getDpbData(userMyBooks: Books, year: number) {
 			groupedItems[rate_stars].amount++
 			groupedItems[rate_stars].books.push({ id, title_short, rate_stars })
 		}
-	})
+	}
 
 	for (const rate_stars in groupedItems) {
 		outputArray.push(groupedItems[rate_stars])
@@ -71,26 +71,31 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
 	return (
 		<div>
 			{dpbd.length > 0 &&
-				dpbd.map((b, index) => (
-					<div key={`dpbd${year}${index}`}>
-						{b.rate_stars} stars:{' '}
-						<b>
-							{b.amount} {b.amount === 1 ? 'book' : 'books'}{' '}
-						</b>
-						<ul className="mt0">
-							{b.books.map((book, index) => {
-								const refer: string = '/finished' + `#${cleanAnchor(book.title_short)}_${book.id}`
-								return (
-									<li key={`bokmap${index}`}>
-										<HashLink to={refer} className="a-text">
-											{book.title_short}
-										</HashLink>
-									</li>
-								)
-							})}
-						</ul>
-					</div>
-				))}
+				dpbd.map((b, index) => { 
+					const dpbd_key = 'dpbd' + year + index
+					return (
+						<div key={dpbd_key}>
+							{b.rate_stars} stars:{' '}
+							<b>
+								{b.amount} {b.amount === 1 ? 'book' : 'books'}{' '}
+							</b>
+							<ul className="mt0">
+								{b.books.map((book, index) => {
+									const refer: string = '/finished' + `#${cleanAnchor(book.title_short)}_${book.id}`
+									const key = 'bokmap' + index
+									return (
+										<li key={key}>
+											<HashLink to={refer} className="a-text">
+												{book.title_short}
+											</HashLink>
+										</li>
+									)
+								})}
+							</ul>
+						</div>
+					)
+				})
+			}
 		</div>
 	)
 }

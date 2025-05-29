@@ -17,7 +17,7 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 	const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
 	const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
 
-	useEffect(() => {
+	useEffect(() => { // TODO: OPTIMIZE
 		if (date_finished === 0) {
 			setShowStartedDate(true)
 			setShowFinishedDate(false)
@@ -41,7 +41,7 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 	function changeDates(fieldName: string, fieldVal: number) {
 		if (fieldName === 'date_reading') setDateStarted(fieldVal)
 		else if (fieldName === 'date_finished') {
-			if (isNaN(fieldVal)) {
+			if (Number.isNaN(fieldVal)) {
 				setDateFinished(undefined)
 				list = 2
 			} else setDateFinished(fieldVal)
@@ -55,7 +55,7 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 				if (fieldName === 'date_reading') myBooks[i].date_reading = fieldVal
 				if (fieldName === 'date_finished') {
 					const tmpbooklist = myBooks[i].list
-					if (isNaN(fieldVal)) myBooks[i].date_finished = undefined
+					if (Number.isNaN(fieldVal)) myBooks[i].date_finished = undefined
 					if (
 						(myBooks[i].date_finished === null ||
 							myBooks[i].date_finished === undefined ||
@@ -76,7 +76,7 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 		if (document.getElementById(field + book_id) === null) return
 		const inputfield: string = field + book_id
 		const newDateArr = (document.getElementById(inputfield) as HTMLInputElement).value.split('-')
-		const newDate = parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
+		const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
 		changeDates(field, newDate)
 	}
 	useEffect(() => {
@@ -96,8 +96,8 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 				{list === 2 && (
 					<>
 						<em className="btn-text">
-							<span className="icon icon-reading"></span>
-							<button className="btn-calendar btn-text" onClick={() => openCalendarPopUp('date_reading' + book_id)}>
+							<span className="icon icon-reading" />
+							<button type="button" className="btn-calendar btn-text" onClick={() => openCalendarPopUp('date_reading' + book_id)} onKeyDown={() => openCalendarPopUp('date_reading' + book_id)}>
 								{dateStarted && convertDate(dateStarted, 'human')}
 							</button>
 						</em>
@@ -116,8 +116,8 @@ const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Pro
 				{list > 2 && (
 					<>
 						<em className="btn-text">
-							<span className="icon icon-finished"></span>
-							<button className="btn-calendar btn-text" onClick={() => openCalendarPopUp('date_finished' + book_id)}>
+							<span className="icon icon-finished" />
+							<button type="button" className="btn-calendar btn-text" onClick={() => openCalendarPopUp('date_finished' + book_id)}>
 								{date_finished && convertDate(date_finished, 'human')}
 							</button>
 						</em>

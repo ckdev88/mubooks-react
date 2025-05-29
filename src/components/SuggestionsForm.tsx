@@ -10,7 +10,7 @@ const SuggestionsForm: React.FC = () => {
 
 	useResetUsermail()
 
-	const [message, setMessage] = useState<JSX.Element>(<div></div>)
+	const [message, setMessage] = useState<JSX.Element>(<div/>)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [isPosted, setIsPosted] = useState<boolean>(false)
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -121,7 +121,7 @@ const SuggestionsForm: React.FC = () => {
 							<textarea id="fsb_anythingElse" name="anythingElse" rows={5} readOnly={isLoading} />
 						</label>
 						<button className="btn-lg" type="submit" disabled={isLoading}>
-							Send {isLoading && <span className="loader-dots"></span>}
+							Send {isLoading && <span className="loader-dots" />}
 						</button>
 					</form>
 				</>

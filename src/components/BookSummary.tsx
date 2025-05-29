@@ -33,7 +33,7 @@ const BookSummary = ({ book, currentPage, refer }: { book: Book; currentPage: Pa
 					: `book-summary ${currentPage} transition-wrapper`
 			}
 		>
-			<div style={{ marginTop: '-4rem', position: 'absolute' }} id={bookAnchor}></div>
+			<div style={{ marginTop: '-4rem', position: 'absolute' }} id={bookAnchor}/>
 			<BookSummaryAside book={book} currentPage={currentPage} />
 			<div className="article-main">
 				{currentPage !== 'quoted' && (
@@ -102,19 +102,18 @@ const BookSummary = ({ book, currentPage, refer }: { book: Book; currentPage: Pa
 					{synopsisPages.includes(currentPage) && synopsis ? (
 						<div className="synopsis" style={{ marginTop: '.75rem' }}>
 							<button
+								type="button"
 								className={isShowingSynopsis ? 'btn-text caret-right-toggle active' : 'btn-text caret-right-toggle'}
 								onClick={() => setIsShowingSynopsis(!isShowingSynopsis)}
 							>
 								Synopsis
 							</button>
-							<>
-								<div
-									className={isShowingSynopsis ? 'mt05 expandable expanded' : 'mt05 expandable collapsed'}
-									aria-expanded={isShowingSynopsis}
-								>
-									<ReactMarkdown>{synopsis}</ReactMarkdown>
-								</div>
-							</>
+							<div
+								className={isShowingSynopsis ? 'mt05 expandable expanded' : 'mt05 expandable collapsed'}
+								aria-expanded={isShowingSynopsis}
+							>
+								<ReactMarkdown>{synopsis}</ReactMarkdown>
+							</div>
 						</div>
 					) : (
 						// TODO openlibrary: make link like 'no synopsis yet... write one?' and link to the OL page

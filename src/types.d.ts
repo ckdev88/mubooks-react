@@ -58,7 +58,7 @@ interface BooksOverviewFilterContextType {
 	setBooksFilter(booksFilter: booksFilter): void
 }
 
-type Page =
+type PageWithoutParameters =
 	| 'addbook'
 	| 'dashboard'
 	| 'favorites'
@@ -70,6 +70,8 @@ type Page =
 	| 'search'
 	| 'tropes'
 	| 'wishlist'
+
+type Page = `${PageWithoutParameters}${string | null}`
 
 type Quote = {
 	quote: string

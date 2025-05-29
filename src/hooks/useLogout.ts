@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import { AppContext } from '../App'
 import { useNavigate } from 'react-router-dom'
 
-async function useLogout(delay: number = 0) {
+async function useLogout(delay = 0) {
 	const { setUserIsLoggedIn } = useContext(AppContext)
 	const navigate = useNavigate()
 

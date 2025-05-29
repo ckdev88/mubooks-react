@@ -41,11 +41,13 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
 	const TropesList = (bookTropes: BookTropes, bookid: Id) => {
 		return (
 			<div className="tropes">
-				{bookTropes.map((trope, index) => (
-					<BaseBadge key={'trope'+bookid+index} text={trope} removeText={removeTrope} type='trope' />
-				))}
+				{bookTropes.map((trope, index) => {
+				  const badgeKey = 'review_tropes' + bookid + index	
+				  return <BaseBadge key={badgeKey} text={trope} removeText={removeTrope} type='trope' />
+				})}
 				{!showTropesForm && (
 					<button
+						type="button"
 						className={showTropesForm ? 'btn-sm mb0 active trope_add' : 'btn-sm mb0 trope_add'}
 						onClick={() => setShowTropesForm(!showTropesForm)}
 					>
@@ -105,10 +107,15 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
 						className="btn-submit-inside-caret-right wauto"
 						style={{ margin: '0', marginLeft: '-1.7rem' }}
 						onClick={addTrope}
-					></span>
+						onKeyDown={addTrope}
+					/>
 					{/* <BtnInsideCaret /> */}
 				</div>
-				<span className="btn-text btn-text-cancel diblock" onClick={() => setShowTropesForm(false)}>
+				<span 
+					className="btn-text btn-text-cancel diblock" 
+					onClick={() => setShowTropesForm(false)}
+					onKeyDown={() => setShowTropesForm(false)}
+				>
 					Cancel
 				</span>
 			</div>

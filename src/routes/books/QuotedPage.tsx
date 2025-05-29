@@ -13,7 +13,7 @@ const QuotedPage = () => {
 	const { userMyBooks } = useContext(AppContext)
 
 	let quotedbooks: Books
-	let hasbooks: boolean = false
+	let hasbooks = false
 	if (userMyBooks === undefined) quotedbooks = []
 	if (userMyBooks.length > 0) {
 		quotedbooks = userMyBooks.filter((book) => book.review_fav_quote && book.review_fav_quote !== '')

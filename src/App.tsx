@@ -158,7 +158,7 @@ const App = () => {
 				GLOBALS,
 			}}
 		>
-			<div id="top" style={{ position: 'absolute' }}></div>
+			<div id="top" style={{position: 'absolute'}} />
 			{userIsLoggedIn && (
 				<header id="header" className="shade">
 					<NavWrapper />

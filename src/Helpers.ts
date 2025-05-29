@@ -1,6 +1,6 @@
 function isUrl(url: string) {
-	if (url.slice(0, 8) === 'https://') return true
-	return false
+  if (url.slice(0, 8) === "https://") return true
+  return false
 }
 
 function isLocal(): boolean {
@@ -9,22 +9,22 @@ function isLocal(): boolean {
 }
 
 function getOlCover(id: string, size: CoverSize = undefined): string {
-	let appendSize: string = ''
+	let appendSize = ''
 	if (size) appendSize = '-' + size
 
 	if (id.slice(0, 2) === 'OL') return 'https://covers.openlibrary.org/b/olid/' + id + appendSize + '.jpg'
 	return 'https://covers.openlibrary.org/b/isbn/' + id + appendSize + '.jpg'
 }
 
-function getBookCover(url: string = '', size: CoverSize): string {
-	// NOTE set showOLImages to false when archive/OpenLibrary is unavailable
-	const showOLImages = true
+function getBookCover(url = "", size: CoverSize = undefined): string {
+    // NOTE set showOLImages to false when archive/OpenLibrary is unavailable
+    const showOLImages = true
 
 	if ((url.includes('openlibrary') && !showOLImages) || url === '') {
 		return './../img/save-books-icon.png'
 	}
 
-	let appendSize: string = ''
+	let appendSize = ''
 	if (size) {
 		appendSize = '-' + size
 		return url.replace('.jpg', appendSize + '.jpg')
@@ -75,7 +75,7 @@ function shuffleArray(array: []) {
 	}
 }
 
-function getUrlParamVal(url: string, key: string, hash: boolean = false): string {
+function getUrlParamVal(url: string, key: string, hash = false): string {
 	let urlArr: string[]
 	if (hash) urlArr = url.split(/['#','?','&']/)
 	else urlArr = url.split(/['?','&']/)
@@ -90,19 +90,25 @@ function getDurationDays(date_reading: Book['date_reading'], date_finished: Book
 	if (date_reading === undefined || date_finished === undefined) return -1
 	/** Date Reading Year */
 	const dry: number = Math.floor(date_reading / 10000)
-	date_reading -= dry * 10000
+
+  /** Date Reading: initialized by parameter date_reading */
+  let dr = date_reading
+  /** Date Finished: initialized by parameter date_finished */
+  let df = date_finished
+
+	dr -= dry * 10000
 	/** Date Reading Month */
-	const drm: number = Math.floor(date_reading / 100)
-	date_reading -= drm * 100
-	const date_reading_date = new Date(dry, drm, date_reading)
-	/** Date Finished .. leftover of date_reading will be Day Finished */
+	const drm: number = Math.floor(dr / 100)
+	dr -= drm * 100
+	const date_reading_date = new Date(dry, drm, dr)
+	/** Date Finished .. leftover of dr will be Day Finished */
 	/** Date Finished Year */
-	const dfy: number = Math.floor(date_finished / 10000)
-	date_finished -= dfy * 10000
+	const dfy: number = Math.floor(df / 10000)
+	df -= dfy * 10000
 	/** Date Finished Month */
-	const dfm: number = Math.floor(date_finished / 100)
-	date_finished -= dfm * 100
-	const date_finished_date: Date = new Date(dfy, dfm, date_finished)
+	const dfm: number = Math.floor(df / 100)
+	df -= dfm * 100
+	const date_finished_date: Date = new Date(dfy, dfm, df)
 	const date_difference: number = (date_finished_date.getTime() - date_reading_date.getTime()) / 1000 / 3600 / 24
 	return date_difference
 }

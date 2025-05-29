@@ -57,42 +57,42 @@ const ReviewRating = ({
 	return (
 		<div className="review-rates">
 			<div className="rate-stars">
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 0)}>
-					<span className={iconClassNameEraser}></span>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 0)}>
+					<span className={iconClassNameEraser}/>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 1)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 1)}>
 					<span className={iconClassNameStar + (reviewStars > 0 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 2)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 2)}>
 					<span className={iconClassNameStar + (reviewStars > 1 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 3)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 3)}>
 					<span className={iconClassNameStar + (reviewStars > 2 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 4)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 4)}>
 					<span className={iconClassNameStar + (reviewStars > 3 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_stars', 5)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_stars', 5)}>
 					<span className={iconClassNameStar + (reviewStars > 4 ? ' active' : '')}>&nbsp;</span>
 				</button>
 			</div>
 			<div className="rate-spice">
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 0)}>
-					<span className={iconClassNameEraser}></span>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 0)}>
+					<span className={iconClassNameEraser} />
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 1)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 1)}>
 					<span className={iconClassNameSpice + (reviewSpice > 0 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 2)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 2)}>
 					<span className={iconClassNameSpice + (reviewSpice > 1 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 3)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 3)}>
 					<span className={iconClassNameSpice + (reviewSpice > 2 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 4)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 4)}>
 					<span className={iconClassNameSpice + (reviewSpice > 3 ? ' active' : '')}>&nbsp;</span>
 				</button>
-				<button className="btn-icon" onClick={() => RateStarsAct('rate_spice', 5)}>
+				<button type="button" className="btn-icon" onClick={() => RateStarsAct('rate_spice', 5)}>
 					<span className={iconClassNameSpice + (reviewSpice > 4 ? ' active' : '')}>&nbsp;</span>
 				</button>
 			</div>

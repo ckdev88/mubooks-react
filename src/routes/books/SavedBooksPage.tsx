@@ -11,7 +11,7 @@ const booklist = undefined
 
 export default function SavedBooksPage() {
 	const { userMyBooks, GLOBALS } = useContext(AppContext)
-	let hasbooks: boolean = false
+	let hasbooks = false
 	if (userMyBooks.filter((book) => book.list && book.list > 0).length > 0) {
 		hasbooks = true
 	}

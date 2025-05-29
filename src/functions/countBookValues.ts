@@ -8,39 +8,39 @@ const curYearDayNr: number = Math.floor((Number(now) - Number(curYearStartDayNr)
 
 const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
 	/** Count Books Finished */
-	let cbf: number = 0
+	let cbf = 0
 	/** Count Books Finished Monthly */
 	const cbfm: number[] = Array(12).fill(0)
 	/** Count Books Without Pages */
-	let cbwp: number = 0
+	let cbwp = 0
 	/** Count Pages Finished */
-	let cpf: number = 0
+	let cpf = 0
 	/** Count Pages Finished Monthly */
 	const cpfm: number[] = Array(12).fill(0)
 	/** Average Days Per Book */
-	let adpb: number = 0
+	let adpb = 0
 	/** Days Per Book array where key is amount of days, value is amount of books */
 	const dpb: number[] = []
 	/** Average Pages Per Day */
-	let appd: number = 0
+	let appd = 0
 	/** Counted Books with STars */
-	let cbst: number = 0
+	let cbst = 0
 	/** Counted Books without STars */
-	let cbwst: number = 0
+	let cbwst = 0
 	/** Counted STars Total */
-	let cstt: number = 0
+	let cstt = 0
 	/**
 	 * Counted STars Per Book
 	 * array of 5 values, [0]=1 star, [4]=5 stars, incremented by the amount of books per amount of stars/index
 	 */
 	const cstpb: number[] = [0, 0, 0, 0, 0]
 	/** Average STars Per Book */
-	let astpb: number = 0
+	let astpb = 0
 
 	const bwp: BooksWithoutPages = []
 	const bwst: BooksWithoutStars = []
 
-	let monthIndex: number = 0
+	let monthIndex = 0
 
 	myBooksArr.map((b) => {
 		if (b.date_finished !== undefined && Math.floor(b.date_finished / 10000) === year) {

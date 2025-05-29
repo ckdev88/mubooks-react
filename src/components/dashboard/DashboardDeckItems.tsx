@@ -8,7 +8,7 @@ const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: st
 
 	const { userMyBooks, darkTheme } = useContext(AppContext)
 
-	let btnIconAdd: string = `img/icon-${page}.png`
+	let btnIconAdd = `img/icon-${page}.png`
 	if (darkTheme) btnIconAdd = `img/icon-${page}-white.png`
 	if (page === 'reading') {
 		book_list = 2
@@ -21,7 +21,7 @@ const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: st
 		btnIconAdd = 'img/save-books-icon.png'
 	}
 
-	let hasbooks: boolean = false
+	let hasbooks = false
 	let booksarr = userMyBooks.filter((book: Book) => book.list === book_list)
 	if (page === 'savedbooks') booksarr = userMyBooks
 	if (booksarr.length > 0) hasbooks = true
@@ -36,8 +36,8 @@ const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: st
 				<Link to={'/' + page}>
 					<main className="toadd">
 						<aside>
-							<button className="btn-icon">
-								<img src={btnIconAdd} />
+							<button type="button" className="btn-icon">
+								<img src={btnIconAdd} alt="" />
 							</button>
 						</aside>
 						{noBooksText}

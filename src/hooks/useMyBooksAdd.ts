@@ -38,9 +38,9 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
 			else title_short = book.title
 
 			const date_now = Number(convertDate(Date.now(), 'digit'))
-			let date_reading: number = 0
+			let date_reading = 0
 			if (targetList > 1) date_reading = date_now
-			let date_finished: number = 0
+			let date_finished = 0
 			if (targetList > 2) date_finished = date_now
 
 			const coverM = getBookCover(book.cover, 'M')

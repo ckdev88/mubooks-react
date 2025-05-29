@@ -25,7 +25,7 @@ export default function MyAccountCard() {
 					<dt>Password</dt>
 					<dd>******</dd>
 				</dl>
-				<button className="btn-lg" onClick={change}>
+				<button type="button" className="btn-lg" onClick={change}>
 					<span>Change</span>
 				</button>
 			</main>

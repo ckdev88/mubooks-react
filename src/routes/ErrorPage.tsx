@@ -15,7 +15,7 @@ const ErrorPage = () => {
 	const [countdown0, setCountdown0] = useState('')
 	const [countdown1, setCountdown1] = useState('')
 
-	let errormessage: string = ''
+	let errormessage = ''
 	if (getUrlParamVal(url, 'error_description')) {
 		const errormsg = getUrlParamVal(url, 'error_description')
 		errormessage = cleanSigns(errormsg)

@@ -10,7 +10,7 @@ function PopupNotification() {
 	}
 	// online state checker & notifier
 	const [isOnline, setIsOnline] = useState(navigator.onLine)
-	useEffect(() => {
+	useEffect(() => { // OPTIMIZE apply useLayoutEffect? 
 		const handleStatusChange = () => setIsOnline(navigator.onLine)
 		window.addEventListener('online', handleStatusChange)
 		window.addEventListener('offline', handleStatusChange)

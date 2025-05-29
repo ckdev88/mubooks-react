@@ -44,7 +44,7 @@ const RootPage = () => {
 
 	useEffect(() => {
 		let navigateTo: string
-		let loggedin: boolean = false
+		let loggedin = false
 		if (userInLs?.user?.aud === 'authenticated') {
 			loggedin = true
 			setUserIsLoggedIn(true)

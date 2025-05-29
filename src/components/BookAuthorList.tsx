@@ -9,7 +9,7 @@ export default function BookAuthorList({
 	return book_author_name.map((author: string, index: number) => {
 		const spanid = book_id + '-' + index
 		return (
-			<span key={`bookauthorlist${book_id}${index}`} id={spanid}>
+			<span key={'bookauthorlist' + spanid} id={spanid}>
 				{author}
 				<br />
 			</span>

@@ -11,7 +11,7 @@ const booklist = 2
 
 const ReadingPage = () => {
 	const { userMyBooks, GLOBALS } = useContext(AppContext)
-	let hasbooks: boolean = false
+	let hasbooks = false
 	if (userMyBooks.filter((book) => book.list === booklist).length > 0)
 		hasbooks = true
 	const books = userMyBooks.filter((book) => book.list === booklist)

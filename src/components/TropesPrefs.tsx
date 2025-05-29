@@ -36,7 +36,7 @@ const TropesPrefs = ({ field }: { field: 'tropes_liked' | 'tropes_disliked' }): 
 		tropesDb()
 	}, [])
 
-	useEffect(() => {
+	useEffect(() => { // OPTIMIZE: apply useLayoutEffect is faster?
 		if (field === 'tropes_liked' && showTropesForm === true) document.getElementById('trope_add_liked')?.focus()
 		if (field === 'tropes_disliked' && showTropesForm === true) document.getElementById('trope_add_disliked')?.focus()
 	}, [showTropesForm])
@@ -92,6 +92,7 @@ const TropesPrefs = ({ field }: { field: 'tropes_liked' | 'tropes_disliked' }): 
 					<BaseBadge key={cleanIndexKey(trope, index)} text={trope} removeTrope={removeTrope} field={field} type="trope"/>
 				))}
 				<button
+				  type="button"	
 					className={showTropesForm ? 'trope_add btn-sm mb0 active' : 'trope_add btn-sm mb0'}
 					onClick={() => setShowTropesForm(!showTropesForm)}
 				>
@@ -128,10 +129,15 @@ const TropesPrefs = ({ field }: { field: 'tropes_liked' | 'tropes_disliked' }): 
 								className="btn-submit-inside-caret-right wauto"
 								style={{ margin: '0', marginLeft: '-1.7rem' }}
 								onClick={addTrope}
-							></span>
+								onKeyDown={addTrope}
+							/>
 							{/* <BtnInsideCaret /> */}
 						</div>
-						<div className="btn-text btn-text-cancel wauto" onClick={() => setShowTropesForm(false)}>
+						<div 
+							className="btn-text btn-text-cancel wauto" 
+							onClick={() => setShowTropesForm(false)}
+							onKeyDown={() => setShowTropesForm(false)}
+						>
 							Cancel
 						</div>
 					</>

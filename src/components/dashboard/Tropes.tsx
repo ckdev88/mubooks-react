@@ -7,8 +7,8 @@ export default function Tropes() {
 				</header>
 				<main>
 					<aside>
-						<button>
-							<img src="img/hotcold-icon.svg" />
+						<button type="button">
+							<img src="img/hotcold-icon.svg" alt="" />
 						</button>
 					</aside>
 					Let's add some likes and dislikes.

@@ -11,8 +11,9 @@ const StatisticsFinishedInMonth = ({ yearmonth }: { yearmonth: number }) => {
 	)
 	return filteredUserMyBooks.map((b, index) => {
 		const refer: string = '/finished' + `#${cleanAnchor(b.title_short)}_${b.id}`
+	  const key = 'sfim' + yearmonth + index
 		return (
-			<li key={`sfim${yearmonth}${index}`}>
+			<li key={key}>
 				<HashLink to={refer} className="a-text">
 					{b.title_short}
 				</HashLink>

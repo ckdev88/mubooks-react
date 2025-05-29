@@ -21,8 +21,8 @@ const BookPages = ({
 				) : (
 					<div className="dflex">
 						{book_number_of_pages_median === 0 || !book_number_of_pages_median ? '?' : numberOfPages} pages &nbsp;
-						<button className="btn-icon" onClick={() => setIsModding(!isModding)}>
-							<span className="icon icon-pencil"></span>
+						<button type="button" className="btn-icon" onClick={() => setIsModding(!isModding)}>
+							<span className="icon icon-pencil" />
 						</button>
 					</div>
 				)}

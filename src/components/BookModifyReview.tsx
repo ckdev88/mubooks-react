@@ -47,7 +47,7 @@ const BookModifyReview = ({
 				<BtnInsideCaret />
 			</form>
 			{isModding && (
-				<button className={input.cancel_class} onClick={() => setIsModding(false)}>
+				<button type="button" className={input.cancel_class} onClick={() => setIsModding(false)}>
 					Cancel
 				</button>
 			)}

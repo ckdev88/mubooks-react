@@ -83,7 +83,7 @@
 	--icon-calendar:url('/img/icon-calendar-white.svg');
 	--icon-loep:url('/img/loep-wit.svg');
 
-	--shade-around: box-shadow: 0 0 0.4rem rgba(255, 255, 255, 25%);
-	--shade-around-subtle: box-shadow: 0 0 0.4rem rgba(255, 255, 255, 15%);
+	--shade-around: box-shadow 0 0 0.4rem rgba(255, 255, 255, 25%);
+	--shade-around-subtle: box-shadow 0 0 0.4rem rgba(255, 255, 255, 15%);
 	--disabled-loading-descr-bg: #575f65;
 }

@@ -50,16 +50,17 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 				<LineG2 data={cbfm} data2={cpfm} subjects={['Books', 'Pages']} />
 				Books finished in {year}: <b>{cbf}</b>
 				{cbwp > 0 && <span className="sf2">*</span>}{' '}
-				<button onClick={() => setShowCbfDetails(!showCbfDetails)} className="btn-text diblock">
+				<button type="button" onClick={() => setShowCbfDetails(!showCbfDetails)} className="btn-text diblock">
 					...
 				</button>
 				{showCbfDetails && (
 					<div className="mt05 sf">
 						{cbfm.map((c, index) => {
 							const yearmonth: number = year * 100 + (index + 1) // year 2022 index 2 > 202203
+							const key = 'cbfm' + year + index
 
 							return (
-								<div key={`cbfm${year}${index}`}>
+								<div key={key}>
 									{getMonthName(index)}:{' '}
 									<b>
 										{c} {c === 1 ? 'book' : 'books'}
@@ -77,7 +78,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 								</div>
 							)
 						})}
-						<button className="btn-text fs-inherit" onClick={() => setShowBfmDetails(!showBfmDetails)}>
+						<button type="button" className="btn-text fs-inherit" onClick={() => setShowBfmDetails(!showBfmDetails)}>
 							{showBfmDetails ? 'hide' : 'show'} titles
 						</button>
 						<br />
@@ -101,15 +102,15 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 				<div className="h2 mb0">Days per book</div>
 				<LineG3 data={dpb} />
 				Average days to finish a book: <b>{adpb}</b>&nbsp;
-				<button className="btn-text diblock" onClick={() => setShowDpbDetails(!showDpbDetails)}>
+				<button type="button" className="btn-text diblock" onClick={() => setShowDpbDetails(!showDpbDetails)}>
 					...
 				</button>
 				<div className={showDpbDetails ? 'mt05 sf' : 'mt05 sf dnone'}>
-					<>
 						<div className={showDpbDetails2 ? 'dnone' : 'dblock'}>
 							{dpb.map((b, index) => {
+								const key = 'adpb' + year + index
 								return (
-									<div key={`adpb${year}${index}`}>
+									<div key={key}>
 										{index} {`day${index !== 1 ? 's' : ''}`}:{' '}
 										<b>
 											{b} {`book${b !== 1 ? 's' : ''}`}
@@ -118,9 +119,8 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 								)
 							})}
 						</div>
-					</>
 					{showDpbDetails2 && <StatisticsDaysPerBookInYear year={year} />}
-					<button className="btn-text fs-inherit" onClick={() => setShowDpbDetails2(!showDpbDetails2)}>
+					<button type="button" className="btn-text fs-inherit" onClick={() => setShowDpbDetails2(!showDpbDetails2)}>
 						{!showDpbDetails2 ? 'show titles' : 'hide titles'}
 					</button>
 				</div>
@@ -134,7 +134,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 					{cbwst > 0 && (
 						<>
 							<span className="sf2">*</span>
-							<button onClick={() => setShowStpbDetails(!showStpbDetails)} className="btn-text diblock">
+							<button type="button" onClick={() => setShowStpbDetails(!showStpbDetails)} className="btn-text diblock">
 								...
 							</button>
 							<div className={showStpbDetails ? 'mt05 sf' : 'mt05 sf dnone'}>
@@ -142,8 +142,9 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 									<>
 										<div className={showStpbDetails2 ? 'dnone' : 'dblock'}>
 											{cstpb.map((b, index) => {
+												const key = 'cstpb' + year + index
 												return (
-													<div key={`cstpb${year}${index}`} className={b === 0 ? 'dnone' : ''}>
+													<div key={key} className={b === 0 ? 'dnone' : ''}>
 														{index + 1} {index + 1 === 1 ? 'star' : 'stars'}:{' '}
 														<b>{`${b} ${b === 1 ? 'book' : 'books'}`}</b>
 													</div>
@@ -151,7 +152,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
 											})}
 										</div>
 										{showStpbDetails2 && <StatisticsStarsPerBookInYear year={year} />}{' '}
-										<button className="btn-text fs-inherit" onClick={() => setShowStpbDetails2(!showStpbDetails2)}>
+										<button type="button" className="btn-text fs-inherit" onClick={() => setShowStpbDetails2(!showStpbDetails2)}>
 											{`${!showStpbDetails2 ? 'show titles' : 'hide titles'}`}
 										</button>
 									</>
