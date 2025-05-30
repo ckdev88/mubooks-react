@@ -1,5 +1,4 @@
 interface BaseBadgeProps {
-    key: string
     text: string
     removeText?: (text: string) => void
     removeTrope?: (
@@ -11,7 +10,6 @@ interface BaseBadgeProps {
 }
 
 const BaseBadge = ({
-    key,
     text,
     removeText,
     removeTrope,
@@ -26,7 +24,7 @@ const BaseBadge = ({
     if (type === "subject") classname += " subject"
     if (type === "trope") classname += " trope"
     return (
-        <div className={classname} key={key}>
+        <div className={classname}>
             {text}
             {removeable && removeText !== undefined && (
                 <button
