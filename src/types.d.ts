@@ -125,7 +125,7 @@ interface Book {
     cover: string
     cover_redir?: string
     edition_key?: string[]
-    first_publish_year: string
+    first_publish_year: number | null
     id: Id
     img?: string
     index?: number

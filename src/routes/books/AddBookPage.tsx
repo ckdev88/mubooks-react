@@ -27,7 +27,7 @@ const AddBookPage = () => {
 
     const [title, setTitle] = useState<Book["title"]>("")
     const [firstPublishYear, setFirstPublishYear] =
-        useState<Book["first_publish_year"]>("")
+        useState<Book["first_publish_year"]>(null)
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] =
         useState<Book["number_of_pages_median"]>(0)
@@ -68,7 +68,7 @@ const AddBookPage = () => {
     function changeFirstPublishYear(
         e: React.ChangeEvent<HTMLInputElement>,
     ): void {
-        setFirstPublishYear(e.currentTarget.value)
+        setFirstPublishYear(Number(e.currentTarget.value))
     }
     // /for the preview
 
