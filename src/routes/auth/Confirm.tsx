@@ -7,10 +7,7 @@ const AuthConfirm = () => {
     }, 2000)
     return (
         <>
-            <Heading
-                text="Your account is confirmed"
-                sub="You can now log in."
-            />
+            <Heading text="Your account is confirmed" sub="You can now log in." />
             <p>Redirecting to the login screen...</p>
         </>
     )

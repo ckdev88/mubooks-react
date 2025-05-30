@@ -10,10 +10,7 @@ import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
 import countBookValues from "../functions/countBookValues"
 import Heading from "./ui/Heading"
 
-const StatisticsYear = ({
-    myBooksArr,
-    year,
-}: { myBooksArr: Books; year: number }) => {
+const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
     const {
         cbf,
         cpf,
@@ -61,17 +58,10 @@ const StatisticsYear = ({
 
     return (
         <section className="stats-year">
-            <Heading
-                text={`Your numbers for ${year}`}
-                icon="icon-statistics.svg"
-            />
+            <Heading text={`Your numbers for ${year}`} icon="icon-statistics.svg" />
             <article className="stats-item">
                 <div className="h2 mb0">Books & pages per month</div>
-                <LineG2
-                    data={cbfm}
-                    data2={cpfm}
-                    subjects={["Books", "Pages"]}
-                />
+                <LineG2 data={cbfm} data2={cpfm} subjects={["Books", "Pages"]} />
                 Books finished in {year}: <b>{cbf}</b>
                 {cbwp > 0 && <span className="sf2">*</span>}{" "}
                 <button
@@ -161,9 +151,7 @@ const StatisticsYear = ({
                             )
                         })}
                     </div>
-                    {showDpbDetails2 && (
-                        <StatisticsDaysPerBookInYear year={year} />
-                    )}
+                    {showDpbDetails2 && <StatisticsDaysPerBookInYear year={year} />}
                     <button
                         type="button"
                         className="btn-text fs-inherit"
@@ -184,40 +172,27 @@ const StatisticsYear = ({
                             <span className="sf2">*</span>
                             <button
                                 type="button"
-                                onClick={() =>
-                                    setShowStpbDetails(!showStpbDetails)
-                                }
+                                onClick={() => setShowStpbDetails(!showStpbDetails)}
                                 className="btn-text diblock"
                             >
                                 ...
                             </button>
                             <div
-                                className={
-                                    showStpbDetails
-                                        ? "mt05 sf"
-                                        : "mt05 sf dnone"
-                                }
+                                className={showStpbDetails ? "mt05 sf" : "mt05 sf dnone"}
                             >
                                 {cstpb.length > 0 && (
                                     <>
                                         <div
                                             className={
-                                                showStpbDetails2
-                                                    ? "dnone"
-                                                    : "dblock"
+                                                showStpbDetails2 ? "dnone" : "dblock"
                                             }
                                         >
                                             {cstpb.map((b, index) => {
-                                                const key =
-                                                    "cstpb" + year + index
+                                                const key = "cstpb" + year + index
                                                 return (
                                                     <div
                                                         key={key}
-                                                        className={
-                                                            b === 0
-                                                                ? "dnone"
-                                                                : ""
-                                                        }
+                                                        className={b === 0 ? "dnone" : ""}
                                                     >
                                                         {index + 1}{" "}
                                                         {index + 1 === 1
@@ -230,17 +205,13 @@ const StatisticsYear = ({
                                             })}
                                         </div>
                                         {showStpbDetails2 && (
-                                            <StatisticsStarsPerBookInYear
-                                                year={year}
-                                            />
+                                            <StatisticsStarsPerBookInYear year={year} />
                                         )}{" "}
                                         <button
                                             type="button"
                                             className="btn-text fs-inherit"
                                             onClick={() =>
-                                                setShowStpbDetails2(
-                                                    !showStpbDetails2,
-                                                )
+                                                setShowStpbDetails2(!showStpbDetails2)
                                             }
                                         >
                                             {`${!showStpbDetails2 ? "show titles" : "hide titles"}`}

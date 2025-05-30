@@ -62,15 +62,11 @@ const QuickBookSearch = () => {
                 )
                 .then((filtered) => {
                     for (let i = 0; i < filtered.length; i++) {
-                        filtered[i].id = filtered[i].edition_key
-                            .slice(0, 1)
-                            .toString()
+                        filtered[i].id = filtered[i].edition_key.slice(0, 1).toString()
                         filtered[i].title_short = filtered[i].title
                             .slice(0, 45)
                             .toString()
-                        filtered[i].cover = getOlCover(
-                            filtered[i].cover_edition_key,
-                        )
+                        filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
                     filtered.length > 30
                         ? setResultsMessage(
@@ -87,8 +83,7 @@ const QuickBookSearch = () => {
                 })
                 .then((result) => setSearchResults(result))
             setLoading(false)
-        } else if (search_term.length === 0)
-            setResultsWarning(search_term.length)
+        } else if (search_term.length === 0) setResultsWarning(search_term.length)
         else setResultsWarning("keep typing...")
     }
 
@@ -108,10 +103,7 @@ const QuickBookSearch = () => {
                     text="Quick search"
                     sub="Click on a book to prefill the fields"
                 />
-                <form
-                    onSubmit={processSearchForm}
-                    className="single-small-form clr"
-                >
+                <form onSubmit={processSearchForm} className="single-small-form clr">
                     <input type="text" id="search_term" name="search_term" />
                     <button
                         type="submit"
@@ -140,23 +132,18 @@ const QuickBookSearch = () => {
                     const resultKey = "result" + res.id + result_index
                     if (res.id !== undefined) {
                         let title: string
-                        if (res.title.length > 55)
-                            title = res.title.slice(0, 55) + "..."
+                        if (res.title.length > 55) title = res.title.slice(0, 55) + "..."
                         else title = res.title
                         let authorKey: string
-                        const authors = res.author_name.map(
-                            (author, author_index) => {
-                                authorKey =
-                                    "author" + authorKey + "-" + author_index
-                                return (
-                                    <span key={authorKey}>
-                                        {author}
-                                        {author_index <
-                                            res.author_name.length - 1 && ", "}
-                                    </span>
-                                )
-                            },
-                        )
+                        const authors = res.author_name.map((author, author_index) => {
+                            authorKey = "author" + authorKey + "-" + author_index
+                            return (
+                                <span key={authorKey}>
+                                    {author}
+                                    {author_index < res.author_name.length - 1 && ", "}
+                                </span>
+                            )
+                        })
 
                         return (
                             <div

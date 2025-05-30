@@ -15,13 +15,7 @@ const Heading = ({ el = "h1", text, icon, sub }: HeadingProps) => {
                 <div className={el + " " + `${el}-with-icon`}>
                     <div>
                         {text}{" "}
-                        {icon && (
-                            <img
-                                src={`/img/${icon}`}
-                                alt=""
-                                className="h1-icon"
-                            />
-                        )}
+                        {icon && <img src={`/img/${icon}`} alt="" className="h1-icon" />}
                     </div>
                     {sub && el !== "adder-header" && <sub>{sub}</sub>}
                     {el === "adder-header" && <span>›</span>}

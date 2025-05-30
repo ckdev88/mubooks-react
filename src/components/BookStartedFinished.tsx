@@ -10,26 +10,13 @@ interface Props {
     book_id: Book["id"]
     list: Book["list"]
 }
-const BookStartedFinished = ({
-    date_started,
-    date_finished,
-    book_id,
-    list,
-}: Props) => {
-    const {
-        userMyBooks,
-        setUserMyBooks,
-        setPopupNotification,
-        userid,
-        todaysDateInput,
-    } = useContext(AppContext)
-    const [dateStarted, setDateStarted] =
-        useState<Book["date_reading"]>(date_started)
-    const [dateFinished, setDateFinished] =
-        useState<Book["date_finished"]>(date_finished)
+const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Props) => {
+    const { userMyBooks, setUserMyBooks, setPopupNotification, userid, todaysDateInput } =
+        useContext(AppContext)
+    const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
+    const [dateFinished, setDateFinished] = useState<Book["date_finished"]>(date_finished)
     const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
     const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
-
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: TODO OPTIMIZE
     useEffect(() => {
@@ -79,12 +66,10 @@ const BookStartedFinished = ({
         else myBooks = userMyBooks
         for (let i = 0; i < myBooks.length; i++) {
             if (myBooks[i].id === book_id) {
-                if (fieldName === "date_reading")
-                    myBooks[i].date_reading = fieldVal
+                if (fieldName === "date_reading") myBooks[i].date_reading = fieldVal
                 if (fieldName === "date_finished") {
                     const tmpbooklist = myBooks[i].list
-                    if (Number.isNaN(fieldVal))
-                        myBooks[i].date_finished = undefined
+                    if (Number.isNaN(fieldVal)) myBooks[i].date_finished = undefined
                     if (
                         (myBooks[i].date_finished === null ||
                             myBooks[i].date_finished === undefined ||
@@ -107,10 +92,7 @@ const BookStartedFinished = ({
         const newDateArr = (
             document.getElementById(inputfield) as HTMLInputElement
         ).value.split("-")
-        const newDate = Number.parseInt(
-            newDateArr[0] + newDateArr[1] + newDateArr[2],
-            10,
-        )
+        const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
         changeDates(field, newDate)
     }
     useEffect(() => {
@@ -147,8 +129,7 @@ const BookStartedFinished = ({
                                     openCalendarPopUp("date_reading" + book_id)
                                 }
                             >
-                                {dateStarted &&
-                                    convertDate(dateStarted, "human")}
+                                {dateStarted && convertDate(dateStarted, "human")}
                             </button>
                         </em>
                         <input
@@ -177,8 +158,7 @@ const BookStartedFinished = ({
                                     openCalendarPopUp("date_finished" + book_id)
                                 }
                             >
-                                {date_finished &&
-                                    convertDate(date_finished, "human")}
+                                {date_finished && convertDate(date_finished, "human")}
                             </button>
                         </em>
                         <input
@@ -186,10 +166,7 @@ const BookStartedFinished = ({
                             id={"date_finished" + book_id}
                             name={"date_finished" + book_id}
                             type="date"
-                            min={
-                                date_started &&
-                                convertDate(date_started, "input")
-                            }
+                            min={date_started && convertDate(date_started, "input")}
                             max={todaysDateInput}
                             className="calendar-hidden"
                             onChange={debounce(

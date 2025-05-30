@@ -1,9 +1,7 @@
 const useCardRotate = () => {
     function recover() {
-        const cardSignup: HTMLElement | null =
-            document.getElementById("card-signup")
-        const cardRecover: HTMLElement | null =
-            document.getElementById("card-recover")
+        const cardSignup: HTMLElement | null = document.getElementById("card-signup")
+        const cardRecover: HTMLElement | null = document.getElementById("card-recover")
         document.getElementById("cards-draaideur")?.classList.add("rotate")
         if (cardSignup) cardSignup.style.display = "none"
         if (cardRecover) {
@@ -12,10 +10,8 @@ const useCardRotate = () => {
         }
     }
     function signup() {
-        const cardRecover: HTMLElement | null =
-            document.getElementById("card-recover")
-        const cardSignup: HTMLElement | null =
-            document.getElementById("card-signup")
+        const cardRecover: HTMLElement | null = document.getElementById("card-recover")
+        const cardSignup: HTMLElement | null = document.getElementById("card-signup")
         document.getElementById("cards-draaideur")?.classList.add("rotate")
         if (cardRecover) cardRecover.style.display = "none"
         if (cardSignup) {

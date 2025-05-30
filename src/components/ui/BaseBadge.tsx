@@ -1,21 +1,12 @@
 interface BaseBadgeProps {
     text: string
     removeText?: (text: string) => void
-    removeTrope?: (
-        text: string,
-        field: "tropes_liked" | "tropes_disliked",
-    ) => void
+    removeTrope?: (text: string, field: "tropes_liked" | "tropes_disliked") => void
     field?: "tropes_liked" | "tropes_disliked"
     type?: "subject" | "trope" | "author"
 }
 
-const BaseBadge = ({
-    text,
-    removeText,
-    removeTrope,
-    field,
-    type,
-}: BaseBadgeProps) => {
+const BaseBadge = ({ text, removeText, removeTrope, field, type }: BaseBadgeProps) => {
     let removeable = false
     if (removeText !== undefined || removeTrope !== undefined) removeable = true
     let classname = "badge"
@@ -27,11 +18,7 @@ const BaseBadge = ({
         <div className={classname}>
             {text}
             {removeable && removeText !== undefined && (
-                <button
-                    type="button"
-                    className="btn-x"
-                    onClick={() => removeText(text)}
-                >
+                <button type="button" className="btn-x" onClick={() => removeText(text)}>
                     x
                 </button>
             )}

@@ -9,18 +9,12 @@ const useMyBooksAdd = ({
     book,
     targetList,
 }: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const {
-        setPopupNotification,
-        userMyBooks,
-        setUserMyBooks,
-        userid,
-        todaysDateDigit,
-    } = useContext(AppContext)
+    const { setPopupNotification, userMyBooks, setUserMyBooks, userid, todaysDateDigit } =
+        useContext(AppContext)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string =
-            book.title_short + " added to " + getListName(targetList)
+        let msg: string = book.title_short + " added to " + getListName(targetList)
         setUserMyBooks(myBooksNew)
         const { error } = await supabase
             .from("user_entries")
@@ -35,12 +29,8 @@ const useMyBooksAdd = ({
         setIsLoading(false)
     }
 
-    const fetchBookCoverRedir = async (
-        bookCoverM: Book["cover"],
-    ): Promise<string> => {
-        const bookCoverSrcRedir: string = await fetch(bookCoverM).then(
-            (res) => res.url,
-        )
+    const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
+        const bookCoverSrcRedir: string = await fetch(bookCoverM).then((res) => res.url)
         return bookCoverSrcRedir
     }
 
@@ -48,8 +38,7 @@ const useMyBooksAdd = ({
         let newUserMyBooks = userMyBooks
         if (bookIsSaved === false) {
             let title_short: Book["title_short"]
-            if (book.title.length > 55)
-                title_short = book.title.slice(0, 55) + "..."
+            if (book.title.length > 55) title_short = book.title.slice(0, 55) + "..."
             else title_short = book.title
 
             const date_now = Number(convertDate(Date.now(), "digit"))

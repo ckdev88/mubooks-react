@@ -6,8 +6,7 @@ import Heading from "../ui/Heading"
 
 export default function MyAccountEditCard() {
     const { see } = useCardRotate()
-    const { username, setUsername, usermail, setUsermail } =
-        useContext(AppContext)
+    const { username, setUsername, usermail, setUsermail } = useContext(AppContext)
 
     function afterSbUpdate(name: string, mail: string) {
         setUsername(name)
@@ -44,11 +43,9 @@ export default function MyAccountEditCard() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const form_username: string =
-            e.currentTarget.account_screenname.value.trim()
+        const form_username: string = e.currentTarget.account_screenname.value.trim()
         const form_usermail: string = e.currentTarget.account_email.value.trim()
-        const form_userpass: string =
-            e.currentTarget.account_password.value.trim()
+        const form_userpass: string = e.currentTarget.account_password.value.trim()
         updateSbUser(form_username, form_usermail, form_userpass)
     }
 

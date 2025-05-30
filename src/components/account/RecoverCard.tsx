@@ -63,19 +63,13 @@ const RecoverCard = () => {
                             />
                         </label>
                         <p>
-                            We'll send a link to this email address if it
-                            matches an existing account.
+                            We'll send a link to this email address if it matches an
+                            existing account.
                         </p>
-                        <div
-                            className={error !== "" ? "dblock error" : "dblock"}
-                        >
+                        <div className={error !== "" ? "dblock error" : "dblock"}>
                             {error}&nbsp;
                         </div>
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="btn-lg"
-                        >
+                        <button type="submit" disabled={isLoading} className="btn-lg">
                             Send me a password reset link{" "}
                             {isLoading && <span className="loader-dots" />}
                         </button>

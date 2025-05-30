@@ -25,14 +25,11 @@ const BookPages = ({
                 {isModding ? (
                     <BookModifyPages
                         book_id={book_id}
-                        book_number_of_pages_median={
-                            book_number_of_pages_median
-                        }
+                        book_number_of_pages_median={book_number_of_pages_median}
                     />
                 ) : (
                     <div className="dflex">
-                        {book_number_of_pages_median === 0 ||
-                        !book_number_of_pages_median
+                        {book_number_of_pages_median === 0 || !book_number_of_pages_median
                             ? "?"
                             : numberOfPages}{" "}
                         pages &nbsp;

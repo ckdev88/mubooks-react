@@ -5,8 +5,7 @@ import useCardRotate from "../../hooks/useCardRotate"
 import Heading from "../ui/Heading"
 
 const LoginCard = () => {
-    const { setUserIsLoggedIn, setUsername, setUsermail } =
-        useContext(AppContext)
+    const { setUserIsLoggedIn, setUsername, setUsermail } = useContext(AppContext)
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -36,9 +35,7 @@ const LoginCard = () => {
                     setUsermail(res.data.user?.user_metadata.email)
                 }
             })
-            .catch(() =>
-                setError("Something unexpected happened, try again later."),
-            )
+            .catch(() => setError("Something unexpected happened, try again later."))
             .finally(() => setIsLoading(false))
     }
 
@@ -54,9 +51,7 @@ const LoginCard = () => {
                     <form onSubmit={processLoginForm}>
                         <div
                             className={
-                                error !== ""
-                                    ? "notification error"
-                                    : "notification"
+                                error !== "" ? "notification error" : "notification"
                             }
                         >
                             {error}
@@ -88,8 +83,7 @@ const LoginCard = () => {
                             disabled={isLoading}
                             className="btn-lg"
                         >
-                            Log in{" "}
-                            {isLoading && <span className="loader-dots" />}
+                            Log in {isLoading && <span className="loader-dots" />}
                         </button>
                     </form>
                 </main>
@@ -106,9 +100,7 @@ const LoginCard = () => {
                         className="btn-text ta-right wauto-md nowrap diblock"
                         onClick={signup}
                     >
-                        <span className="dnone diblock-md">
-                            New here?&nbsp;
-                        </span>
+                        <span className="dnone diblock-md">New here?&nbsp;</span>
                         Join now
                     </button>
                 </footer>

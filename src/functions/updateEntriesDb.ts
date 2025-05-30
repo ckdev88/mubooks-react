@@ -2,10 +2,7 @@ import { supabase } from "../../utils/supabase"
 
 // very much alike ./src/functions/updateTropesDb.ts
 // used in ./src/routes/books/AddBookPage
-async function updateEntriesDbxxx(
-    newArr: Books,
-    userid: string,
-): Promise<string> {
+async function updateEntriesDbxxx(newArr: Books, userid: string): Promise<string> {
     let msg = ""
     const { error } = await supabase
         .from("user_entries")

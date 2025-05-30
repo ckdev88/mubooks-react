@@ -108,8 +108,7 @@ const AddBookToXButton = ({
                 type="button"
             >
                 <span className={iconClassName} />
-                {button_title}{" "}
-                {isLoading && <span className="loader-dots"> </span>}
+                {button_title} {isLoading && <span className="loader-dots"> </span>}
             </button>
         </div>
     )

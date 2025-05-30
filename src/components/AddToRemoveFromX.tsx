@@ -44,9 +44,7 @@ const AddToRemoveFromX = ({
                             book_cover_edition_key={book.cover_edition_key}
                             book_first_publish_year={book.first_publish_year}
                             book_img={book.img}
-                            book_number_of_pages_median={
-                                book.number_of_pages_median
-                            }
+                            book_number_of_pages_median={book.number_of_pages_median}
                             targetList={limit}
                             icon={true}
                             book_rate_stars={book.rate_stars}
@@ -74,9 +72,7 @@ const AddToRemoveFromX = ({
                         book_cover_edition_key={book.cover_edition_key}
                         book_first_publish_year={book.first_publish_year}
                         book_img={book.img}
-                        book_number_of_pages_median={
-                            book.number_of_pages_median
-                        }
+                        book_number_of_pages_median={book.number_of_pages_median}
                         targetList={1}
                         icon={true}
                         book_rate_stars={book.rate_stars}
@@ -87,8 +83,7 @@ const AddToRemoveFromX = ({
                 )}
 
                 {(book.list === 1 ||
-                    (currentPage === "search" &&
-                        (book.list < 2 || !book.list))) && (
+                    (currentPage === "search" && (book.list < 2 || !book.list))) && (
                     <AddBookToXButton
                         book_id={book.id}
                         book_list={book.list}
@@ -100,9 +95,7 @@ const AddToRemoveFromX = ({
                         book_cover_edition_key={book.cover_edition_key}
                         book_first_publish_year={book.first_publish_year}
                         book_img={book.img}
-                        book_number_of_pages_median={
-                            book.number_of_pages_median
-                        }
+                        book_number_of_pages_median={book.number_of_pages_median}
                         targetList={2}
                         icon={true}
                         button_title="Start reading"
@@ -125,9 +118,7 @@ const AddToRemoveFromX = ({
                         book_cover_edition_key={book.cover_edition_key}
                         book_first_publish_year={book.first_publish_year}
                         book_img={book.img}
-                        book_number_of_pages_median={
-                            book.number_of_pages_median
-                        }
+                        book_number_of_pages_median={book.number_of_pages_median}
                         targetList={3}
                         icon={true}
                         button_title="Finish reading"
@@ -138,8 +129,7 @@ const AddToRemoveFromX = ({
                     />
                 )}
 
-                {(book.list === 3 ||
-                    (currentPage === "search" && book.list !== 4)) && (
+                {(book.list === 3 || (currentPage === "search" && book.list !== 4)) && (
                     <AddBookToXButton
                         book_id={book.id}
                         book_list={book.list}
@@ -151,9 +141,7 @@ const AddToRemoveFromX = ({
                         book_cover_edition_key={book.cover_edition_key}
                         book_first_publish_year={book.first_publish_year}
                         book_img={book.img}
-                        book_number_of_pages_median={
-                            book.number_of_pages_median
-                        }
+                        book_number_of_pages_median={book.number_of_pages_median}
                         targetList={4}
                         icon={true}
                         button_title="Mark as favorite"

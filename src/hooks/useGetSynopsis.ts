@@ -21,8 +21,7 @@ const useGetSynopsis = (
             )
             fetchSynopsisPromise
                 .then((response) => {
-                    if (!response.ok)
-                        throw new Error(`Error ${response.status}`)
+                    if (!response.ok) throw new Error(`Error ${response.status}`)
                     return response.json()
                 })
                 .then((data) => {
@@ -48,8 +47,7 @@ const useGetSynopsis = (
             )
             fetchSynopsisPromise
                 .then((response) => {
-                    if (!response.ok)
-                        throw new Error(`Error ${response.status}`)
+                    if (!response.ok) throw new Error(`Error ${response.status}`)
                     return response.json()
                 })
                 .then((data) => setSynopsis(data.description))

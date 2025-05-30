@@ -26,9 +26,7 @@ function getBooksFinishedInYear(
     format: "concise" | "concise_starsperbook" | "full",
 ): Books | ArrayConciseStarsPerBook {
     const arrayFull = inputArray.filter(
-        (book) =>
-            book.date_finished &&
-            Math.floor(book.date_finished / 10000) === year,
+        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
     )
     if (format === "concise_starsperbook") {
         const arrayConcise: ArrayConciseStarsPerBook = []
@@ -45,11 +43,7 @@ function getBooksFinishedInYear(
     return arrayFull
 }
 function getDpbData(userMyBooks: Books, year: number) {
-    const inputArray = getBooksFinishedInYear(
-        userMyBooks,
-        year,
-        "concise_starsperbook",
-    )
+    const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_starsperbook")
     const outputArray: OutputPerStarsAmount[] = []
 
     const groupedItems: { [rate_stars: number]: OutputPerStarsAmount } = {}
@@ -89,9 +83,7 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
                         <div key={dpbd_key}>
                             {b.rate_stars} stars:{" "}
                             <b>
-                                {b.amount} {b.amount === 1
-                                    ? "book"
-                                    : "books"}{" "}
+                                {b.amount} {b.amount === 1 ? "book" : "books"}{" "}
                             </b>
                             <ul className="mt0">
                                 {b.books.map((book, index) => {
@@ -101,10 +93,7 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
                                     const key = "bokmap" + index
                                     return (
                                         <li key={key}>
-                                            <HashLink
-                                                to={refer}
-                                                className="a-text"
-                                            >
+                                            <HashLink to={refer} className="a-text">
                                                 {book.title_short}
                                             </HashLink>
                                         </li>

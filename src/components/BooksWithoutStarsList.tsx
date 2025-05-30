@@ -5,8 +5,7 @@ const BooksWithoutStarsList = ({
     year,
 }: { bwst: BooksWithoutStars; year: number }) => {
     return bwst.map((b) => {
-        const refer: string =
-            "finished" + `#${cleanAnchor(b.title_short)}_${b.id}`
+        const refer: string = "finished" + `#${cleanAnchor(b.title_short)}_${b.id}`
         return (
             <li key={"bwst" + year + b.id}>
                 <HashLink className="a-text italic" to={`/${refer}`}>

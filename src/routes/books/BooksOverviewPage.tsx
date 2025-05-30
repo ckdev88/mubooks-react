@@ -4,10 +4,9 @@ import { AppContext } from "../../App"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
 
-export const BooksOverviewFilterContext =
-    createContext<BooksOverviewFilterContextType>(
-        {} as BooksOverviewFilterContextType,
-    )
+export const BooksOverviewFilterContext = createContext<BooksOverviewFilterContextType>(
+    {} as BooksOverviewFilterContextType,
+)
 
 const BooksOverviewPage = ({
     books = [],
@@ -31,9 +30,7 @@ const BooksOverviewPage = ({
                     (book: Book) => book.list === 3 || book.list === 4,
                 )
             else
-                booklistStart = userMyBooks.filter(
-                    (book: Book) => book.list === booklist,
-                )
+                booklistStart = userMyBooks.filter((book: Book) => book.list === booklist)
         }
     }
     if (page === "finished") {
@@ -41,9 +38,7 @@ const BooksOverviewPage = ({
         booklistStart = userMyBooks.filter(
             (book: Book) => book.list === 3 || book.list === 4,
         )
-        books = userMyBooks.filter(
-            (book: Book) => book.list === 3 || book.list === 4,
-        )
+        books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
     }
     if (page === "tropes") books = tropesInMyBooksArr
 
@@ -71,14 +66,11 @@ const BooksOverviewPage = ({
                 bookstmp = userMyBooks.filter(
                     (book: Book) => book.list === 3 || book.list === 4,
                 )
-            } else
-                bookstmp = userMyBooks.filter((book) => book.list === booklist)
+            } else bookstmp = userMyBooks.filter((book) => book.list === booklist)
 
             // SORTING
             if (booklist === 3 || booklist === 4) {
-                bookstmp.sort(
-                    (a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0),
-                )
+                bookstmp.sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
             }
         }
         setBooksList(bookstmp)
@@ -107,10 +99,7 @@ const BooksOverviewPage = ({
     // biome-ignore lint/correctness/useExhaustiveDependencies: <Only run once via []>
     useEffect(() => {
         if (fsPages.includes(page)) {
-            if (
-                window.location.hash !== undefined &&
-                window.location.hash !== ""
-            ) {
+            if (window.location.hash !== undefined && window.location.hash !== "") {
                 setTimeout(() => {
                     location.href = window.location.hash
                 }, 500)
@@ -128,18 +117,15 @@ const BooksOverviewPage = ({
                         >
                             <BooksOverviewFilterSort />
                             <div className="h2 resultsfound mt0i">
-                                {booksFilter.length > 0 &&
-                                booksList.length > 0 ? (
+                                {booksFilter.length > 0 && booksList.length > 0 ? (
                                     <>
                                         {booksList.length} book
-                                        {booksList.length !== 1 && "s"} found
-                                        for <em>"{booksFilter}"</em>
-                                    </>
-                                ) : booksFilter.length > 0 &&
-                                  booksList.length === 0 ? (
-                                    <>
-                                        No books found for{" "}
+                                        {booksList.length !== 1 && "s"} found for{" "}
                                         <em>"{booksFilter}"</em>
+                                    </>
+                                ) : booksFilter.length > 0 && booksList.length === 0 ? (
+                                    <>
+                                        No books found for <em>"{booksFilter}"</em>
                                     </>
                                 ) : (
                                     <></>

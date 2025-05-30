@@ -12,8 +12,7 @@ const booklist = 1
 const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
-    if (userMyBooks.filter((book) => book.list === booklist).length > 0)
-        hasbooks = true // OPTIMIZE: this is a bit meh
+    if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true // OPTIMIZE: this is a bit meh
 
     return (
         <motion.div

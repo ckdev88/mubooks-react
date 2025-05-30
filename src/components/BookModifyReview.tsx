@@ -28,9 +28,7 @@ const BookModifyReview = ({
                 : "review_text_" + book_id,
         default: review_text,
         placeholder:
-            o_key === "review_fav_quote"
-                ? "Add your favorite quote"
-                : "Add review",
+            o_key === "review_fav_quote" ? "Add your favorite quote" : "Add review",
         cancel_class: "btn-text btn-text-cancel",
     }
 

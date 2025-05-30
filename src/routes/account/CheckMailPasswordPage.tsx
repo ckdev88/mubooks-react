@@ -22,8 +22,8 @@ const CheckMailPasswordPage = () => {
                 <div className="h1">{pageTitle}</div>
                 <p>
                     You should receive an email on{" "}
-                    <span className="bu">{recipientAddress}</span>&nbsp;
-                    containing a link to reset your password, click it.
+                    <span className="bu">{recipientAddress}</span>&nbsp; containing a link
+                    to reset your password, click it.
                 </p>
             </>
         )

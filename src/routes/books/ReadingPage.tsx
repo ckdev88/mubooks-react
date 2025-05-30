@@ -12,8 +12,7 @@ const booklist = 2
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
-    if (userMyBooks.filter((book) => book.list === booklist).length > 0)
-        hasbooks = true
+    if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true
     const books = userMyBooks.filter((book) => book.list === booklist)
 
     return (
@@ -41,11 +40,7 @@ const ReadingPage = () => {
                     <br />
                 </p>
             )}
-            <BooksOverviewPage
-                books={books}
-                page={currentPage}
-                booklist={booklist}
-            />
+            <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }

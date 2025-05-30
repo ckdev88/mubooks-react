@@ -27,9 +27,7 @@ function getBooksFinishedInYear(
     format: "concise" | "concise_daysperbook" | "full",
 ): Books | ArrayConciseDaysPerBook {
     const arrayFull = inputArray.filter(
-        (book) =>
-            book.date_finished &&
-            Math.floor(book.date_finished / 10000) === year,
+        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
     )
     if (format === "concise_daysperbook") {
         // OPTIMIZE might be quicker to just append 'days' into database
@@ -50,11 +48,7 @@ function getBooksFinishedInYear(
     return arrayFull
 }
 function getDpbData(userMyBooks: Books, year: number) {
-    const inputArray = getBooksFinishedInYear(
-        userMyBooks,
-        year,
-        "concise_daysperbook",
-    )
+    const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_daysperbook")
     const outputArray: OutputPerDaysAmount[] = []
 
     const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
@@ -90,23 +84,17 @@ const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
                         <div key={key}>
                             {b.days} days:{" "}
                             <b>
-                                {b.amount} {b.amount === 1
-                                    ? "book"
-                                    : "books"}{" "}
+                                {b.amount} {b.amount === 1 ? "book" : "books"}{" "}
                             </b>
                             <ul className="mt0">
                                 {b.books.map((book, index) => {
                                     const refer: string =
                                         "/finished" +
                                         `#${cleanAnchor(book.title_short)}_${book.id}`
-                                    const key =
-                                        "sdpbiy_bokmap" + year + book.id + index
+                                    const key = "sdpbiy_bokmap" + year + book.id + index
                                     return (
                                         <li key={key}>
-                                            <HashLink
-                                                to={refer}
-                                                className="a-text"
-                                            >
+                                            <HashLink to={refer} className="a-text">
                                                 {book.title_short}
                                             </HashLink>
                                         </li>

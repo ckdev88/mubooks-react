@@ -1,9 +1,7 @@
 import { useContext } from "react"
 import { BooksOverviewFilterContext } from "../routes/books/BooksOverviewPage"
 const BooksOverviewFilterSort = () => {
-    const { setBooksFilter, booksFilter } = useContext(
-        BooksOverviewFilterContext,
-    )
+    const { setBooksFilter, booksFilter } = useContext(BooksOverviewFilterContext)
 
     function updateBooksFilter(e: React.ChangeEvent<HTMLInputElement>): void {
         e.preventDefault()
@@ -23,11 +21,7 @@ const BooksOverviewFilterSort = () => {
 
     return (
         <div id="booksoverview-filter-sort">
-            <form
-                className="single-small-form"
-                onSubmit={noSubmit}
-                id="filterForm"
-            >
+            <form className="single-small-form" onSubmit={noSubmit} id="filterForm">
                 <input
                     type="text"
                     onChange={updateBooksFilter}

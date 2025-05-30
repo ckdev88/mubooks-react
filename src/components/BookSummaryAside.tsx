@@ -2,10 +2,7 @@ import BookSummaryCover from "./BookSummaryCover"
 import ReviewRating from "./ReviewRating"
 
 const reviewRatingPages: Page[] = ["finished", "favorites", "tropes"]
-const BookSummaryAside = ({
-    book,
-    currentPage,
-}: { book: Book; currentPage: Page }) => {
+const BookSummaryAside = ({ book, currentPage }: { book: Book; currentPage: Page }) => {
     return (
         <aside className="aside">
             <BookSummaryCover

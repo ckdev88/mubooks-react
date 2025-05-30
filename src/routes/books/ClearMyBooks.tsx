@@ -15,6 +15,10 @@ function ClearMyBooks() {
         clearbooks()
     }
 
-    return <button type="button" onClick={() => clearbooksyes()}>Clear my books</button>
+    return (
+        <button type="button" onClick={() => clearbooksyes()}>
+            Clear my books
+        </button>
+    )
 }
 export default ClearMyBooks

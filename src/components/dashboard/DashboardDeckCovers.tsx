@@ -4,10 +4,7 @@ import { Link } from "react-router-dom"
 import { shuffleArray } from "../../Helpers"
 import { cleanAnchor } from "../../helpers/cleanInput"
 
-function DashboardDeckCovers({
-    booksarr,
-    page,
-}: { booksarr: Books; page: Page }) {
+function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }) {
     if (booksarr.length === 1) {
         return booksarr.map((book: Book) => {
             return (
@@ -20,16 +17,12 @@ function DashboardDeckCovers({
             )
         })
     }
-    if (page === "favorites" || page === "savedbooks")
-        shuffleArray(booksarr as [])
+    if (page === "favorites" || page === "savedbooks") shuffleArray(booksarr as [])
     if (page === "finished")
-        booksarr.sort(
-            (a, b) => Number(b.date_finished) - Number(a.date_finished),
-        )
+        booksarr.sort((a, b) => Number(b.date_finished) - Number(a.date_finished))
 
     let slicedArr = booksarr.slice(-6)
-    if (page === "finished" || page === "savedbooks")
-        slicedArr = booksarr.slice(0, 6)
+    if (page === "finished" || page === "savedbooks") slicedArr = booksarr.slice(0, 6)
 
     let containerClasses = "deck-container"
     if (booksarr.length < 4) containerClasses += " spread shadeSub"

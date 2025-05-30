@@ -16,8 +16,7 @@ const FavoritesPage = () => {
         setPageName(currentPage)
     }, [])
     let hasbooks = false
-    if (userMyBooks.filter((book) => book.list === booklist).length > 0)
-        hasbooks = true
+    if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true
 
     return (
         <motion.div
@@ -39,8 +38,7 @@ const FavoritesPage = () => {
                     <h4>No books marked as favorite yet.</h4>
                     <p>
                         Select and mark your favorite book from{" "}
-                        <Link to="/finished">your finished books</Link> add to
-                        this list.
+                        <Link to="/finished">your finished books</Link> add to this list.
                     </p>
                 </>
             )}
