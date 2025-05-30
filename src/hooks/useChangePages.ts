@@ -19,9 +19,7 @@ const useChangePages = (
 
     function processForm(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault()
-        const newval: number = Number(
-            cleanInput(e.currentTarget.pagesAmount.value),
-        )
+        const newval: number = Number(cleanInput(e.currentTarget.pagesAmount.value))
         if (newval !== undefined && newval > -1) updatePages(newval)
     }
 

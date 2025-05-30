@@ -50,9 +50,7 @@ const NavWrapper = () => {
                         <div className="h1" id="navTitle">
                             {navTitle}
                         </div>
-                        <div
-                            style={{ display: "flex", alignContent: "center" }}
-                        >
+                        <div style={{ display: "flex", alignContent: "center" }}>
                             <button
                                 type="button"
                                 className="toggleZoekNav"
@@ -158,10 +156,7 @@ const NavWrapper = () => {
                             <NavLink to={"/favorites"} onClick={toggleNav0}>
                                 Favorites
                             </NavLink>
-                            <NavLink
-                                to={"/account/profile"}
-                                onClick={toggleNav0}
-                            >
+                            <NavLink to={"/account/profile"} onClick={toggleNav0}>
                                 Profile
                             </NavLink>
                         </div>
@@ -176,10 +171,7 @@ const NavWrapper = () => {
                             <NavLink to={"/finished"} onClick={toggleNav0}>
                                 Finished
                             </NavLink>
-                            <NavLink
-                                to={"/account/logout"}
-                                onClick={toggleNav0}
-                            >
+                            <NavLink to={"/account/logout"} onClick={toggleNav0}>
                                 Logout
                             </NavLink>
                         </div>

@@ -7,7 +7,12 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": ["./node_modules", "./.git", "./dist", "./src/main.tsx"]
+        "ignore": [
+            "./node_modules",
+            "./.git",
+            "./dist",
+            "./src/main.tsx"
+        ]
     },
     "formatter": {
         "enabled": true,
@@ -33,7 +38,9 @@
                 "useTemplate": "off"
             }
         },
-        "ignore": ["**/*.test.*"]
+        "ignore": [
+            "**/*.test.*"
+        ]
     },
     "javascript": {
         "formatter": {

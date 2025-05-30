@@ -12,15 +12,11 @@ const accessToken: string = getUrlParamVal(url, "access_token", true)
 const refreshToken: string = getUrlParamVal(url, "refresh_token", true)
 
 const RootPage = () => {
-    const { setPopupNotification, setPopupNotificationShow } =
-        useContext(AppContext)
-    const checkApiErrorCallback = useCallback(
-        function checkApiError(): boolean {
-            if (getUrlParamVal(url, "error", true)) return true
-            return false
-        },
-        [],
-    )
+    const { setPopupNotification, setPopupNotificationShow } = useContext(AppContext)
+    const checkApiErrorCallback = useCallback(function checkApiError(): boolean {
+        if (getUrlParamVal(url, "error", true)) return true
+        return false
+    }, [])
 
     const apiErrorsCallback = useCallback(function apiErrors(): ApiError {
         const apiErr: ApiError = {
@@ -42,8 +38,7 @@ const RootPage = () => {
     if (accessToken !== "" && refreshToken !== "")
         loginwithtoken(accessToken, refreshToken)
 
-    const { setUsermail, setUserIsLoggedIn, userIsLoggedIn } =
-        useContext(AppContext)
+    const { setUsermail, setUserIsLoggedIn, userIsLoggedIn } = useContext(AppContext)
     const navigate = useNavigate()
 
     const userInLs = JSON.parse(localStorage.getItem(localStorageKey) as string)
@@ -64,8 +59,7 @@ const RootPage = () => {
             }
         } else
             navigateTo =
-                "/error?error_description=" +
-                apiErrorsCallback().error_description
+                "/error?error_description=" + apiErrorsCallback().error_description
 
         if (loggedin) {
             setUsermail(userInLs.user.email)

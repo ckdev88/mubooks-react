@@ -41,8 +41,7 @@ const ResetPasswordPage = () => {
             e.currentTarget.account_password_again.value
         ) {
             setIsLoading(true)
-            const form_userpass: string =
-                e.currentTarget.account_password.value.trim()
+            const form_userpass: string = e.currentTarget.account_password.value.trim()
             updateSbUser(form_userpass).finally(() => setIsLoading(false))
         } else setError("Passwords do not match, try again")
     }
@@ -53,9 +52,7 @@ const ResetPasswordPage = () => {
         pwField?.focus()
         setTimeout(() => {
             const usernameField = document.getElementById("username")
-            const ls = JSON.parse(
-                localStorage.getItem(localStorageKey) as string,
-            )
+            const ls = JSON.parse(localStorage.getItem(localStorageKey) as string)
             if (ls.user.email !== undefined) {
                 usernameField?.setAttribute("value", ls.user.email)
             }
@@ -80,17 +77,12 @@ const ResetPasswordPage = () => {
                         >
                             <div
                                 className={
-                                    error !== ""
-                                        ? "notification error"
-                                        : "notification"
+                                    error !== "" ? "notification error" : "notification"
                                 }
                             >
                                 {error}
                             </div>
-                            <label
-                                htmlFor="username"
-                                style={{ visibility: "hidden" }}
-                            >
+                            <label htmlFor="username" style={{ visibility: "hidden" }}>
                                 Username, emailaddress
                             </label>
                             <input
@@ -111,9 +103,7 @@ const ResetPasswordPage = () => {
                                 />
                             </label>
                             <label htmlFor="account_password_again">
-                                <div className="description">
-                                    New password again
-                                </div>
+                                <div className="description">New password again</div>
                                 <input
                                     type="password"
                                     id="account_password_again"

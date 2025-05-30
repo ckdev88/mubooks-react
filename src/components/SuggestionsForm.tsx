@@ -43,9 +43,7 @@ const SuggestionsForm: React.FC = () => {
             setMessage(
                 <div>
                     <div className="h2">Thank you!</div>
-                    <div className="sub">
-                        We look forward to reading your message.
-                    </div>
+                    <div className="sub">We look forward to reading your message.</div>
                     <br />
                     <blockquote
                         style={{
@@ -120,12 +118,11 @@ const SuggestionsForm: React.FC = () => {
                         <sub>Please let us know...</sub>
                     </div>
                     <div>
-                        What do you think about MuBooks, and what could make it
-                        better?
+                        What do you think about MuBooks, and what could make it better?
                         <br />
-                        Please tell us anything: a request, a complaint or a
-                        suggestion, we need your help to make this app as
-                        friendly and helpful as possible for you.
+                        Please tell us anything: a request, a complaint or a suggestion,
+                        we need your help to make this app as friendly and helpful as
+                        possible for you.
                     </div>
                     <br />
                     <br />
@@ -134,9 +131,7 @@ const SuggestionsForm: React.FC = () => {
                         className={isLoading ? "form-loading" : ""}
                     >
                         <label htmlFor="fsb_suggestion">
-                            <div className="description">
-                                Your ideas or suggestions
-                            </div>
+                            <div className="description">Your ideas or suggestions</div>
                             <textarea
                                 id="fsb_suggestion"
                                 name="suggestion"
@@ -154,11 +149,7 @@ const SuggestionsForm: React.FC = () => {
                                 readOnly={isLoading}
                             />
                         </label>
-                        <button
-                            className="btn-lg"
-                            type="submit"
-                            disabled={isLoading}
-                        >
+                        <button className="btn-lg" type="submit" disabled={isLoading}>
                             Send {isLoading && <span className="loader-dots" />}
                         </button>
                     </form>

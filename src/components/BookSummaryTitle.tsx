@@ -18,10 +18,7 @@ const BookSummaryTitle = ({
         return (
             <div className="tcenter sf2 bi">
                 {book_title_short},&nbsp;
-                <BookAuthorList
-                    book_id={book_id}
-                    book_author_name={book_author_name}
-                />
+                <BookAuthorList book_id={book_id} book_author_name={book_author_name} />
             </div>
         )
 
@@ -31,14 +28,9 @@ const BookSummaryTitle = ({
             {book_first_publish_year &&
                 (currentPage === "search" ||
                     currentPage === "addbook" ||
-                    currentPage === "wishlist") && (
-                    <sup>({book_first_publish_year})</sup>
-                )}
+                    currentPage === "wishlist") && <sup>({book_first_publish_year})</sup>}
             <sub>
-                <BookAuthorList
-                    book_id={book_id}
-                    book_author_name={book_author_name}
-                />
+                <BookAuthorList book_id={book_id} book_author_name={book_author_name} />
             </sub>
         </div>
     )

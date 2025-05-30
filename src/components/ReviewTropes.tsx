@@ -9,9 +9,7 @@ import BaseBadge from "./ui/BaseBadge"
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
     const [bookTropes, setBookTropes] = useState<BookTropes>(tropes)
-    const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>(
-        [],
-    )
+    const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     const [showTropesForm, setShowTropesForm] = useState<boolean>(false)
     const [tropeInputValue, setTropeInputValue] = useState<BookTrope>("")
 
@@ -76,9 +74,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
-                const tropeIndex = bookTropesLowercase.indexOf(
-                    tropeToAdd.toLowerCase(),
-                )
+                const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
                 if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
                     bookTropes.splice(tropeIndex, 1)
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
@@ -114,10 +110,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         <>
             {bookTropes && TropesList(bookTropes, book.id)}
             <div className={showTropesForm ? "" : "dnone"}>
-                <div
-                    className="single-small-form clr"
-                    style={{ alignItems: "center" }}
-                >
+                <div className="single-small-form clr" style={{ alignItems: "center" }}>
                     <input
                         type="text"
                         id={`add_trope_${book.id}`}

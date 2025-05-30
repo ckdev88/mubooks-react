@@ -34,9 +34,9 @@ export default function SavedBooksPage() {
             {!hasbooks && (
                 <>
                     <p>
-                        An overview of my saved books, this includes books that
-                        are favorited, read and finished, the wishlist and the
-                        book currently reading.
+                        An overview of my saved books, this includes books that are
+                        favorited, read and finished, the wishlist and the book currently
+                        reading.
                     </p>
                     <div>
                         <h4>No books added yet, find them and add them.</h4>

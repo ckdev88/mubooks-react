@@ -12,20 +12,14 @@ const BookSummaryStatus = ({ book, bookAnchor }: Proptypes) => {
                 <em>
                     {book.list === 1 && (
                         <>
-                            In my{" "}
-                            <Link to={"/wishlist#" + bookAnchor}>wishlist</Link>
-                            .
+                            In my <Link to={"/wishlist#" + bookAnchor}>wishlist</Link>.
                         </>
                     )}
                     {book.list === 2 && (
                         <>
                             <Link to={"/reading#" + bookAnchor}>Reading</Link>
                             {book.date_reading && (
-                                <>
-                                    {" "}
-                                    since{" "}
-                                    {convertDate(book.date_reading, "human")}
-                                </>
+                                <> since {convertDate(book.date_reading, "human")}</>
                             )}
                             .
                         </>
@@ -34,18 +28,12 @@ const BookSummaryStatus = ({ book, bookAnchor }: Proptypes) => {
                         <>
                             <Link to={"/finished#" + bookAnchor}>Finished</Link>
                             {book.date_finished && (
-                                <>
-                                    {" "}
-                                    on{" "}
-                                    {convertDate(book.date_finished, "human")}
-                                </>
+                                <> on {convertDate(book.date_finished, "human")}</>
                             )}
                             {book.list === 4 && (
                                 <>
                                     &nbsp;and{" "}
-                                    <Link to={"/favorites#" + bookAnchor}>
-                                        favorited
-                                    </Link>
+                                    <Link to={"/favorites#" + bookAnchor}>favorited</Link>
                                 </>
                             )}
                             .

@@ -48,12 +48,9 @@ const App = () => {
     const [usermail, setUsermail] = useState<string>("")
     const [userid, setUserid] = useState<string>("")
     const [userMyBooks, setUserMyBooks] = useState<Books>([])
-    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(
-        userIsLoggedInInitVal,
-    )
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitVal)
     const [popupNotification, setPopupNotification] = useState<string>("")
-    const [popupNotificationShow, setPopupNotificationShow] =
-        useState<boolean>(false)
+    const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
     const [darkTheme, setDarkTheme] = useState<undefined | boolean>(undefined)
     const [bodyBgColor, setBodyBgColor] = useState<string>(
@@ -100,25 +97,21 @@ const App = () => {
 
     if (username === "" && localStorage.getItem(localStorageKey)) {
         setUsername(
-            JSON.parse(localStorage.getItem(localStorageKey) as string).user
-                .user_metadata.screenname,
+            JSON.parse(localStorage.getItem(localStorageKey) as string).user.user_metadata
+                .screenname,
         )
     }
 
     if (darkTheme === undefined && localStorage.getItem(localStorageKey)) {
-        const dtInitVal = JSON.parse(
-            localStorage.getItem(localStorageKey) as string,
-        ).user.user_metadata.darktheme
+        const dtInitVal = JSON.parse(localStorage.getItem(localStorageKey) as string).user
+            .user_metadata.darktheme
         if (dtInitVal !== undefined) setDarkTheme(dtInitVal)
     }
 
     if (userid === "" && localStorage.getItem(localStorageKey))
-        setUserid(
-            JSON.parse(localStorage.getItem(localStorageKey) as string).user.id,
-        )
+        setUserid(JSON.parse(localStorage.getItem(localStorageKey) as string).user.id)
 
-    if (userIsLoggedIn)
-        document.getElementsByTagName("html")[0].classList.add("loggedin")
+    if (userIsLoggedIn) document.getElementsByTagName("html")[0].classList.add("loggedin")
     else document.getElementsByTagName("html")[0].classList.remove("loggedin")
 
     useEffect(() => {
@@ -172,10 +165,7 @@ const App = () => {
                     <Route path="/*" element={<RootPage />} />
                     <Route path="/error" element={<ErrorPage />} />
                     <Route path="/account/login" element={<UserLoginPage />} />
-                    <Route
-                        path="/account/logout"
-                        element={<UserLogoutPage />}
-                    />
+                    <Route path="/account/logout" element={<UserLogoutPage />} />
                     <Route path="/auth/confirm" element={<AuthConfirm />} />
                     {!userIsLoggedIn && (
                         <>
@@ -189,53 +179,26 @@ const App = () => {
                             />
                         </>
                     )}
-                    <Route
-                        path="/account/new"
-                        element={<CheckMailNewAccountPage />}
-                    />
+                    <Route path="/account/new" element={<CheckMailNewAccountPage />} />
                     {userIsLoggedIn && (
                         <>
                             <Route
                                 path="/account/profile"
                                 element={<UserProfilePage />}
                             />
-                            <Route
-                                path="/account/*"
-                                element={<UserLoginPage />}
-                            />
-                            <Route
-                                path="/suggestions"
-                                element={<SuggestionsPage />}
-                            />
-                            <Route
-                                path="/dashboard"
-                                element={<DashboardPage />}
-                            />
+                            <Route path="/account/*" element={<UserLoginPage />} />
+                            <Route path="/suggestions" element={<SuggestionsPage />} />
+                            <Route path="/dashboard" element={<DashboardPage />} />
                             <Route path="/search" element={<SearchPage />} />
                             <Route path="/addbook" element={<AddBookPage />} />
-                            <Route
-                                path="/savedbooks"
-                                element={<SavedBooksPage />}
-                            />
-                            <Route
-                                path="/wishlist"
-                                element={<WishlistPage />}
-                            />
+                            <Route path="/savedbooks" element={<SavedBooksPage />} />
+                            <Route path="/wishlist" element={<WishlistPage />} />
                             <Route path="/reading" element={<ReadingPage />} />
-                            <Route
-                                path="/finished"
-                                element={<FinishedPage />}
-                            />
-                            <Route
-                                path="/favorites"
-                                element={<FavoritesPage />}
-                            />
+                            <Route path="/finished" element={<FinishedPage />} />
+                            <Route path="/favorites" element={<FavoritesPage />} />
                             <Route path="/quoted" element={<QuotedPage />} />
                             <Route path="/tropes" element={<TropesPage />} />
-                            <Route
-                                path="/statistics"
-                                element={<StatisticsPage />}
-                            />
+                            <Route path="/statistics" element={<StatisticsPage />} />
                             {isLocal() && (
                                 <Route
                                     path="/clear-my-books"

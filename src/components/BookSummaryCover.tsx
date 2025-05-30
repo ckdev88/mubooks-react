@@ -5,10 +5,7 @@ interface Props {
     book_cover_redir: Book["cover_redir"]
 }
 
-const BookSummaryCover = ({
-    book_cover = "",
-    book_cover_redir = "",
-}: Props) => {
+const BookSummaryCover = ({ book_cover = "", book_cover_redir = "" }: Props) => {
     let bookCover: string
 
     if (book_cover_redir !== undefined && book_cover_redir !== "") {

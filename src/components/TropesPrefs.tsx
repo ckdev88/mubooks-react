@@ -27,14 +27,10 @@ const TropesPrefs = ({
     /** Updates supabase user_entries tropes_liked and/or tropes_disliked */
     const tropesDb = async () => {
         if (field === "tropes_liked") {
-            const res = await supabase
-                .from("user_entries")
-                .select("tropes_liked")
+            const res = await supabase.from("user_entries").select("tropes_liked")
             if (res.data) setLikedTropes(res.data[0].tropes_liked)
         } else if (field === "tropes_disliked") {
-            const res = await supabase
-                .from("user_entries")
-                .select("tropes_disliked")
+            const res = await supabase.from("user_entries").select("tropes_disliked")
             if (res.data) setDislikedTropes(res.data[0].tropes_disliked)
         }
     }
@@ -78,9 +74,7 @@ const TropesPrefs = ({
                 )
                     removeTrope(tropeToAdd, "tropes_liked")
 
-                const tropeIndex = bookTropesLowercase.indexOf(
-                    tropeToAdd.toLowerCase(),
-                )
+                const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
                 if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
                     tropesArr.splice(tropeIndex, 1)
                 const newArr: BookTropes = [...tropesArr, tropeToAdd]
@@ -101,19 +95,12 @@ const TropesPrefs = ({
         setPopupNotification(msg)
     }
 
-    function removeTrope(
-        trope: string,
-        field: "tropes_liked" | "tropes_disliked",
-    ) {
+    function removeTrope(trope: string, field: "tropes_liked" | "tropes_disliked") {
         let newArr: BookTropes = []
         if (field === "tropes_liked")
-            newArr = likedTropes.filter(
-                (t) => t.toLowerCase() !== trope.toLowerCase(),
-            )
+            newArr = likedTropes.filter((t) => t.toLowerCase() !== trope.toLowerCase())
         if (field === "tropes_disliked")
-            newArr = dislikedTropes.filter(
-                (t) => t.toLowerCase() !== trope.toLowerCase(),
-            )
+            newArr = dislikedTropes.filter((t) => t.toLowerCase() !== trope.toLowerCase())
         updateTropes(newArr, field)
     }
 
@@ -156,14 +143,10 @@ const TropesPrefs = ({
 
     return (
         <>
-            <div className="h2">
-                {field === "tropes_liked" ? "Like" : "Dislike"}
-            </div>
+            <div className="h2">{field === "tropes_liked" ? "Like" : "Dislike"}</div>
             <section className="section-badges">
                 <TropesList
-                    tropes={
-                        field === "tropes_liked" ? likedTropes : dislikedTropes
-                    }
+                    tropes={field === "tropes_liked" ? likedTropes : dislikedTropes}
                 />
                 {showTropesForm && (
                     <>
@@ -180,9 +163,7 @@ const TropesPrefs = ({
                                         : "trope_add_disliked"
                                 }
                                 value={tropeInputValue}
-                                onChange={(e) =>
-                                    setTropeInputValue(e.target.value)
-                                }
+                                onChange={(e) => setTropeInputValue(e.target.value)}
                                 onKeyDown={handleKeyDownTrope}
                                 placeholder="Add a trope..."
                             />

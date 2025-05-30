@@ -69,9 +69,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                                 : "btn-text caret-right-toggle wauto notext diblock"
                         }
                         onClick={() =>
-                            setIsShowingTropesInMyBooks(
-                                !isShowingTropesInMyBooks,
-                            )
+                            setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)
                         }
                     />
                 )}
@@ -89,11 +87,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                         let cn = "btn-sm mb0 badge"
                         if (likedTropesLowercase.includes(trope.toLowerCase()))
                             cn += " cgreen"
-                        else if (
-                            dislikedTropesLowercase.includes(
-                                trope.toLowerCase(),
-                            )
-                        )
+                        else if (dislikedTropesLowercase.includes(trope.toLowerCase()))
                             cn += " cred"
                         return (
                             <button

@@ -4,11 +4,7 @@ import { isUrl } from "../../Helpers"
 import BookSummaryTitle from "../../components/BookSummaryTitle"
 import { AppContext } from "../../App"
 import updateEntriesDb from "../../functions/updateEntriesDb"
-import {
-    cleanAnchor,
-    cleanIndexKey,
-    cleanInput,
-} from "../../helpers/cleanInput"
+import { cleanAnchor, cleanIndexKey, cleanInput } from "../../helpers/cleanInput"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
@@ -29,20 +25,15 @@ const AddBookPage = () => {
     const [firstPublishYear, setFirstPublishYear] =
         useState<Book["first_publish_year"]>(null)
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
-    const [numberOfPages, setNumberOfPages] =
-        useState<Book["number_of_pages_median"]>(0)
+    const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
     const [bookAuthors, setBookAuthors] = useState<string[]>([])
-    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>(
-        [],
-    )
+    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>([])
     useEffect(() => {
         setBookAuthorsLowercase(bookAuthors.map((t) => t.toLowerCase()))
     }, [bookAuthors])
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
-    const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>(
-        [],
-    )
+    const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     useEffect(() => {
         setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
     }, [bookTropes])
@@ -65,9 +56,7 @@ const AddBookPage = () => {
         if (isUrl(url)) setCoverImg(e.currentTarget.value.trim())
     }
 
-    function changeFirstPublishYear(
-        e: React.ChangeEvent<HTMLInputElement>,
-    ): void {
+    function changeFirstPublishYear(e: React.ChangeEvent<HTMLInputElement>): void {
         setFirstPublishYear(Number(e.currentTarget.value))
     }
     // /for the preview
@@ -157,9 +146,7 @@ const AddBookPage = () => {
     }
     const showCover = (
         <div>
-            {coverImg !== "" && (
-                <img alt="" src={coverImg} className="cover shade" />
-            )}
+            {coverImg !== "" && <img alt="" src={coverImg} className="cover shade" />}
             {selectedImage !== null && (
                 <img
                     alt=""
@@ -173,17 +160,12 @@ const AddBookPage = () => {
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
     function addAuthor() {
         if (authorInputValue.trim()) {
-            const authorToAdd: string = cleanInput(
-                authorInputValue.trim(),
-                true,
-            )
+            const authorToAdd: string = cleanInput(authorInputValue.trim(), true)
             if (authorToAdd !== undefined && authorToAdd.length > 1) {
                 const authorIndex = bookAuthorsLowercase.indexOf(
                     authorToAdd.toLowerCase(),
                 )
-                if (
-                    bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1
-                )
+                if (bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1)
                     bookTropes.splice(authorIndex, 1)
                 const newArr: string[] = [...bookAuthors, authorToAdd]
                 setBookAuthors(newArr)
@@ -202,9 +184,7 @@ const AddBookPage = () => {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
 
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
-                const tropeIndex = bookTropesLowercase.indexOf(
-                    tropeToAdd.toLowerCase(),
-                )
+                const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
                 if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
                     bookTropes.splice(tropeIndex, 1)
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
@@ -257,17 +237,14 @@ const AddBookPage = () => {
                     </label>
                     <label htmlFor="abAuthors">
                         <div className="description">
-                            Author(s){" "}
-                            <em>... separate with comma (,) or hit Enter</em>
+                            Author(s) <em>... separate with comma (,) or hit Enter</em>
                         </div>
                         <div className="dflex ">
                             <input
                                 type="text"
                                 id="abAuthorAdd"
                                 value={authorInputValue}
-                                onChange={(e) =>
-                                    setAuthorInputValue(e.target.value)
-                                }
+                                onChange={(e) => setAuthorInputValue(e.target.value)}
                                 onKeyDown={handleKeyDownAuthor}
                                 placeholder="Add an author..."
                             />
@@ -282,10 +259,7 @@ const AddBookPage = () => {
                     {bookAuthors.length > 0 && (
                         <div className="mb1 mt-05">
                             {bookAuthors.map((author, index) => {
-                                const key = cleanIndexKey(
-                                    "abpRemoveAuthor",
-                                    index,
-                                )
+                                const key = cleanIndexKey("abpRemoveAuthor", index)
                                 return (
                                     <BaseBadge
                                         key={key}
@@ -308,9 +282,7 @@ const AddBookPage = () => {
                     >
                         <div>
                             <label htmlFor="abYearPublished">
-                                <div className="description">
-                                    Year published
-                                </div>
+                                <div className="description">Year published</div>
                                 <input
                                     type="number"
                                     name="abYearPublished"
@@ -380,8 +352,7 @@ const AddBookPage = () => {
                             <div className="dnone">
                                 {selectedImage ? (
                                     <>
-                                        created blob:{" "}
-                                        {URL.createObjectURL(
+                                        created blob: {URL.createObjectURL(
                                             selectedImage,
                                         )}{" "}
                                     </>
@@ -402,17 +373,14 @@ const AddBookPage = () => {
                     </label>
                     <label htmlFor="abTropeAdd" className="dblock pb035">
                         <div className="description">
-                            Tropes{" "}
-                            <em>... shown again when finished reading</em>
+                            Tropes <em>... shown again when finished reading</em>
                         </div>
                         <div className="dflex">
                             <input
                                 type="text"
                                 id="abTropeAdd"
                                 value={tropeInputValue}
-                                onChange={(e) =>
-                                    setTropeInputValue(e.target.value)
-                                }
+                                onChange={(e) => setTropeInputValue(e.target.value)}
                                 onKeyDown={handleKeyDownTrope}
                                 placeholder="Add a trope..."
                             />
@@ -427,10 +395,7 @@ const AddBookPage = () => {
                     {bookTropes.length > 0 && (
                         <div className="mb1 mt-05">
                             {bookTropes.map((trope, index) => {
-                                const key = cleanIndexKey(
-                                    "abpRemoveTrope" + trope,
-                                    index,
-                                )
+                                const key = cleanIndexKey("abpRemoveTrope" + trope, index)
                                 return (
                                     <BaseBadge
                                         key={key}
@@ -444,11 +409,7 @@ const AddBookPage = () => {
                         </div>
                     )}
                 </fieldset>
-                <button
-                    className="btn-lg"
-                    type="submit"
-                    disabled={isSubmitting}
-                >
+                <button className="btn-lg" type="submit" disabled={isSubmitting}>
                     Add book to wishlist{" "}
                     {isSubmitting && <span className="loader-dots" />}
                 </button>
@@ -471,17 +432,8 @@ const AddBookPage = () => {
                         {numberOfPages > 0 && <>{numberOfPages} pages</>}
                         <div className="tropes">
                             {bookTropes.map((trope, index) => {
-                                const key = cleanIndexKey(
-                                    "abpBookTrope" + trope,
-                                    index,
-                                )
-                                return (
-                                    <BaseBadge
-                                        key={key}
-                                        text={trope}
-                                        type="trope"
-                                    />
-                                )
+                                const key = cleanIndexKey("abpBookTrope" + trope, index)
+                                return <BaseBadge key={key} text={trope} type="trope" />
                             })}
                         </div>
                     </header>

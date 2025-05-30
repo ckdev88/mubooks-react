@@ -20,18 +20,14 @@ const useChangeReview = (
 
     function processForm(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault()
-        const newval: string = cleanInput(
-            e.currentTarget.review_text.value.trim(),
-            true,
-        )
+        const newval: string = cleanInput(e.currentTarget.review_text.value.trim(), true)
         if (newval !== undefined) updateReviewText(newval)
     }
 
     function updateReviewText(newvalue: Book["review_text"]): void {
         for (let i = 0; i < userMyBooks.length; i++) {
             if (userMyBooks[i].id === book_id) {
-                if (o_key === "review_text")
-                    userMyBooks[i].review_text = newvalue
+                if (o_key === "review_text") userMyBooks[i].review_text = newvalue
                 else if (o_key === "review_fav_quote")
                     userMyBooks[i].review_fav_quote = newvalue
                 setReviewText(newvalue)

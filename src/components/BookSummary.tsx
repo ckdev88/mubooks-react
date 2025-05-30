@@ -42,10 +42,7 @@ const BookSummary = ({
                     : `book-summary ${currentPage} transition-wrapper`
             }
         >
-            <div
-                style={{ marginTop: "-4rem", position: "absolute" }}
-                id={bookAnchor}
-            />
+            <div style={{ marginTop: "-4rem", position: "absolute" }} id={bookAnchor} />
             <BookSummaryAside book={book} currentPage={currentPage} />
             <div className="article-main">
                 {currentPage !== "quoted" && (
@@ -61,9 +58,7 @@ const BookSummary = ({
                             <Link to={`/${refer}`}>
                                 <BookSummaryTitle
                                     book_author_name={book.author_name}
-                                    book_first_publish_year={
-                                        book.first_publish_year
-                                    }
+                                    book_first_publish_year={book.first_publish_year}
                                     book_id={book.id}
                                     book_title_short={book.title_short}
                                     currentPage={currentPage}
@@ -72,9 +67,7 @@ const BookSummary = ({
                         ) : (
                             <BookSummaryTitle
                                 book_author_name={book.author_name}
-                                book_first_publish_year={
-                                    book.first_publish_year
-                                }
+                                book_first_publish_year={book.first_publish_year}
                                 book_id={book.id}
                                 book_title_short={book.title_short}
                                 currentPage={currentPage}
@@ -83,9 +76,7 @@ const BookSummary = ({
                         {pagesMedianPages.includes(currentPage) && (
                             <BookPages
                                 book_id={book.id}
-                                book_number_of_pages_median={
-                                    book.number_of_pages_median
-                                }
+                                book_number_of_pages_median={book.number_of_pages_median}
                             />
                         )}
                     </header>
@@ -119,10 +110,7 @@ const BookSummary = ({
                         )}
                         <div>
                             {currentPage === "search" && (
-                                <BookSummaryStatus
-                                    book={book}
-                                    bookAnchor={bookAnchor}
-                                />
+                                <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
                             )}
                             <AddToRemoveFromX
                                 book={book}
@@ -143,16 +131,10 @@ const BookSummary = ({
                         />
                     )}
                     {currentPage === "search" && book.subject && (
-                        <SearchSubjects
-                            book_id={book.id}
-                            subjects={book.subject}
-                        />
+                        <SearchSubjects book_id={book.id} subjects={book.subject} />
                     )}
                     {synopsisPages.includes(currentPage) && synopsis ? (
-                        <div
-                            className="synopsis"
-                            style={{ marginTop: ".75rem" }}
-                        >
+                        <div className="synopsis" style={{ marginTop: ".75rem" }}>
                             <button
                                 type="button"
                                 className={
@@ -160,9 +142,7 @@ const BookSummary = ({
                                         ? "btn-text caret-right-toggle active"
                                         : "btn-text caret-right-toggle"
                                 }
-                                onClick={() =>
-                                    setIsShowingSynopsis(!isShowingSynopsis)
-                                }
+                                onClick={() => setIsShowingSynopsis(!isShowingSynopsis)}
                             >
                                 Synopsis
                             </button>

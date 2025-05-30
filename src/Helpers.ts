@@ -13,9 +13,7 @@ function getOlCover(id: string, size: CoverSize = undefined): string {
     if (size) appendSize = "-" + size
 
     if (id.slice(0, 2) === "OL")
-        return (
-            "https://covers.openlibrary.org/b/olid/" + id + appendSize + ".jpg"
-        )
+        return "https://covers.openlibrary.org/b/olid/" + id + appendSize + ".jpg"
     return "https://covers.openlibrary.org/b/isbn/" + id + appendSize + ".jpg"
 }
 
@@ -46,10 +44,7 @@ async function getOlPagesMedian(id: string): Promise<number> {
     return ret
 }
 
-const debounce = <T extends unknown[]>(
-    callback: (...args: T) => void,
-    delay: number,
-) => {
+const debounce = <T extends unknown[]>(callback: (...args: T) => void, delay: number) => {
     let timeoutTimer: ReturnType<typeof setTimeout>
 
     return (...args: T) => {
@@ -89,8 +84,7 @@ function getUrlParamVal(url: string, key: string, hash = false): string {
     if (hash) urlArr = url.split(/['#','?','&']/)
     else urlArr = url.split(/['?','&']/)
     for (let i = 0; i < urlArr.length; i++) {
-        if (urlArr[i].slice(0, key.length) === key)
-            return urlArr[i].split("=")[1]
+        if (urlArr[i].slice(0, key.length) === key) return urlArr[i].split("=")[1]
     }
     return ""
 }
@@ -123,10 +117,7 @@ function getDurationDays(
     df -= dfm * 100
     const date_finished_date: Date = new Date(dfy, dfm, df)
     const date_difference: number =
-        (date_finished_date.getTime() - date_reading_date.getTime()) /
-        1000 /
-        3600 /
-        24
+        (date_finished_date.getTime() - date_reading_date.getTime()) / 1000 / 3600 / 24
     return date_difference
 }
 

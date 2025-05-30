@@ -81,18 +81,11 @@ export default function SignupCard() {
                                 readOnly={isLoading}
                             />
                         </label>
-                        <div
-                            className={error !== "" ? "dblock error" : "dblock"}
-                        >
+                        <div className={error !== "" ? "dblock error" : "dblock"}>
                             {error}&nbsp;
                         </div>
-                        <button
-                            type="submit"
-                            className="btn-lg"
-                            disabled={isLoading}
-                        >
-                            Create account{" "}
-                            {isLoading && <span className="loader-dots" />}
+                        <button type="submit" className="btn-lg" disabled={isLoading}>
+                            Create account {isLoading && <span className="loader-dots" />}
                         </button>
                     </form>
                 </main>

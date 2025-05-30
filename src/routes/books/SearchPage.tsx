@@ -48,23 +48,17 @@ const SearchPage = () => {
                 .then((filtered) => {
                     setResultCount(filtered.length)
                     for (let i = 0; i < filtered.length; i++) {
-                        filtered[i].id = filtered[i].key
-                            .toString()
-                            .replace("/works/", "")
+                        filtered[i].id = filtered[i].key.toString().replace("/works/", "")
                         filtered[i].title_short = filtered[i].title
                             .slice(0, 45)
                             .toString()
-                        filtered[i].cover = getOlCover(
-                            filtered[i].cover_edition_key,
-                        )
+                        filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
                     filtered.length > 30
                         ? setResultsMessage(
                               "Showing only 30 results. Specify a bit more.",
                           )
-                        : setResultsMessage(
-                              "Showing " + filtered.length + " results.",
-                          )
+                        : setResultsMessage("Showing " + filtered.length + " results.")
                     setSearchTerm(search_term)
                     return filtered
                 })
@@ -87,18 +81,14 @@ const SearchPage = () => {
                 animate={{ opacity: 1, transition: { duration: 2 } }}
             >
                 <div>
-                    <Heading
-                        text={pageTitle}
-                        sub="Find the book you want to add"
-                    />
+                    <Heading text={pageTitle} sub="Find the book you want to add" />
                     <form onSubmit={processSearchForm}>
                         <label htmlFor="search_term">
                             <div className="description">Term or title</div>
                             <input type="text" id="search_term" />
                         </label>
                         <button type="button" className="btn-lg" disabled={loading}>
-                            Search{" "}
-                            {loading && <span className="loader-dots" />}
+                            Search {loading && <span className="loader-dots" />}
                         </button>
                     </form>
                     <div>
@@ -116,11 +106,7 @@ const SearchPage = () => {
                                     : " book"}{" "}
                                 found for <em>"{searchTerm}"</em>
                                 <sub
-                                    className={
-                                        resultsMessage !== ""
-                                            ? "dblock"
-                                            : "dnone"
-                                    }
+                                    className={resultsMessage !== "" ? "dblock" : "dnone"}
                                 >
                                     {resultsMessage}
                                 </sub>

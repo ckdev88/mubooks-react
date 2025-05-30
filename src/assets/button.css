@@ -294,8 +294,7 @@ ul.expandable-list a {
     margin: 0.25rem 0 0 -1.7rem;
     padding: 0.5rem;
     transform: rotate(90deg);
-    transition: background-color 0.18s ease-in-out, border-color 0.18s
-        ease-in-out;
+    transition: background-color 0.18s ease-in-out, border-color 0.18s ease-in-out;
     width: 1rem;
 }
 input[type="number"] + .btn-submit-inside-caret-right {

@@ -8,10 +8,7 @@ const curYearDayNr: number = Math.floor(
     (Number(now) - Number(curYearStartDayNr)) / oneDay,
 )
 
-const countBookValues = ({
-    myBooksArr,
-    year,
-}: { myBooksArr: Books; year: number }) => {
+const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
     /** Count Books Finished */
     let cbf = 0
     /** Count Books Finished Monthly */

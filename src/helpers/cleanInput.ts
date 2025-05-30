@@ -30,8 +30,8 @@ function cleanAnchor(input: string, dashes = true, snake = false): string {
 
 /**
  * Take in a text and an index number, clean it and return a string to be used as (part of) unique key.
- * Example: 
- *     input: "There's a b#213 here", index: 420 
+ * Example:
+ *     input: "There's a b#213 here", index: 420
  *     returns string "Theresab213here420"
  */
 function cleanIndexKey(input: string, index: number): string {

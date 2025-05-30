@@ -1,6 +1,4 @@
-const getFinishedBooksStatsYears = (
-    myBooksArr: Books,
-): FinishedBooksStatsYears => {
+const getFinishedBooksStatsYears = (myBooksArr: Books): FinishedBooksStatsYears => {
     const now: Date = new Date()
     const currentYear = now.getFullYear()
     let oldest: number = currentYear * 10000

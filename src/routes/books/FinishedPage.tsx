@@ -13,8 +13,7 @@ const FinishedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
     if (
-        userMyBooks.filter((book) => book.list === booklist || book.list === 4)
-            .length > 0
+        userMyBooks.filter((book) => book.list === booklist || book.list === 4).length > 0
     )
         hasbooks = true // OPTIMIZE this is a bit meh
 
@@ -35,17 +34,13 @@ const FinishedPage = () => {
             />
             {!hasbooks && (
                 <>
-                    <p>
-                        Have any favorites? Add them to your favorites from
-                        here.
-                    </p>
+                    <p>Have any favorites? Add them to your favorites from here.</p>
                     <h4>Not finished any book yet.</h4>
                     <p>
                         Are you finished with the book you're reading?
                         <br />
                         Select and mark your{" "}
-                        <Link to="/reading">currently reading book</Link> as
-                        finished.
+                        <Link to="/reading">currently reading book</Link> as finished.
                         <br />
                         <br />
                     </p>
