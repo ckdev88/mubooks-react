@@ -6,12 +6,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "biome format ./src --write && tsc && vite build",
 		"lint": "biome lint --error-on-warnings ./src",
 		"preview": "vite preview",
-		"postbuild": "purgecss --css dist/assets/*.css --content dist/assets/index.html dist/assets/*.js --output dist/assets",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"postbuild": "purgecss --css dist/assets/*.css --content dist/assets/index.html dist/assets/*.js --output dist/assets"
 	},
 	"dependencies": {
 		"@supabase/supabase-js": "^2.48.1",
