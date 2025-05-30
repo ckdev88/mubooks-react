@@ -28,22 +28,37 @@ function cleanAnchor(input: string, dashes = true, snake = false): string {
     return returnvalue
 }
 
+/**
+ * Take in a text and an index number, clean it and return a string to be used as (part of) unique key.
+ * Example: 
+ *     input: "There's a b#213 here", index: 420 
+ *     returns string "Theresab213here420"
+ */
 function cleanIndexKey(input: string, index: number): string {
     let returnvalue = ""
-    let c: number
     for (let i = 0; i < input.length; i++) {
-        c = input.charCodeAt(i)
-        if (
-            (c > 47 && c < 58) ||
-            (c > 64 && c < 91) ||
-            (c > 90 && c < 97) ||
-            (c > 96 && c < 123)
-        ) {
-            returnvalue += input[i]
-        }
+        if (isAlphanum(input[i])) returnvalue += input[i]
+    }
+    if (returnvalue === "") {
+        returnvalue += Math.floor(Math.random() * 10000).toString()
     }
     returnvalue += index
+
     return returnvalue
+}
+
+function isAlphanum(char: string | number): boolean {
+    if (typeof char === "number") return true
+    const c = char.charCodeAt(0)
+    if (
+        (c > 47 && c < 58) || // 0-9
+        (c > 64 && c < 91) || // A-Z
+        // (c > 90 && c < 97) || // [\]^_`
+        (c > 96 && c < 123) // a-z
+    ) {
+        return true
+    }
+    return false
 }
 
 function cleanSigns(sin: string) {

@@ -4,7 +4,11 @@ import { isUrl } from "../../Helpers"
 import BookSummaryTitle from "../../components/BookSummaryTitle"
 import { AppContext } from "../../App"
 import updateEntriesDb from "../../functions/updateEntriesDb"
-import { cleanAnchor, cleanInput } from "../../helpers/cleanInput"
+import {
+    cleanAnchor,
+    cleanIndexKey,
+    cleanInput,
+} from "../../helpers/cleanInput"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
@@ -23,7 +27,7 @@ const AddBookPage = () => {
 
     const [title, setTitle] = useState<Book["title"]>("")
     const [firstPublishYear, setFirstPublishYear] =
-        useState<Book["first_publish_year"]>("")
+        useState<Book["first_publish_year"]>(null)
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] =
         useState<Book["number_of_pages_median"]>(0)
@@ -64,7 +68,7 @@ const AddBookPage = () => {
     function changeFirstPublishYear(
         e: React.ChangeEvent<HTMLInputElement>,
     ): void {
-        setFirstPublishYear(e.currentTarget.value)
+        setFirstPublishYear(Number(e.currentTarget.value))
     }
     // /for the preview
 
@@ -278,7 +282,10 @@ const AddBookPage = () => {
                     {bookAuthors.length > 0 && (
                         <div className="mb1 mt-05">
                             {bookAuthors.map((author, index) => {
-                                const key = "abpRemoveAuthor" + index
+                                const key = cleanIndexKey(
+                                    "abpRemoveAuthor",
+                                    index,
+                                )
                                 return (
                                     <BaseBadge
                                         key={key}
@@ -420,7 +427,10 @@ const AddBookPage = () => {
                     {bookTropes.length > 0 && (
                         <div className="mb1 mt-05">
                             {bookTropes.map((trope, index) => {
-                                const key = "abpRemoveTrope" + index
+                                const key = cleanIndexKey(
+                                    "abpRemoveTrope" + trope,
+                                    index,
+                                )
                                 return (
                                     <BaseBadge
                                         key={key}
@@ -461,7 +471,10 @@ const AddBookPage = () => {
                         {numberOfPages > 0 && <>{numberOfPages} pages</>}
                         <div className="tropes">
                             {bookTropes.map((trope, index) => {
-                                const key = "abpBookTrope" + index
+                                const key = cleanIndexKey(
+                                    "abpBookTrope" + trope,
+                                    index,
+                                )
                                 return (
                                     <BaseBadge
                                         key={key}
