@@ -1,5 +1,6 @@
 import { useState } from "react"
 import BaseBadge from "./ui/BaseBadge"
+import { cleanIndexKey } from "../helpers/cleanInput"
 
 const SearchSubjects = ({
     book_id,
@@ -15,24 +16,12 @@ const SearchSubjects = ({
     return (
         <div className="subjects">
             {subjects.map((subject, index) => {
-                const badgeKey = "subject" + book_id + "-" + index
+                const key = cleanIndexKey("subject" + book_id, index)
                 if (showMore === true) {
-                    return (
-                        <BaseBadge
-                            key={"subject" + badgeKey}
-                            type="subject"
-                            text={subject}
-                        />
-                    )
+                    return <BaseBadge key={key} type="subject" text={subject} />
                 }
                 if (!showMore && index < 5) {
-                    return (
-                        <BaseBadge
-                            key={"subject" + badgeKey}
-                            type="subject"
-                            text={subject}
-                        />
-                    )
+                    return <BaseBadge key={key} type="subject" text={subject} />
                 }
             })}
             <button

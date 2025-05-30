@@ -121,15 +121,18 @@ const TropesPrefs = ({
     const TropesList = ({ tropes }: { tropes: BookTropes }) => {
         return (
             <div className="tropes">
-                {tropes.map((trope, index) => (
-                    <BaseBadge
-                        key={cleanIndexKey(trope, index)}
-                        text={trope}
-                        removeTrope={removeTrope}
-                        field={field}
-                        type="trope"
-                    />
-                ))}
+                {tropes.map((trope, index) => {
+                    const key = cleanIndexKey(trope, index)
+                    return (
+                        <BaseBadge
+                            key={key}
+                            text={trope}
+                            removeTrope={removeTrope}
+                            field={field}
+                            type="trope"
+                        />
+                    )
+                })}
                 <button
                     type="button"
                     className={

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
-import { cleanInput } from "../helpers/cleanInput"
+import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
 // TODO component_btn_inside_caret: remove or use BtnInsideCaret, a function should be able to be passed to make it useful
 // import BtnInsideCaret from './ui/BtnInsideCaret'
 import updateEntriesDbxxx from "../functions/updateEntriesDb"
@@ -45,10 +45,10 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         return (
             <div className="tropes">
                 {bookTropes.map((trope, index) => {
-                    const badgeKey = "review_tropes" + bookid + index
+                    const key = cleanIndexKey("review_tropes" + bookid, index)
                     return (
                         <BaseBadge
-                            key={badgeKey}
+                            key={key}
                             text={trope}
                             removeText={removeTrope}
                             type="trope"
