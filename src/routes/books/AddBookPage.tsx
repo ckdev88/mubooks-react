@@ -105,6 +105,8 @@ const AddBookPage = () => {
         const title_short = title.slice(0, 55)
         const author_array = bookAuthors
         if (authorInputValue.length > 1) author_array.push(authorInputValue)
+        const tropes_array = bookTropes
+        if (tropeInputValue.length > 1) tropes_array.push(tropeInputValue)
         const book: Book = {
             author_name: author_array,
             cover: coverImgPosted,
@@ -113,7 +115,7 @@ const AddBookPage = () => {
             id: bookId,
             list: list,
             number_of_pages_median: numberOfPages,
-            review_tropes: bookTropes,
+            review_tropes: tropes_array,
             title: title,
             title_short: title_short,
             cover_edition_key: "",
