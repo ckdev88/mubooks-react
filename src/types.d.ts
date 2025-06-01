@@ -120,7 +120,7 @@ type BookData = [
 ]
 interface Book {
     author_key?: string[]
-    author_name: string[]
+    author_name: BookAuthors
     cover_edition_key: string
     cover: string
     cover_redir?: string
@@ -146,6 +146,8 @@ interface Book {
     subject?: BookSubjects
     days?: number
 }
+type BookAuthor = string
+type BookAuthors = BookAuthor[]
 type BookTrope = string
 type BookTropes = BookTrope[]
 type BookSubject = string

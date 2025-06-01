@@ -27,8 +27,8 @@ const AddBookPage = () => {
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
-    const [bookAuthors, setBookAuthors] = useState<string[]>([])
-    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>([])
+    const [bookAuthors, setBookAuthors] = useState<BookAuthors>([])
+    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<BookAuthors>([])
     useEffect(() => {
         setBookAuthorsLowercase(bookAuthors.map((t) => t.toLowerCase()))
     }, [bookAuthors])
@@ -103,10 +103,10 @@ const AddBookPage = () => {
         const rate_stars: Book["rate_stars"] = 0
         const rate_spice: Book["rate_spice"] = 0
         const title_short = title.slice(0, 55)
-        const author_array = bookAuthors
-        if (authorInputValue.length > 1) author_array.push(authorInputValue)
-        const tropes_array = bookTropes
-        if (tropeInputValue.length > 1) tropes_array.push(tropeInputValue)
+        let author_array: BookAuthors = []
+        if (authorInputValue.length > 1) author_array = addAuthor(false)
+        let tropes_array: BookTropes = []
+        if (tropeInputValue.length > 1) tropes_array = addTrope(false)
         const book: Book = {
             author_name: author_array,
             cover: coverImgPosted,
@@ -124,7 +124,7 @@ const AddBookPage = () => {
         }
 
         newArr.push(book)
-        setUserMyBooks(newArr)
+        setUserMyBooks([...userMyBooks, book])
         const msg = await updateEntriesDb(newArr, userid)
 
         const bookAnchor: string = `${cleanAnchor(title_short)}_${bookId}`
@@ -162,7 +162,8 @@ const AddBookPage = () => {
     )
 
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
-    function addAuthor() {
+    function addAuthor(addAnother = false): BookAuthors {
+        let returnAuthors: BookAuthors = []
         if (authorInputValue.trim()) {
             const authorToAdd: string = cleanInput(authorInputValue.trim(), true)
             if (authorToAdd !== undefined && authorToAdd.length > 1) {
@@ -171,19 +172,27 @@ const AddBookPage = () => {
                 )
                 if (bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1)
                     bookTropes.splice(authorIndex, 1)
-                const newArr: string[] = [...bookAuthors, authorToAdd]
+                const newArr: BookAuthors = [...bookAuthors, authorToAdd]
+                returnAuthors = newArr
                 setBookAuthors(newArr)
-                setAuthorInputValue("")
+                if (addAnother) setAuthorInputValue("")
             }
         }
-        document.getElementById("abAuthorAdd")?.focus()
+        if (addAnother) document.getElementById("abAuthorAdd")?.focus()
+        return returnAuthors
     }
     function removeAuthor(filterAuthor: string) {
         setBookAuthors(bookAuthors.filter((author) => author !== filterAuthor))
     }
 
     const [tropeInputValue, setTropeInputValue] = useState<string>("")
-    function addTrope() {
+
+    /**
+     * Sanitize and add trope in active input field to local state,
+     * return array of type BookTropes
+     */
+    function addTrope(addAnother = false): BookTropes {
+        let returnTropes: BookTropes = []
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
 
@@ -193,11 +202,13 @@ const AddBookPage = () => {
                     bookTropes.splice(tropeIndex, 1)
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
                 newArr.sort((a, b) => a.localeCompare(b))
+                returnTropes = newArr
                 setBookTropes(newArr)
-                setTropeInputValue("")
+                if (addAnother) setTropeInputValue("")
             }
         }
-        document.getElementById("abTropeAdd")?.focus()
+        if (addAnother) document.getElementById("abTropeAdd")?.focus()
+        return returnTropes
     }
     function removeTrope(filterTrope: string) {
         setBookTropes(bookTropes.filter((trope) => trope !== filterTrope))
@@ -205,13 +216,13 @@ const AddBookPage = () => {
     const handleKeyDownAuthor = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault()
-            addAuthor()
+            addAuthor(true)
         }
     }
     const handleKeyDownTrope = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault()
-            addTrope()
+            addTrope(true)
         }
     }
 
