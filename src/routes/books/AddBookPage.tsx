@@ -103,8 +103,10 @@ const AddBookPage = () => {
         const rate_stars: Book["rate_stars"] = 0
         const rate_spice: Book["rate_spice"] = 0
         const title_short = title.slice(0, 55)
+        const author_array = bookAuthors
+        if (authorInputValue.length > 1) author_array.push(authorInputValue)
         const book: Book = {
-            author_name: bookAuthors,
+            author_name: author_array,
             cover: coverImgPosted,
             cover_redir: coverImgPosted,
             first_publish_year: firstPublishYear,
