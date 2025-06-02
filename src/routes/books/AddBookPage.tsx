@@ -1,5 +1,5 @@
 // TODO openlibrary: make this form interact with openlibrary.org to help append to their database
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { isUrl } from "../../Helpers"
 import BookSummaryTitle from "../../components/BookSummaryTitle"
 import { AppContext } from "../../App"
@@ -9,6 +9,8 @@ import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
 import { checkSimilar } from "../../helpers/checks"
+import { formatBookTitle } from "../../helpers/formatInput"
+import { formatBookAuthor } from "../../helpers/formatInput"
 
 const pageTitle: string = "Add a book"
 
@@ -17,7 +19,7 @@ const AddBookPage = () => {
         useContext(AppContext)
     const [coverImg, setCoverImg] = useState<string>("")
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const firstField = document.getElementById("abTitle")
         if (firstField) firstField.focus()
     }, [])
@@ -29,10 +31,6 @@ const AddBookPage = () => {
     const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
     const [bookAuthors, setBookAuthors] = useState<BookAuthors>([])
-    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<BookAuthors>([])
-    useEffect(() => {
-        setBookAuthorsLowercase(bookAuthors.map((t) => t.toLowerCase()))
-    }, [bookAuthors])
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
     const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     useEffect(() => {
@@ -42,10 +40,6 @@ const AddBookPage = () => {
     const [selectedImageType, setSelectedImageType] = useState<
         undefined | "url" | "upload"
     >(undefined)
-
-    function changeTitle(e: React.ChangeEvent<HTMLInputElement>) {
-        setTitle(e.currentTarget.value)
-    }
 
     function changePages(e: React.ChangeEvent<HTMLInputElement>) {
         const num: number = Number(e.currentTarget.value)
@@ -137,7 +131,7 @@ const AddBookPage = () => {
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // if (e.target.files && e.target.files[0]) {
+        // shorthand for: if (e.target.files && e.target.files[0]) {
         if (e.target.files?.[0]) {
             setSelectedImage(e.target.files[0])
         }
@@ -150,6 +144,7 @@ const AddBookPage = () => {
         const fileImage = document.querySelector(".file")
         if (fileImage !== null && "value" in fileImage) fileImage.value = ""
     }
+
     const showCover = (
         <>
             {coverImg !== "" && <img alt="" src={coverImg} className="cover shade" />}
@@ -167,16 +162,20 @@ const AddBookPage = () => {
     function addAuthor(addAnother = false): BookAuthors {
         let returnAuthors: BookAuthors = []
         if (authorInputValue.trim()) {
-            const authorToAdd: string = cleanInput(authorInputValue.trim(), true)
+            const authorToAdd = authorInputValue
             if (authorToAdd !== undefined && authorToAdd.length > 1) {
-                const authorIndex = bookAuthorsLowercase.indexOf(
-                    authorToAdd.toLowerCase(),
-                )
-                if (bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1)
-                    bookTropes.splice(authorIndex, 1)
-                const newArr: BookAuthors = [...bookAuthors, authorToAdd]
+                // find duplicate author value: if found, splice it
+                const authorIndex = bookAuthors.indexOf(authorToAdd)
+                if (bookAuthors.indexOf(authorToAdd) > -1) {
+                    bookAuthors.splice(authorIndex, 1)
+                }
+                const newArr: BookAuthors = [
+                    ...bookAuthors,
+                    cleanInput(authorToAdd, true),
+                ]
                 returnAuthors = newArr
                 setBookAuthors(newArr)
+
                 if (addAnother) setAuthorInputValue("")
             }
         }
@@ -252,7 +251,9 @@ const AddBookPage = () => {
                             id="abTitle"
                             name="abTitle"
                             required
-                            onChange={changeTitle}
+                            onChange={(e) =>
+                                setTitle(formatBookTitle(e.currentTarget.value))
+                            }
                         />
                     </label>
                     <label htmlFor="abAuthors">
@@ -264,7 +265,9 @@ const AddBookPage = () => {
                                 type="text"
                                 id="abAuthorAdd"
                                 value={authorInputValue}
-                                onChange={(e) => setAuthorInputValue(e.target.value)}
+                                onChange={(e) =>
+                                    setAuthorInputValue(formatBookAuthor(e.target.value))
+                                }
                                 onKeyDown={(e) => handleKeyDownAdd(e, "author")}
                                 placeholder="Add an author..."
                             />
