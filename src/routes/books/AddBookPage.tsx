@@ -8,6 +8,7 @@ import { cleanAnchor, cleanIndexKey, cleanInput } from "../../helpers/cleanInput
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
+import { checkSimilar } from "../../helpers/checks"
 
 const pageTitle: string = "Add a book"
 
@@ -27,15 +28,15 @@ const AddBookPage = () => {
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
-    const [bookAuthors, setBookAuthors] = useState<string[]>([])
-    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<string[]>([])
+    const [bookAuthors, setBookAuthors] = useState<BookAuthors>([])
+    const [bookAuthorsLowercase, setBookAuthorsLowercase] = useState<BookAuthors>([])
     useEffect(() => {
         setBookAuthorsLowercase(bookAuthors.map((t) => t.toLowerCase()))
     }, [bookAuthors])
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
     const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     useEffect(() => {
-        setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
+        setBookTropesLowercase(bookTropes.map((trope) => trope.toLowerCase()))
     }, [bookTropes])
 
     const [selectedImageType, setSelectedImageType] = useState<
@@ -103,24 +104,29 @@ const AddBookPage = () => {
         const rate_stars: Book["rate_stars"] = 0
         const rate_spice: Book["rate_spice"] = 0
         const title_short = title.slice(0, 55)
+        let author_array: BookAuthors = []
+        if (authorInputValue.length > 1) author_array = addAuthor(false)
+        let tropes_array: BookTropes = []
+        if (tropeInputValue.length > 1) tropes_array = addTrope(false)
+
         const book: Book = {
-            author_name: bookAuthors,
+            author_name: author_array,
             cover: coverImgPosted,
             cover_redir: coverImgPosted,
             first_publish_year: firstPublishYear,
             id: bookId,
             list: list,
             number_of_pages_median: numberOfPages,
-            review_tropes: bookTropes,
+            review_tropes: tropes_array,
             title: title,
             title_short: title_short,
             cover_edition_key: "",
             rate_stars: rate_stars,
             rate_spice: rate_spice,
         }
-
         newArr.push(book)
-        setUserMyBooks(newArr)
+
+        setUserMyBooks([...userMyBooks, book])
         const msg = await updateEntriesDb(newArr, userid)
 
         const bookAnchor: string = `${cleanAnchor(title_short)}_${bookId}`
@@ -145,7 +151,7 @@ const AddBookPage = () => {
         if (fileImage !== null && "value" in fileImage) fileImage.value = ""
     }
     const showCover = (
-        <div>
+        <>
             {coverImg !== "" && <img alt="" src={coverImg} className="cover shade" />}
             {selectedImage !== null && (
                 <img
@@ -154,11 +160,12 @@ const AddBookPage = () => {
                     className="cover shade"
                 />
             )}
-        </div>
+        </>
     )
 
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
-    function addAuthor() {
+    function addAuthor(addAnother = false): BookAuthors {
+        let returnAuthors: BookAuthors = []
         if (authorInputValue.trim()) {
             const authorToAdd: string = cleanInput(authorInputValue.trim(), true)
             if (authorToAdd !== undefined && authorToAdd.length > 1) {
@@ -167,19 +174,27 @@ const AddBookPage = () => {
                 )
                 if (bookAuthorsLowercase.indexOf(authorToAdd.toLowerCase()) > -1)
                     bookTropes.splice(authorIndex, 1)
-                const newArr: string[] = [...bookAuthors, authorToAdd]
+                const newArr: BookAuthors = [...bookAuthors, authorToAdd]
+                returnAuthors = newArr
                 setBookAuthors(newArr)
-                setAuthorInputValue("")
+                if (addAnother) setAuthorInputValue("")
             }
         }
-        document.getElementById("abAuthorAdd")?.focus()
+        if (addAnother) document.getElementById("abAuthorAdd")?.focus()
+        return returnAuthors
     }
     function removeAuthor(filterAuthor: string) {
         setBookAuthors(bookAuthors.filter((author) => author !== filterAuthor))
     }
 
     const [tropeInputValue, setTropeInputValue] = useState<string>("")
-    function addTrope() {
+
+    /**
+     * Sanitize and add trope in active input field to local state,
+     * return array of type BookTropes
+     */
+    function addTrope(addAnother = false): BookTropes {
+        let returnTropes: BookTropes = []
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
 
@@ -189,25 +204,30 @@ const AddBookPage = () => {
                     bookTropes.splice(tropeIndex, 1)
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
                 newArr.sort((a, b) => a.localeCompare(b))
+                returnTropes = newArr
                 setBookTropes(newArr)
-                setTropeInputValue("")
+                if (addAnother) setTropeInputValue("")
             }
         }
-        document.getElementById("abTropeAdd")?.focus()
+        if (addAnother) document.getElementById("abTropeAdd")?.focus()
+        return returnTropes
     }
+
+    /** Remove a trope from the bookTropes state array */
     function removeTrope(filterTrope: string) {
         setBookTropes(bookTropes.filter((trope) => trope !== filterTrope))
     }
-    const handleKeyDownAuthor = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+    /** Initiate addAuthor|addTrope when `Enter` or `,` is pressed */
+    function handleKeyDownAdd(
+        e: React.KeyboardEvent<HTMLInputElement>,
+        toAdd: "author" | "trope",
+    ) {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault()
-            addAuthor()
-        }
-    }
-    const handleKeyDownTrope = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" || e.key === ",") {
-            e.preventDefault()
-            addTrope()
+            if (toAdd === "author") addAuthor(true)
+            else if (toAdd === "trope") addTrope(true)
+            else console.warn("This is not a valid type to add: " + toAdd)
         }
     }
 
@@ -245,7 +265,7 @@ const AddBookPage = () => {
                                 id="abAuthorAdd"
                                 value={authorInputValue}
                                 onChange={(e) => setAuthorInputValue(e.target.value)}
-                                onKeyDown={handleKeyDownAuthor}
+                                onKeyDown={(e) => handleKeyDownAdd(e, "author")}
                                 placeholder="Add an author..."
                             />
                             <span
@@ -280,28 +300,24 @@ const AddBookPage = () => {
                             gap: "1rem",
                         }}
                     >
-                        <div>
-                            <label htmlFor="abYearPublished">
-                                <div className="description">Year published</div>
-                                <input
-                                    type="number"
-                                    name="abYearPublished"
-                                    id="abYearPublished"
-                                    onChange={changeFirstPublishYear}
-                                />{" "}
-                            </label>
-                        </div>
-                        <div>
-                            <label htmlFor="abPages">
-                                <div className="description">Pages</div>
-                                <input
-                                    type="number"
-                                    name="abPages"
-                                    id="abPages"
-                                    onChange={changePages}
-                                />
-                            </label>
-                        </div>
+                        <label htmlFor="abYearPublished">
+                            <div className="description">Year published</div>
+                            <input
+                                type="number"
+                                name="abYearPublished"
+                                id="abYearPublished"
+                                onChange={changeFirstPublishYear}
+                            />{" "}
+                        </label>
+                        <label htmlFor="abPages">
+                            <div className="description">Pages</div>
+                            <input
+                                type="number"
+                                name="abPages"
+                                id="abPages"
+                                onChange={changePages}
+                            />
+                        </label>
                     </div>
                     <label
                         htmlFor="abCover"
@@ -339,37 +355,31 @@ const AddBookPage = () => {
                                 )}
                             </>
                         )}
-                        <div>
-                            {selectedImageType !== "url" && (
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    name="myImage"
-                                    className={coverImg ? "" : "mb0o"}
-                                />
-                            )}
-                            <div className="dnone">
-                                {selectedImage ? (
-                                    <>
-                                        created blob: {URL.createObjectURL(
-                                            selectedImage,
-                                        )}{" "}
-                                    </>
-                                ) : (
-                                    ""
-                                )}
-                            </div>
-                            {selectedImage && (
-                                <span
-                                    className="btn-text-cancel btn-text sf2 mb05"
-                                    onClick={resetFile}
-                                    onKeyDown={resetFile}
-                                >
-                                    cancel
-                                </span>
+                        {selectedImageType !== "url" && (
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                name="myImage"
+                                className={coverImg ? "" : "mb0o"}
+                            />
+                        )}
+                        <div className="dnone">
+                            {selectedImage ? (
+                                <>created blob: {URL.createObjectURL(selectedImage)} </>
+                            ) : (
+                                ""
                             )}
                         </div>
+                        {selectedImage && (
+                            <span
+                                className="btn-text-cancel btn-text sf2 mb05"
+                                onClick={resetFile}
+                                onKeyDown={resetFile}
+                            >
+                                cancel
+                            </span>
+                        )}
                     </label>
                     <label htmlFor="abTropeAdd" className="dblock pb035">
                         <div className="description">
@@ -381,7 +391,7 @@ const AddBookPage = () => {
                                 id="abTropeAdd"
                                 value={tropeInputValue}
                                 onChange={(e) => setTropeInputValue(e.target.value)}
-                                onKeyDown={handleKeyDownTrope}
+                                onKeyDown={(e) => handleKeyDownAdd(e, "trope")}
                                 placeholder="Add a trope..."
                             />
                             <span
@@ -425,16 +435,40 @@ const AddBookPage = () => {
                         <BookSummaryTitle
                             book_title_short={title}
                             book_first_publish_year={firstPublishYear}
-                            book_author_name={bookAuthors}
+                            book_author_name={[...bookAuthors, authorInputValue]}
                             book_id={bookId}
                             currentPage="wishlist"
                         />
                         {numberOfPages > 0 && <>{numberOfPages} pages</>}
                         <div className="tropes">
-                            {bookTropes.map((trope, index) => {
-                                const key = cleanIndexKey("abpBookTrope" + trope, index)
-                                return <BaseBadge key={key} text={trope} type="trope" />
-                            })}
+                            {
+                                // const bookTropesPreview = [...bookTropes,tropeInputValue]
+                                [...bookTropes, tropeInputValue].map((trope, index) => {
+                                    if (trope.length > 0) {
+                                        const key = cleanIndexKey(
+                                            "abpBookTrope" + trope,
+                                            index,
+                                        )
+                                        // OPTIMIZE deduplicate final trope in array with input value
+                                        if (
+                                            index === bookTropes.length &&
+                                            checkSimilar(
+                                                bookTropes[bookTropes.length - 1],
+                                                trope,
+                                            )
+                                        ) {
+                                            return
+                                        }
+                                        return (
+                                            <BaseBadge
+                                                key={key}
+                                                text={trope}
+                                                type="trope"
+                                            />
+                                        )
+                                    }
+                                })
+                            }
                         </div>
                     </header>
                 </div>
