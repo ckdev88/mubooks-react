@@ -8,6 +8,7 @@ import { cleanAnchor, cleanIndexKey, cleanInput } from "../../helpers/cleanInput
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
+import { checkSimilar } from "../../helpers/checks"
 
 const pageTitle: string = "Add a book"
 
@@ -35,7 +36,7 @@ const AddBookPage = () => {
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
     const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     useEffect(() => {
-        setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
+        setBookTropesLowercase(bookTropes.map((trope) => trope.toLowerCase()))
     }, [bookTropes])
 
     const [selectedImageType, setSelectedImageType] = useState<
@@ -107,6 +108,7 @@ const AddBookPage = () => {
         if (authorInputValue.length > 1) author_array = addAuthor(false)
         let tropes_array: BookTropes = []
         if (tropeInputValue.length > 1) tropes_array = addTrope(false)
+
         const book: Book = {
             author_name: author_array,
             cover: coverImgPosted,
@@ -122,8 +124,8 @@ const AddBookPage = () => {
             rate_stars: rate_stars,
             rate_spice: rate_spice,
         }
-
         newArr.push(book)
+
         setUserMyBooks([...userMyBooks, book])
         const msg = await updateEntriesDb(newArr, userid)
 
@@ -210,19 +212,22 @@ const AddBookPage = () => {
         if (addAnother) document.getElementById("abTropeAdd")?.focus()
         return returnTropes
     }
+
+    /** Remove a trope from the bookTropes state array */
     function removeTrope(filterTrope: string) {
         setBookTropes(bookTropes.filter((trope) => trope !== filterTrope))
     }
-    const handleKeyDownAuthor = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+    /** Initiate addAuthor|addTrope when `Enter` or `,` is pressed */
+    function handleKeyDownAdd(
+        e: React.KeyboardEvent<HTMLInputElement>,
+        toAdd: "author" | "trope",
+    ) {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault()
-            addAuthor(true)
-        }
-    }
-    const handleKeyDownTrope = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" || e.key === ",") {
-            e.preventDefault()
-            addTrope(true)
+            if (toAdd === "author") addAuthor(true)
+            else if (toAdd === "trope") addTrope(true)
+            else console.warn("This is not a valid type to add: " + toAdd)
         }
     }
 
@@ -260,7 +265,7 @@ const AddBookPage = () => {
                                 id="abAuthorAdd"
                                 value={authorInputValue}
                                 onChange={(e) => setAuthorInputValue(e.target.value)}
-                                onKeyDown={handleKeyDownAuthor}
+                                onKeyDown={(e) => handleKeyDownAdd(e, "author")}
                                 placeholder="Add an author..."
                             />
                             <span
@@ -396,7 +401,7 @@ const AddBookPage = () => {
                                 id="abTropeAdd"
                                 value={tropeInputValue}
                                 onChange={(e) => setTropeInputValue(e.target.value)}
-                                onKeyDown={handleKeyDownTrope}
+                                onKeyDown={(e) => handleKeyDownAdd(e, "trope")}
                                 placeholder="Add a trope..."
                             />
                             <span
@@ -440,16 +445,40 @@ const AddBookPage = () => {
                         <BookSummaryTitle
                             book_title_short={title}
                             book_first_publish_year={firstPublishYear}
-                            book_author_name={bookAuthors}
+                            book_author_name={[...bookAuthors, authorInputValue]}
                             book_id={bookId}
                             currentPage="wishlist"
                         />
                         {numberOfPages > 0 && <>{numberOfPages} pages</>}
                         <div className="tropes">
-                            {bookTropes.map((trope, index) => {
-                                const key = cleanIndexKey("abpBookTrope" + trope, index)
-                                return <BaseBadge key={key} text={trope} type="trope" />
-                            })}
+                            {
+                                // const bookTropesPreview = [...bookTropes,tropeInputValue]
+                                [...bookTropes, tropeInputValue].map((trope, index) => {
+                                    if (trope.length > 0) {
+                                        const key = cleanIndexKey(
+                                            "abpBookTrope" + trope,
+                                            index,
+                                        )
+                                        // OPTIMIZE deduplicate final trope in array with input value
+                                        if (
+                                            index === bookTropes.length &&
+                                            checkSimilar(
+                                                bookTropes[bookTropes.length - 1],
+                                                trope,
+                                            )
+                                        ) {
+                                            return
+                                        }
+                                        return (
+                                            <BaseBadge
+                                                key={key}
+                                                text={trope}
+                                                type="trope"
+                                            />
+                                        )
+                                    }
+                                })
+                            }
                         </div>
                     </header>
                 </div>
