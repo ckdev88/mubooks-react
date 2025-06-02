@@ -262,8 +262,7 @@ const AddBookPage = () => {
                     </label>
                     <label htmlFor="abAuthors">
                         <div className="description">
-                            Author(s){" "}
-                            <em>... separate with comma (,) or use the button</em>
+                            Author(s) <em>... separate with comma (,)</em>
                         </div>
                         <div className="dflex ">
                             <input

@@ -6,6 +6,8 @@ import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
 const pageTitle: string = "Favorites"
+const pageTitleSub = "Beloved and adored books"
+let pageTitleSubText = pageTitleSub
 const currentPage: Page = "favorites"
 const booklist = 4
 
@@ -15,9 +17,13 @@ const FavoritesPage = () => {
     useEffect(() => {
         setPageName(currentPage)
     }, [])
-    let hasbooks = false
-    if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true
 
+    let hasbooks = false
+    const arrLength = userMyBooks.filter((book) => book.list === booklist).length
+    if (arrLength > 0) {
+        hasbooks = true // OPTIMIZE this is a bit meh
+        pageTitleSubText = arrLength + '. ' +pageTitleSub
+    }
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -31,7 +37,7 @@ const FavoritesPage = () => {
             <Heading
                 text={pageTitle}
                 icon={"icon-favorites.svg"}
-                sub="Beloved and adored books"
+                sub={pageTitleSubText}
             />
             {!hasbooks && (
                 <>

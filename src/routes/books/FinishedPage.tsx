@@ -6,16 +6,23 @@ import { AppContext } from "../../App"
 import { motion } from "motion/react"
 
 const pageTitle = "Finished books"
+const pageTitleSub = "Done and counting"
+let pageTitleSubText = pageTitleSub
 const currentPage = "finished"
 const booklist = 3
 
 const FinishedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
-    if (
-        userMyBooks.filter((book) => book.list === booklist || book.list === 4).length > 0
-    )
+
+    const arrLength = userMyBooks.filter(
+        (book) => book.list === booklist || book.list === 4,
+    ).length
+
+    if (arrLength > 0) {
         hasbooks = true // OPTIMIZE this is a bit meh
+        pageTitleSubText = arrLength + ". " + pageTitleSub
+    }
 
     return (
         <motion.div
@@ -27,11 +34,7 @@ const FinishedPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading
-                text={pageTitle}
-                icon="icon-finished.svg"
-                sub="Books I finished reading"
-            />
+            <Heading text={pageTitle} icon="icon-finished.svg" sub={pageTitleSubText} />
             {!hasbooks && (
                 <>
                     <p>Have any favorites? Add them to your favorites from here.</p>
