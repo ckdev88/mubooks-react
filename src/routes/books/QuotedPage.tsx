@@ -6,6 +6,8 @@ import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
 const pageTitle = "Mu Quotes"
+const pageTitleSub = "Lines to remember"
+let pageTitleSubText = pageTitleSub
 const currentPage = "quoted"
 const booklist = undefined
 
@@ -21,6 +23,8 @@ const QuotedPage = () => {
         )
         if (quotedbooks.length > 0) hasbooks = true
     } else quotedbooks = []
+    if (quotedbooks.length > 0)
+        pageTitleSubText = quotedbooks.length + ". " + pageTitleSub
 
     return (
         <motion.div
@@ -29,11 +33,7 @@ const QuotedPage = () => {
             transition={{ duration: 1 }}
             animate={{ opacity: 1, transition: { duration: 2 } }}
         >
-            <Heading
-                text={pageTitle}
-                icon={"icon-quoted.svg"}
-                sub={`My books with quotes to remember: ${quotedbooks.length}`}
-            />
+            <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSubText} />
             <div className={hasbooks === true ? "dnone" : "dblock"}>
                 <h4>No books added yet, find them and add them.</h4>
                 <p>

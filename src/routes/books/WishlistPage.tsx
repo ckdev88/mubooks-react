@@ -6,13 +6,20 @@ import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
 const pageTitle = "Mu Wishlist"
+const pageTitleSub = "Books I will read soon"
+let pageTitleSubText = pageTitleSub
 const currentPage = "wishlist"
 const booklist = 1
 
 const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
-    if (userMyBooks.filter((book) => book.list === booklist).length > 0) hasbooks = true // OPTIMIZE: this is a bit meh
+    const arrLength = userMyBooks.filter((book) => book.list === booklist).length
+
+    if (arrLength > 0) {
+        hasbooks = true // OPTIMIZE this is a bit meh
+        pageTitleSubText = arrLength + ". " + pageTitleSub
+    }
 
     return (
         <motion.div
@@ -27,7 +34,7 @@ const WishlistPage = () => {
             <Heading
                 text={pageTitle}
                 icon={"icon-wishlist.svg"}
-                sub="All the books I will read soon"
+                sub={pageTitleSubText}
             />
             {!hasbooks && (
                 <>
