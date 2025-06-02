@@ -159,6 +159,7 @@ const AddBookPage = () => {
     )
 
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
+
     function addAuthor(addAnother = false): BookAuthors {
         let returnAuthors: BookAuthors = []
         if (authorInputValue.trim()) {
@@ -217,17 +218,20 @@ const AddBookPage = () => {
         setBookTropes(bookTropes.filter((trope) => trope !== filterTrope))
     }
 
-    /** Initiate addAuthor|addTrope when `Enter` or `,` is pressed */
-    function handleKeyDownAdd(
-        e: React.KeyboardEvent<HTMLInputElement>,
-        toAdd: "author" | "trope",
+    /** Initiate addAuthor|addTrope when `,` is inputted */
+    function handleBadgerInput(
+        e: React.ChangeEvent<HTMLInputElement>,
+        badger: "author" | "trope",
     ) {
-        if (e.key === "Enter" || e.key === ",") {
-            e.preventDefault()
-            if (toAdd === "author") addAuthor(true)
-            else if (toAdd === "trope") addTrope(true)
-            else console.warn("This is not a valid type to add: " + toAdd)
-        }
+        e.preventDefault()
+        const a = e.target.value
+        if (badger === "author") {
+            if (a.charAt(a.length - 1) === ",") addAuthor(true)
+            else setAuthorInputValue(formatBookAuthor(a))
+        } else if (badger === "trope") {
+            if (a.charAt(a.length - 1) === ",") addTrope(true)
+            else setTropeInputValue(a)
+        } else console.warn("This is not a valid type to add: " + badger)
     }
 
     return (
@@ -258,17 +262,15 @@ const AddBookPage = () => {
                     </label>
                     <label htmlFor="abAuthors">
                         <div className="description">
-                            Author(s) <em>... separate with comma (,) or hit Enter</em>
+                            Author(s){" "}
+                            <em>... separate with comma (,) or use the button</em>
                         </div>
                         <div className="dflex ">
                             <input
                                 type="text"
                                 id="abAuthorAdd"
                                 value={authorInputValue}
-                                onChange={(e) =>
-                                    setAuthorInputValue(formatBookAuthor(e.target.value))
-                                }
-                                onKeyDown={(e) => handleKeyDownAdd(e, "author")}
+                                onChange={(e) => handleBadgerInput(e, "author")}
                                 placeholder="Add an author..."
                             />
                             <span
@@ -393,8 +395,7 @@ const AddBookPage = () => {
                                 type="text"
                                 id="abTropeAdd"
                                 value={tropeInputValue}
-                                onChange={(e) => setTropeInputValue(e.target.value)}
-                                onKeyDown={(e) => handleKeyDownAdd(e, "trope")}
+                                onChange={(e) => handleBadgerInput(e, "trope")}
                                 placeholder="Add a trope..."
                             />
                             <span
