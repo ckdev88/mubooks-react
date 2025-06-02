@@ -151,7 +151,7 @@ const AddBookPage = () => {
         if (fileImage !== null && "value" in fileImage) fileImage.value = ""
     }
     const showCover = (
-        <div>
+        <>
             {coverImg !== "" && <img alt="" src={coverImg} className="cover shade" />}
             {selectedImage !== null && (
                 <img
@@ -160,7 +160,7 @@ const AddBookPage = () => {
                     className="cover shade"
                 />
             )}
-        </div>
+        </>
     )
 
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
@@ -300,28 +300,24 @@ const AddBookPage = () => {
                             gap: "1rem",
                         }}
                     >
-                        <div>
-                            <label htmlFor="abYearPublished">
-                                <div className="description">Year published</div>
-                                <input
-                                    type="number"
-                                    name="abYearPublished"
-                                    id="abYearPublished"
-                                    onChange={changeFirstPublishYear}
-                                />{" "}
-                            </label>
-                        </div>
-                        <div>
-                            <label htmlFor="abPages">
-                                <div className="description">Pages</div>
-                                <input
-                                    type="number"
-                                    name="abPages"
-                                    id="abPages"
-                                    onChange={changePages}
-                                />
-                            </label>
-                        </div>
+                        <label htmlFor="abYearPublished">
+                            <div className="description">Year published</div>
+                            <input
+                                type="number"
+                                name="abYearPublished"
+                                id="abYearPublished"
+                                onChange={changeFirstPublishYear}
+                            />{" "}
+                        </label>
+                        <label htmlFor="abPages">
+                            <div className="description">Pages</div>
+                            <input
+                                type="number"
+                                name="abPages"
+                                id="abPages"
+                                onChange={changePages}
+                            />
+                        </label>
                     </div>
                     <label
                         htmlFor="abCover"
@@ -359,37 +355,31 @@ const AddBookPage = () => {
                                 )}
                             </>
                         )}
-                        <div>
-                            {selectedImageType !== "url" && (
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleFileChange}
-                                    name="myImage"
-                                    className={coverImg ? "" : "mb0o"}
-                                />
-                            )}
-                            <div className="dnone">
-                                {selectedImage ? (
-                                    <>
-                                        created blob: {URL.createObjectURL(
-                                            selectedImage,
-                                        )}{" "}
-                                    </>
-                                ) : (
-                                    ""
-                                )}
-                            </div>
-                            {selectedImage && (
-                                <span
-                                    className="btn-text-cancel btn-text sf2 mb05"
-                                    onClick={resetFile}
-                                    onKeyDown={resetFile}
-                                >
-                                    cancel
-                                </span>
+                        {selectedImageType !== "url" && (
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                name="myImage"
+                                className={coverImg ? "" : "mb0o"}
+                            />
+                        )}
+                        <div className="dnone">
+                            {selectedImage ? (
+                                <>created blob: {URL.createObjectURL(selectedImage)} </>
+                            ) : (
+                                ""
                             )}
                         </div>
+                        {selectedImage && (
+                            <span
+                                className="btn-text-cancel btn-text sf2 mb05"
+                                onClick={resetFile}
+                                onKeyDown={resetFile}
+                            >
+                                cancel
+                            </span>
+                        )}
                     </label>
                     <label htmlFor="abTropeAdd" className="dblock pb035">
                         <div className="description">
