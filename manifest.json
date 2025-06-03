@@ -1,19 +1,30 @@
 {
-    "manifest_version": 2,
-    "version": "1.0",
     "name": "MuBooks",
     "short_name": "MuBooks",
+    "description": "A fun and personal book journal app.",
+    "version": "0.2",
     "icons": [
         {
             "src": "/img/logo144.png",
             "sizes": "144x144",
             "type": "image/png"
+        },
+        {
+            "src": "/img/logo192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/img/logo512.png",
+            "sizes": "512x512",
+            "type": "image/png"
         }
-    ],
+    ], 
     "start_url": "/",
+    "scope": "/",
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#f4f2eb",
-    "theme_color": "#b63580",
-    "worker": "/worker.js"
+    "theme_color": "#b63580"
 }

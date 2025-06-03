@@ -2,10 +2,10 @@ import { useContext, useEffect } from "react"
 import { AppContext } from "../../App"
 import { Link, redirect } from "react-router-dom"
 import HeaderBranding from "../../components/HeaderBranding"
-import getNavTitle from "../../functions/getNavTitle"
+import { getTabTitle } from "../../Helpers"
 
 const pageTitle = "Check your mailbox"
-document.title = "Mu: " + getNavTitle(location.pathname.slice(1))
+document.title = getTabTitle()
 
 const CheckMailPasswordPage = () => {
     const { usermail, userIsLoggedIn } = useContext(AppContext)

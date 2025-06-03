@@ -2,8 +2,7 @@ import { useContext, useState } from "react"
 import { AppContext } from "../App"
 import { useNavigate, NavLink } from "react-router-dom"
 import updatePreferences from "../functions/updatePreferences"
-import { isLocal } from "../Helpers"
-import getNavTitle from "../functions/getNavTitle"
+import { isLocal, getTabTitle, getNavTitle } from "../Helpers"
 
 const NavWrapper = () => {
     const navigate = useNavigate()
@@ -24,8 +23,8 @@ const NavWrapper = () => {
         }, 80)
     }
 
-    const navTitle: string = getNavTitle(location.pathname.slice(1))
-    document.title = "Mu: " + navTitle
+    const navTitle: string = getNavTitle()
+    document.title = getTabTitle()
 
     if (userIsLoggedIn === true)
         return (

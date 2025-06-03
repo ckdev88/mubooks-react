@@ -1,4 +1,4 @@
-export default function getNavTitle(path: string): string {
+export default function getNavTitle(path: string = location.pathname.slice(1)): string {
     const titleMap = new Map()
     titleMap.set("dashboard", "Dashboard")
     titleMap.set("search", "Search")
@@ -19,6 +19,5 @@ export default function getNavTitle(path: string): string {
     titleMap.set("addbook", "Add a book")
     titleMap.set("suggestions", "Suggestions & bugs")
     // if (isLocal()) titleMap.set('clear-my-books', 'CUIDADO! Clear books')
-
     return titleMap.get(path)
 }
