@@ -121,6 +121,37 @@ function getDurationDays(
     return date_difference
 }
 
+function getNavTitle(path: string = location.pathname.slice(1)): string {
+    const titleMap = new Map()
+    titleMap.set("dashboard", "Dashboard")
+    titleMap.set("search", "Search")
+    titleMap.set("wishlist", "Wishlist")
+    titleMap.set("reading", "Currently reading")
+    titleMap.set("finished", "Finished books")
+    titleMap.set("favorites", "Favorite books")
+    titleMap.set("savedbooks", "Saved books")
+    titleMap.set("quoted", "Favorite quotes")
+    titleMap.set("tropes", "Tropes")
+    titleMap.set("statistics", "Stats")
+    titleMap.set("account/profile", "Profile")
+    titleMap.set("account/login", "Log in")
+    titleMap.set("account/logout", "Log out")
+    titleMap.set("account/forgotpassword", "Check your email")
+    titleMap.set("account/new", "Check your email")
+    titleMap.set("auth/confirm", "Account confirmed")
+    titleMap.set("addbook", "Add a book")
+    titleMap.set("suggestions", "Suggestions & bugs")
+    // if (isLocal()) titleMap.set('clear-my-books', 'CUIDADO! Clear books')
+    return titleMap.get(path)
+}
+
+function getTabTitle() {
+    const prefix = "Mu: "
+    const navTitle = getNavTitle()
+    if (navTitle) return prefix + navTitle
+    return "MuBooks!"
+}
+
 export {
     isUrl,
     isLocal,
@@ -132,4 +163,6 @@ export {
     getUrlParamVal,
     getOlPagesMedian,
     getDurationDays,
+    getNavTitle,
+    getTabTitle,
 }

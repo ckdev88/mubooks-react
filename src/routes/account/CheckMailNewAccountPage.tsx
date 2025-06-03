@@ -1,9 +1,9 @@
 // TODO account_emails: design & copywrite confirmation email
 import { useContext } from "react"
 import { AppContext } from "../../App"
-import getNavTitle from "../../functions/getNavTitle"
+import { getNavTitle } from "../../Helpers"
 
-document.title = "Mu: " + getNavTitle(location.pathname.slice(1))
+document.title = getNavTitle()
 
 const CheckMailNewAccountPage = () => {
     const { usermail } = useContext(AppContext)
