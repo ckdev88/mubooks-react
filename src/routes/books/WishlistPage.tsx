@@ -31,11 +31,7 @@ const WishlistPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading
-                text={pageTitle}
-                icon={"icon-wishlist.svg"}
-                sub={pageTitleSubText}
-            />
+            <Heading text={pageTitle} icon={"icon-wishlist.svg"} sub={pageTitleSubText} />
             {!hasbooks && (
                 <>
                     <h4>No books here yet.</h4>

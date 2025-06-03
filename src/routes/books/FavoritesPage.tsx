@@ -22,7 +22,7 @@ const FavoritesPage = () => {
     const arrLength = userMyBooks.filter((book) => book.list === booklist).length
     if (arrLength > 0) {
         hasbooks = true // OPTIMIZE this is a bit meh
-        pageTitleSubText = arrLength + '. ' +pageTitleSub
+        pageTitleSubText = arrLength + ". " + pageTitleSub
     }
     return (
         <motion.div
