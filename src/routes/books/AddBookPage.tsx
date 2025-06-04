@@ -1,3 +1,4 @@
+// TODO when adding a title, trim it
 // TODO openlibrary: make this form interact with openlibrary.org to help append to their database
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { isUrl } from "../../Helpers"
@@ -11,6 +12,7 @@ import BaseBadge from "../../components/ui/BaseBadge"
 import { checkSimilar } from "../../helpers/checks"
 import { formatBookTitle } from "../../helpers/formatInput"
 import { formatBookAuthor } from "../../helpers/formatInput"
+import BtnInsideCaret from "../../components/ui/BtnInsideCaret"
 
 const pageTitle: string = "Add a book"
 
@@ -36,6 +38,10 @@ const AddBookPage = () => {
     useEffect(() => {
         setBookTropesLowercase(bookTropes.map((trope) => trope.toLowerCase()))
     }, [bookTropes])
+
+    // OPTIMIZE these states seem a bit redundant
+    const [authorsArr, setAuthorsArr] = useState<BookAuthors>([])
+    const [tropesArr, setTropesArr] = useState<BookTropes>([])
 
     const [selectedImageType, setSelectedImageType] = useState<
         undefined | "url" | "upload"
@@ -99,9 +105,9 @@ const AddBookPage = () => {
         const rate_spice: Book["rate_spice"] = 0
         const title_short = title.slice(0, 55)
         let author_array: BookAuthors = []
-        if (authorInputValue.length > 1) author_array = addAuthor(false)
+        if (authorInputValue.length > 1) author_array = authorsArr
         let tropes_array: BookTropes = []
-        if (tropeInputValue.length > 1) tropes_array = addTrope(false)
+        if (tropeInputValue.length > 1) tropes_array = tropesArr
 
         const book: Book = {
             author_name: author_array,
@@ -160,7 +166,7 @@ const AddBookPage = () => {
 
     const [authorInputValue, setAuthorInputValue] = useState<string>("")
 
-    function addAuthor(addAnother = false): BookAuthors {
+    async function addAuthor(addAnother = true): Promise<void> {
         let returnAuthors: BookAuthors = []
         if (authorInputValue.trim()) {
             const authorToAdd = authorInputValue
@@ -181,8 +187,9 @@ const AddBookPage = () => {
             }
         }
         if (addAnother) document.getElementById("abAuthorAdd")?.focus()
-        return returnAuthors
+        setAuthorsArr(returnAuthors)
     }
+
     function removeAuthor(filterAuthor: string) {
         setBookAuthors(bookAuthors.filter((author) => author !== filterAuthor))
     }
@@ -193,7 +200,8 @@ const AddBookPage = () => {
      * Sanitize and add trope in active input field to local state,
      * return array of type BookTropes
      */
-    function addTrope(addAnother = false): BookTropes {
+    // TODO this addTrope is different (newer) from addTrope methods... needs fixing?
+    async function addTrope(addAnother = false): Promise<void> {
         let returnTropes: BookTropes = []
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
@@ -210,7 +218,7 @@ const AddBookPage = () => {
             }
         }
         if (addAnother) document.getElementById("abTropeAdd")?.focus()
-        return returnTropes
+        setTropesArr(returnTropes)
     }
 
     /** Remove a trope from the bookTropes state array */
@@ -234,6 +242,7 @@ const AddBookPage = () => {
         } else console.warn("This is not a valid type to add: " + badger)
     }
 
+    // TODO generate same badge as in preview, with x-feature: to erase input field, put cursor in empty input field
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -272,11 +281,10 @@ const AddBookPage = () => {
                                 onChange={(e) => handleBadgerInput(e, "author")}
                                 placeholder="Add an author..."
                             />
-                            <span
-                                className="btn-submit-inside-caret-right wauto"
-                                style={{ marginTop: ".75rem" }}
-                                onClick={() => addAuthor()}
-                                onKeyDown={() => addAuthor()}
+                            <BtnInsideCaret
+                                buttonType="button"
+                                buttonStyle={{ margin: ".75rem 0 0 -2rem" }}
+                                buttonOnClick={addAuthor}
                             />
                         </div>
                     </label>
@@ -397,11 +405,10 @@ const AddBookPage = () => {
                                 onChange={(e) => handleBadgerInput(e, "trope")}
                                 placeholder="Add a trope..."
                             />
-                            <span
-                                className="btn-submit-inside-caret-right wauto"
-                                style={{ marginTop: ".75rem" }}
-                                onClick={() => addTrope()}
-                                onKeyDown={() => addTrope()}
+                            <BtnInsideCaret
+                                buttonType="button"
+                                buttonStyle={{ margin: ".75rem 0 0 -2rem" }}
+                                buttonOnClick={addTrope}
                             />
                         </div>
                     </label>

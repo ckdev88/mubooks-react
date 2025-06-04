@@ -2,8 +2,7 @@ import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
 import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
 import { supabase } from "../../utils/supabase"
-// TODO component_btn_inside_caret: remove or use BtnInsideCaret, a function should be able to be passed to make it useful
-// import BtnInsideCaret from './ui/BtnInsideCaret'
+import BtnInsideCaret from "./ui/BtnInsideCaret"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import updateTropesDb from "../functions/updateTropesDb"
 import BaseBadge from "./ui/BaseBadge"
@@ -167,13 +166,11 @@ const TropesPrefs = ({
                                 onKeyDown={handleKeyDownTrope}
                                 placeholder="Add a trope..."
                             />
-                            <span
-                                className="btn-submit-inside-caret-right wauto"
-                                style={{ margin: "0", marginLeft: "-1.7rem" }}
-                                onClick={addTrope}
-                                onKeyDown={addTrope}
+                            <BtnInsideCaret
+                                buttonType="button"
+                                buttonStyle={{ margin: "0 0 0 -2rem" }}
+                                buttonOnClick={addTrope}
                             />
-                            {/* <BtnInsideCaret /> */}
                         </div>
                         <div
                             className="btn-text btn-text-cancel wauto"

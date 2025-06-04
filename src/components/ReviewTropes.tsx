@@ -1,8 +1,7 @@
 import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
 import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
-// TODO component_btn_inside_caret: remove or use BtnInsideCaret, a function should be able to be passed to make it useful
-// import BtnInsideCaret from './ui/BtnInsideCaret'
+import BtnInsideCaret from "./ui/BtnInsideCaret"
 import updateEntriesDbxxx from "../functions/updateEntriesDb"
 import BaseBadge from "./ui/BaseBadge"
 
@@ -70,7 +69,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         )
     }
 
-    async function addTrope() {
+    async function addTrope(): Promise<void> {
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
@@ -99,6 +98,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         )
         return
     }
+
     const handleKeyDownTrope = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault()
@@ -119,13 +119,11 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         onKeyDown={handleKeyDownTrope}
                         placeholder="Add a trope..."
                     />
-                    <span
-                        className="btn-submit-inside-caret-right wauto"
-                        style={{ margin: "0", marginLeft: "-1.7rem" }}
-                        onClick={addTrope}
-                        onKeyDown={addTrope}
+                    <BtnInsideCaret
+                        buttonType="button"
+                        buttonStyle={{ margin: "0 0 0 -2rem" }}
+                        buttonOnClick={addTrope}
                     />
-                    {/* <BtnInsideCaret /> */}
                 </div>
                 <span
                     className="btn-text btn-text-cancel diblock"

@@ -80,9 +80,7 @@ const BooksOverviewPage = ({
     // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified
     useEffect(() => {
         // TODO see if useLayoutEffect is better here
-        if (page === "tropes") {
-            setBooksList(tropesInMyBooksArr)
-        }
+        if (page === "tropes") setBooksList(tropesInMyBooksArr)
     }, [tropesInMyBooksArr])
 
     // FILTERED

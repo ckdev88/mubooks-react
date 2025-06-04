@@ -39,7 +39,7 @@ const BookModifyPages = ({
                     autoComplete="off"
                     min={input.type === "number" ? "0" : undefined}
                 />
-                <BtnInsideCaret />
+                <BtnInsideCaret buttonType="submit" buttonStyle={{ margin: ".26rem .2rem 0 -2rem" }} />
             </form>
             {isModding && (
                 <button
