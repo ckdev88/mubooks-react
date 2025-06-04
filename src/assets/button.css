@@ -291,7 +291,7 @@ ul.expandable-list a {
     content: " ";
     cursor: pointer;
     height: 1rem;
-    margin: 0.25rem 0 0 -1.7rem;
+    margin: 0 0 0 2rem;
     padding: 0.5rem;
     transform: rotate(90deg);
     transition: background-color 0.18s ease-in-out, border-color 0.18s ease-in-out;

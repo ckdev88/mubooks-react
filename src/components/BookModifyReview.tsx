@@ -48,7 +48,7 @@ const BookModifyReview = ({
                     autoComplete="off"
                     min={input.type === "number" ? "0" : undefined}
                 />
-                <BtnInsideCaret />
+                <BtnInsideCaret buttonType="submit"  buttonStyle={{ margin: ".25rem 0 0 -2rem" }} />
             </form>
             {isModding && (
                 <button
