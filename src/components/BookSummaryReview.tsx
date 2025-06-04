@@ -5,12 +5,15 @@ export const IsModdingReviewContext = createContext<IsModdingReviewContextType>(
     {} as IsModdingReviewContextType,
 )
 
-interface PropTypes {
+const BookSummaryReview = ({
+    book_id,
+    o_key,
+    review_text,
+}: {
     book_id: Book["id"]
     o_key: "review_text" | "review_fav_quote"
     review_text: Book["review_text"]
-}
-const BookSummaryReview = ({ book_id, o_key, review_text }: PropTypes) => {
+}) => {
     let addButtonTitle: string
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
     else addButtonTitle = "Review"
