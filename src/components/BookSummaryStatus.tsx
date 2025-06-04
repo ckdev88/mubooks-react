@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
 import convertDate from "../helpers/convertDate"
 
-interface Proptypes {
+const BookSummaryStatus = ({
+    book,
+    bookAnchor,
+}: {
     book: Book
     bookAnchor: string
-}
-const BookSummaryStatus = ({ book, bookAnchor }: Proptypes) => {
+}) => {
     return (
         <div className="status" style={{ marginBottom: ".5rem" }}>
             {book.list > 0 && (

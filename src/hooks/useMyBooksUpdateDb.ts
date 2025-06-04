@@ -2,17 +2,15 @@ import { useContext } from "react"
 import { supabase } from "../../utils/supabase"
 import { AppContext } from "../App"
 
-interface UseMyBooksUpdateDbProps {
-    myBooksNew: Books
-    book_id: Book["id"] | null
-    msg: string
-}
-
 function useMyBooksUpdateDb({
     myBooksNew,
     book_id,
     msg,
-}: UseMyBooksUpdateDbProps): () => Promise<void> {
+}: {
+    myBooksNew: Books
+    book_id: Book["id"] | null
+    msg: string
+}): () => Promise<void> {
     const { setPopupNotification, userid } = useContext(AppContext)
     async function updateMyBooksDb(): Promise<void> {
         const { error } = await supabase

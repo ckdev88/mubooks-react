@@ -4,13 +4,17 @@ import { AppContext } from "../App"
 import { supabase } from "../../utils/supabase"
 import { convertDate } from "../helpers/convertDate"
 
-interface Props {
+const BookStartedFinished = ({
+    date_started,
+    date_finished,
+    book_id,
+    list,
+}: {
     date_started: Book["date_reading"]
     date_finished: Book["date_finished"]
     book_id: Book["id"]
     list: Book["list"]
-}
-const BookStartedFinished = ({ date_started, date_finished, book_id, list }: Props) => {
+}) => {
     const { userMyBooks, setUserMyBooks, setPopupNotification, userid, todaysDateInput } =
         useContext(AppContext)
     const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
