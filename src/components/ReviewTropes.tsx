@@ -4,6 +4,7 @@ import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
 import BtnInsideCaret from "./ui/BtnInsideCaret"
 import updateEntriesDbxxx from "../functions/updateEntriesDb"
 import BaseBadge from "./ui/BaseBadge"
+import BtnCancel from "./ui/BtnCancel"
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
@@ -125,13 +126,10 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         buttonOnClick={addTrope}
                     />
                 </div>
-                <span
-                    className="btn-text btn-text-cancel diblock"
-                    onClick={() => setShowTropesForm(false)}
-                    onKeyDown={() => setShowTropesForm(false)}
-                >
-                    Cancel
-                </span>
+                <BtnCancel
+                    bClassName="diblock"
+                    bOnClick={() => setShowTropesForm(false)}
+                />
             </div>
         </>
     )

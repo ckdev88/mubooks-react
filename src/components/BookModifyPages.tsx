@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { IsModdingPagesContext } from "./BookPages"
 import BtnInsideCaret from "./ui/BtnInsideCaret"
 import useChangePages from "../hooks/useChangePages"
+import BtnCancel from "./ui/BtnCancel"
 
 const BookModifyPages = ({
     book_id,
@@ -20,7 +21,6 @@ const BookModifyPages = ({
         id: "pages_" + book_id,
         default: book_number_of_pages_median,
         placeholder: "0",
-        cancel_class: "btn-text btn-text-cancel",
     }
 
     useEffect(() => {
@@ -42,13 +42,9 @@ const BookModifyPages = ({
                 <BtnInsideCaret buttonType="submit" buttonStyle={{ margin: ".26rem .2rem 0 -2rem" }} />
             </form>
             {isModding && (
-                <button
-                    type="button"
-                    className={input.cancel_class}
-                    onClick={() => setIsModding(false)}
-                >
-                    Cancel
-                </button>
+                <BtnCancel
+                    bOnClick={() => setIsModding(false)}
+                />
             )}
         </>
     )
