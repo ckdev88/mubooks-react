@@ -113,10 +113,7 @@ const QuickBookSearch = () => {
                         disabled={loading}
                     />
                 </form>
-                <BtnCancel
-                    bClassName="flex-start"
-                    bOnClick={cancelSearch}
-                />
+                <BtnCancel bClassName="flex-start" bOnClick={cancelSearch} />
             </div>
 
             <div className="booksearchresults">

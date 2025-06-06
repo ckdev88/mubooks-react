@@ -44,11 +44,7 @@ const BookModifyPages = ({
                     bStyle={{ margin: ".26rem .2rem 0 -2rem" }}
                 />
             </form>
-            {isModding && (
-                <BtnCancel
-                    bOnClick={() => setIsModding(false)}
-                />
-            )}
+            {isModding && <BtnCancel bOnClick={() => setIsModding(false)} />}
         </>
     )
 }

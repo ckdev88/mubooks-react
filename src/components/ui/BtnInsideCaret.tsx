@@ -20,12 +20,11 @@ const BtnInsideCaret = ({
     bClassName?: string
     bDisabled?: false
 }) => {
-
     return (
         <button
             type={bType ? bType : "button"}
             style={bStyle && bStyle}
-            className={`btn-submit-inside-caret-right${bClassName ? " "+bClassName: ""}`}
+            className={`btn-submit-inside-caret-right${bClassName ? " " + bClassName : ""}`}
             onClick={bOnClick && bOnClick}
             disabled={bDisabled ? bDisabled : false}
         />

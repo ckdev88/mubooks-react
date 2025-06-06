@@ -50,11 +50,7 @@ const BookModifyReview = ({
                 />
                 <BtnInsideCaret bType="submit" bStyle={{ margin: ".25rem 0 0 -2rem" }} />
             </form>
-            {isModding && (
-                <BtnCancel
-                    bOnClick={() => setIsModding(false)}
-                />
-            )}
+            {isModding && <BtnCancel bOnClick={() => setIsModding(false)} />}
         </>
     )
 }
