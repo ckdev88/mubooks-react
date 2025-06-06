@@ -1,20 +1,32 @@
-// TODO handle styling via css class instead of buttonStyle
+// TODO handle styling via css modules or styles components
+// TODO create generic way so bStyle would not be necessary
+/**
+ * BtnInsideCaret button component: default/fallback param values
+ * ------------------------------------------------------
+ * `bType` - "button"
+ * `bClassName` - "btn-submit-inside-caret-right {input}"
+ * `bDisabled` - false
+ */
 const BtnInsideCaret = ({
-    buttonType,
-    buttonStyle,
-    buttonOnClick,
+    bType,
+    bStyle,
+    bOnClick,
+    bClassName,
+    bDisabled,
 }: {
-    buttonType: "button" | "submit"
-    buttonStyle?: React.CSSProperties
-    buttonOnClick?: () => Promise<void> | void
+    bType?: "button" | "submit"
+    bStyle?: React.CSSProperties
+    bOnClick?: () => Promise<void> | void
+    bClassName?: string
+    bDisabled?: false
 }) => {
     return (
         <button
-            type={buttonType ? buttonType : "button"}
-            style={buttonStyle && buttonStyle}
-            className="btn-submit-inside-caret-right"
-            onClick={buttonOnClick && buttonOnClick}
-            onKeyDown={buttonOnClick && buttonOnClick}
+            type={bType ? bType : "button"}
+            style={bStyle && bStyle}
+            className={`btn-submit-inside-caret-right${bClassName ? " " + bClassName : ""}`}
+            onClick={bOnClick && bOnClick}
+            disabled={bDisabled ? bDisabled : false}
         />
     )
 }
