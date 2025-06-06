@@ -5,6 +5,7 @@ import BtnInsideCaret from "./ui/BtnInsideCaret"
 import updateEntriesDbxxx from "../functions/updateEntriesDb"
 import BaseBadge from "./ui/BaseBadge"
 import BtnCancel from "./ui/BtnCancel"
+import BtnAddTrope from "./ui/BtnAddTrope"
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
@@ -53,19 +54,11 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         />
                     )
                 })}
-                {!showTropesForm && (
-                    <button
-                        type="button"
-                        className={
-                            showTropesForm
-                                ? "btn-sm mb0 active trope_add"
-                                : "btn-sm mb0 trope_add"
-                        }
-                        onClick={() => setShowTropesForm(!showTropesForm)}
-                    >
-                        {bookTropes.length > 0 ? <>+</> : <>Add Tropes</>}
-                    </button>
-                )}
+                <BtnAddTrope
+                    bOnClick={() => setShowTropesForm(!showTropesForm)}
+                    bText={tropes.length === 0 ? "Add tropes" : "+"}
+                    bActiveForm={showTropesForm}
+                />
             </div>
         )
     }
@@ -74,10 +67,13 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
+                // remove first instance of duplicate Trope, before adding the newer version
                 const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
-                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
+                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1) {
                     bookTropes.splice(tropeIndex, 1)
+                }
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
+
                 newArr.sort((a, b) => a.localeCompare(b))
                 updateTropes(newArr)
                 setTropeInputValue("")
