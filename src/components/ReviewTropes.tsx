@@ -121,9 +121,8 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         placeholder="Add a trope..."
                     />
                     <BtnInsideCaret
-                        buttonType="button"
-                        buttonStyle={{ margin: "0 0 0 -2rem" }}
-                        buttonOnClick={addTrope}
+                        bStyle={{ margin: "0 0 0 -2rem" }}
+                        bOnClick={addTrope}
                     />
                 </div>
                 <BtnCancel

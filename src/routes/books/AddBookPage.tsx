@@ -282,9 +282,8 @@ const AddBookPage = () => {
                                 placeholder="Add an author..."
                             />
                             <BtnInsideCaret
-                                buttonType="button"
-                                buttonStyle={{ margin: ".75rem 0 0 -2rem" }}
-                                buttonOnClick={addAuthor}
+                                bStyle={{ margin: ".75rem 0 0 -2rem" }}
+                                bOnClick={addAuthor}
                             />
                         </div>
                     </label>
@@ -406,9 +405,8 @@ const AddBookPage = () => {
                                 placeholder="Add a trope..."
                             />
                             <BtnInsideCaret
-                                buttonType="button"
-                                buttonStyle={{ margin: ".75rem 0 0 -2rem" }}
-                                buttonOnClick={addTrope}
+                                bStyle={{ margin: ".75rem 0 0 -2rem" }}
+                                bOnClick={addTrope}
                             />
                         </div>
                     </label>
