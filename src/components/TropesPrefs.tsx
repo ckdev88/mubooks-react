@@ -6,6 +6,7 @@ import BtnInsideCaret from "./ui/BtnInsideCaret"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import updateTropesDb from "../functions/updateTropesDb"
 import BaseBadge from "./ui/BaseBadge"
+import BtnCancel from "./ui/BtnCancel"
 
 const TropesPrefs = ({
     field,
@@ -167,18 +168,14 @@ const TropesPrefs = ({
                                 placeholder="Add a trope..."
                             />
                             <BtnInsideCaret
-                                buttonType="button"
-                                buttonStyle={{ margin: "0 0 0 -2rem" }}
-                                buttonOnClick={addTrope}
+                                bStyle={{ margin: "0 0 0 -2rem" }}
+                                bOnClick={addTrope}
                             />
                         </div>
-                        <div
-                            className="btn-text btn-text-cancel wauto"
-                            onClick={() => setShowTropesForm(false)}
-                            onKeyDown={() => setShowTropesForm(false)}
-                        >
-                            Cancel
-                        </div>
+                        <BtnCancel
+                            bClassName="wauto"
+                            bOnClick={() => setShowTropesForm(false)}
+                        />
                     </>
                 )}
             </section>

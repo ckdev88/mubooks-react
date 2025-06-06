@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { BooksOverviewFilterContext } from "../routes/books/BooksOverviewPage"
+import BtnCancel from "./ui/BtnCancel"
 const BooksOverviewFilterSort = () => {
     const { setBooksFilter, booksFilter } = useContext(BooksOverviewFilterContext)
 
@@ -15,7 +16,6 @@ const BooksOverviewFilterSort = () => {
     }
 
     function noSubmit(e: React.FormEvent<HTMLFormElement>) {
-        document.getElementById("booksoverview-filter")?.blur()
         e.preventDefault()
     }
 
@@ -31,13 +31,7 @@ const BooksOverviewFilterSort = () => {
                 />
             </form>
             {booksFilter.length > 0 && (
-                <button
-                    type="button"
-                    className="btn-text btn-text-cancel"
-                    onClick={() => cancelFilter()}
-                >
-                    Reset filter
-                </button>
+                <BtnCancel bOnClick={() => cancelFilter()} bText="Reset filter" />
             )}
         </div>
     )

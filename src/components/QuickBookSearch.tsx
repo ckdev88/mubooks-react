@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { getOlCover } from "../Helpers"
 import Heading from "./ui/Heading"
-// NOTE currently not used anywhere, this would be nice for cases where a search is executed on every keypress, and easily selects one of the results, which is also only useful if zoomin in on 1 result is utilized
+import BtnCancel from "./ui/BtnCancel"
+// TODO currently not used anywhere, this would be nice for cases where a search is executed on every keypress, and easily selects one of the results, which is also only useful if zoomin in on 1 result is utilized
 
 /*
 const explore = reactive({
@@ -91,6 +92,7 @@ const QuickBookSearch = () => {
         console.log("checking,,,")
     }
     function cancelSearch() {
+        // TODO: this function is called, but does nothing, is this page even used?
         // document.getElementById('search_term')?.nodeValue = ''
 
         console.log("lets empty the input field")
@@ -111,14 +113,7 @@ const QuickBookSearch = () => {
                         disabled={loading}
                     />
                 </form>
-                {/* TODO: replace type button by reset? button should prolly be in form element, cancelSearch might be eligible for removal */}
-                <button
-                    type="button"
-                    className="btn-text btn-text-cancel flex-start"
-                    onClick={cancelSearch}
-                >
-                    Cancel
-                </button>
+                <BtnCancel bClassName="flex-start" bOnClick={cancelSearch} />
             </div>
 
             <div className="booksearchresults">

@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react"
 import { IsModdingReviewContext } from "./BookSummaryReview"
 import BtnInsideCaret from "./ui/BtnInsideCaret"
 import useChangeReview from "../hooks/useChangeReview"
+import BtnCancel from "./ui/BtnCancel"
 
 const BookModifyReview = ({
     book_id,
@@ -29,7 +30,6 @@ const BookModifyReview = ({
         default: review_text,
         placeholder:
             o_key === "review_fav_quote" ? "Add your favorite quote" : "Add review",
-        cancel_class: "btn-text btn-text-cancel",
     }
 
     useEffect(() => {
@@ -48,17 +48,9 @@ const BookModifyReview = ({
                     autoComplete="off"
                     min={input.type === "number" ? "0" : undefined}
                 />
-                <BtnInsideCaret buttonType="submit"  buttonStyle={{ margin: ".25rem 0 0 -2rem" }} />
+                <BtnInsideCaret bType="submit" bStyle={{ margin: ".25rem 0 0 -2rem" }} />
             </form>
-            {isModding && (
-                <button
-                    type="button"
-                    className={input.cancel_class}
-                    onClick={() => setIsModding(false)}
-                >
-                    Cancel
-                </button>
-            )}
+            {isModding && <BtnCancel bOnClick={() => setIsModding(false)} />}
         </>
     )
 }
