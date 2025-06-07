@@ -6,8 +6,7 @@ function formatBookTitle(bookTitle = ""): Book["title"] {
 
 /** Format as author name, capitalizing every word */
 function formatBookAuthor(bookAuthor = ""): string {
-    const author = bookAuthor.trim()
-    const author_arr = author.split(" ")
+    const author_arr = bookAuthor.split(" ")
     for (let i = 0; i < author_arr.length; i++) {
         author_arr[i] = author_arr[i].charAt(0).toUpperCase() + author_arr[i].slice(1)
     }
