@@ -204,7 +204,7 @@ const AddBookPage = () => {
     async function addTrope(addAnother = false): Promise<void> {
         let returnTropes: BookTropes = []
         if (tropeInputValue.trim()) {
-            const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
+            const tropeToAdd: string = tropeInputValue
 
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
                 const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
@@ -235,10 +235,12 @@ const AddBookPage = () => {
         const a = e.target.value
         if (badger === "author") {
             if (a.charAt(a.length - 1) === ",") addAuthor(true)
-            else setAuthorInputValue(formatBookAuthor(a))
+            else setAuthorInputValue(a)
+            setAuthorsArr([...bookAuthors, formatBookAuthor(a)])
         } else if (badger === "trope") {
             if (a.charAt(a.length - 1) === ",") addTrope(true)
             else setTropeInputValue(a)
+            setTropesArr([...bookTropes, a])
         } else console.warn("This is not a valid type to add: " + badger)
     }
 
