@@ -1,11 +1,11 @@
 // TODO when adding a title, trim it
 // TODO openlibrary: make this form interact with openlibrary.org to help append to their database
-import { useContext, useState, useEffect, useLayoutEffect } from "react"
+import { useContext, useState, useLayoutEffect } from "react"
 import { isUrl } from "../../Helpers"
 import BookSummaryTitle from "../../components/BookSummaryTitle"
 import { AppContext } from "../../App"
 import updateEntriesDb from "../../functions/updateEntriesDb"
-import { cleanAnchor, cleanIndexKey, cleanInput } from "../../helpers/cleanInput"
+import { cleanAnchor, cleanIndexKey } from "../../helpers/cleanInput"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BaseBadge from "../../components/ui/BaseBadge"
@@ -13,6 +13,8 @@ import { checkSimilar } from "../../helpers/checks"
 import { formatBookTitle } from "../../helpers/formatInput"
 import { formatBookAuthor } from "../../helpers/formatInput"
 import BtnInsideCaret from "../../components/ui/BtnInsideCaret"
+import getDeduplicatedTropesArray from "../../helpers/formatArrays"
+import formatAuthor from "../../utils/formatInput"
 
 const pageTitle: string = "Add a book"
 
@@ -32,16 +34,9 @@ const AddBookPage = () => {
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
+    const [authorsArr, setAuthorsArr] = useState<BookAuthors>([]) // OPTIMIZE redundant?
     const [bookAuthors, setBookAuthors] = useState<BookAuthors>([])
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
-    const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
-    useEffect(() => {
-        setBookTropesLowercase(bookTropes.map((trope) => trope.toLowerCase()))
-    }, [bookTropes])
-
-    // OPTIMIZE these states seem a bit redundant
-    const [authorsArr, setAuthorsArr] = useState<BookAuthors>([])
-    const [tropesArr, setTropesArr] = useState<BookTropes>([])
 
     const [selectedImageType, setSelectedImageType] = useState<
         undefined | "url" | "upload"
@@ -104,10 +99,13 @@ const AddBookPage = () => {
         const rate_stars: Book["rate_stars"] = 0
         const rate_spice: Book["rate_spice"] = 0
         const title_short = title.slice(0, 55)
-        let author_array: BookAuthors = []
+
+        let author_array: BookAuthors = authorsArr
         if (authorInputValue.length > 1) author_array = authorsArr
-        let tropes_array: BookTropes = []
-        if (tropeInputValue.length > 1) tropes_array = tropesArr
+
+        let tropes_array: BookTropes = bookTropes
+        if (tropeInputValue.length > 1)
+            tropes_array = getDeduplicatedTropesArray(bookTropes, tropeInputValue)
 
         const book: Book = {
             author_name: author_array,
@@ -168,26 +166,20 @@ const AddBookPage = () => {
 
     async function addAuthor(addAnother = true): Promise<void> {
         let returnAuthors: BookAuthors = []
-        if (authorInputValue.trim()) {
-            const authorToAdd = authorInputValue
-            if (authorToAdd !== undefined && authorToAdd.length > 1) {
-                // find duplicate author value: if found, splice it
-                const authorIndex = bookAuthors.indexOf(authorToAdd)
-                if (bookAuthors.indexOf(authorToAdd) > -1) {
-                    bookAuthors.splice(authorIndex, 1)
-                }
-                const newArr: BookAuthors = [
-                    ...bookAuthors,
-                    cleanInput(authorToAdd, true),
-                ]
-                returnAuthors = newArr
-                setBookAuthors(newArr)
-
-                if (addAnother) setAuthorInputValue("")
+        const authorToAdd = authorInputValue
+        if (authorToAdd !== undefined && authorToAdd.trim().length > 1) {
+            // find duplicate author value: if found, splice it
+            returnAuthors = bookAuthors.filter(
+                (author) =>
+                    author.toLowerCase() !== authorInputValue.trim().toLowerCase(),
+            )
+            returnAuthors.push(formatAuthor(authorToAdd))
+            if (addAnother) {
+                setAuthorInputValue("")
+                document.getElementById("abAuthorAdd")?.focus()
             }
+            setBookAuthors(returnAuthors)
         }
-        if (addAnother) document.getElementById("abAuthorAdd")?.focus()
-        setAuthorsArr(returnAuthors)
     }
 
     function removeAuthor(filterAuthor: string) {
@@ -196,33 +188,25 @@ const AddBookPage = () => {
 
     const [tropeInputValue, setTropeInputValue] = useState<string>("")
 
-    /**
-     * Sanitize and add trope in active input field to local state,
-     * return array of type BookTropes
-     */
-    // TODO this addTrope is different (newer) from addTrope methods... needs fixing?
+    /** Sanitize and add trope in active input field to local state */
     async function addTrope(addAnother = false): Promise<void> {
         let returnTropes: BookTropes = []
-        if (tropeInputValue.trim()) {
-            const tropeToAdd: string = tropeInputValue
-
-            if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
-                const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
-                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
-                    bookTropes.splice(tropeIndex, 1)
-                const newArr: BookTropes = [...bookTropes, tropeToAdd]
-                newArr.sort((a, b) => a.localeCompare(b))
-                returnTropes = newArr
-                setBookTropes(newArr)
-                if (addAnother) setTropeInputValue("")
+        if (tropeInputValue !== undefined && tropeInputValue.trim().length > 1) {
+            returnTropes = bookTropes.filter(
+                (trope) => trope.toLowerCase() !== tropeInputValue.trim().toLowerCase(),
+            )
+            returnTropes.push(tropeInputValue)
+            returnTropes.sort((a, b) => a.localeCompare(b))
+            if (addAnother) {
+                setTropeInputValue("")
+                document.getElementById("abTropeAdd")?.focus()
             }
+            setBookTropes(returnTropes)
         }
-        if (addAnother) document.getElementById("abTropeAdd")?.focus()
-        setTropesArr(returnTropes)
     }
 
     /** Remove a trope from the bookTropes state array */
-    function removeTrope(filterTrope: string) {
+    const removeTrope = (filterTrope: string): void => {
         setBookTropes(bookTropes.filter((trope) => trope !== filterTrope))
     }
 
@@ -240,7 +224,6 @@ const AddBookPage = () => {
         } else if (badger === "trope") {
             if (a.charAt(a.length - 1) === ",") addTrope(true)
             else setTropeInputValue(a)
-            setTropesArr([...bookTropes, a])
         } else console.warn("This is not a valid type to add: " + badger)
     }
 
