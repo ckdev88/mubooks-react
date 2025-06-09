@@ -1,3 +1,4 @@
+// TODO create Trash page for books with book_list = 0
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
@@ -57,6 +58,14 @@ const RemoveBookFromXButton = ({
                 if (myBooks[i].id === book_id) {
                     myBooks[i].list = 2
                     myBooks[i].date_finished = undefined
+                    break
+                }
+            }
+        } else if (book_list === 2 || book_list === 1) {
+            // Move book to trash
+            for (let i = 0; i < myBooks.length; i++) {
+                if (myBooks[i].id === book_id) {
+                    myBooks[i].list = 0
                     break
                 }
             }
@@ -123,7 +132,7 @@ const RemoveBookFromXButton = ({
                 disabled={isLoading}
             >
                 <span className="icon icon-remove" />
-                Remove from {getListName(targetList)}
+                Remove from {getListName(book_list)}
             </button>
         </div>
     )

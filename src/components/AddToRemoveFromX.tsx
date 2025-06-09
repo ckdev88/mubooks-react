@@ -166,7 +166,7 @@ const AddToRemoveFromX = ({
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
-                            targetList={1}
+                            targetList={0}
                             icon={true}
                         />
                     )}
@@ -175,7 +175,7 @@ const AddToRemoveFromX = ({
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
-                            targetList={book.list}
+                            targetList={0}
                             icon={true}
                         />
                     )}

@@ -4,7 +4,8 @@ const getListName = (listId: BookList): string => {
         return "nada"
     }
     let listName = "none"
-    if (listId === 1) listName = "wishlist"
+    if (listId === 0) listName = "trash"
+    else if (listId === 1) listName = "wishlist"
     else if (listId === 2) listName = "reading"
     else if (listId === 3) listName = "finished"
     else if (listId === 4) listName = "favorite"
