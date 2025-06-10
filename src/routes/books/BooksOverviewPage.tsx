@@ -12,7 +12,7 @@ export const BooksOverviewFilterContext = createContext<BooksOverviewFilterConte
 )
 
 const BooksOverviewPage = ({
-    books = [],
+    books,
     page,
     booklist,
 }: {
@@ -23,9 +23,13 @@ const BooksOverviewPage = ({
     const { userMyBooks } = useContext(AppContext)
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
 
+    // console.log('books:',books)
+    // console.log('++++++++++++++++++++++++++++');
     let booklistStart: Books
-    if (books.length > 0) booklistStart = books
-    else {
+    if (books !== undefined && books.length > 0) {
+        console.log("not empty!")
+        booklistStart = books
+    } else {
         if (booklist === undefined) booklistStart = userMyBooks
         else {
             if (booklist === 3)
@@ -35,6 +39,9 @@ const BooksOverviewPage = ({
             else
                 booklistStart = userMyBooks.filter((book: Book) => book.list === booklist)
         }
+    }
+    if (page === "tossed") {
+        booklistStart = userMyBooks.filter((book: Book) => book.tossed === true)
     }
     if (page === "finished") {
         // OPTIMIZE this looks like garbage
@@ -49,6 +56,7 @@ const BooksOverviewPage = ({
     if (booklistStart.length > 0) hasbooks = true
     else hasbooks = false
 
+    console.log("booklistStart:", booklistStart)
     let hasfilter: boolean
     if (fsPages.includes(page) && hasbooks) hasfilter = true
     else hasfilter = false
@@ -60,13 +68,20 @@ const BooksOverviewPage = ({
     // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
     useEffect(() => {
         let bookstmp: Books = []
-        if (books.length > 0) bookstmp = books
+        if (books !== undefined && books.length > 0) bookstmp = books
         if (booklist) {
             if (booklist === 3) {
                 bookstmp = userMyBooks.filter(
                     (book: Book) => book.list === 3 || book.list === 4,
                 )
-            } else bookstmp = userMyBooks.filter((book) => book.list === booklist)
+            } else {
+                if (page === "tossed")
+                    bookstmp = userMyBooks.filter((book) => book.tossed === true)
+                else
+                    bookstmp = userMyBooks.filter(
+                        (book) => book.list === booklist && !book.tossed,
+                    )
+            }
 
             // SORTING
             if (booklist === 3 || booklist === 4) {
@@ -135,7 +150,7 @@ const BooksOverviewPage = ({
             )}
             {page === "search" ? (
                 <>
-                    {books.map((book) => {
+                    {books?.map((book) => {
                         userMyBooks.find((savedbook) => {
                             if (savedbook.id === book.id) {
                                 book.list = savedbook.list

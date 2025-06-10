@@ -1,6 +1,7 @@
 import AddBookToXButton from "./AddBookToXButton"
 import RemoveBookFromXButton from "./RemoveBookFromXButton"
 import { useState } from "react"
+import getListName from "../functions/getListName"
 
 /**
  * Show button which can add/remove
@@ -57,7 +58,6 @@ const AddToRemoveFromX = ({
             )
         }
     } else {
-        const newLocal = "icon icon-dots"
         return (
             <>
                 {!book.list && (
@@ -82,8 +82,7 @@ const AddToRemoveFromX = ({
                     />
                 )}
 
-                {(book.list === 1 ||
-                    (currentPage === "search" && (book.list < 2 || !book.list))) && (
+                {book.list > 0 && currentPage === "tossed" && (
                     <AddBookToXButton
                         book_id={book.id}
                         book_list={book.list}
@@ -96,17 +95,44 @@ const AddToRemoveFromX = ({
                         book_first_publish_year={book.first_publish_year}
                         book_img={book.img}
                         book_number_of_pages_median={book.number_of_pages_median}
-                        targetList={2}
+                        targetList={book.list}
                         icon={true}
-                        button_title="Start reading"
+                        button_title={`Restore to ${getListName(book.list)}`}
                         book_rate_stars={book.rate_stars}
                         book_rate_spice={book.rate_spice}
                         book_review_fav_quote={book.review_fav_quote}
                         book_review_tropes={book.review_tropes}
+                        tossed={false}
                     />
                 )}
 
-                {book.list === 2 && (
+                {currentPage !== "tossed" &&
+                    (book.list === 1 ||
+                        (currentPage === "search" && (book.list < 2 || !book.list))) && (
+                        <AddBookToXButton
+                            book_id={book.id}
+                            book_list={book.list}
+                            book_title={book.title}
+                            book_title_short={book.title_short}
+                            book_author_key={book.author_key}
+                            book_author_name={book.author_name}
+                            book_cover={book.cover}
+                            book_cover_edition_key={book.cover_edition_key}
+                            book_first_publish_year={book.first_publish_year}
+                            book_img={book.img}
+                            book_number_of_pages_median={book.number_of_pages_median}
+                            targetList={2}
+                            icon={true}
+                            button_title="Start reading"
+                            book_rate_stars={book.rate_stars}
+                            book_rate_spice={book.rate_spice}
+                            book_review_fav_quote={book.review_fav_quote}
+                            book_review_tropes={book.review_tropes}
+                            tossed={false}
+                        />
+                    )}
+
+                {currentPage !== "tossed" && book.list === 2 && (
                     <AddBookToXButton
                         book_id={book.id}
                         book_list={book.list}
@@ -126,31 +152,35 @@ const AddToRemoveFromX = ({
                         book_rate_spice={book.rate_spice}
                         book_review_fav_quote={book.review_fav_quote}
                         book_review_tropes={book.review_tropes}
+                        tossed={book.tossed === true}
                     />
                 )}
 
-                {(book.list === 3 || (currentPage === "search" && book.list !== 4)) && (
-                    <AddBookToXButton
-                        book_id={book.id}
-                        book_list={book.list}
-                        book_title={book.title}
-                        book_title_short={book.title_short}
-                        book_author_key={book.author_key}
-                        book_author_name={book.author_name}
-                        book_cover={book.cover}
-                        book_cover_edition_key={book.cover_edition_key}
-                        book_first_publish_year={book.first_publish_year}
-                        book_img={book.img}
-                        book_number_of_pages_median={book.number_of_pages_median}
-                        targetList={4}
-                        icon={true}
-                        button_title="Mark as favorite"
-                        book_rate_stars={book.rate_stars}
-                        book_rate_spice={book.rate_spice}
-                        book_review_fav_quote={book.review_fav_quote}
-                        book_review_tropes={book.review_tropes}
-                    />
-                )}
+                {currentPage !== "tossed" &&
+                    (book.list === 3 ||
+                        (currentPage === "search" && book.list !== 4)) && (
+                        <AddBookToXButton
+                            book_id={book.id}
+                            book_list={book.list}
+                            book_title={book.title}
+                            book_title_short={book.title_short}
+                            book_author_key={book.author_key}
+                            book_author_name={book.author_name}
+                            book_cover={book.cover}
+                            book_cover_edition_key={book.cover_edition_key}
+                            book_first_publish_year={book.first_publish_year}
+                            book_img={book.img}
+                            book_number_of_pages_median={book.number_of_pages_median}
+                            targetList={4}
+                            icon={true}
+                            button_title="Mark as favorite"
+                            book_rate_stars={book.rate_stars}
+                            book_rate_spice={book.rate_spice}
+                            book_review_fav_quote={book.review_fav_quote}
+                            book_review_tropes={book.review_tropes}
+                            tossed={book.tossed === true}
+                        />
+                    )}
 
                 {currentPage !== "dashboard" && currentPage !== "search" && (
                     <button
@@ -158,43 +188,45 @@ const AddToRemoveFromX = ({
                         className="btn-icon"
                         onClick={() => setShowHiddenMarks(!showHiddenMarks)}
                     >
-                        <span className={newLocal} />
+                        <span className="icon icon-dots" />
                     </button>
                 )}
                 <div className={showHiddenMarks ? "marks" : "marks dnone"}>
-                    {book.list === 1 && (
+                    {currentPage !== "tossed" && book.list === 2 && (
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
-                            targetList={0}
+                            targetList={1}
                             icon={true}
                         />
                     )}
-
-                    {book.list === 2 && (
+                    {currentPage !== "tossed" && (book.list === 1 || book.list === 2) && (
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
-                            targetList={0}
+                            targetList={book.list}
                             icon={true}
+                            toss={true}
                         />
                     )}
 
-                    {(book.list === 3 || book.list === 4) && (
+                    {currentPage !== "tossed" && (book.list === 3 || book.list === 4) && (
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
                             targetList={3}
                             icon={true}
+                            toss={true}
                         />
                     )}
 
-                    {book.list === 4 && (
+                    {currentPage === "tossed" && (
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
                             targetList={4}
                             icon={true}
+                            permtoss={true}
                         />
                     )}
                 </div>

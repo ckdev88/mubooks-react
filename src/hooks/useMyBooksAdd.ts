@@ -14,7 +14,7 @@ const useMyBooksAdd = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string = book.title_short + " added to " + getListName(targetList)
+        let msg: string = book.title_short + " moved to " + getListName(targetList)
         setUserMyBooks(myBooksNew)
         const { error } = await supabase
             .from("user_entries")
@@ -88,6 +88,7 @@ const useMyBooksAdd = ({
             if (myBooks[i].id === book.id) {
                 bookIsSaved = true
                 myBooks[i].list = targetList
+                myBooks[i].tossed = book.tossed === true
                 if (targetList === 2) myBooks[i].date_reading = todaysDateDigit
                 if (targetList === 3) myBooks[i].date_finished = todaysDateDigit
                 break

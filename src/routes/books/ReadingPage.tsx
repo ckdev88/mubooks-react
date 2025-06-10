@@ -14,7 +14,7 @@ const booklist = 2
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
     let hasbooks = false
-    const books = userMyBooks.filter((book) => book.list === booklist)
+    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
     if (books.length > 0) {
         hasbooks = true
         pageTitleSubText = books.length + ". " + pageTitleSub

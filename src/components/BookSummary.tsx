@@ -13,15 +13,15 @@ import BookSummaryAside from "./BookSummaryAside"
 import BookSummaryStatus from "./BookSummaryStatus"
 import BookSummaryReview from "./BookSummaryReview"
 
+const synopsisPages: Page[] = ["search", "wishlist"]
+const pagesMedianPages: Page[] = ["search", "reading", "finished"]
+const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
+
 const BookSummary = ({
     book,
     currentPage,
     refer,
 }: { book: Book; currentPage: Page; refer?: Page }) => {
-    const synopsisPages: Page[] = ["search", "wishlist"]
-    const pagesMedianPages: Page[] = ["search", "reading", "finished"]
-    const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
-
     const synopsis = useGetSynopsis(
         book.id,
         book.cover_edition_key,

@@ -121,6 +121,7 @@ const AddBookPage = () => {
             cover_edition_key: "",
             rate_stars: rate_stars,
             rate_spice: rate_spice,
+            tossed: false,
         }
         newArr.push(book)
 
