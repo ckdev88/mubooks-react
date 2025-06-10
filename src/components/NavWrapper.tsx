@@ -230,6 +230,9 @@ const NavWrapper = () => {
                         <NavLink to={"/tropes"} onClick={toggleNav0}>
                             Tropes
                         </NavLink>
+                        <NavLink to={"/tossed"} onClick={toggleNav0}>
+                            Tossed corner
+                        </NavLink>
                         {isLocal() && (
                             <NavLink
                                 to={"/clear-my-books"}

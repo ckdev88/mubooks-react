@@ -14,6 +14,7 @@ import QuotedPage from "./routes/books/QuotedPage"
 import ReadingPage from "./routes/books/ReadingPage"
 import RootPage from "./routes/RootPage"
 import SavedBooksPage from "./routes/books/SavedBooksPage"
+import TossedPage from "./routes/books/TossedPage.tsx"
 import SearchPage from "./routes/books/SearchPage"
 import StatisticsPage from "./routes/books/StatisticsPage"
 import TropesPage from "./routes/books/TropesPage"
@@ -192,6 +193,7 @@ const App = () => {
                             <Route path="/search" element={<SearchPage />} />
                             <Route path="/addbook" element={<AddBookPage />} />
                             <Route path="/savedbooks" element={<SavedBooksPage />} />
+                            <Route path="/tossed" element={<TossedPage />} />
                             <Route path="/wishlist" element={<WishlistPage />} />
                             <Route path="/reading" element={<ReadingPage />} />
                             <Route path="/finished" element={<FinishedPage />} />

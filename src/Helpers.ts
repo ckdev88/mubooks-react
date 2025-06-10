@@ -132,6 +132,7 @@ function getNavTitle(path: string = location.pathname.slice(1)): string {
     titleMap.set("savedbooks", "Saved books")
     titleMap.set("quoted", "Favorite quotes")
     titleMap.set("tropes", "Tropes")
+    titleMap.set("tossed", "Tossed corner")
     titleMap.set("statistics", "Stats")
     titleMap.set("account/profile", "Profile")
     titleMap.set("account/login", "Log in")

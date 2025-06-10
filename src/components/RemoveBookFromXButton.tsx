@@ -19,6 +19,7 @@ const RemoveBookFromXButton = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     let msg: string = "Moved to " + getListName(targetList)
+
     if ((book_list === 3 || book_list === 4) && targetList === 3)
         msg = "Unfinished, moved to READING"
     else if (targetList === 4) msg = "Removed FAVORITE status"
