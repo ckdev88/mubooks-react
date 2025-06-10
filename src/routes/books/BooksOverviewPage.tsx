@@ -4,6 +4,9 @@ import { AppContext } from "../../App"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
 
+/** Array of pages which should have a search field to filter the list */
+const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks", "tossed"]
+
 export const BooksOverviewFilterContext = createContext<BooksOverviewFilterContextType>(
     {} as BooksOverviewFilterContextType,
 )
@@ -45,9 +48,6 @@ const BooksOverviewPage = ({
     let hasbooks: boolean
     if (booklistStart.length > 0) hasbooks = true
     else hasbooks = false
-
-    /** Array of pages which should have a search field to filter the list */
-    const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
 
     let hasfilter: boolean
     if (fsPages.includes(page) && hasbooks) hasfilter = true
