@@ -34,10 +34,7 @@ const RecoverCard = () => {
         <>
             <article className="card" id="card-recover">
                 <header>
-                    <Heading
-                        text="Forgot your password?"
-                        sub="Don't worry. Let's reset it."
-                    />
+                    <Heading text="Forgot your password?" sub="Don't worry. Let's reset it." />
                     <img
                         src="/img/recover-icon.png"
                         width="82"
@@ -47,10 +44,7 @@ const RecoverCard = () => {
                     />
                 </header>
                 <main>
-                    <form
-                        onSubmit={processRecoverForm}
-                        className={isLoading ? "form-loading" : ""}
-                    >
+                    <form onSubmit={processRecoverForm} className={isLoading ? "form-loading" : ""}>
                         <label htmlFor="recover_email">
                             <div className="description">Email address: *</div>
                             <input
@@ -63,8 +57,8 @@ const RecoverCard = () => {
                             />
                         </label>
                         <p>
-                            We'll send a link to this email address if it matches an
-                            existing account.
+                            We'll send a link to this email address if it matches an existing
+                            account.
                         </p>
                         <div className={error !== "" ? "dblock error" : "dblock"}>
                             {error}&nbsp;

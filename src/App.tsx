@@ -54,9 +54,7 @@ const App = () => {
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
     const [darkTheme, setDarkTheme] = useState<undefined | boolean>(undefined)
-    const [bodyBgColor, setBodyBgColor] = useState<string>(
-        darkTheme ? bgColorDark : bgColorLight,
-    )
+    const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
     const [pageName, setPageName] = useState<string>("default")
 
     // Settings
@@ -118,8 +116,7 @@ const App = () => {
     useEffect(() => {
         const htmlNode = document.getElementsByTagName("html")[0]
         if (darkTheme === true) {
-            if (!htmlNode.classList.contains("dark-mode"))
-                htmlNode.classList.add("dark-mode")
+            if (!htmlNode.classList.contains("dark-mode")) htmlNode.classList.add("dark-mode")
             setBodyBgColor(bgColorDark)
         } else {
             htmlNode.classList.remove("dark-mode")
@@ -170,10 +167,7 @@ const App = () => {
                     <Route path="/auth/confirm" element={<AuthConfirm />} />
                     {!userIsLoggedIn && (
                         <>
-                            <Route
-                                path="/auth/resetpassword"
-                                element={<ResetPasswordPage />}
-                            />
+                            <Route path="/auth/resetpassword" element={<ResetPasswordPage />} />
                             <Route
                                 path="/account/forgotpassword"
                                 element={<CheckMailPasswordPage />}
@@ -183,10 +177,7 @@ const App = () => {
                     <Route path="/account/new" element={<CheckMailNewAccountPage />} />
                     {userIsLoggedIn && (
                         <>
-                            <Route
-                                path="/account/profile"
-                                element={<UserProfilePage />}
-                            />
+                            <Route path="/account/profile" element={<UserProfilePage />} />
                             <Route path="/account/*" element={<UserLoginPage />} />
                             <Route path="/suggestions" element={<SuggestionsPage />} />
                             <Route path="/dashboard" element={<DashboardPage />} />
@@ -202,10 +193,7 @@ const App = () => {
                             <Route path="/tropes" element={<TropesPage />} />
                             <Route path="/statistics" element={<StatisticsPage />} />
                             {isLocal() && (
-                                <Route
-                                    path="/clear-my-books"
-                                    element={<ClearMyBooks />}
-                                />
+                                <Route path="/clear-my-books" element={<ClearMyBooks />} />
                             )}
                         </>
                     )}

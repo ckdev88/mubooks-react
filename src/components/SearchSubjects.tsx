@@ -2,10 +2,7 @@ import { useState } from "react"
 import BaseBadge from "./ui/BaseBadge"
 import { cleanIndexKey } from "../helpers/cleanInput"
 
-const SearchSubjects = ({
-    book_id,
-    subjects,
-}: { book_id: Book["id"]; subjects: BookSubjects }) => {
+const SearchSubjects = ({ book_id, subjects }: { book_id: Book["id"]; subjects: BookSubjects }) => {
     const [showMore, setShowMore] = useState(false)
 
     function showMoreToggle() {
@@ -24,11 +21,7 @@ const SearchSubjects = ({
                     return <BaseBadge key={key} type="subject" text={subject} />
                 }
             })}
-            <button
-                type="button"
-                onClick={() => showMoreToggle()}
-                className="btn-text diblock"
-            >
+            <button type="button" onClick={() => showMoreToggle()} className="btn-text diblock">
                 {showMore ? "<" : "..."}
             </button>
         </div>

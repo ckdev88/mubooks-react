@@ -11,24 +11,11 @@ import countBookValues from "../functions/countBookValues"
 import Heading from "./ui/Heading"
 
 const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
-    const {
-        cbf,
-        cpf,
-        cbfm,
-        cpfm,
-        cbwp,
-        adpb,
-        appd,
-        astpb,
-        cstpb,
-        bwp,
-        bwst,
-        cbwst,
-        dpb,
-    } = countBookValues({
-        myBooksArr,
-        year,
-    })
+    const { cbf, cpf, cbfm, cpfm, cbwp, adpb, appd, astpb, cstpb, bwp, bwst, cbwst, dpb } =
+        countBookValues({
+            myBooksArr,
+            year,
+        })
     const [showCbfDetails, setShowCbfDetails] = useState<boolean>(false)
     const [showDpbDetails, setShowDpbDetails] = useState<boolean>(false)
     const [showDpbDetails2, setShowDpbDetails2] = useState<boolean>(false)
@@ -88,9 +75,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                     {showBfmDetails && (
                                         <>
                                             <ul className="mt0 mb0">
-                                                <StatisticsFinishedInMonth
-                                                    yearmonth={yearmonth}
-                                                />
+                                                <StatisticsFinishedInMonth yearmonth={yearmonth} />
                                             </ul>
                                             {c > 0 && <br />}
                                         </>
@@ -115,11 +100,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                 <br />
                                 <i>* Books without pages defined</i>
                                 <ul className="mt0">
-                                    <BooksWithoutPagesList
-                                        bwp={bwp}
-                                        year={year}
-                                        key={year}
-                                    />
+                                    <BooksWithoutPagesList bwp={bwp} year={year} key={year} />
                                 </ul>
                             </div>
                         )}
@@ -177,16 +158,10 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                             >
                                 ...
                             </button>
-                            <div
-                                className={showStpbDetails ? "mt05 sf" : "mt05 sf dnone"}
-                            >
+                            <div className={showStpbDetails ? "mt05 sf" : "mt05 sf dnone"}>
                                 {cstpb.length > 0 && (
                                     <>
-                                        <div
-                                            className={
-                                                showStpbDetails2 ? "dnone" : "dblock"
-                                            }
-                                        >
+                                        <div className={showStpbDetails2 ? "dnone" : "dblock"}>
                                             {cstpb.map((b, index) => {
                                                 const key = "cstpb" + year + index
                                                 return (
@@ -195,10 +170,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                                         className={b === 0 ? "dnone" : ""}
                                                     >
                                                         {index + 1}{" "}
-                                                        {index + 1 === 1
-                                                            ? "star"
-                                                            : "stars"}
-                                                        :{" "}
+                                                        {index + 1 === 1 ? "star" : "stars"}:{" "}
                                                         <b>{`${b} ${b === 1 ? "book" : "books"}`}</b>
                                                     </div>
                                                 )
@@ -210,9 +182,7 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                         <button
                                             type="button"
                                             className="btn-text fs-inherit"
-                                            onClick={() =>
-                                                setShowStpbDetails2(!showStpbDetails2)
-                                            }
+                                            onClick={() => setShowStpbDetails2(!showStpbDetails2)}
                                         >
                                             {`${!showStpbDetails2 ? "show titles" : "hide titles"}`}
                                         </button>

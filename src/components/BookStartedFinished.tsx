@@ -92,9 +92,9 @@ const BookStartedFinished = ({
     function modifyDateReading(field: "date_reading" | "date_finished") {
         if (document.getElementById(field + book_id) === null) return
         const inputfield: string = field + book_id
-        const newDateArr = (
-            document.getElementById(inputfield) as HTMLInputElement
-        ).value.split("-")
+        const newDateArr = (document.getElementById(inputfield) as HTMLInputElement).value.split(
+            "-",
+        )
         const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
         changeDates(field, newDate)
     }
@@ -103,15 +103,13 @@ const BookStartedFinished = ({
             const eleDateReading = document.getElementById(
                 "date_reading" + book_id,
             ) as HTMLInputElement | null
-            if (eleDateReading !== null)
-                eleDateReading.value = convertDate(dateStarted, "input")
+            if (eleDateReading !== null) eleDateReading.value = convertDate(dateStarted, "input")
         }
         if (dateFinished && showFinishedDate) {
             const eleDateFinished = document.getElementById(
                 "date_finished" + book_id,
             ) as HTMLInputElement | null
-            if (eleDateFinished !== null)
-                eleDateFinished.value = convertDate(dateFinished, "input")
+            if (eleDateFinished !== null) eleDateFinished.value = convertDate(dateFinished, "input")
         }
     }, [dateStarted, dateFinished, book_id, showStartedDate, showFinishedDate])
 
@@ -125,12 +123,8 @@ const BookStartedFinished = ({
                             <button
                                 type="button"
                                 className="btn-calendar btn-text"
-                                onClick={() =>
-                                    openCalendarPopUp("date_reading" + book_id)
-                                }
-                                onKeyDown={() =>
-                                    openCalendarPopUp("date_reading" + book_id)
-                                }
+                                onClick={() => openCalendarPopUp("date_reading" + book_id)}
+                                onKeyDown={() => openCalendarPopUp("date_reading" + book_id)}
                             >
                                 {dateStarted && convertDate(dateStarted, "human")}
                             </button>
@@ -142,10 +136,7 @@ const BookStartedFinished = ({
                             type="date"
                             max={todaysDateInput}
                             className="calendar-hidden"
-                            onChange={debounce(
-                                () => modifyDateReading("date_reading"),
-                                100,
-                            )}
+                            onChange={debounce(() => modifyDateReading("date_reading"), 100)}
                         />
                     </>
                 )}
@@ -157,9 +148,7 @@ const BookStartedFinished = ({
                             <button
                                 type="button"
                                 className="btn-calendar btn-text"
-                                onClick={() =>
-                                    openCalendarPopUp("date_finished" + book_id)
-                                }
+                                onClick={() => openCalendarPopUp("date_finished" + book_id)}
                             >
                                 {date_finished && convertDate(date_finished, "human")}
                             </button>
@@ -172,10 +161,7 @@ const BookStartedFinished = ({
                             min={date_started && convertDate(date_started, "input")}
                             max={todaysDateInput}
                             className="calendar-hidden"
-                            onChange={debounce(
-                                () => modifyDateReading("date_finished"),
-                                100,
-                            )}
+                            onChange={debounce(() => modifyDateReading("date_finished"), 100)}
                         />
                     </>
                 )}

@@ -52,8 +52,8 @@ const StatisticsPage = () => {
                         icon="icon-statistics.svg"
                     />
                     <p>
-                        No stats yet, stats are generated when you finish reading a book
-                        and when you rate the book you read.
+                        No stats yet, stats are generated when you finish reading a book and when
+                        you rate the book you read.
                     </p>
                 </>
             )}

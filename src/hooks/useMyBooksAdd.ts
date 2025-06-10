@@ -63,9 +63,7 @@ const useMyBooksAdd = ({
                 img: book.img,
                 list: targetList,
                 number_of_pages_median:
-                    book.number_of_pages_median === undefined
-                        ? 0
-                        : book.number_of_pages_median,
+                    book.number_of_pages_median === undefined ? 0 : book.number_of_pages_median,
                 rate_spice: 0,
                 rate_stars: 0,
                 review_fav_quote: "",

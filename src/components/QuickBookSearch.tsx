@@ -64,21 +64,13 @@ const QuickBookSearch = () => {
                 .then((filtered) => {
                     for (let i = 0; i < filtered.length; i++) {
                         filtered[i].id = filtered[i].edition_key.slice(0, 1).toString()
-                        filtered[i].title_short = filtered[i].title
-                            .slice(0, 45)
-                            .toString()
+                        filtered[i].title_short = filtered[i].title.slice(0, 45).toString()
                         filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
                     filtered.length > 30
-                        ? setResultsMessage(
-                              "Showing only 30 results. Specify a bit more.",
-                          )
+                        ? setResultsMessage("Showing only 30 results. Specify a bit more.")
                         : setResultsMessage(
-                              "Showing " +
-                                  filtered.length +
-                                  " results for " +
-                                  search_term +
-                                  ".",
+                              "Showing " + filtered.length + " results for " + search_term + ".",
                           )
                     return filtered
                 })
@@ -101,10 +93,7 @@ const QuickBookSearch = () => {
     return (
         <>
             <div className="booksearch">
-                <Heading
-                    text="Quick search"
-                    sub="Click on a book to prefill the fields"
-                />
+                <Heading text="Quick search" sub="Click on a book to prefill the fields" />
                 <form onSubmit={processSearchForm} className="single-small-form clr">
                     <input type="text" id="search_term" name="search_term" />
                     <button
@@ -149,20 +138,12 @@ const QuickBookSearch = () => {
                             >
                                 <div className="wrapper">
                                     <div className="text">
-                                        {title}{" "}
-                                        <em className="sf2">
-                                            {" "}
-                                            ({res.first_publish_year})
-                                        </em>
+                                        {title} <em className="sf2"> ({res.first_publish_year})</em>
                                         <br />
                                         <em className="sf2 cl">{authors}</em>
                                     </div>
                                 </div>
-                                <img
-                                    src={getOlCover(res.id, "S")}
-                                    className="thumbnail"
-                                    alt=""
-                                />
+                                <img src={getOlCover(res.id, "S")} className="thumbnail" alt="" />
                             </div>
                         )
                     }

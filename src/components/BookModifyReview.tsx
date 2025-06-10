@@ -23,13 +23,9 @@ const BookModifyReview = ({
         form_class: "single-small-form clr",
         type: "text",
         name: "review_text",
-        id:
-            o_key === "review_fav_quote"
-                ? "review_fav_quote_" + book_id
-                : "review_text_" + book_id,
+        id: o_key === "review_fav_quote" ? "review_fav_quote_" + book_id : "review_text_" + book_id,
         default: review_text,
-        placeholder:
-            o_key === "review_fav_quote" ? "Add your favorite quote" : "Add review",
+        placeholder: o_key === "review_fav_quote" ? "Add your favorite quote" : "Add review",
     }
 
     useEffect(() => {

@@ -4,9 +4,7 @@ import useMyBooksUpdateDb from "./useMyBooksUpdateDb"
 import { cleanInput } from "../helpers/cleanInput"
 import { IsModdingPagesContext } from "../components/BookPages"
 
-const useChangePages = (
-    book_id: Book["id"],
-): [(e: React.FormEvent<HTMLFormElement>) => void] => {
+const useChangePages = (book_id: Book["id"]): [(e: React.FormEvent<HTMLFormElement>) => void] => {
     const { userMyBooks } = useContext(AppContext)
     const { setIsModding, setNumberOfPages } = useContext(IsModdingPagesContext)
 

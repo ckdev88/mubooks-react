@@ -36,10 +36,7 @@ function getBooksFinishedInYear(
             const bookToPush: ConciseDaysPerBook = {
                 id: arrayFull[i].id,
                 title_short: arrayFull[i].title_short,
-                days: getDurationDays(
-                    arrayFull[i].date_reading,
-                    arrayFull[i].date_finished,
-                ),
+                days: getDurationDays(arrayFull[i].date_reading, arrayFull[i].date_finished),
             }
             arrayConcise[i] = bookToPush
         }
@@ -89,8 +86,7 @@ const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
                             <ul className="mt0">
                                 {b.books.map((book, index) => {
                                     const refer: string =
-                                        "/finished" +
-                                        `#${cleanAnchor(book.title_short)}_${book.id}`
+                                        "/finished" + `#${cleanAnchor(book.title_short)}_${book.id}`
                                     const key = "sdpbiy_bokmap" + year + book.id + index
                                     return (
                                         <li key={key}>

@@ -8,10 +8,8 @@ import { Link } from "react-router-dom"
 
 const booklist = undefined
 const TropesInMyBooks = ({ page }: { page: Page }) => {
-    const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] =
-        useState<boolean>(true)
-    const { likedTropesLowercase, dislikedTropesLowercase } =
-        useContext(TropesPageContext)
+    const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] = useState<boolean>(true)
+    const { likedTropesLowercase, dislikedTropesLowercase } = useContext(TropesPageContext)
     const { setTropesInMyBooksArr } = useContext(TropesPageContext)
 
     const { userMyBooks } = useContext(AppContext)
@@ -27,9 +25,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 
     userMyBooks.map((book) => {
         if (book.review_tropes)
-            book.review_tropes.map((reviewtrope) =>
-                tropesSet.add(reviewtrope.trim().toLowerCase()),
-            )
+            book.review_tropes.map((reviewtrope) => tropesSet.add(reviewtrope.trim().toLowerCase()))
     })
     const tropesArr = Array.from(tropesSet).sort((a, b) => a.localeCompare(b))
 
@@ -68,9 +64,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                                 ? "btn-text caret-right-toggle active wauto notext diblock"
                                 : "btn-text caret-right-toggle wauto notext diblock"
                         }
-                        onClick={() =>
-                            setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)
-                        }
+                        onClick={() => setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)}
                     />
                 )}
             </div>
@@ -85,8 +79,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                 >
                     {tropesArr.map((trope, index) => {
                         let cn = "btn-sm mb0 badge"
-                        if (likedTropesLowercase.includes(trope.toLowerCase()))
-                            cn += " cgreen"
+                        if (likedTropesLowercase.includes(trope.toLowerCase())) cn += " cgreen"
                         else if (dislikedTropesLowercase.includes(trope.toLowerCase()))
                             cn += " cred"
                         return (

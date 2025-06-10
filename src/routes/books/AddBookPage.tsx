@@ -19,8 +19,7 @@ import formatAuthor from "../../utils/formatInput"
 const pageTitle: string = "Add a book"
 
 const AddBookPage = () => {
-    const { userMyBooks, setUserMyBooks, userid, setPopupNotification } =
-        useContext(AppContext)
+    const { userMyBooks, setUserMyBooks, userid, setPopupNotification } = useContext(AppContext)
     const [coverImg, setCoverImg] = useState<string>("")
 
     useLayoutEffect(() => {
@@ -29,8 +28,7 @@ const AddBookPage = () => {
     }, [])
 
     const [title, setTitle] = useState<Book["title"]>("")
-    const [firstPublishYear, setFirstPublishYear] =
-        useState<Book["first_publish_year"]>(null)
+    const [firstPublishYear, setFirstPublishYear] = useState<Book["first_publish_year"]>(null)
     const bookId: Book["id"] = "MU" + new Date().getTime().toString()
     const [numberOfPages, setNumberOfPages] = useState<Book["number_of_pages_median"]>(0)
     const [selectedImage, setSelectedImage] = useState<null | File>(null)
@@ -38,9 +36,9 @@ const AddBookPage = () => {
     const [bookAuthors, setBookAuthors] = useState<BookAuthors>([])
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
 
-    const [selectedImageType, setSelectedImageType] = useState<
-        undefined | "url" | "upload"
-    >(undefined)
+    const [selectedImageType, setSelectedImageType] = useState<undefined | "url" | "upload">(
+        undefined,
+    )
 
     function changePages(e: React.ChangeEvent<HTMLInputElement>) {
         const num: number = Number(e.currentTarget.value)
@@ -154,11 +152,7 @@ const AddBookPage = () => {
         <>
             {coverImg !== "" && <img alt="" src={coverImg} className="cover shade" />}
             {selectedImage !== null && (
-                <img
-                    alt=""
-                    src={URL.createObjectURL(selectedImage)}
-                    className="cover shade"
-                />
+                <img alt="" src={URL.createObjectURL(selectedImage)} className="cover shade" />
             )}
         </>
     )
@@ -171,8 +165,7 @@ const AddBookPage = () => {
         if (authorToAdd !== undefined && authorToAdd.trim().length > 1) {
             // find duplicate author value: if found, splice it
             returnAuthors = bookAuthors.filter(
-                (author) =>
-                    author.toLowerCase() !== authorInputValue.trim().toLowerCase(),
+                (author) => author.toLowerCase() !== authorInputValue.trim().toLowerCase(),
             )
             returnAuthors.push(formatAuthor(authorToAdd))
             if (addAnother) {
@@ -212,10 +205,7 @@ const AddBookPage = () => {
     }
 
     /** Initiate addAuthor|addTrope when `,` is inputted */
-    function handleBadgerInput(
-        e: React.ChangeEvent<HTMLInputElement>,
-        badger: "author" | "trope",
-    ) {
+    function handleBadgerInput(e: React.ChangeEvent<HTMLInputElement>, badger: "author" | "trope") {
         e.preventDefault()
         const a = e.target.value
         if (badger === "author") {
@@ -236,11 +226,7 @@ const AddBookPage = () => {
             transition={{ duration: 1 }}
             animate={{ opacity: 1, transition: { duration: 2 } }}
         >
-            <Heading
-                text={pageTitle}
-                sub="See your preview below"
-                icon="icon-addbook.svg"
-            />
+            <Heading text={pageTitle} sub="See your preview below" icon="icon-addbook.svg" />
             <form onSubmit={processAbForm}>
                 <fieldset style={{ display: "flex", flexDirection: "column" }}>
                     <label htmlFor="abTitle">
@@ -250,9 +236,7 @@ const AddBookPage = () => {
                             id="abTitle"
                             name="abTitle"
                             required
-                            onChange={(e) =>
-                                setTitle(formatBookTitle(e.currentTarget.value))
-                            }
+                            onChange={(e) => setTitle(formatBookTitle(e.currentTarget.value))}
                         />
                     </label>
                     <label htmlFor="abAuthors">
@@ -322,10 +306,7 @@ const AddBookPage = () => {
                         style={{ marginBottom: ".75rem" }}
                     >
                         <div className="description">
-                            Cover{" "}
-                            {!selectedImage && (
-                                <em>... paste URL or press Choose File</em>
-                            )}
+                            Cover {!selectedImage && <em>... paste URL or press Choose File</em>}
                         </div>
                         {!selectedImage && (
                             <>
@@ -414,8 +395,7 @@ const AddBookPage = () => {
                     )}
                 </fieldset>
                 <button className="btn-lg" type="submit" disabled={isSubmitting}>
-                    Add book to wishlist{" "}
-                    {isSubmitting && <span className="loader-dots" />}
+                    Add book to wishlist {isSubmitting && <span className="loader-dots" />}
                 </button>
             </form>
             <div className="h2">
@@ -439,27 +419,15 @@ const AddBookPage = () => {
                                 // const bookTropesPreview = [...bookTropes,tropeInputValue]
                                 [...bookTropes, tropeInputValue].map((trope, index) => {
                                     if (trope.length > 0) {
-                                        const key = cleanIndexKey(
-                                            "abpBookTrope" + trope,
-                                            index,
-                                        )
+                                        const key = cleanIndexKey("abpBookTrope" + trope, index)
                                         // OPTIMIZE deduplicate final trope in array with input value
                                         if (
                                             index === bookTropes.length &&
-                                            checkSimilar(
-                                                bookTropes[bookTropes.length - 1],
-                                                trope,
-                                            )
+                                            checkSimilar(bookTropes[bookTropes.length - 1], trope)
                                         ) {
                                             return
                                         }
-                                        return (
-                                            <BaseBadge
-                                                key={key}
-                                                text={trope}
-                                                type="trope"
-                                            />
-                                        )
+                                        return <BaseBadge key={key} text={trope} type="trope" />
                                     }
                                 })
                             }

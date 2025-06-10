@@ -34,11 +34,7 @@ const BookSummaryReview = ({
         >
             <div className={`review-text ${o_key} pt05`}>
                 {isModding ? (
-                    <BookModifyReview
-                        book_id={book_id}
-                        o_key={o_key}
-                        review_text={reviewText}
-                    />
+                    <BookModifyReview book_id={book_id} o_key={o_key} review_text={reviewText} />
                 ) : (
                     <>
                         {reviewText && (
@@ -54,20 +50,19 @@ const BookSummaryReview = ({
                                 )}
                             </div>
                         )}
-                        {(reviewText === "" || reviewText === undefined) &&
-                            isModding === false && (
-                                <button
-                                    type="button"
-                                    className={
-                                        o_key === "review_fav_quote"
-                                            ? "btn-sm mb mxauto ml0 mt0"
-                                            : "btn-sm mb0 ml0"
-                                    }
-                                    onClick={() => setIsModding(true)}
-                                >
-                                    Add {addButtonTitle}
-                                </button>
-                            )}
+                        {(reviewText === "" || reviewText === undefined) && isModding === false && (
+                            <button
+                                type="button"
+                                className={
+                                    o_key === "review_fav_quote"
+                                        ? "btn-sm mb mxauto ml0 mt0"
+                                        : "btn-sm mb0 ml0"
+                                }
+                                onClick={() => setIsModding(true)}
+                            >
+                                Add {addButtonTitle}
+                            </button>
+                        )}
                     </>
                 )}
             </div>

@@ -19,8 +19,7 @@ const Heading = ({
             return (
                 <div className={el + " " + `${el}-with-icon`}>
                     <div>
-                        {text}{" "}
-                        {icon && <img src={`/img/${icon}`} alt="" className="h1-icon" />}
+                        {text} {icon && <img src={`/img/${icon}`} alt="" className="h1-icon" />}
                     </div>
                     {sub && el !== "adder-header" && <sub>{sub}</sub>}
                     {el === "adder-header" && <span>›</span>}

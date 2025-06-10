@@ -41,8 +41,7 @@ const RemoveBookFromXButton = ({
     else if (permtoss === true) msg = mesg.permtossed
     else if (toss === true) msg = mesg.tossed
     else if (targetList > 0) {
-        if ((book_list === 3 || book_list === 4) && targetList === 3)
-            msg = mesg.finished_to_reading
+        if ((book_list === 3 || book_list === 4) && targetList === 3) msg = mesg.finished_to_reading
         if (targetList === 4) msg = mesg.favorite_removed
     }
 
@@ -154,9 +153,7 @@ const RemoveBookFromXButton = ({
             (cp === "finished" && targetList === 3) ||
             cp === "tossed"
         ) {
-            document
-                .getElementById(`bookSummaryTransitioner${book_id}`)
-                ?.classList.add("fadeout")
+            document.getElementById(`bookSummaryTransitioner${book_id}`)?.classList.add("fadeout")
         }
     }
 

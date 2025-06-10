@@ -157,8 +157,7 @@ const AddToRemoveFromX = ({
                 )}
 
                 {currentPage !== "tossed" &&
-                    (book.list === 3 ||
-                        (currentPage === "search" && book.list !== 4)) && (
+                    (book.list === 3 || (currentPage === "search" && book.list !== 4)) && (
                         <AddBookToXButton
                             book_id={book.id}
                             book_list={book.list}

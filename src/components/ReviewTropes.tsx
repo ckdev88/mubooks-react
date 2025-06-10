@@ -15,8 +15,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const [tropeInputValue, setTropeInputValue] = useState<BookTrope>("")
 
     useEffect(() => {
-        if (bookTropes.length > 0)
-            setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
+        if (bookTropes.length > 0) setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
     }, [bookTropes])
 
     function removeTrope(trope: string): void {
@@ -46,12 +45,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                 {bookTropes.map((trope, index) => {
                     const key = cleanIndexKey("review_tropes" + bookid, index)
                     return (
-                        <BaseBadge
-                            key={key}
-                            text={trope}
-                            removeText={removeTrope}
-                            type="trope"
-                        />
+                        <BaseBadge key={key} text={trope} removeText={removeTrope} type="trope" />
                     )
                 })}
                 <BtnAddTrope
@@ -85,14 +79,11 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     if (book.review_tropes === undefined) book.review_tropes = []
 
     useEffect(() => {
-        if (showTropesForm === true)
-            document.getElementById(`add_trope_${book.id}`)?.focus()
+        if (showTropesForm === true) document.getElementById(`add_trope_${book.id}`)?.focus()
     }, [showTropesForm, book.id])
 
     if (!bookTropes) {
-        console.error(
-            "bookTropes should never be falsey here! Empty array is allowed though",
-        )
+        console.error("bookTropes should never be falsey here! Empty array is allowed though")
         return
     }
 
@@ -116,15 +107,9 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         onKeyDown={handleKeyDownTrope}
                         placeholder="Add a trope..."
                     />
-                    <BtnInsideCaret
-                        bStyle={{ margin: "0 0 0 -2rem" }}
-                        bOnClick={addTrope}
-                    />
+                    <BtnInsideCaret bStyle={{ margin: "0 0 0 -2rem" }} bOnClick={addTrope} />
                 </div>
-                <BtnCancel
-                    bClassName="diblock"
-                    bOnClick={() => setShowTropesForm(false)}
-                />
+                <BtnCancel bClassName="diblock" bOnClick={() => setShowTropesForm(false)} />
             </div>
         </>
     )

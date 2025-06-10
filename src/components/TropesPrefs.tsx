@@ -9,9 +9,7 @@ import BaseBadge from "./ui/BaseBadge"
 import BtnCancel from "./ui/BtnCancel"
 import BtnAddTrope from "./ui/BtnAddTrope"
 
-const TropesPrefs = ({
-    field,
-}: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
+const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
     const {
         setLikedTropes,
         likedTropes,
@@ -88,10 +86,7 @@ const TropesPrefs = ({
         }
     }
 
-    async function updateTropes(
-        newArr: BookTropes,
-        field: "tropes_liked" | "tropes_disliked",
-    ) {
+    async function updateTropes(newArr: BookTropes, field: "tropes_liked" | "tropes_disliked") {
         if (field === "tropes_liked") setLikedTropes(newArr)
         else if (field === "tropes_disliked") setDislikedTropes(newArr)
         else console.warn('field should be "tropes_liked" || "tropes_disliked"')
@@ -148,15 +143,10 @@ const TropesPrefs = ({
         <>
             <div className="h2">{field === "tropes_liked" ? "Like" : "Dislike"}</div>
             <section className="section-badges">
-                <TropesList
-                    tropes={field === "tropes_liked" ? likedTropes : dislikedTropes}
-                />
+                <TropesList tropes={field === "tropes_liked" ? likedTropes : dislikedTropes} />
                 {showTropesForm && (
                     <>
-                        <div
-                            className="single-small-form clr"
-                            style={{ alignItems: "center" }}
-                        >
+                        <div className="single-small-form clr" style={{ alignItems: "center" }}>
                             <input
                                 type="text"
                                 name="trope_add"
@@ -175,10 +165,7 @@ const TropesPrefs = ({
                                 bOnClick={addTrope}
                             />
                         </div>
-                        <BtnCancel
-                            bClassName="wauto"
-                            bOnClick={() => setShowTropesForm(false)}
-                        />
+                        <BtnCancel bClassName="wauto" bOnClick={() => setShowTropesForm(false)} />
                     </>
                 )}
             </section>

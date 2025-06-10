@@ -4,9 +4,7 @@ const now: Date = new Date()
 const curYear = now.getFullYear()
 const curYearStartDayNr: Date = new Date(curYear, 0, 0)
 const oneDay = 1000 * 60 * 60 * 24
-const curYearDayNr: number = Math.floor(
-    (Number(now) - Number(curYearStartDayNr)) / oneDay,
-)
+const curYearDayNr: number = Math.floor((Number(now) - Number(curYearStartDayNr)) / oneDay)
 
 const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
     /** Count Books Finished */
@@ -45,10 +43,7 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
     let monthIndex = 0
 
     myBooksArr.map((b) => {
-        if (
-            b.date_finished !== undefined &&
-            Math.floor(b.date_finished / 10000) === year
-        ) {
+        if (b.date_finished !== undefined && Math.floor(b.date_finished / 10000) === year) {
             cbf += 1
 
             monthIndex = Math.floor((b.date_finished - year * 10000) / 100) - 1
@@ -56,10 +51,7 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
             cbfm[monthIndex] += 1
 
             // get pages
-            if (
-                Number(b.number_of_pages_median) === 0 ||
-                b.number_of_pages_median === undefined
-            ) {
+            if (Number(b.number_of_pages_median) === 0 || b.number_of_pages_median === undefined) {
                 // pages count
                 cbwp += 1
                 const pageless = { id: b.id, title_short: b.title_short }
@@ -82,10 +74,7 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
             }
 
             if (b.date_reading !== undefined && b.date_finished !== undefined) {
-                const date_difference: number = getDurationDays(
-                    b.date_reading,
-                    b.date_finished,
-                )
+                const date_difference: number = getDurationDays(b.date_reading, b.date_finished)
                 if (dpb[date_difference] === undefined) dpb[date_difference] = 0
                 dpb[date_difference] = dpb[date_difference] + 1
                 // NOTE: see StatisticsDaysPerBookInYear for further handling, might be better to merge and optimize these two

@@ -90,9 +90,7 @@ const NavWrapper = () => {
                             gap: ".25rem",
                         }}
                         className={
-                            nav0Expanded
-                                ? "expanded nav-collapsable"
-                                : "collapsed nav-collapsable"
+                            nav0Expanded ? "expanded nav-collapsable" : "collapsed nav-collapsable"
                         }
                         aria-expanded={nav0Expanded ? "true" : "false"}
                     >

@@ -11,8 +11,7 @@ function formatAuthor(input: string): string {
     const returnValueArr: string[] = returnValue.split(" ")
     // apply simple capitalizing
     for (let i = 0; i < returnValueArr.length; i++) {
-        let word =
-            returnValueArr[i].slice(0, 1).toUpperCase() + returnValueArr[i].slice(1)
+        let word = returnValueArr[i].slice(0, 1).toUpperCase() + returnValueArr[i].slice(1)
         // apply caps for initials, like B.f.g. Jackson > B.F.G. Jackson
         if (word.indexOf(".")) {
             const letters = word.split("")

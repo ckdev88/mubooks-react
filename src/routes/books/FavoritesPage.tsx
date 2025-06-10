@@ -34,11 +34,7 @@ const FavoritesPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading
-                text={pageTitle}
-                icon={"icon-favorites.svg"}
-                sub={pageTitleSubText}
-            />
+            <Heading text={pageTitle} icon={"icon-favorites.svg"} sub={pageTitleSubText} />
             {!hasbooks && (
                 <>
                     <h4>No books marked as favorite yet.</h4>

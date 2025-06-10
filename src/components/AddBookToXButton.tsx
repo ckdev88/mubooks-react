@@ -80,9 +80,7 @@ const AddBookToXButton = ({
             (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
             (tcp === "tossed" && targetList > 0)
         ) {
-            document
-                .getElementById(`bookSummaryTransitioner${book.id}`)
-                ?.classList.add("fadeout")
+            document.getElementById(`bookSummaryTransitioner${book.id}`)?.classList.add("fadeout")
         }
     }
 

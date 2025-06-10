@@ -23,8 +23,6 @@ const BooksOverviewPage = ({
     const { userMyBooks } = useContext(AppContext)
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
 
-    // console.log('books:',books)
-    // console.log('++++++++++++++++++++++++++++');
     let booklistStart: Books
     if (books !== undefined && books.length > 0) {
         console.log("not empty!")
@@ -36,8 +34,7 @@ const BooksOverviewPage = ({
                 booklistStart = userMyBooks.filter(
                     (book: Book) => book.list === 3 || book.list === 4,
                 )
-            else
-                booklistStart = userMyBooks.filter((book: Book) => book.list === booklist)
+            else booklistStart = userMyBooks.filter((book: Book) => book.list === booklist)
         }
     }
     if (page === "tossed") {
@@ -45,9 +42,7 @@ const BooksOverviewPage = ({
     }
     if (page === "finished") {
         // OPTIMIZE this looks like garbage
-        booklistStart = userMyBooks.filter(
-            (book: Book) => book.list === 3 || book.list === 4,
-        )
+        booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
         books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
     }
     if (page === "tropes") books = tropesInMyBooksArr
@@ -56,7 +51,6 @@ const BooksOverviewPage = ({
     if (booklistStart.length > 0) hasbooks = true
     else hasbooks = false
 
-    console.log("booklistStart:", booklistStart)
     let hasfilter: boolean
     if (fsPages.includes(page) && hasbooks) hasfilter = true
     else hasfilter = false
@@ -70,17 +64,11 @@ const BooksOverviewPage = ({
         let bookstmp: Books = []
         if (books !== undefined && books.length > 0) bookstmp = books
         if (booklist) {
-            if (booklist === 3) {
-                bookstmp = userMyBooks.filter(
-                    (book: Book) => book.list === 3 || book.list === 4,
-                )
-            } else {
-                if (page === "tossed")
-                    bookstmp = userMyBooks.filter((book) => book.tossed === true)
-                else
-                    bookstmp = userMyBooks.filter(
-                        (book) => book.list === booklist && !book.tossed,
-                    )
+            if (booklist === 3)
+                bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+            else {
+                if (page === "tossed") bookstmp = userMyBooks.filter((book) => book.tossed === true)
+                else bookstmp = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
             }
 
             // SORTING
@@ -94,7 +82,6 @@ const BooksOverviewPage = ({
     // TROPES
     // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified
     useEffect(() => {
-        // TODO see if useLayoutEffect is better here
         if (page === "tropes") setBooksList(tropesInMyBooksArr)
     }, [tropesInMyBooksArr])
 
@@ -110,15 +97,16 @@ const BooksOverviewPage = ({
     }, [booksFilter])
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <Only run once via []>
-    useEffect(() => {
-        if (fsPages.includes(page)) {
-            if (window.location.hash !== undefined && window.location.hash !== "") {
-                setTimeout(() => {
-                    location.href = window.location.hash
-                }, 500)
-            }
-        }
-    }, [])
+    // useEffect(() => {
+    //     // TODO find out why this is useful again // commented out since 2025-06-11
+    //     if (fsPages.includes(page)) {
+    //         if (window.location.hash !== undefined && window.location.hash !== "") {
+    //             setTimeout(() => {
+    //                 location.href = window.location.hash
+    //             }, 500)
+    //         }
+    //     }
+    // }, [])
 
     return (
         <>
