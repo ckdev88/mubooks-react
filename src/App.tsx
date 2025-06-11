@@ -61,8 +61,8 @@ const App = () => {
     const GLOBALS: GlobalSettings = {
         headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
         synopsisEnabled: false,
-        pageAnimationDelay: 0.28,
-        pageAnimationDuration: 0.4,
+        pageAnimationDelay: 0, // .28
+        pageAnimationDuration: 1.4, // .4
     }
 
     /* NOTE

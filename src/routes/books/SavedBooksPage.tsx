@@ -11,15 +11,16 @@ let pageTitleSubText = pageTitleSub
 const currentPage = "savedbooks"
 const booklist = undefined
 
-export default function SavedBooksPage() {
+const SavedBooksPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    let hasbooks = false
-    const arrLength = userMyBooks.filter((book) => book.list && book.list > 0).length
 
-    if (arrLength > 0) {
-        hasbooks = true // OPTIMIZE this is a bit meh
-        pageTitleSubText = arrLength + ". " + pageTitleSub
-    }
+    const books = userMyBooks.filter((book) => !book.tossed)
+
+    let hasbooks: boolean
+    if (books.length > 0) {
+        hasbooks = true
+        pageTitleSubText = books.length + ". " + pageTitleSub
+    } else hasbooks = false
 
     return (
         <motion.div
@@ -32,7 +33,9 @@ export default function SavedBooksPage() {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon={"icon-saved.svg"} sub={pageTitleSubText} />
-            {!hasbooks && (
+            {hasbooks ? (
+                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+            ) : (
                 <>
                     <p>
                         An overview of my saved books, this includes books that are favorited, read
@@ -48,7 +51,7 @@ export default function SavedBooksPage() {
                     </div>
                 </>
             )}
-            <BooksOverviewPage page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }
+export default SavedBooksPage

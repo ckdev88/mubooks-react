@@ -2,7 +2,7 @@
 /**
  * Big red button component: default/fallback param values
  * ------------------------------------------------------
- * `bText` - "Toss them!"
+ * `bText` - "Cancel"
  * `bType` - "button"
  */
 const BtnBigRed = ({

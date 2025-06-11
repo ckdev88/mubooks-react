@@ -35,6 +35,7 @@ const RemoveBookFromXButton = ({
     const { userMyBooks, setUserMyBooks } = useContext(AppContext)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const [newArray, setNewArray] = useState<Books>(userMyBooks)
     let msg = ""
 
     if (targetList === 1 && book_list === 2) msg = "Moved back to wishlist"
@@ -46,7 +47,7 @@ const RemoveBookFromXButton = ({
     }
 
     const updateMyBooksDb = useMyBooksUpdateDb({
-        myBooksNew: userMyBooks,
+        myBooksNew: newArray,
         book_id: null,
         msg,
     })
@@ -143,15 +144,13 @@ const RemoveBookFromXButton = ({
     function fadeout(): void {
         /** Current Page, taken from url */
         // OPTIMIZE: this same function is used in RemoveBookFromXButton & AddBookToXButton
-        const cp = window.location.pathname.replace("/", "")
-        // OPTIMIZE: the finished one is a bit weird, but works for now, its Remove from finished button
-        // TODO there is nothing yet for the toss-button
+        const tcp = window.location.pathname.replace("/", "")
         if (
-            (cp === "reading" && targetList === 2) ||
-            (cp === "wishlist" && targetList !== 1) ||
-            (cp === "favorites" && targetList === 4) ||
-            (cp === "finished" && targetList === 3) ||
-            cp === "tossed"
+            (tcp === "reading" && targetList !== 2) ||
+            (tcp === "wishlist" && targetList !== 1) ||
+            (tcp === "favorites" && targetList !== 4) ||
+            (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
+            (tcp === "tossed" && targetList > 0)
         ) {
             document.getElementById(`bookSummaryTransitioner${book_id}`)?.classList.add("fadeout")
         }
@@ -169,11 +168,8 @@ const RemoveBookFromXButton = ({
         }
         if (meth === "toss") newArr = TossBook(book_id)
         if (meth === "permtoss") newArr = TossBookPerm(book_id)
-        setUserMyBooks(newArr)
-        await MyBooksUpdate()
-    }
-
-    async function MyBooksUpdate() {
+        setUserMyBooks(newArray)
+        setNewArray(newArr)
         await updateMyBooksDb()
         setIsLoading(false)
     }
@@ -198,7 +194,7 @@ const RemoveBookFromXButton = ({
                     disabled={isLoading}
                 >
                     <span className="icon icon-remove" />
-                    Permanently remove
+                    Permanently toss
                 </button>
             ) : (
                 <>

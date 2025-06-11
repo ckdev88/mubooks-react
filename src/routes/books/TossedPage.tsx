@@ -1,9 +1,10 @@
-import { useContext } from "react"
+import { useContext, useLayoutEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
+import TossTossers from "../../components/TossTossers"
 
 const pageTitle = "Removed books"
 const pageTitleSub = "To permanently remove or not to permanently remove"
@@ -13,16 +14,17 @@ const booklist = undefined
 
 const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    let hasbooks = false
-    const books = userMyBooks.filter((book) => book.tossed === true)
-    console.log("SADFSADF books:", books)
+    const [books, setBooks] = useState(userMyBooks.filter((book) => book.tossed === true))
+
+    useLayoutEffect(() => {
+        setBooks(userMyBooks.filter((book) => book.tossed === true))
+    }, [userMyBooks])
+
+    let hasbooks: boolean
     if (books.length > 0) {
         hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    }
-
-    console.log("currentPage:", currentPage)
-    console.log("booklist:", booklist)
+        pageTitleSubText = pageTitleSub
+    } else hasbooks = false
 
     return (
         <motion.div
@@ -34,10 +36,17 @@ const TossedPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
-            {!hasbooks && (
+            <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSubText} />
+
+            {hasbooks ? (
+                <>
+                    <TossTossers />
+                    <BooksOverviewPage booklist={booklist} books={books} page={currentPage} />
+                </>
+            ) : (
                 <p>
                     No books here.
+                    <br />
                     <br />
                     <Link to="/dashboard">Back to dashboard</Link> or{" "}
                     <Link to="/wishlist">View your wishlist</Link> or{" "}
@@ -46,7 +55,6 @@ const TossedPage = () => {
                     <br />
                 </p>
             )}
-            <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }

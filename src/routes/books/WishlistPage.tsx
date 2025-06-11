@@ -13,13 +13,14 @@ const booklist = 1
 
 const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    let hasbooks = false
-    const arrLength = userMyBooks.filter((book) => book.list === booklist).length
 
-    if (arrLength > 0) {
-        hasbooks = true // OPTIMIZE this is a bit meh
-        pageTitleSubText = arrLength + ". " + pageTitleSub
-    }
+    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+
+    let hasbooks: boolean
+    if (books.length > 0) {
+        hasbooks = true
+        pageTitleSubText = books.length + ". " + pageTitleSub
+    } else hasbooks = false
 
     return (
         <motion.div
@@ -32,7 +33,9 @@ const WishlistPage = () => {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon={"icon-wishlist.svg"} sub={pageTitleSubText} />
-            {!hasbooks && (
+            {hasbooks ? (
+                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+            ) : (
                 <>
                     <h4>No books here yet.</h4>
                     <p>
@@ -47,7 +50,6 @@ const WishlistPage = () => {
                     </p>
                 </>
             )}
-            <BooksOverviewPage page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }

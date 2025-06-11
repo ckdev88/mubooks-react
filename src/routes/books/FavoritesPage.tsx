@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -12,18 +12,16 @@ const currentPage: Page = "favorites"
 const booklist = 4
 
 const FavoritesPage = () => {
-    const { userMyBooks, setPageName, GLOBALS } = useContext(AppContext)
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
-    useEffect(() => {
-        setPageName(currentPage)
-    }, [])
+    const { userMyBooks, GLOBALS } = useContext(AppContext)
 
-    let hasbooks = false
-    const arrLength = userMyBooks.filter((book) => book.list === booklist).length
-    if (arrLength > 0) {
+    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+
+    let hasbooks: boolean
+    if (books.length > 0) {
         hasbooks = true // OPTIMIZE this is a bit meh
-        pageTitleSubText = arrLength + ". " + pageTitleSub
-    }
+        pageTitleSubText = books.length + ". " + pageTitleSub
+    } else hasbooks = false
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -35,7 +33,9 @@ const FavoritesPage = () => {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon={"icon-favorites.svg"} sub={pageTitleSubText} />
-            {!hasbooks && (
+            {hasbooks ? (
+                <BooksOverviewPage page={currentPage} books={books} booklist={booklist} />
+            ) : (
                 <>
                     <h4>No books marked as favorite yet.</h4>
                     <p>
@@ -44,7 +44,6 @@ const FavoritesPage = () => {
                     </p>
                 </>
             )}
-            <BooksOverviewPage page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }

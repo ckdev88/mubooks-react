@@ -13,12 +13,15 @@ const booklist = 2
 
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    let hasbooks = false
+
     const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+
+    let hasbooks: boolean
     if (books.length > 0) {
         hasbooks = true
         pageTitleSubText = books.length + ". " + pageTitleSub
-    }
+    } else hasbooks = false
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -30,7 +33,9 @@ const ReadingPage = () => {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
-            {!hasbooks && (
+            {hasbooks ? (
+                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+            ) : (
                 <p>
                     Want to add a book to your reading list?
                     <br />
@@ -40,7 +45,6 @@ const ReadingPage = () => {
                     <br />
                 </p>
             )}
-            <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
         </motion.div>
     )
 }
