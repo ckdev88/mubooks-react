@@ -3,6 +3,7 @@ import { debounce, openCalendarPopUp } from "../Helpers"
 import { AppContext } from "../App"
 import { supabase } from "../../utils/supabase"
 import { convertDate } from "../helpers/convertDate"
+import BtnTextGeneral from "./ui/BtnTextGeneral"
 
 const BookStartedFinished = ({
     date_started,
@@ -120,14 +121,11 @@ const BookStartedFinished = ({
                     <>
                         <em className="btn-text">
                             <span className="icon icon-reading" />
-                            <button
-                                type="button"
-                                className="btn-calendar btn-text"
-                                onClick={() => openCalendarPopUp("date_reading" + book_id)}
-                                onKeyDown={() => openCalendarPopUp("date_reading" + book_id)}
-                            >
-                                {dateStarted && convertDate(dateStarted, "human")}
-                            </button>
+                            <BtnTextGeneral
+                                bClassName="btn-calendar"
+                                bOnClick={() => openCalendarPopUp("date_reading" + book_id)}
+                                bText={dateStarted && convertDate(dateStarted, "human")}
+                            />
                         </em>
                         <input
                             tabIndex={-1}
@@ -145,13 +143,11 @@ const BookStartedFinished = ({
                     <>
                         <em className="btn-text">
                             <span className="icon icon-finished" />
-                            <button
-                                type="button"
-                                className="btn-calendar btn-text"
-                                onClick={() => openCalendarPopUp("date_finished" + book_id)}
-                            >
-                                {date_finished && convertDate(date_finished, "human")}
-                            </button>
+                            <BtnTextGeneral
+                                bClassName="btn-calendar"
+                                bOnClick={() => openCalendarPopUp("date_finished" + book_id)}
+                                bText={date_finished && convertDate(date_finished, "human")}
+                            />
                         </em>
                         <input
                             tabIndex={-1}

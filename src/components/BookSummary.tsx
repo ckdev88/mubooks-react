@@ -12,6 +12,7 @@ import useGetSynopsis from "../hooks/useGetSynopsis"
 import BookSummaryAside from "./BookSummaryAside"
 import BookSummaryStatus from "./BookSummaryStatus"
 import BookSummaryReview from "./BookSummaryReview"
+import BtnTextGeneral from "./ui/BtnTextGeneral"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
@@ -122,17 +123,15 @@ const BookSummary = ({
                     )}
                     {synopsisPages.includes(currentPage) && synopsis ? (
                         <div className="synopsis" style={{ marginTop: ".75rem" }}>
-                            <button
-                                type="button"
-                                className={
+                            <BtnTextGeneral
+                                bClassName={
                                     isShowingSynopsis
-                                        ? "btn-text caret-right-toggle active"
-                                        : "btn-text caret-right-toggle"
+                                        ? "caret-right-toggle active"
+                                        : "caret-right-toggle"
                                 }
-                                onClick={() => setIsShowingSynopsis(!isShowingSynopsis)}
-                            >
-                                Synopsis
-                            </button>
+                                bOnClick={() => setIsShowingSynopsis(!isShowingSynopsis)}
+                                bText="Synopsis"
+                            />
                             <div
                                 className={
                                     isShowingSynopsis
