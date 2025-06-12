@@ -20,6 +20,7 @@ const BtnTextGeneral = ({
         >
             {bIcon && <span className={`icon icon-${bIcon}`} />}
             {bText}
+            {bIsLoading && <span className="loader-dots"> </span>}
         </button>
     )
 }

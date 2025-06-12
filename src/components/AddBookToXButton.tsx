@@ -1,5 +1,6 @@
 import getListName from "../functions/getListName"
 import useMyBooksAdd from "../hooks/useMyBooksAdd"
+import BtnTextGeneral from "./ui/BtnTextGeneral"
 
 const AddBookToXButton = ({
     book_id,
@@ -95,22 +96,15 @@ const AddBookToXButton = ({
 
     return (
         <div className="mark">
-            <button
-                className="btn-text"
-                onKeyDown={() => {
-                    fadeout()
+            <BtnTextGeneral
+                bOnClick={() => {
+                    fadeout(book.id)
                     AddBookToXButtonAct()
                 }}
-                onClick={() => {
-                    fadeout()
-                    AddBookToXButtonAct()
-                }}
-                disabled={isLoading}
-                type="button"
-            >
-                <span className={iconClassName} />
-                {button_title} {isLoading && <span className="loader-dots"> </span>}
-            </button>
+                bIcon={iconClassName}
+                bText={button_title}
+                bIsLoading={isLoading}
+            />
         </div>
     )
 }
