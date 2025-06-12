@@ -9,6 +9,7 @@ import StatisticsDaysPerBookInYear from "./StatisticsDaysPerBookInYear"
 import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
 import countBookValues from "../functions/countBookValues"
 import Heading from "./ui/Heading"
+import BtnTextGeneral from "./ui/BtnTextGeneral"
 
 const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
     const { cbf, cpf, cbfm, cpfm, cbwp, adpb, appd, astpb, cstpb, bwp, bwst, cbwst, dpb } =
@@ -50,14 +51,12 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                 <div className="h2 mb0">Books & pages per month</div>
                 <LineG2 data={cbfm} data2={cpfm} subjects={["Books", "Pages"]} />
                 Books finished in {year}: <b>{cbf}</b>
-                {cbwp > 0 && <span className="sf2">*</span>}{" "}
-                <button
-                    type="button"
-                    onClick={() => setShowCbfDetails(!showCbfDetails)}
-                    className="btn-text diblock"
-                >
-                    ...
-                </button>
+                {cbwp > 0 && <span className="sf2">*</span>}
+                <BtnTextGeneral
+                    bOnClick={() => setShowCbfDetails(!showCbfDetails)}
+                    bClassName="diblock"
+                    bText="..."
+                />
                 {showCbfDetails && (
                     <div className="mt05 sf">
                         {cbfm.map((c, index) => {
@@ -83,13 +82,11 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                 </div>
                             )
                         })}
-                        <button
-                            type="button"
-                            className="btn-text fs-inherit"
-                            onClick={() => setShowBfmDetails(!showBfmDetails)}
-                        >
-                            {showBfmDetails ? "hide" : "show"} titles
-                        </button>
+                        <BtnTextGeneral
+                            bClassName="fs-inherit"
+                            bOnClick={() => setShowBfmDetails(!showBfmDetails)}
+                            bText={showBfmDetails ? "hide titles" : "show titles"}
+                        />
                         <br />
                         Total Pages read: <b>{cpf}</b>
                         <br />
@@ -111,13 +108,11 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                 <div className="h2 mb0">Days per book</div>
                 <LineG3 data={dpb} />
                 Average days to finish a book: <b>{adpb}</b>&nbsp;
-                <button
-                    type="button"
-                    className="btn-text diblock"
-                    onClick={() => setShowDpbDetails(!showDpbDetails)}
-                >
-                    ...
-                </button>
+                <BtnTextGeneral
+                    bClassName="diblock"
+                    bOnClick={() => setShowDpbDetails(!showDpbDetails)}
+                    bText="..."
+                />
                 <div className={showDpbDetails ? "mt05 sf" : "mt05 sf dnone"}>
                     <div className={showDpbDetails2 ? "dnone" : "dblock"}>
                         {dpb.map((b, index) => {
@@ -133,13 +128,11 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                         })}
                     </div>
                     {showDpbDetails2 && <StatisticsDaysPerBookInYear year={year} />}
-                    <button
-                        type="button"
-                        className="btn-text fs-inherit"
-                        onClick={() => setShowDpbDetails2(!showDpbDetails2)}
-                    >
-                        {!showDpbDetails2 ? "show titles" : "hide titles"}
-                    </button>
+                    <BtnTextGeneral
+                        bClassName="fs-inherit"
+                        bOnClick={() => setShowDpbDetails2(!showDpbDetails2)}
+                        bText={!showDpbDetails2 ? "show titles" : "hide titles"}
+                    />
                 </div>
                 <br />
             </article>
@@ -151,13 +144,11 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                     {cbwst > 0 && (
                         <>
                             <span className="sf2">*</span>
-                            <button
-                                type="button"
-                                onClick={() => setShowStpbDetails(!showStpbDetails)}
-                                className="btn-text diblock"
-                            >
-                                ...
-                            </button>
+                            <BtnTextGeneral
+                                bOnClick={() => setShowStpbDetails(!showStpbDetails)}
+                                bClassName="diblock"
+                                bText="..."
+                            />
                             <div className={showStpbDetails ? "mt05 sf" : "mt05 sf dnone"}>
                                 {cstpb.length > 0 && (
                                     <>
@@ -179,13 +170,11 @@ const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number 
                                         {showStpbDetails2 && (
                                             <StatisticsStarsPerBookInYear year={year} />
                                         )}{" "}
-                                        <button
-                                            type="button"
-                                            className="btn-text fs-inherit"
-                                            onClick={() => setShowStpbDetails2(!showStpbDetails2)}
-                                        >
-                                            {`${!showStpbDetails2 ? "show titles" : "hide titles"}`}
-                                        </button>
+                                        <BtnTextGeneral
+                                            bClassName="fs-inherit"
+                                            bOnClick={() => setShowStpbDetails2(!showStpbDetails2)}
+                                            bText={`${!showStpbDetails2 ? "show titles" : "hide titles"}`}
+                                        />
                                     </>
                                 )}
 
