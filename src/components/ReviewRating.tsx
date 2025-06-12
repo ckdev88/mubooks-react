@@ -73,10 +73,8 @@ const ReviewRating = ({
             </div>
             <div className="rate-spice">
                 <BtnRate bOnClick={() => RateStarsAct("rate_spice", 0)} rateType="eraser" />
-
                 {(() => {
                     const items = []
-
                     for (let i = 1; i < 6; i++) {
                         items.push(
                             <BtnRate
