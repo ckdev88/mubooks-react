@@ -1,11 +1,6 @@
 const BtnNavZoek = ({ bOnClick }: { bOnClick: () => void }) => {
     return (
-        <button
-            id="toggleNavBurger"
-            type="button"
-            className="toggleZoekNav"
-            onClick={bOnClick}
-        >
+        <button id="toggleNavBurger" type="button" className="toggleZoekNav" onClick={bOnClick}>
             <span className="alt">Search</span>
             <svg
                 className="zoekIconSvg"

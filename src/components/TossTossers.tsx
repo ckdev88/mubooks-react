@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../App"
 import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
-import BtnBigRed from "./ui/BtnBigRed"
+import BtnBig from "./ui/BtnBig"
 
 export default function TossTossers() {
     const { userMyBooks, setUserMyBooks } = useContext(AppContext)
@@ -18,7 +18,11 @@ export default function TossTossers() {
     }
     return (
         <div className="py1 mb1">
-            <BtnBigRed bText="Permanently toss all these books" bOnClick={() => clearbooksyes()} />
+            <BtnBig
+                bClassName="btn btn-red"
+                bText="Permanently toss all these books"
+                bOnClick={() => clearbooksyes()}
+            />
         </div>
     )
 }

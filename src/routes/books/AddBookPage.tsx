@@ -15,6 +15,7 @@ import { formatBookAuthor } from "../../helpers/formatInput"
 import BtnInsideCaret from "../../components/ui/BtnInsideCaret"
 import getDeduplicatedTropesArray from "../../helpers/formatArrays"
 import formatAuthor from "../../utils/formatInput"
+import BtnBig from "../../components/ui/BtnBig"
 
 const pageTitle: string = "Add a book"
 
@@ -394,9 +395,7 @@ const AddBookPage = () => {
                         </div>
                     )}
                 </fieldset>
-                <button className="btn-lg" type="submit" disabled={isSubmitting}>
-                    Add book to wishlist {isSubmitting && <span className="loader-dots" />}
-                </button>
+                <BtnBig bType="submit" bIsLoading={isSubmitting} bText="Add book to wishlist" />
             </form>
             <div className="h2">
                 Preview

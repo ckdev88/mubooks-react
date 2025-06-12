@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../../App"
 import useMyBooksUpdateDb from "../../hooks/useMyBooksUpdateDb"
-import BtnBigRed from "../../components/ui/BtnBigRed"
+import BtnBig from "../../components/ui/BtnBig"
 
 const newArr: [] = []
 function ClearMyBooks() {
@@ -16,6 +16,6 @@ function ClearMyBooks() {
         clearbooks()
     }
 
-    return <BtnBigRed bText="Clear all my books" bOnClick={() => clearbooksyes()} />
+    return <BtnBig bClassName="btn btn-red" bText="Clear all my books" bOnClick={() => clearbooksyes()} />
 }
 export default ClearMyBooks

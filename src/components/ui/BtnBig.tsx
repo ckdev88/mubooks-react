@@ -10,17 +10,18 @@ const BtnBig = ({
     bType,
     bOnClick,
     bIsLoading,
+    bClassName,
 }: {
     bText: string | React.ReactNode
     bType?: "button" | "submit" | "reset"
     bOnClick?: () => void
     bIsLoading?: boolean
+    bClassName?: string
 }) => {
-    const pClassName = "btn-lg"
     return (
         <button
             type={bType ? bType : "button"}
-            className={pClassName}
+            className={"btn-lg " + bClassName}
             onClick={bOnClick}
             disabled={bIsLoading}
         >
