@@ -1,8 +1,10 @@
-// TODO create Trash page for books with book_list = 0
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
+import BtnPermToss from "./ui/BtnPermToss"
+import BtnToss from "./ui/BtnToss"
+import BtnTextGeneral from "./ui/BtnTextGeneral"
 
 const mesg = {
     finished_to_reading: "Unfiniseeeeeeeehed, moved to Reading list",
@@ -162,10 +164,7 @@ const RemoveBookFromXButton = ({
         fadeout()
         setIsLoading(true)
         let newArr: Books = []
-        if (meth === "move") {
-            newArr = RemoveBookFromX(book_id)
-            console.log("moving11111111111111111111111111111111111111111111")
-        }
+        if (meth === "move") newArr = RemoveBookFromX(book_id)
         if (meth === "toss") newArr = TossBook(book_id)
         if (meth === "permtoss") newArr = TossBookPerm(book_id)
         setUserMyBooks(newArray)
@@ -187,40 +186,29 @@ const RemoveBookFromXButton = ({
     return (
         <div className="mark">
             {permtoss === true ? (
-                <button
-                    type="button"
-                    className="btn-text red"
-                    onClick={() => RemoveBookFromXButtonAct("permtoss")}
-                    disabled={isLoading}
-                >
-                    <span className="icon icon-remove" />
-                    Permanently toss
-                </button>
+                <BtnPermToss
+                    bOnClick={() => RemoveBookFromXButtonAct("permtoss")}
+                    bIsLoading={isLoading}
+                />
             ) : (
                 <>
                     {book_list > 1 && !toss === true && (
-                        <button
-                            type="button"
-                            className="btn-text"
-                            onClick={() => RemoveBookFromXButtonAct("move")}
-                            disabled={isLoading}
-                        >
-                            <span className="icon icon-remove" />
-                            {button_title
-                                ? button_title
-                                : `Move back to ${getListName(book_list - 1)}`}
-                        </button>
+                        <BtnTextGeneral
+                            bOnClick={() => RemoveBookFromXButtonAct("move")}
+                            bIsLoading={isLoading}
+                            bIcon={getListName(book_list - 1)}
+                            bText={
+                                button_title
+                                    ? button_title
+                                    : `Move back to ${getListName(book_list - 1)}`
+                            }
+                        />
                     )}
                     {toss === true && (
-                        <button
-                            type="button"
-                            className="btn-text"
-                            onClick={() => RemoveBookFromXButtonAct("toss")}
-                            disabled={isLoading}
-                        >
-                            <span className="icon icon-remove" />
-                            Toss it
-                        </button>
+                        <BtnToss
+                            bOnClick={() => RemoveBookFromXButtonAct("toss")}
+                            bIsLoading={isLoading}
+                        />
                     )}
                 </>
             )}
