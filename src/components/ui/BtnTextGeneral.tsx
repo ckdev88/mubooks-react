@@ -9,7 +9,7 @@ const BtnTextGeneral = ({
     bIsLoading?: boolean
     bClassName?: string
     bIcon?: string
-    bText?: string
+    bText?: string | React.ReactNode
 }) => {
     return (
         <button

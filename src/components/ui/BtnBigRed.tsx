@@ -2,7 +2,6 @@
 /**
  * Big red button component: default/fallback param values
  * ------------------------------------------------------
- * `bText` - "Cancel"
  * `bType` - "button"
  */
 const BtnBigRed = ({
@@ -20,7 +19,7 @@ const BtnBigRed = ({
     if (bActiveForm === true) pClassName += " active"
     return (
         <button type={bType ? bType : "button"} className={pClassName} onClick={bOnClick}>
-            {bText ? bText : "Add trope"}
+            {bText}
         </button>
     )
 }
