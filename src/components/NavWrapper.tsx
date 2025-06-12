@@ -90,9 +90,7 @@ const NavWrapper = () => {
                             gap: ".25rem",
                         }}
                         className={
-                            nav0Expanded
-                                ? "expanded nav-collapsable"
-                                : "collapsed nav-collapsable"
+                            nav0Expanded ? "expanded nav-collapsable" : "collapsed nav-collapsable"
                         }
                         aria-expanded={nav0Expanded ? "true" : "false"}
                     >
@@ -229,6 +227,9 @@ const NavWrapper = () => {
                         </NavLink>
                         <NavLink to={"/tropes"} onClick={toggleNav0}>
                             Tropes
+                        </NavLink>
+                        <NavLink to={"/tossed"} onClick={toggleNav0}>
+                            Tossed corner
                         </NavLink>
                         {isLocal() && (
                             <NavLink

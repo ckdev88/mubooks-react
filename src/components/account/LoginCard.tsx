@@ -49,11 +49,7 @@ const LoginCard = () => {
                         <Heading text="Log in" sub="to continue" />
                     </header>
                     <form onSubmit={processLoginForm}>
-                        <div
-                            className={
-                                error !== "" ? "notification error" : "notification"
-                            }
-                        >
+                        <div className={error !== "" ? "notification error" : "notification"}>
                             {error}
                         </div>
                         <label htmlFor="login_email">
@@ -88,11 +84,7 @@ const LoginCard = () => {
                     </form>
                 </main>
                 <footer>
-                    <button
-                        type="button"
-                        className="btn-text wauto-md nowrap"
-                        onClick={recover}
-                    >
+                    <button type="button" className="btn-text wauto-md nowrap" onClick={recover}>
                         Forgot password
                     </button>
                     <button

@@ -1,25 +1,29 @@
-import { useContext } from "react"
+import { useContext, useLayoutEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
+import TossTossers from "../../components/TossTossers"
 
-const pageTitle = `What I'm reading now`
-const pageTitleSub = "Currently enjoying books"
+const pageTitle = "Removed books"
+const pageTitleSub = "To permanently remove or not to permanently remove"
 let pageTitleSubText = pageTitleSub
-const currentPage = "reading"
-const booklist = 2
+const currentPage = "tossed"
+const booklist = undefined
 
-const ReadingPage = () => {
+const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
+    const [books, setBooks] = useState(userMyBooks.filter((book) => book.tossed === true))
 
-    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+    useLayoutEffect(() => {
+        setBooks(userMyBooks.filter((book) => book.tossed === true))
+    }, [userMyBooks])
 
     let hasbooks: boolean
     if (books.length > 0) {
         hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
+        pageTitleSubText = pageTitleSub
     } else hasbooks = false
 
     return (
@@ -32,13 +36,19 @@ const ReadingPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
+            <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSubText} />
+
             {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+                <>
+                    <TossTossers />
+                    <BooksOverviewPage booklist={booklist} books={books} page={currentPage} />
+                </>
             ) : (
                 <p>
-                    Want to add a book to your reading list?
+                    No books here.
                     <br />
+                    <br />
+                    <Link to="/dashboard">Back to dashboard</Link> or{" "}
                     <Link to="/wishlist">View your wishlist</Link> or{" "}
                     <Link to="/search">Search</Link> to add a book.
                     <br />
@@ -48,4 +58,4 @@ const ReadingPage = () => {
         </motion.div>
     )
 }
-export default ReadingPage
+export default TossedPage

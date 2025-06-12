@@ -35,8 +35,7 @@ const RootPage = () => {
         })
         if (error) console.log("Error logging in with token:", error.message)
     }
-    if (accessToken !== "" && refreshToken !== "")
-        loginwithtoken(accessToken, refreshToken)
+    if (accessToken !== "" && refreshToken !== "") loginwithtoken(accessToken, refreshToken)
 
     const { setUsermail, setUserIsLoggedIn, userIsLoggedIn } = useContext(AppContext)
     const navigate = useNavigate()
@@ -53,13 +52,10 @@ const RootPage = () => {
         if (!checkApiErrorCallback()) {
             if (loggedin) navigateTo = "/dashboard"
             else {
-                if (getUrlParamVal(url, "type") === "recovery")
-                    navigateTo = "/auth/resetpassword"
+                if (getUrlParamVal(url, "type") === "recovery") navigateTo = "/auth/resetpassword"
                 else navigateTo = "/account/login" // main redirection on account related error
             }
-        } else
-            navigateTo =
-                "/error?error_description=" + apiErrorsCallback().error_description
+        } else navigateTo = "/error?error_description=" + apiErrorsCallback().error_description
 
         if (loggedin) {
             setUsermail(userInLs.user.email)

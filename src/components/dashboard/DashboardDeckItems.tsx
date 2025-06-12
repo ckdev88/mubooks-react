@@ -3,10 +3,7 @@ import { AppContext } from "../../App"
 import { HashLink as Link } from "react-router-hash-link"
 import DashboardDeckCovers from "./DashboardDeckCovers"
 
-const DashboardDeckItems = ({
-    page,
-    noBooksText,
-}: { page: Page; noBooksText: string }) => {
+const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: string }) => {
     let book_list: Book["list"]
 
     const { userMyBooks, darkTheme } = useContext(AppContext)

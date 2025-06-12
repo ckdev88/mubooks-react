@@ -51,6 +51,10 @@ textarea,
     color: #ffffff;
     font-weight: bold;
 }
+.btn.btn-red {
+    background-color: var(--red);
+    border-color: var(--red);
+}
 
 input[type="text"]:focus,
 input[type="text"]:focus-visible,
@@ -91,6 +95,12 @@ textarea:focus,
 .btn-sm:focus-active:hover {
     background-color: var(--primary-darker2);
     outline-color: var(--primary-darker2);
+}
+.btn.btn-red:hover,
+.btn.btn-red:active,
+.btn.btn-red:active:hover {
+    background-color: var(--red-darker);
+    outline-color: var(--red-darker);
 }
 
 .btn-sm:disabled,
@@ -274,6 +284,7 @@ ul.expandable-list a {
     opacity: 0;
     transition: opacity 0.18s ease-in-out;
 }
+
 .btn-calendar:focus::after,
 .btn-calendar:hover::after {
     opacity: 1;

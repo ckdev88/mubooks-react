@@ -26,15 +26,10 @@ function PopupNotification() {
     return (
         <>
             {!isOnline ? (
-                <div id="popupNotificationOffline">
-                    Offline. Some things won&lsquo;t work.
-                </div>
+                <div id="popupNotificationOffline">Offline. Some things won&lsquo;t work.</div>
             ) : (
                 popupNotification !== "" && (
-                    <div
-                        id="popupNotification"
-                        className={popupNotification ? "show" : "hide"}
-                    >
+                    <div id="popupNotification" className={popupNotification ? "show" : "hide"}>
                         {popupNotification && <Popper />}
                     </div>
                 )

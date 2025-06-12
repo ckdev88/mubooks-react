@@ -17,8 +17,7 @@ const BookSummaryCover = ({
 
     // NOTE set showOLImages to false when archive/OpenLibrary is unavailable
     const showOLImages = true
-    if (!showOLImages && book_cover_redir.includes("openlibrary"))
-        bookCover = getBookCover("", "M")
+    if (!showOLImages && book_cover_redir.includes("openlibrary")) bookCover = getBookCover("", "M")
 
     return <img src={bookCover} alt="" className="cover shade" />
 }

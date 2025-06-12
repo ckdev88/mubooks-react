@@ -70,6 +70,7 @@ type PageWithoutParameters =
     | "search"
     | "tropes"
     | "wishlist"
+    | "tossed"
 
 type Page = `${PageWithoutParameters}${string | null}`
 
@@ -145,6 +146,7 @@ interface Book {
     review_fav_quote?: Book["review_text"]
     subject?: BookSubjects
     days?: number
+    tossed?: boolean
 }
 type BookAuthor = string
 type BookAuthors = BookAuthor[]

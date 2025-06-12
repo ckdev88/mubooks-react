@@ -4,9 +4,7 @@ import TropesPrefs from "../../components/TropesPrefs"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
-export const TropesPageContext = createContext<TropesPageContextType>(
-    {} as TropesPageContextType,
-)
+export const TropesPageContext = createContext<TropesPageContextType>({} as TropesPageContextType)
 
 const currentPage = "tropes"
 

@@ -36,7 +36,9 @@
     --green: #0d8846;
     --lightgreen: #aff4c6;
     --lightred: #ffc7c2;
-    --red: #f24822;
+    --red: #ee0000;
+    --red-dark: #d80000;
+    --red-darker: #780000;
     --gray: #666;
     --hr: rgba(0, 0, 0, 0.1);
 

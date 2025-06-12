@@ -27,11 +27,7 @@ const BaseBadge = ({
                 </button>
             )}
             {removeable && removeTrope !== undefined && field && (
-                <button
-                    type="button"
-                    className="btn-x"
-                    onClick={() => removeTrope(text, field)}
-                >
+                <button type="button" className="btn-x" onClick={() => removeTrope(text, field)}>
                     x
                 </button>
             )}

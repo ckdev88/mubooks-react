@@ -1,7 +1,4 @@
-export default function getDeduplicatedTropesArray(
-    arr: BookTropes,
-    trope: string,
-): BookTropes {
+export default function getDeduplicatedTropesArray(arr: BookTropes, trope: string): BookTropes {
     /** Returns an array with deduplicated & sorted values, example: input `trope: "IMMACAP"` will replace existing `arr: "ImACap"` */
     const newArr: BookTropes = []
     for (let i = 0; i < arr.length; i++) {

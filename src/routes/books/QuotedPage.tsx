@@ -23,8 +23,7 @@ const QuotedPage = () => {
         )
         if (quotedbooks.length > 0) hasbooks = true
     } else quotedbooks = []
-    if (quotedbooks.length > 0)
-        pageTitleSubText = quotedbooks.length + ". " + pageTitleSub
+    if (quotedbooks.length > 0) pageTitleSubText = quotedbooks.length + ". " + pageTitleSub
 
     return (
         <motion.div
@@ -42,11 +41,7 @@ const QuotedPage = () => {
                     </Link>
                 </p>
             </div>
-            <BooksOverviewPage
-                booklist={booklist}
-                books={quotedbooks}
-                page={currentPage}
-            />
+            <BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
         </motion.div>
     )
 }

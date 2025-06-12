@@ -26,11 +26,7 @@ const ReviewRating = ({
         msg,
     })
 
-    function RateStars(
-        book_id: Book["id"],
-        type: "rate_stars" | "rate_spice",
-        rating: Scale5,
-    ) {
+    function RateStars(book_id: Book["id"], type: "rate_stars" | "rate_spice", rating: Scale5) {
         let myBooks: Books
         if (userMyBooks !== undefined) myBooks = userMyBooks
         else myBooks = []
@@ -73,9 +69,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_stars", 1)}
                 >
-                    <span
-                        className={iconClassNameStar + (reviewStars > 0 ? " active" : "")}
-                    >
+                    <span className={iconClassNameStar + (reviewStars > 0 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -84,9 +78,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_stars", 2)}
                 >
-                    <span
-                        className={iconClassNameStar + (reviewStars > 1 ? " active" : "")}
-                    >
+                    <span className={iconClassNameStar + (reviewStars > 1 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -95,9 +87,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_stars", 3)}
                 >
-                    <span
-                        className={iconClassNameStar + (reviewStars > 2 ? " active" : "")}
-                    >
+                    <span className={iconClassNameStar + (reviewStars > 2 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -106,9 +96,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_stars", 4)}
                 >
-                    <span
-                        className={iconClassNameStar + (reviewStars > 3 ? " active" : "")}
-                    >
+                    <span className={iconClassNameStar + (reviewStars > 3 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -117,9 +105,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_stars", 5)}
                 >
-                    <span
-                        className={iconClassNameStar + (reviewStars > 4 ? " active" : "")}
-                    >
+                    <span className={iconClassNameStar + (reviewStars > 4 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -137,11 +123,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_spice", 1)}
                 >
-                    <span
-                        className={
-                            iconClassNameSpice + (reviewSpice > 0 ? " active" : "")
-                        }
-                    >
+                    <span className={iconClassNameSpice + (reviewSpice > 0 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -150,11 +132,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_spice", 2)}
                 >
-                    <span
-                        className={
-                            iconClassNameSpice + (reviewSpice > 1 ? " active" : "")
-                        }
-                    >
+                    <span className={iconClassNameSpice + (reviewSpice > 1 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -163,11 +141,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_spice", 3)}
                 >
-                    <span
-                        className={
-                            iconClassNameSpice + (reviewSpice > 2 ? " active" : "")
-                        }
-                    >
+                    <span className={iconClassNameSpice + (reviewSpice > 2 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -176,11 +150,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_spice", 4)}
                 >
-                    <span
-                        className={
-                            iconClassNameSpice + (reviewSpice > 3 ? " active" : "")
-                        }
-                    >
+                    <span className={iconClassNameSpice + (reviewSpice > 3 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>
@@ -189,11 +159,7 @@ const ReviewRating = ({
                     className="btn-icon"
                     onClick={() => RateStarsAct("rate_spice", 5)}
                 >
-                    <span
-                        className={
-                            iconClassNameSpice + (reviewSpice > 4 ? " active" : "")
-                        }
-                    >
+                    <span className={iconClassNameSpice + (reviewSpice > 4 ? " active" : "")}>
                         &nbsp;
                     </span>
                 </button>

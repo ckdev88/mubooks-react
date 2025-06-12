@@ -21,6 +21,7 @@ const AddBookToXButton = ({
     book_rate_spice,
     book_review_fav_quote,
     book_review_tropes,
+    tossed,
 }: {
     book_id: Book["id"]
     book_list: Book["list"]
@@ -41,6 +42,7 @@ const AddBookToXButton = ({
     book_rate_spice: Book["rate_spice"]
     book_review_fav_quote: Book["review_fav_quote"]
     book_review_tropes: Book["review_tropes"]
+    tossed?: Book["tossed"]
 }) => {
     if (button_title === "") button_title = `Add to ${getListName(targetList)}`
 
@@ -61,6 +63,7 @@ const AddBookToXButton = ({
         rate_spice: book_rate_spice,
         review_fav_quote: book_review_fav_quote,
         review_tropes: book_review_tropes,
+        tossed: tossed,
     }
     const [AddBookToXButtonAct, isLoading] = useMyBooksAdd({ book, targetList })
 
@@ -74,11 +77,10 @@ const AddBookToXButton = ({
             (tcp === "reading" && targetList !== 2) ||
             (tcp === "wishlist" && targetList !== 1) ||
             (tcp === "favorites" && targetList !== 4) ||
-            (tcp === "finished" && targetList !== 3 && targetList !== 4)
+            (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
+            (tcp === "tossed" && targetList > 0)
         ) {
-            document
-                .getElementById(`bookSummaryTransitioner${book.id}`)
-                ?.classList.add("fadeout")
+            document.getElementById(`bookSummaryTransitioner${book.id}`)?.classList.add("fadeout")
         }
     }
 

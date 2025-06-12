@@ -12,7 +12,7 @@ function useMyBooksUpdateDb({
     msg: string
 }): () => Promise<void> {
     const { setPopupNotification, userid } = useContext(AppContext)
-    async function updateMyBooksDb(): Promise<void> {
+    const updateMyBooksDb = async (): Promise<void> => {
         const { error } = await supabase
             .from("user_entries")
             .update({

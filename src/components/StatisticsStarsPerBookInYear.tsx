@@ -88,8 +88,7 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
                             <ul className="mt0">
                                 {b.books.map((book, index) => {
                                     const refer: string =
-                                        "/finished" +
-                                        `#${cleanAnchor(book.title_short)}_${book.id}`
+                                        "/finished" + `#${cleanAnchor(book.title_short)}_${book.id}`
                                     const key = "bokmap" + index
                                     return (
                                         <li key={key}>

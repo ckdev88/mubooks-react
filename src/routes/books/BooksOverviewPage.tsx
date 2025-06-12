@@ -1,15 +1,18 @@
-import { useState, useContext, useEffect, createContext } from "react"
+import { useState, useContext, useEffect, createContext, useLayoutEffect } from "react"
 import BookSummary from "../../components/BookSummary"
 import { AppContext } from "../../App"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
+
+/** Array of pages which should have a search field to filter the list */
+const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
 
 export const BooksOverviewFilterContext = createContext<BooksOverviewFilterContextType>(
     {} as BooksOverviewFilterContextType,
 )
 
 const BooksOverviewPage = ({
-    books = [],
+    books,
     page,
     booklist,
 }: {
@@ -20,66 +23,58 @@ const BooksOverviewPage = ({
     const { userMyBooks } = useContext(AppContext)
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
 
-    let booklistStart: Books
-    if (books.length > 0) booklistStart = books
-    else {
-        if (booklist === undefined) booklistStart = userMyBooks
-        else {
-            if (booklist === 3)
-                booklistStart = userMyBooks.filter(
-                    (book: Book) => book.list === 3 || book.list === 4,
-                )
-            else
-                booklistStart = userMyBooks.filter((book: Book) => book.list === booklist)
-        }
-    }
-    if (page === "finished") {
-        // OPTIMIZE this looks like garbage
-        booklistStart = userMyBooks.filter(
-            (book: Book) => book.list === 3 || book.list === 4,
-        )
-        books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
-    }
-    if (page === "tropes") books = tropesInMyBooksArr
-
     let hasbooks: boolean
-    if (booklistStart.length > 0) hasbooks = true
-    else hasbooks = false
+    let booklistStart: Books
+    if (books !== undefined && books.length > 0) {
+        hasbooks = true
+        booklistStart = books
+        // printed at all bookpages, besides wishlist, favourites
+    } else {
+        hasbooks = false
+        // this is printed at wishlist, favourites
+    }
 
-    /** Array of pages which should have a search field to filter the list */
-    const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
+    // if (page === "tossed") booklistStart = userMyBooks.filter((book: Book) => book.tossed === true)
+    // if (page === "finished") {
+    //     // OPTIMIZE this looks like garbage
+    //     booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+    //     books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+    // }
+    if (page === "tropes") books = tropesInMyBooksArr
 
     let hasfilter: boolean
     if (fsPages.includes(page) && hasbooks) hasfilter = true
     else hasfilter = false
 
     const [booksFilter, setBooksFilter] = useState<string>("")
-    const [booksList, setBooksList] = useState<Books>([])
+    const [booksList, setBooksList] = useState<Books>(books ? books : userMyBooks)
 
     // PER LIST
     // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
-    useEffect(() => {
+    useLayoutEffect(() => {
         let bookstmp: Books = []
-        if (books.length > 0) bookstmp = books
-        if (booklist) {
-            if (booklist === 3) {
-                bookstmp = userMyBooks.filter(
-                    (book: Book) => book.list === 3 || book.list === 4,
-                )
-            } else bookstmp = userMyBooks.filter((book) => book.list === booklist)
+        if (books !== undefined && books.length > 0) {
+            // this is the default, should always work with pages
+            // just not with WISHLIST & FAVOURITES
+            bookstmp = books
+        } else if (booklist) {
+            if (booklist === 3)
+                bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+            else {
+                if (page === "tossed") bookstmp = userMyBooks.filter((book) => book.tossed === true)
+                else bookstmp = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+            }
 
-            // SORTING
             if (booklist === 3 || booklist === 4) {
                 bookstmp.sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
             }
         }
         setBooksList(bookstmp)
-    }, [userMyBooks, booklist])
+    }, [userMyBooks])
 
     // TROPES
     // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified
     useEffect(() => {
-        // TODO see if useLayoutEffect is better here
         if (page === "tropes") setBooksList(tropesInMyBooksArr)
     }, [tropesInMyBooksArr])
 
@@ -96,6 +91,7 @@ const BooksOverviewPage = ({
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <Only run once via []>
     useEffect(() => {
+        // jump to # of book after clicking a specific book
         if (fsPages.includes(page)) {
             if (window.location.hash !== undefined && window.location.hash !== "") {
                 setTimeout(() => {
@@ -135,7 +131,7 @@ const BooksOverviewPage = ({
             )}
             {page === "search" ? (
                 <>
-                    {books.map((book) => {
+                    {books?.map((book) => {
                         userMyBooks.find((savedbook) => {
                             if (savedbook.id === book.id) {
                                 book.list = savedbook.list
@@ -152,22 +148,24 @@ const BooksOverviewPage = ({
                         )
                     })}
                 </>
-            ) : (
+            ) : booksFilter.length > 0 ? (
                 booksList.map((book) => {
-                    if (
-                        book.list === booklist ||
-                        page === "tropes" ||
-                        booklist === undefined ||
-                        (booklist === 3 && (book.list === 3 || book.list === 4))
-                    ) {
-                        return (
-                            <BookSummary
-                                book={book}
-                                key={`BookSummary${book.id}`}
-                                currentPage={page}
-                            />
-                        )
-                    }
+                    return (
+                        <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                    )
+                })
+            ) : (
+                books?.map((book) => {
+                    // if (
+                    //     book.list === booklist ||
+                    //     page === "tropes" ||
+                    //     booklist === undefined ||
+                    //     (booklist === 3 && book.list === 4)
+                    // ) {
+                    return (
+                        <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                    )
+                    // }
                 })
             )}
         </>

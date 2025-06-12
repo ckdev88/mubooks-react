@@ -45,10 +45,7 @@ export default function SignupCard() {
                     />
                 </header>
                 <main>
-                    <form
-                        onSubmit={processSignupForm}
-                        className={isLoading ? "form-loading" : ""}
-                    >
+                    <form onSubmit={processSignupForm} className={isLoading ? "form-loading" : ""}>
                         <label htmlFor="signup_screenname">
                             <div className="description">Screen name</div>
                             <input

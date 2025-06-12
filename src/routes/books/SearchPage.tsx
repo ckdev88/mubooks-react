@@ -49,15 +49,11 @@ const SearchPage = () => {
                     setResultCount(filtered.length)
                     for (let i = 0; i < filtered.length; i++) {
                         filtered[i].id = filtered[i].key.toString().replace("/works/", "")
-                        filtered[i].title_short = filtered[i].title
-                            .slice(0, 45)
-                            .toString()
+                        filtered[i].title_short = filtered[i].title.slice(0, 45).toString()
                         filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
                     filtered.length > 30
-                        ? setResultsMessage(
-                              "Showing only 30 results. Specify a bit more.",
-                          )
+                        ? setResultsMessage("Showing only 30 results. Specify a bit more.")
                         : setResultsMessage("Showing " + filtered.length + " results.")
                     setSearchTerm(search_term)
                     return filtered
@@ -94,20 +90,14 @@ const SearchPage = () => {
                     <div>
                         <div
                             className={
-                                searchTerm !== "" || resultsMessage !== ""
-                                    ? "dblock"
-                                    : "dnone"
+                                searchTerm !== "" || resultsMessage !== "" ? "dblock" : "dnone"
                             }
                         >
                             <div className="h2 resultsfound">
                                 {resultCount > 30 ? "Over 30" : resultCount}
-                                {resultCount > 1 || resultCount === 0
-                                    ? " books"
-                                    : " book"}{" "}
-                                found for <em>"{searchTerm}"</em>
-                                <sub
-                                    className={resultsMessage !== "" ? "dblock" : "dnone"}
-                                >
+                                {resultCount > 1 || resultCount === 0 ? " books" : " book"} found
+                                for <em>"{searchTerm}"</em>
+                                <sub className={resultsMessage !== "" ? "dblock" : "dnone"}>
                                     {resultsMessage}
                                 </sub>
                             </div>

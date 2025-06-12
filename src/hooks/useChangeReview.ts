@@ -28,8 +28,7 @@ const useChangeReview = (
         for (let i = 0; i < userMyBooks.length; i++) {
             if (userMyBooks[i].id === book_id) {
                 if (o_key === "review_text") userMyBooks[i].review_text = newvalue
-                else if (o_key === "review_fav_quote")
-                    userMyBooks[i].review_fav_quote = newvalue
+                else if (o_key === "review_fav_quote") userMyBooks[i].review_fav_quote = newvalue
                 setReviewText(newvalue)
                 break
             }

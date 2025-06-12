@@ -22,17 +22,13 @@ const SuggestionsForm: React.FC = () => {
             .get("suggestion")
             ?.toString()
             .trim()
-        if (
-            !formdata_suggestion ||
-            (formdata_suggestion && formdata_suggestion.length < 1)
-        )
+        if (!formdata_suggestion || (formdata_suggestion && formdata_suggestion.length < 1))
             return false
         const formdata_anythingElse: string | undefined = formdata
             .get("anythingElse")
             ?.toString()
             .trim()
-        if (formdata_suggestion)
-            formdata.set("suggestion", cleanInput(formdata_suggestion))
+        if (formdata_suggestion) formdata.set("suggestion", cleanInput(formdata_suggestion))
         if (formdata_anythingElse !== undefined)
             formdata.set("anythingElse", cleanInput(formdata_anythingElse))
         else formdata.set("anythingElse", "")
@@ -61,9 +57,7 @@ const SuggestionsForm: React.FC = () => {
                         <br />
                         <b>Anything else?</b>
                         <br />
-                        {formdata_anythingElse !== ""
-                            ? formdata_anythingElse
-                            : "Not right now"}
+                        {formdata_anythingElse !== "" ? formdata_anythingElse : "Not right now"}
                     </blockquote>
                 </div>,
             )
@@ -120,16 +114,12 @@ const SuggestionsForm: React.FC = () => {
                     <div>
                         What do you think about MuBooks, and what could make it better?
                         <br />
-                        Please tell us anything: a request, a complaint or a suggestion,
-                        we need your help to make this app as friendly and helpful as
-                        possible for you.
+                        Please tell us anything: a request, a complaint or a suggestion, we need
+                        your help to make this app as friendly and helpful as possible for you.
                     </div>
                     <br />
                     <br />
-                    <form
-                        onSubmit={handleSubmit}
-                        className={isLoading ? "form-loading" : ""}
-                    >
+                    <form onSubmit={handleSubmit} className={isLoading ? "form-loading" : ""}>
                         <label htmlFor="fsb_suggestion">
                             <div className="description">Your ideas or suggestions</div>
                             <textarea

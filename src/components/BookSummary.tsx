@@ -13,21 +13,16 @@ import BookSummaryAside from "./BookSummaryAside"
 import BookSummaryStatus from "./BookSummaryStatus"
 import BookSummaryReview from "./BookSummaryReview"
 
+const synopsisPages: Page[] = ["search", "wishlist"]
+const pagesMedianPages: Page[] = ["search", "reading", "finished"]
+const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
+
 const BookSummary = ({
     book,
     currentPage,
     refer,
 }: { book: Book; currentPage: Page; refer?: Page }) => {
-    const synopsisPages: Page[] = ["search", "wishlist"]
-    const pagesMedianPages: Page[] = ["search", "reading", "finished"]
-    const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
-
-    const synopsis = useGetSynopsis(
-        book.id,
-        book.cover_edition_key,
-        synopsisPages,
-        currentPage,
-    )
+    const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
     const [isShowingSynopsis, setIsShowingSynopsis] = useState<boolean>(false)
 
     const bookAnchor: string = `${cleanAnchor(book.title_short)}_${book.id}`
@@ -48,11 +43,7 @@ const BookSummary = ({
                 {currentPage !== "quoted" && (
                     <header style={{ position: "relative", width: "100%" }}>
                         {currentPage !== "dashboard" && (
-                            <AddToRemoveFromX
-                                book={book}
-                                limit={4}
-                                currentPage={currentPage}
-                            />
+                            <AddToRemoveFromX book={book} limit={4} currentPage={currentPage} />
                         )}
                         {currentPage === "dashboard" && refer !== undefined ? (
                             <Link to={`/${refer}`}>
@@ -112,11 +103,7 @@ const BookSummary = ({
                             {currentPage === "search" && (
                                 <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
                             )}
-                            <AddToRemoveFromX
-                                book={book}
-                                limit={0}
-                                currentPage={currentPage}
-                            />
+                            <AddToRemoveFromX book={book} limit={0} currentPage={currentPage} />
                         </div>
                     </div>
                 )}
