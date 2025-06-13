@@ -22,6 +22,7 @@ const AddBookToXButton = ({
     book_rate_stars,
     book_rate_spice,
     book_review_fav_quote,
+    book_review_fav_quote2,
     book_review_tropes,
     tossed,
 }: {
@@ -43,6 +44,7 @@ const AddBookToXButton = ({
     book_rate_stars: Book["rate_stars"]
     book_rate_spice: Book["rate_spice"]
     book_review_fav_quote: Book["review_fav_quote"]
+    book_review_fav_quote2: Book["review_fav_quote2"]
     book_review_tropes: Book["review_tropes"]
     tossed?: Book["tossed"]
 }) => {
@@ -64,6 +66,7 @@ const AddBookToXButton = ({
         rate_stars: book_rate_stars,
         rate_spice: book_rate_spice,
         review_fav_quote: book_review_fav_quote,
+        review_fav_quote2: book_review_fav_quote2,
         review_tropes: book_review_tropes,
         tossed: tossed,
     }

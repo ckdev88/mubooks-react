@@ -6,7 +6,7 @@ import { IsModdingReviewContext } from "../components/BookSummaryReview"
 
 const useChangeReview = (
     book_id: Book["id"],
-    o_key: "review_text" | "review_fav_quote",
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2",
 ): [(e: React.FormEvent<HTMLFormElement>) => void] => {
     const { userMyBooks } = useContext(AppContext)
     const { setIsModding, setReviewText } = useContext(IsModdingReviewContext)
@@ -29,6 +29,7 @@ const useChangeReview = (
             if (userMyBooks[i].id === book_id) {
                 if (o_key === "review_text") userMyBooks[i].review_text = newvalue
                 else if (o_key === "review_fav_quote") userMyBooks[i].review_fav_quote = newvalue
+                else if (o_key === "review_fav_quote2") userMyBooks[i].review_fav_quote2 = newvalue
                 setReviewText(newvalue)
                 break
             }

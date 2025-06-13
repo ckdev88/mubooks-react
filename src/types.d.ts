@@ -41,7 +41,7 @@ interface IsModdingReviewContextType {
     setIsModding(isModding: isModding): void
     reviewText: Book["review_text"]
     setReviewText(reviewText: reviewText): void
-    o_key: "review_text" | "review_fav_quote"
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
 }
 interface TropesPageContextType {
     likedTropes: BookTropes
@@ -143,7 +143,8 @@ interface Book {
     rate_spice: Scale5
     review_tropes: BookTropes
     review_text?: string | undefined
-    review_fav_quote?: Book["review_text"]
+    review_fav_quote?: string | undefined
+    review_fav_quote2?: string | undefined
     subject?: BookSubjects
     days?: number
     tossed?: boolean

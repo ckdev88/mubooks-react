@@ -11,11 +11,12 @@ const BookSummaryReview = ({
     review_text,
 }: {
     book_id: Book["id"]
-    o_key: "review_text" | "review_fav_quote"
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
     review_text: Book["review_text"]
 }) => {
     let addButtonTitle: string
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
+    else if (o_key === "review_fav_quote2") addButtonTitle = "one more quote"
     else addButtonTitle = "Review"
 
     if (review_text === undefined) review_text = ""
@@ -45,6 +46,8 @@ const BookSummaryReview = ({
                             >
                                 {o_key === "review_fav_quote" ? (
                                     <>{`“${reviewText}”`}</>
+                                ) : o_key === "review_fav_quote2" ? (
+                                    <>{`“${reviewText}”`}</>
                                 ) : (
                                     <>{reviewText}</>
                                 )}
@@ -54,7 +57,7 @@ const BookSummaryReview = ({
                             <button
                                 type="button"
                                 className={
-                                    o_key === "review_fav_quote"
+                                    o_key === "review_fav_quote" || o_key === "review_fav_quote2"
                                         ? "btn-sm mb mxauto ml0 mt0"
                                         : "btn-sm mb0 ml0"
                                 }

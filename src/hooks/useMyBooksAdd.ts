@@ -67,6 +67,7 @@ const useMyBooksAdd = ({
                 rate_spice: 0,
                 rate_stars: 0,
                 review_fav_quote: "",
+                review_fav_quote2: "",
                 review_text: "",
                 review_tropes: [],
                 title: book.title,

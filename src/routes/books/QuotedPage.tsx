@@ -15,14 +15,20 @@ const QuotedPage = () => {
     const { userMyBooks } = useContext(AppContext)
 
     let quotedbooks: Books
-    let hasbooks = false
+    let hasbooks: boolean
     if (userMyBooks === undefined) quotedbooks = []
     if (userMyBooks.length > 0) {
         quotedbooks = userMyBooks.filter(
-            (book) => book.review_fav_quote && book.review_fav_quote !== "",
+            (book) =>
+                (book.review_fav_quote && book.review_fav_quote !== "") ||
+                (book.review_fav_quote2 && book.review_fav_quote2 !== ""),
         )
         if (quotedbooks.length > 0) hasbooks = true
-    } else quotedbooks = []
+        else hasbooks = false
+    } else {
+        hasbooks = false
+        quotedbooks = []
+    }
     if (quotedbooks.length > 0) pageTitleSubText = quotedbooks.length + ". " + pageTitleSub
 
     return (
@@ -33,15 +39,18 @@ const QuotedPage = () => {
             animate={{ opacity: 1, transition: { duration: 2 } }}
         >
             <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSubText} />
-            <div className={hasbooks === true ? "dnone" : "dblock"}>
-                <h4>No books added yet, find them and add them.</h4>
-                <p>
-                    <Link to={"/search"} className="wauto">
-                        Search
-                    </Link>
-                </p>
-            </div>
-            <BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
+            {hasbooks ? (
+                <BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
+            ) : (
+                <div>
+                    <h4>No books added yet, find them and add them.</h4>
+                    <p>
+                        <Link to={"/search"} className="wauto">
+                            Search
+                        </Link>
+                    </p>
+                </div>
+            )}
         </motion.div>
     )
 }
