@@ -1,6 +1,6 @@
 import getListName from "../functions/getListName"
 import useMyBooksAdd from "../hooks/useMyBooksAdd"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import fadeout from "../utils/uiMisc"
 
 const AddBookToXButton = ({

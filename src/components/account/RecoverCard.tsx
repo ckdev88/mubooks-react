@@ -4,8 +4,8 @@ import { supabase } from "../../../utils/supabase"
 import { useState, useContext } from "react"
 import { AppContext } from "../../App"
 import Heading from "../ui/Heading"
-import BtnTextGeneral from "../ui/BtnTextGeneral"
-import BtnBig from "../ui/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
 
 const RecoverCard = () => {
     const { setUsermail, userIsLoggedIn } = useContext(AppContext)

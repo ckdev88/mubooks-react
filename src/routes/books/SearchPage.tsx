@@ -3,7 +3,7 @@ import BooksOverviewPage from "./BooksOverviewPage"
 import { getOlCover } from "../../Helpers"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
-import BtnBig from "../../components/ui/BtnBig"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const pageTitle = "Search"
 const currentPage = "search"

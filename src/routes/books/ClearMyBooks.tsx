@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../../App"
 import useMyBooksUpdateDb from "../../hooks/useMyBooksUpdateDb"
-import BtnBig from "../../components/ui/BtnBig"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const newArr: [] = []
 function ClearMyBooks() {

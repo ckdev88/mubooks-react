@@ -2,9 +2,9 @@ import { useContext, useState } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
-import BtnPermToss from "./ui/BtnPermToss"
-import BtnToss from "./ui/BtnToss"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnPermToss from "./ui/buttons/BtnPermToss"
+import BtnToss from "./ui/buttons/BtnToss"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import fadeout from "../utils/uiMisc"
 
 const mesg = {

@@ -12,10 +12,10 @@ import BaseBadge from "../../components/ui/BaseBadge"
 import { checkSimilar } from "../../helpers/checks"
 import { formatBookTitle } from "../../helpers/formatInput"
 import { formatBookAuthor } from "../../helpers/formatInput"
-import BtnInsideCaret from "../../components/ui/BtnInsideCaret"
+import BtnInsideCaret from "../../components/ui/buttons/BtnInsideCaret"
 import getDeduplicatedTropesArray from "../../helpers/formatArrays"
 import formatAuthor from "../../utils/formatInput"
-import BtnBig from "../../components/ui/BtnBig"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const pageTitle: string = "Add a book"
 

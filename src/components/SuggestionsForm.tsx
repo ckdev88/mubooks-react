@@ -4,7 +4,7 @@ import { cleanInput } from "../helpers/cleanInput"
 import useResetUsermail from "../hooks/useResetUsermail"
 import { isLocal } from "../Helpers"
 import { Link } from "react-router-dom"
-import BtnBig from "./ui/BtnBig"
+import BtnBig from "./ui/buttons/BtnBig"
 
 const SuggestionsForm: React.FC = () => {
     const { userid, usermail } = useContext(AppContext)

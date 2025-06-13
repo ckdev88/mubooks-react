@@ -12,7 +12,7 @@ import useGetSynopsis from "../hooks/useGetSynopsis"
 import BookSummaryAside from "./BookSummaryAside"
 import BookSummaryStatus from "./BookSummaryStatus"
 import BookSummaryReview from "./BookSummaryReview"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]

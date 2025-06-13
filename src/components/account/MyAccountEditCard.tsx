@@ -3,8 +3,8 @@ import { AppContext } from "../../App"
 import { useContext } from "react"
 import { supabase } from "../../../utils/supabase"
 import Heading from "../ui/Heading"
-import BtnBig from "../ui/BtnBig"
-import BtnTextGeneral from "../ui/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 
 export default function MyAccountEditCard() {
     const { see } = useCardRotate()

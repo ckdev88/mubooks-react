@@ -3,8 +3,8 @@ import { AppContext } from "../../App"
 import { supabase } from "../../../utils/supabase"
 import useCardRotate from "../../hooks/useCardRotate"
 import Heading from "../ui/Heading"
-import BtnTextGeneral from "../ui/BtnTextGeneral"
-import BtnBig from "../ui/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
 
 const LoginCard = () => {
     const { setUserIsLoggedIn, setUsername, setUsermail } = useContext(AppContext)

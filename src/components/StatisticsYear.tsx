@@ -9,7 +9,7 @@ import StatisticsDaysPerBookInYear from "./StatisticsDaysPerBookInYear"
 import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
 import countBookValues from "../functions/countBookValues"
 import Heading from "./ui/Heading"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
 const StatisticsYear = ({ myBooksArr, year }: { myBooksArr: Books; year: number }) => {
     const { cbf, cpf, cbfm, cpfm, cbwp, adpb, appd, astpb, cstpb, bwp, bwst, cbwst, dpb } =

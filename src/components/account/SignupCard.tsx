@@ -5,8 +5,8 @@ import { useContext } from "react"
 import { AppContext } from "../../App"
 import { supabase } from "../../../utils/supabase"
 import Heading from "../ui/Heading"
-import BtnBig from "../ui/BtnBig"
-import BtnTextGeneral from "../ui/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 
 async function userSignup(user: User) {
     const signup = await supabase.auth.signUp(user)

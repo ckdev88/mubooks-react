@@ -5,7 +5,7 @@ import { AppContext } from "../../App"
 import HeaderBranding from "../../components/HeaderBranding"
 import Heading from "../../components/ui/Heading"
 import { localStorageKey } from "../../../utils/supabase"
-import BtnBig from "../../components/ui/BtnBig"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const ResetPasswordPage = () => {
     const { userIsLoggedIn, setPopupNotification, setPopupNotificationShow } =

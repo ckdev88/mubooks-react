@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
 import Heading from "../ui/Heading"
 import useResetUsermail from "../../hooks/useResetUsermail"
-import BtnBig from "../ui/BtnBig"
+import BtnBig from "../ui/buttons/BtnBig"
 
 export default function MyAccountCard() {
     const { change } = useCardRotate()

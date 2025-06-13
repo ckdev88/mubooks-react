@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../App"
 import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
-import BtnBig from "./ui/BtnBig"
+import BtnBig from "./ui/buttons/BtnBig"
 
 export default function TossTossers() {
     const { userMyBooks, setUserMyBooks } = useContext(AppContext)

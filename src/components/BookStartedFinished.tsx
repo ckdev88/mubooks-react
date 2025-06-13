@@ -3,7 +3,7 @@ import { debounce, openCalendarPopUp } from "../Helpers"
 import { AppContext } from "../App"
 import { supabase } from "../../utils/supabase"
 import { convertDate } from "../helpers/convertDate"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
 const BookStartedFinished = ({
     date_started,

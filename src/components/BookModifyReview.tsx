@@ -3,9 +3,9 @@
  */
 import { useContext, useEffect } from "react"
 import { IsModdingReviewContext } from "./BookSummaryReview"
-import BtnInsideCaret from "./ui/BtnInsideCaret"
+import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import useChangeReview from "../hooks/useChangeReview"
-import BtnCancel from "./ui/BtnCancel"
+import BtnCancel from "./ui/buttons/BtnCancel"
 
 const BookModifyReview = ({
     book_id,
