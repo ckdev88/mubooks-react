@@ -18,11 +18,13 @@ const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
 const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
 
+/** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 const BookSummary = ({
     book,
     currentPage,
     refer,
-}: { book: Book; currentPage: Page; refer?: Page }) => {
+    special,
+}: { book: Book; currentPage: Page; refer?: Page; special?: "quote2" }) => {
     const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
     const [isShowingSynopsis, setIsShowingSynopsis] = useState<boolean>(false)
 
@@ -75,11 +77,19 @@ const BookSummary = ({
                 )}
                 {currentPage === "quoted" ? (
                     <div className="quoteblock">
-                        <BookSummaryReview
-                            book_id={book.id}
-                            o_key="review_fav_quote"
-                            review_text={book.review_fav_quote}
-                        />
+                        {special === "quote2" ? (
+                            <BookSummaryReview
+                                book_id={book.id}
+                                o_key="review_fav_quote2"
+                                review_text={book.review_fav_quote2}
+                            />
+                        ) : (
+                            <BookSummaryReview
+                                book_id={book.id}
+                                o_key="review_fav_quote"
+                                review_text={book.review_fav_quote}
+                            />
+                        )}
                         <BookSummaryTitle
                             book_title_short={book.title_short}
                             book_first_publish_year={book.first_publish_year}
@@ -112,11 +122,20 @@ const BookSummary = ({
             {currentPage !== "dashboard" && (
                 <footer>
                     {pagesReviewQuotes.includes(currentPage) && (
-                        <BookSummaryReview
-                            book_id={book.id}
-                            o_key="review_fav_quote"
-                            review_text={book.review_fav_quote}
-                        />
+                        <>
+                            <BookSummaryReview
+                                book_id={book.id}
+                                o_key="review_fav_quote"
+                                review_text={book.review_fav_quote}
+                            />
+                            {book.review_fav_quote && (
+                                <BookSummaryReview
+                                    book_id={book.id}
+                                    o_key="review_fav_quote2"
+                                    review_text={book.review_fav_quote2}
+                                />
+                            )}
+                        </>
                     )}
                     {currentPage === "search" && book.subject && (
                         <SearchSubjects book_id={book.id} subjects={book.subject} />

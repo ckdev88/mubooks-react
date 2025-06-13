@@ -7,25 +7,30 @@ import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import useChangeReview from "../hooks/useChangeReview"
 import BtnCancel from "./ui/buttons/BtnCancel"
 
+/** Modify review, triggered when state of isModding is true */
 const BookModifyReview = ({
     book_id,
     o_key,
     review_text,
 }: {
     book_id: Book["id"]
-    o_key: "review_text" | "review_fav_quote"
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
     review_text: Book["review_text"]
 }) => {
     const { isModding, setIsModding } = useContext(IsModdingReviewContext)
     const [processForm] = useChangeReview(book_id, o_key)
 
+    let inputPlaceholder = "Add review"
+    if (o_key === "review_fav_quote") inputPlaceholder = "Add your favorite quote"
+    else if (o_key === "review_fav_quote2") inputPlaceholder = "Your second favorite quote"
+
     const input = {
         form_class: "single-small-form clr",
         type: "text",
         name: "review_text",
-        id: o_key === "review_fav_quote" ? "review_fav_quote_" + book_id : "review_text_" + book_id,
+        id: o_key + "_" + book_id,
         default: review_text,
-        placeholder: o_key === "review_fav_quote" ? "Add your favorite quote" : "Add review",
+        placeholder: inputPlaceholder,
     }
 
     useEffect(() => {

@@ -16,6 +16,12 @@ function ClearMyBooks() {
         clearbooks()
     }
 
-    return <BtnBig bClassName="btn btn-red" bText="Clear all my books" bOnClick={() => clearbooksyes()} />
+    return (
+        <BtnBig
+            bClassName="btn btn-red"
+            bText="Clear all my books"
+            bOnClick={() => clearbooksyes()}
+        />
+    )
 }
 export default ClearMyBooks

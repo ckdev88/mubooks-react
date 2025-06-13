@@ -151,9 +151,37 @@ const BooksOverviewPage = ({
             ) : booksFilter.length > 0 ? (
                 booksList.map((book) => {
                     return (
-                        <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                        <>
+                            <BookSummary
+                                book={book}
+                                key={`BookSummary${book.id}`}
+                                currentPage={page}
+                            />
+                        </>
                     )
                 })
+            ) : page === "quoted" ? (
+                <>
+                    {books?.flatMap((book) =>
+                        [
+                            book.review_fav_quote && (
+                                <BookSummary
+                                    book={book}
+                                    key={`BookSummary${book.id}-1`}
+                                    currentPage={page}
+                                />
+                            ),
+                            book.review_fav_quote2 && (
+                                <BookSummary
+                                    book={book}
+                                    key={`BookSummary${book.id}-2`}
+                                    currentPage={page}
+                                    special="quote2"
+                                />
+                            ),
+                        ].filter(Boolean),
+                    )}
+                </>
             ) : (
                 books?.map((book) => {
                     // if (
