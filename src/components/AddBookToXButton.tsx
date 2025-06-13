@@ -78,7 +78,9 @@ const AddBookToXButton = ({
         return (
             <span
                 className="icon-heart inactive"
-                onKeyDown={() => AddBookToXButtonAct()}
+                onKeyDown={(event) => {
+                    if (event.key === "Enter") AddBookToXButtonAct()
+                }}
                 onClick={() => AddBookToXButtonAct()}
             />
         )

@@ -164,7 +164,9 @@ const RemoveBookFromXButton = ({
             <span
                 className="icon-heart active"
                 onClick={() => RemoveBookFromXButtonAct("move")}
-                onKeyDown={() => RemoveBookFromXButtonAct("move")}
+                onKeyDown={(event) => {
+                    if (event.key === "Enter") RemoveBookFromXButtonAct("move")
+                }}
             />
         )
     }

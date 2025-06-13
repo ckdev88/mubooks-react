@@ -133,7 +133,9 @@ const QuickBookSearch = () => {
                             <div
                                 key={resultKey}
                                 className="result"
-                                onKeyDown={checkit}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") checkit()
+                                }}
                                 onClick={checkit}
                             >
                                 <div className="wrapper">
