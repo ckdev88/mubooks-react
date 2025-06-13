@@ -121,12 +121,10 @@
 #nav-icon-profile {
     margin: 0 auto;
     width: 1rem;
-    height: 1rem;
     position: relative;
 }
-#nav-icon-loep,
-.burger {
-    margin-top: 0.25rem;
+#nav-icon-loep {
+    height: 100%;
 }
 
 #nav-icon-profile-path,

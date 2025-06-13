@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../../App"
 import useMyBooksUpdateDb from "../../hooks/useMyBooksUpdateDb"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const newArr: [] = []
 function ClearMyBooks() {
@@ -15,10 +16,6 @@ function ClearMyBooks() {
         clearbooks()
     }
 
-    return (
-        <button type="button" onClick={() => clearbooksyes()}>
-            Clear my books
-        </button>
-    )
+    return <BtnBig bClassName="btn btn-red" bText="Clear all my books" bOnClick={() => clearbooksyes()} />
 }
 export default ClearMyBooks

@@ -4,6 +4,7 @@ import { cleanInput } from "../helpers/cleanInput"
 import useResetUsermail from "../hooks/useResetUsermail"
 import { isLocal } from "../Helpers"
 import { Link } from "react-router-dom"
+import BtnBig from "./ui/buttons/BtnBig"
 
 const SuggestionsForm: React.FC = () => {
     const { userid, usermail } = useContext(AppContext)
@@ -139,9 +140,7 @@ const SuggestionsForm: React.FC = () => {
                                 readOnly={isLoading}
                             />
                         </label>
-                        <button className="btn-lg" type="submit" disabled={isLoading}>
-                            Send {isLoading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bType="submit" bIsLoading={isLoading} bText="Send" />
                     </form>
                 </>
             )}

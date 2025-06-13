@@ -9,17 +9,18 @@ const BtnTextGeneral = ({
     bIsLoading?: boolean
     bClassName?: string
     bIcon?: string
-    bText?: string
+    bText?: string | React.ReactNode
 }) => {
     return (
         <button
             type="button"
-            className={bClassName ? bClassName : "btn-text"}
+            className={"btn-text " + bClassName}
             onClick={bOnClick && bOnClick}
             disabled={bIsLoading}
         >
             {bIcon && <span className={`icon icon-${bIcon}`} />}
             {bText}
+            {bIsLoading && <span className="loader-dots"> </span>}
         </button>
     )
 }

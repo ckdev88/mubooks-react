@@ -2,9 +2,10 @@ import { useContext, useState } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
-import BtnPermToss from "./ui/BtnPermToss"
-import BtnToss from "./ui/BtnToss"
-import BtnTextGeneral from "./ui/BtnTextGeneral"
+import BtnPermToss from "./ui/buttons/BtnPermToss"
+import BtnToss from "./ui/buttons/BtnToss"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
+import fadeout from "../utils/uiMisc"
 
 const mesg = {
     finished_to_reading: "Unfiniseeeeeeeehed, moved to Reading list",
@@ -143,25 +144,10 @@ const RemoveBookFromXButton = ({
         return myBooksNew
     }
 
-    function fadeout(): void {
-        /** Current Page, taken from url */
-        // OPTIMIZE: this same function is used in RemoveBookFromXButton & AddBookToXButton
-        const tcp = window.location.pathname.replace("/", "")
-        if (
-            (tcp === "reading" && targetList !== 2) ||
-            (tcp === "wishlist" && targetList !== 1) ||
-            (tcp === "favorites" && targetList !== 4) ||
-            (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
-            (tcp === "tossed" && targetList > 0)
-        ) {
-            document.getElementById(`bookSummaryTransitioner${book_id}`)?.classList.add("fadeout")
-        }
-    }
-
     async function RemoveBookFromXButtonAct(
         meth: "move" | "toss" | "permtoss" = "move",
     ): Promise<void> {
-        fadeout()
+        fadeout(book_id)
         setIsLoading(true)
         let newArr: Books = []
         if (meth === "move") newArr = RemoveBookFromX(book_id)
@@ -206,7 +192,10 @@ const RemoveBookFromXButton = ({
                     )}
                     {toss === true && (
                         <BtnToss
-                            bOnClick={() => RemoveBookFromXButtonAct("toss")}
+                            bOnClick={() => {
+                                fadeout(book_id)
+                                RemoveBookFromXButtonAct("toss")
+                            }}
                             bIsLoading={isLoading}
                         />
                     )}

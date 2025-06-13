@@ -5,6 +5,7 @@ import { AppContext } from "../../App"
 import HeaderBranding from "../../components/HeaderBranding"
 import Heading from "../../components/ui/Heading"
 import { localStorageKey } from "../../../utils/supabase"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const ResetPasswordPage = () => {
     const { userIsLoggedIn, setPopupNotification, setPopupNotificationShow } =
@@ -104,9 +105,11 @@ const ResetPasswordPage = () => {
                                     required
                                 />
                             </label>
-                            <button type="submit" className="btn-lg" disabled={isLoading}>
-                                Save new password and login
-                            </button>
+                            <BtnBig
+                                bType="submit"
+                                bIsLoading={isLoading}
+                                bText="Save new password and login"
+                            />
                         </form>
                     </main>
                     <footer>

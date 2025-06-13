@@ -2,12 +2,12 @@ import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
 import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
 import { supabase } from "../../utils/supabase"
-import BtnInsideCaret from "./ui/BtnInsideCaret"
+import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import updateTropesDb from "../functions/updateTropesDb"
 import BaseBadge from "./ui/BaseBadge"
-import BtnCancel from "./ui/BtnCancel"
-import BtnAddTrope from "./ui/BtnAddTrope"
+import BtnCancel from "./ui/buttons/BtnCancel"
+import BtnAddTrope from "./ui/buttons/BtnAddTrope"
 
 const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
     const {

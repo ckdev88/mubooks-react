@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
 import Heading from "../ui/Heading"
 import useResetUsermail from "../../hooks/useResetUsermail"
+import BtnBig from "../ui/buttons/BtnBig"
 
 export default function MyAccountCard() {
     const { change } = useCardRotate()
@@ -29,9 +30,7 @@ export default function MyAccountCard() {
                     <dt>Password</dt>
                     <dd>******</dd>
                 </dl>
-                <button type="button" className="btn-lg" onClick={change}>
-                    <span>Change</span>
-                </button>
+                <BtnBig bText={<span>Change</span>} bOnClick={change} />
             </main>
             <footer>
                 <Link className="a-text" to="/dashboard">

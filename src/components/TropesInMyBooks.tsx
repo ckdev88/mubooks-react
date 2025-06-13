@@ -5,6 +5,7 @@ import BooksOverviewPage from "../routes/books/BooksOverviewPage"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import { cleanAnchor } from "../helpers/cleanInput"
 import { Link } from "react-router-dom"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
 const booklist = undefined
 const TropesInMyBooks = ({ page }: { page: Page }) => {
@@ -57,14 +58,13 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
             <div className="h2">
                 Tropes in my Books&nbsp;
                 {tropesArr.length > 0 && (
-                    <button
-                        type="button"
-                        className={
+                    <BtnTextGeneral
+                        bClassName={
                             isShowingTropesInMyBooks
-                                ? "btn-text caret-right-toggle active wauto notext diblock"
-                                : "btn-text caret-right-toggle wauto notext diblock"
+                                ? "caret-right-toggle active wauto notext diblock"
+                                : "caret-right-toggle wauto notext diblock"
                         }
-                        onClick={() => setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)}
+                        bOnClick={() => setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)}
                     />
                 )}
             </div>

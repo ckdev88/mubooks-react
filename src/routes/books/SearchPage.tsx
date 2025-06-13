@@ -3,6 +3,7 @@ import BooksOverviewPage from "./BooksOverviewPage"
 import { getOlCover } from "../../Helpers"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const pageTitle = "Search"
 const currentPage = "search"
@@ -83,9 +84,7 @@ const SearchPage = () => {
                             <div className="description">Term or title</div>
                             <input type="text" id="search_term" />
                         </label>
-                        <button type="submit" className="btn-lg" disabled={loading}>
-                            Search {loading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bType="submit" bIsLoading={loading} bText="Search" />
                     </form>
                     <div>
                         <div

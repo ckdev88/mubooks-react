@@ -4,6 +4,8 @@ import { supabase } from "../../../utils/supabase"
 import { useState, useContext } from "react"
 import { AppContext } from "../../App"
 import Heading from "../ui/Heading"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
 
 const RecoverCard = () => {
     const { setUsermail, userIsLoggedIn } = useContext(AppContext)
@@ -63,16 +65,15 @@ const RecoverCard = () => {
                         <div className={error !== "" ? "dblock error" : "dblock"}>
                             {error}&nbsp;
                         </div>
-                        <button type="submit" disabled={isLoading} className="btn-lg">
-                            Send me a password reset link{" "}
-                            {isLoading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig
+                            bType="submit"
+                            bIsLoading={isLoading}
+                            bText="Send me a password reset link"
+                        />
                     </form>
                 </main>
                 <footer>
-                    <button type="button" onClick={login} className="btn-text">
-                        Back to login
-                    </button>
+                    <BtnTextGeneral bOnClick={login} bText="Back to login" />
                 </footer>
             </article>
         </>

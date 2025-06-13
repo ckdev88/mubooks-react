@@ -13,18 +13,17 @@ const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: st
     if (page === "reading") {
         book_list = 2
         btnIconAdd = "img/plus-icon.svg"
-    } else if (page === "wishlist") {
-        book_list = 1
-    } else if (page === "favorites") book_list = 4
+    } else if (page === "wishlist") book_list = 1
+    else if (page === "favorites") book_list = 4
     else if (page === "finished") book_list = 3
-    else if (page === "savedbooks") {
-        btnIconAdd = "img/save-books-icon.png"
-    }
+    else if (page === "savedbooks") btnIconAdd = "img/save-books-icon.png"
 
-    let hasbooks = false
     let booksarr = userMyBooks.filter((book: Book) => book.list === book_list)
     if (page === "savedbooks") booksarr = userMyBooks
+
+    let hasbooks: boolean
     if (booksarr.length > 0) hasbooks = true
+    else hasbooks = false
 
     return (
         <>

@@ -3,6 +3,8 @@ import { AppContext } from "../../App"
 import { useContext } from "react"
 import { supabase } from "../../../utils/supabase"
 import Heading from "../ui/Heading"
+import BtnBig from "../ui/buttons/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 
 export default function MyAccountEditCard() {
     const { see } = useCardRotate()
@@ -94,15 +96,11 @@ export default function MyAccountEditCard() {
                                 autoComplete="new-password"
                             />
                         </label>
-                        <button type="submit" className="btn-lg">
-                            Save and return
-                        </button>
+                        <BtnBig bType="submit" bText="Save and return" />
                     </form>
                 </main>
                 <footer>
-                    <button type="button" className="btn-text" onClick={see}>
-                        Return without saving
-                    </button>
+                    <BtnTextGeneral bOnClick={see} bText="Return without saving" />
                 </footer>
             </div>
         </>

@@ -1,4 +1,4 @@
-// TODO handle styling via css modules and/or  of styled components
+// TODO handle styling via css modules and/or of styled components
 /**
  * Cancel button component: default/fallback param values
  * ------------------------------------------------------
