@@ -38,7 +38,7 @@ const BooksOverviewPage = ({
     // if (page === "tossed") booklistStart = userMyBooks.filter((book: Book) => book.tossed === true)
     // if (page === "finished") {
     //     // OPTIMIZE this looks like garbage
-    //     booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+    booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
     //     books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
     // }
     if (page === "tropes") books = tropesInMyBooksArr
@@ -57,16 +57,20 @@ const BooksOverviewPage = ({
         if (books !== undefined && books.length > 0) {
             // this is the default, should always work with pages
             // just not with WISHLIST & FAVOURITES
-            bookstmp = books
+            bookstmp = booksList
+            console.log("get finished books (BOOKSOVERVIEWPAGE)", bookstmp)
         } else if (booklist) {
-            if (booklist === 3)
+            console.log("booooooooooooooklist")
+            if (booklist === 3) {
+                console.log("33333333333333333")
                 bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
-            else {
+            } else {
                 if (page === "tossed") bookstmp = userMyBooks.filter((book) => book.tossed === true)
                 else bookstmp = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
             }
 
             if (booklist === 3 || booklist === 4) {
+                console.log('soooooooooooooorting');
                 bookstmp.sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
             }
         }
@@ -132,7 +136,7 @@ const BooksOverviewPage = ({
             )}
             {page === "search" ? (
                 <>
-                    {books?.map((book) => {
+                    {booksList?.map((book) => {
                         userMyBooks.find((savedbook) => {
                             if (savedbook.id === book.id) {
                                 book.list = savedbook.list
@@ -164,18 +168,9 @@ const BooksOverviewPage = ({
             ) : page === "quoted" ? (
                 <BooksOverviewPageQuoted books={booksList} page={page} />
             ) : (
-                books?.map((book) => {
-                    // if (
-                    //     book.list === booklist ||
-                    //     page === "tropes" ||
-                    //     booklist === undefined ||
-                    //     (booklist === 3 && book.list === 4)
-                    // ) {
-                    return (
-                        <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
-                    )
-                    // }
-                })
+                booksList?.map((book) => (
+                    <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                ))
             )}
         </>
     )

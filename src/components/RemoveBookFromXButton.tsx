@@ -6,6 +6,7 @@ import BtnPermToss from "./ui/buttons/BtnPermToss"
 import BtnToss from "./ui/buttons/BtnToss"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import fadeout from "../utils/uiMisc"
+import BtnHeart from "./ui/buttons/BtnHeart"
 
 const mesg = {
     finished_to_reading: "Unfiniseeeeeeeehed, moved to Reading list",
@@ -72,6 +73,7 @@ const RemoveBookFromXButton = ({
                 }
         } else if (book_list === 4 && icon) {
             // Remove from FAVORITES & unmark favorited in SAVED page, using heart icon
+            console.log("unfavoritiing")
             for (let i = 0; i < myBooks.length; i++)
                 if (myBooks[i].id === book_id) {
                     myBooks[i].list = 3
@@ -117,6 +119,20 @@ const RemoveBookFromXButton = ({
         return myBooksNew
     }
 
+    function UnfavBook(book_id: Book["id"]): Books {
+        const myBooks: Books = userMyBooks
+        for (let i = 0; i < myBooks.length; i++) {
+            if (myBooks[i].id === book_id) {
+                myBooks[i].list = 3
+                break
+            }
+        }
+        const myBooksNew: Books = myBooks
+        console.log("unfaving books")
+        setUserMyBooks(myBooksNew)
+        return myBooksNew
+    }
+
     function TossBook(book_id: Book["id"]): Books {
         const myBooks: Books = userMyBooks
         for (let i = 0; i < myBooks.length; i++) {
@@ -144,31 +160,27 @@ const RemoveBookFromXButton = ({
         return myBooksNew
     }
 
-    async function RemoveBookFromXButtonAct(
-        meth: "move" | "toss" | "permtoss" = "move",
-    ): Promise<void> {
+    function RemoveBookFromXButtonAct(
+        meth: "move" | "toss" | "permtoss" | "unfav" = "move",
+    ) {
         fadeout(book_id)
         setIsLoading(true)
         let newArr: Books = []
-        if (meth === "move") newArr = RemoveBookFromX(book_id)
         if (meth === "toss") newArr = TossBook(book_id)
-        if (meth === "permtoss") newArr = TossBookPerm(book_id)
-        setUserMyBooks(newArray)
+        else if (meth === "permtoss") newArr = TossBookPerm(book_id)
+        else if (meth === "unfav") newArr = UnfavBook(book_id)
+        else newArr = RemoveBookFromX(book_id) // if (meth === "move")
         setNewArray(newArr)
-        await updateMyBooksDb()
+        setUserMyBooks(newArr)
+        updateMyBooksDb()
         setIsLoading(false)
+    }
+    const triggerFnUnfav = () => {
+        RemoveBookFromXButtonAct("unfav")
     }
 
     if (icon && targetList === 4 && !permtoss === true) {
-        return (
-            <span
-                className="icon-heart active"
-                onClick={() => RemoveBookFromXButtonAct("move")}
-                onKeyDown={(event) => {
-                    if (event.key === "Enter") RemoveBookFromXButtonAct("move")
-                }}
-            />
-        )
+        return <BtnHeart fn={triggerFnUnfav} faved={true} />
     }
 
     return (

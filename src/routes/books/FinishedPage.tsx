@@ -22,6 +22,7 @@ const FinishedPage = () => {
         pageTitleSubText = books.length + ". " + pageTitleSub
     } else hasbooks = false
 
+        console.log('books (FINISHEDPAGE):',books)
     return (
         <motion.div
             initial={{ opacity: 0 }}
