@@ -1,7 +1,7 @@
 import BooksOverviewPage from "./BooksOverviewPage"
 import { Link } from "react-router-dom"
 import Heading from "../../components/ui/Heading"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../../App"
 import { motion } from "motion/react"
 
@@ -13,9 +13,17 @@ const booklist = 3
 
 const FinishedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    const books = userMyBooks.filter(
-        (book) => (book.list === booklist || book.list === 4) && !book.tossed,
+    const [books, setBooks] = useState<Books>(
+        userMyBooks.filter((book) => (book.list === booklist || book.list === 4) && !book.tossed),
     )
+
+    useEffect(() => {
+        setBooks(
+            userMyBooks.filter(
+                (book) => (book.list === booklist || book.list === 4) && !book.tossed,
+            ),
+        )
+    }, [userMyBooks])
     let hasbooks: boolean
     if (books.length > 0) {
         hasbooks = true
