@@ -71,14 +71,6 @@
     min-width: 9rem;
 }
 
-.book-summary .article-main .icon-heart {
-    position: absolute;
-    top: 0;
-    right: 1px;
-    color: red;
-    margin-top: 0.375em;
-}
-
 .deck .book-summary .article-main {
     max-width: calc(100vw - 10.5rem);
 }

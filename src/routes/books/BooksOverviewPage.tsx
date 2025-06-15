@@ -3,6 +3,7 @@ import BookSummary from "../../components/BookSummary"
 import { AppContext } from "../../App"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
+import BooksOverviewPageQuoted from "../../components/BooksOverviewPageQuoted"
 
 /** Array of pages which should have a search field to filter the list */
 const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
@@ -161,27 +162,7 @@ const BooksOverviewPage = ({
                     )
                 })
             ) : page === "quoted" ? (
-                <>
-                    {books?.flatMap((book) =>
-                        [
-                            book.review_fav_quote && (
-                                <BookSummary
-                                    book={book}
-                                    key={`BookSummary${book.id}-1`}
-                                    currentPage={page}
-                                />
-                            ),
-                            book.review_fav_quote2 && (
-                                <BookSummary
-                                    book={book}
-                                    key={`BookSummary${book.id}-2`}
-                                    currentPage={page}
-                                    special="quote2"
-                                />
-                            ),
-                        ].filter(Boolean),
-                    )}
-                </>
+                <BooksOverviewPageQuoted books={booksList} page={page} />
             ) : (
                 books?.map((book) => {
                     // if (

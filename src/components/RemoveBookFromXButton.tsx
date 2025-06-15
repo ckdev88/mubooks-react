@@ -6,6 +6,7 @@ import BtnPermToss from "./ui/buttons/BtnPermToss"
 import BtnToss from "./ui/buttons/BtnToss"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import fadeout from "../utils/uiMisc"
+import BtnHeart from "./ui/buttons/BtnHeart"
 
 const mesg = {
     finished_to_reading: "Unfiniseeeeeeeehed, moved to Reading list",
@@ -144,29 +145,22 @@ const RemoveBookFromXButton = ({
         return myBooksNew
     }
 
-    async function RemoveBookFromXButtonAct(
-        meth: "move" | "toss" | "permtoss" = "move",
-    ): Promise<void> {
-        fadeout(book_id)
+    const RemoveBookFromXButtonAct = (meth?: "move" | "toss" | "permtoss") => {
         setIsLoading(true)
+        let method = meth
+        if (meth === undefined) method = "move"
         let newArr: Books = []
-        if (meth === "move") newArr = RemoveBookFromX(book_id)
-        if (meth === "toss") newArr = TossBook(book_id)
-        if (meth === "permtoss") newArr = TossBookPerm(book_id)
+        if (method === "move") newArr = RemoveBookFromX(book_id)
+        else if (method === "toss") newArr = TossBook(book_id)
+        else if (method === "permtoss") newArr = TossBookPerm(book_id)
         setUserMyBooks(newArray)
         setNewArray(newArr)
-        await updateMyBooksDb()
+        updateMyBooksDb()
         setIsLoading(false)
     }
 
     if (icon && targetList === 4 && !permtoss === true) {
-        return (
-            <span
-                className="icon-heart active"
-                onClick={() => RemoveBookFromXButtonAct("move")}
-                onKeyDown={() => RemoveBookFromXButtonAct("move")}
-            />
-        )
+        return <BtnHeart fn={() => RemoveBookFromXButtonAct()} faved={true} />
     }
 
     return (

@@ -327,7 +327,9 @@ const AddBookPage = () => {
                                     <span
                                         className="btn-text-cancel btn-text sf2 mt-075 mb05"
                                         onClick={resetFile}
-                                        onKeyDown={resetFile}
+                                        onKeyDown={(event) => {
+                                            if (event.key === "Enter") resetFile
+                                        }}
                                     >
                                         cancel
                                     </span>
@@ -354,7 +356,9 @@ const AddBookPage = () => {
                             <span
                                 className="btn-text-cancel btn-text sf2 mb05"
                                 onClick={resetFile}
-                                onKeyDown={resetFile}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") resetFile
+                                }}
                             >
                                 cancel
                             </span>

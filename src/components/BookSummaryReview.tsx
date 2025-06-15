@@ -40,7 +40,9 @@ const BookSummaryReview = ({
                     <>
                         {reviewText && (
                             <div
-                                onKeyDown={() => setIsModding(true)}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") setIsModding(true)
+                                }}
                                 onClick={() => setIsModding(true)}
                                 className="pb05"
                             >
