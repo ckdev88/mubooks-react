@@ -2,6 +2,7 @@ import getListName from "../functions/getListName"
 import useMyBooksAdd from "../hooks/useMyBooksAdd"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import fadeout from "../utils/uiMisc"
+import BtnHeart from "./ui/buttons/BtnHeart"
 
 const AddBookToXButton = ({
     book_id,
@@ -74,16 +75,7 @@ const AddBookToXButton = ({
 
     const iconClassName = "icon icon-" + getListName(targetList)
 
-    if (icon && targetList === 4)
-        return (
-            <span
-                className="icon-heart inactive"
-                onKeyDown={(event) => {
-                    if (event.key === "Enter") AddBookToXButtonAct()
-                }}
-                onClick={() => AddBookToXButtonAct()}
-            />
-        )
+    if (icon && targetList === 4) return <BtnHeart fn={AddBookToXButtonAct} faved={false} />
 
     return (
         <div className="mark">

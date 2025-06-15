@@ -482,7 +482,7 @@ input[type="number"] + .btn-submit-inside-caret-right {
     height: 16px;
     display: inline-block;
     color: transparent;
-    background-color: #ccc;
+    background-color: var(--text-primary-dimmed);
     mask-size: cover;
     transition: background-color 0.18s ease-in-out;
 }
@@ -504,48 +504,130 @@ input[type="number"] + .btn-submit-inside-caret-right {
 .btn-icon .icon-spice.active {
     background-color: #c90000;
 }
-.icon-heart {
-    font-size: 1.25rem;
+
+button.icon-heart {
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:hover {
+        background: none;
+    }
+}
+
+button.icon-heart {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    background: none;
+    border: 0;
+    border: none;
     cursor: pointer;
-    transform: rotate(45deg);
-    margin-right: 0.3125rem;
-}
-.icon-heart,
-.icon-heart::before,
-.icon-heart::after {
-    width: 0.625rem;
-    height: 0.625rem;
     position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.inactive {
+        opacity: 0.25;
+        animation: icon-heart-popin .4s linear;
+    }
+    &.active {
+        opacity: 1;
+        animation: icon-heart-popup .4s linear;
+    }
+    .inside {
+        content: "";
+        text-indent: -10rem;
+        transform: rotate(45deg);
+        &::before,
+        &::after {
+            border-radius: 50%;
+            position: absolute;
+        }
+        &::before {
+            top: -0.4rem;
+            left: 0;
+        }
+        &::after {
+            top: 0;
+            left: -.4rem;
+        }
+    }
+}
+button.icon-heart.active {
+    background: none;
+}
+button.icon-heart .inside,
+button.icon-heart .inside::before,
+button.icon-heart .inside::after {
     content: "";
-    display: block;
-    background-color: #ccc;
-    transition: background ease-in-out 0.3s;
+    height: .8rem;
+    width: .8rem;
 }
-.icon-heart::before {
-    margin-left: -0.25em;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
+button.icon-heart .inside::before,
+button.icon-heart .inside::after {
+    position: absolute;
 }
-.icon-heart::after {
-    margin-right: -0.25em;
-    margin-top: -0.25em;
-    border-top-right-radius: 50%;
-    border-top-left-radius: 50%;
+button.icon-heart.inactive .inside,
+button.icon-heart.inactive .inside::before,
+button.icon-heart.inactive .inside::after {
+    animation: icon-heart-popin-inside .4s ease-in-out;
+    background-color: var(--text-primary-dimmed);
 }
-.icon-heart.active {
-    animation: icon-heart-popup 0.3s linear;
+
+button.icon-heart.active .inside,
+button.icon-heart.active .inside::before,
+button.icon-heart.active .inside::after {
+    animation: icon-heart-popup-inside .4s ease-in-out;
+    background-color: var(--red);
 }
-.icon-heart.active,
-.icon-heart.active::before,
-.icon-heart.active::after {
-    background-color: red;
-}
+
 @keyframes icon-heart-popup {
+    0% {
+        transform: scale(1);
+        opacity: 0.25;
+    }
     50% {
-        transform: rotate(45deg) scale(1.3);
+        transform: scale(1.3);
+        opacity: 1;
     }
     100% {
-        transform: rotate(45deg) scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes icon-heart-popup-inside {
+    0% {
+        background-color: var(--text-primary-dimmed);
+    }
+    100% {
+        background-color: var(--red);
+    }
+}
+
+@keyframes icon-heart-popin {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.7);
+        opacity: 0.25;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.25;
+    }
+}
+@keyframes icon-heart-popin-inside {
+    0% {
+        background-color: var(--red);
+    }
+    100% {
+        background-color: var(--text-primary-dimmed);
     }
 }
 
