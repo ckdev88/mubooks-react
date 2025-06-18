@@ -14,6 +14,7 @@ const useMyBooksAdd = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     async function MyBooksUpdate(myBooksNew: Books) {
+        setPopupNotification("optimist")
         let msg: string = book.title_short + " moved to " + getListName(targetList)
         setUserMyBooks(myBooksNew)
         const { error } = await supabase
