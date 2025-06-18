@@ -516,6 +516,7 @@ button.icon-heart {
 
 button.icon-heart {
     -webkit-tap-highlight-color: transparent;
+    /* biome-ignore lint/correctness/noUnknownProperty: <awaiting w3c approval> */
     tap-highlight-color: transparent;
     background: none;
     border: 0;

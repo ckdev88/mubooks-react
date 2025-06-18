@@ -24,7 +24,7 @@ const AddToRemoveFromX = ({
     // OPTIMIZE make button props way more generic to implement, only pass loads of params if book would be new
     if (limit > 0) {
         if (limit === 4 && book.list > 2) {
-            // favorited book, on list 3 or 4
+            // favorited book (heart icon), on list 3 or 4
             return (
                 <>
                     {book.list === limit ? (

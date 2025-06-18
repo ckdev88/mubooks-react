@@ -75,21 +75,21 @@ const App = () => {
      */
 
     // add persistency to userMyBooks state throughout page refreshes
-    const persistentMyBooks = async () => {
+    const persistMyBooks = async () => {
         let booksArr: Books
         const res = await supabase.from("user_entries").select("json")
         if (res.data) {
             setInitialMyBooksSet(true)
             booksArr = res.data[0].json
             setUserMyBooks(booksArr)
-            return booksArr
+            return
         }
     }
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: TODO uselayouteffect or use hook
     useEffect(() => {
         if (userIsLoggedIn === true && userMyBooks.length < 1) {
-            persistentMyBooks()
+            persistMyBooks()
         }
     }, [userIsLoggedIn, initialMyBooksSet, userMyBooks.length])
     // /add persistency to userMyBooks state throughout page refreshes
