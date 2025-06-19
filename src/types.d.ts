@@ -56,6 +56,7 @@ interface TropesPageContextType {
 interface BooksOverviewFilterContextType {
     booksFilter: string
     setBooksFilter(booksFilter: booksFilter): void
+    booksList: Books
 }
 
 type PageWithoutParameters =

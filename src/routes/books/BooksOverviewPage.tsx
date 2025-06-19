@@ -4,6 +4,7 @@ import { AppContext } from "../../App"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
 import BooksOverviewPageQuoted from "../../components/BooksOverviewPageQuoted"
+import BooksOverviewFilterResultsMessage from "../../components/BooksOverviewFilterResultsMessage"
 
 /** Array of pages which should have a search field to filter the list */
 const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
@@ -108,24 +109,10 @@ const BooksOverviewPage = ({
                 <div>
                     {hasfilter && (
                         <BooksOverviewFilterContext.Provider
-                            value={{ setBooksFilter, booksFilter }}
+                            value={{ setBooksFilter, booksFilter, booksList }}
                         >
                             <BooksOverviewFilterSort />
-                            <div className="h2 resultsfound mt0i">
-                                {booksFilter.length > 0 && booksList.length > 0 ? (
-                                    <>
-                                        {booksList.length} book
-                                        {booksList.length !== 1 && "s"} found for{" "}
-                                        <em>"{booksFilter}"</em>
-                                    </>
-                                ) : booksFilter.length > 0 && booksList.length === 0 ? (
-                                    <>
-                                        No books found for <em>"{booksFilter}"</em>
-                                    </>
-                                ) : (
-                                    <></>
-                                )}
-                            </div>
+                            <BooksOverviewFilterResultsMessage />
                         </BooksOverviewFilterContext.Provider>
                     )}
                 </div>
