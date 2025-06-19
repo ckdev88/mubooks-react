@@ -19,7 +19,7 @@ const AddToRemoveFromX = ({
     limit: 0 | 1 | 2 | 3 | 4
 }) => {
     // limit 01234, 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favorited)
-    const [showHiddenMarks, setShowHiddenMarks] = useState<boolean>(false)
+    const [showHiddenMarks, setShowHiddenMarks] = useState<boolean>(currentPage === "tossed")
 
     // OPTIMIZE make button props way more generic to implement, only pass loads of params if book would be new
     if (limit > 0) {
