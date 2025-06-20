@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
 import { debounce, openCalendarPopUp } from "../Helpers"
 import { AppContext } from "../App"
-import { supabase } from "../../utils/supabase"
 import { convertDate } from "../helpers/convertDate"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
+import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
 
 const BookStartedFinished = ({
     date_started,
@@ -23,6 +23,14 @@ const BookStartedFinished = ({
     const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
     const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
 
+    const [newArray, setNewArray] = useState<Books>(userMyBooks)
+    const msg = "Book starting / finished date changed"
+    const updateMyBooksDb = useMyBooksUpdateDb({
+        myBooksNew: newArray,
+        book_id: null,
+        msg,
+    })
+
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
         if (date_finished === 0) {
@@ -41,20 +49,6 @@ const BookStartedFinished = ({
         dateFinished,
     ])
 
-    async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string
-        setUserMyBooks(myBooksNew)
-        const { error } = await supabase
-            .from("user_entries")
-            .update({ json: myBooksNew })
-            .eq("user_id", userid)
-            .select()
-        if (error) {
-            msg = "Error, date was not changed"
-            console.log("error:", error)
-        } else msg = "Changed the date."
-        setPopupNotification(msg)
-    }
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
         if (fieldName !== "date_reading" && fieldName !== "date_finished"){
             console.warn('changeDates: Wrong fieldName given')
@@ -90,8 +84,13 @@ const BookStartedFinished = ({
                 }
             }
         }
-        const myBooksNew = myBooks
-        MyBooksUpdate(myBooksNew)
+        setNewArray(myBooks)
+        updateMyBooks(myBooks)
+    }
+
+    function updateMyBooks(arr: Books) {
+        setUserMyBooks(arr)
+        updateMyBooksDb()
     }
 
     function modifyDateReading(field: "date_reading" | "date_finished") {

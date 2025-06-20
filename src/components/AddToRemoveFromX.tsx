@@ -162,31 +162,30 @@ const AddToRemoveFromX = ({
                     />
                 )}
 
-                {currentPage !== "tossed" &&
-                    (book.list === 3 || (currentPage === "search" && book.list !== 4)) && (
-                        <AddBookToXButton
-                            book_id={book.id}
-                            book_list={book.list}
-                            book_title={book.title}
-                            book_title_short={book.title_short}
-                            book_author_key={book.author_key}
-                            book_author_name={book.author_name}
-                            book_cover={book.cover}
-                            book_cover_edition_key={book.cover_edition_key}
-                            book_first_publish_year={book.first_publish_year}
-                            book_img={book.img}
-                            book_number_of_pages_median={book.number_of_pages_median}
-                            targetList={4}
-                            icon={true}
-                            button_title="Mark as favorite"
-                            book_rate_stars={book.rate_stars}
-                            book_rate_spice={book.rate_spice}
-                            book_review_fav_quote={book.review_fav_quote}
-                            book_review_fav_quote2={book.review_fav_quote2}
-                            book_review_tropes={book.review_tropes}
-                            tossed={book.tossed === true}
-                        />
-                    )}
+                {currentPage !== "tossed" && book.list === 3 && (
+                    <AddBookToXButton
+                        book_id={book.id}
+                        book_list={book.list}
+                        book_title={book.title}
+                        book_title_short={book.title_short}
+                        book_author_key={book.author_key}
+                        book_author_name={book.author_name}
+                        book_cover={book.cover}
+                        book_cover_edition_key={book.cover_edition_key}
+                        book_first_publish_year={book.first_publish_year}
+                        book_img={book.img}
+                        book_number_of_pages_median={book.number_of_pages_median}
+                        targetList={4}
+                        icon={true}
+                        button_title="Mark as favorite"
+                        book_rate_stars={book.rate_stars}
+                        book_rate_spice={book.rate_spice}
+                        book_review_fav_quote={book.review_fav_quote}
+                        book_review_fav_quote2={book.review_fav_quote2}
+                        book_review_tropes={book.review_tropes}
+                        tossed={book.tossed === true}
+                    />
+                )}
 
                 {currentPage !== "dashboard" && currentPage !== "search" && (
                     <button
@@ -230,7 +229,7 @@ const AddToRemoveFromX = ({
                         <RemoveBookFromXButton
                             book_id={book.id}
                             book_list={book.list}
-                            targetList={4}
+                            targetList={0}
                             icon={true}
                             permtoss={true}
                         />
