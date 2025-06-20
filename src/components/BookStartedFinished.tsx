@@ -16,8 +16,7 @@ const BookStartedFinished = ({
     book_id: Book["id"]
     list: Book["list"]
 }) => {
-    const { userMyBooks, setUserMyBooks, setPopupNotification, userid, todaysDateInput } =
-        useContext(AppContext)
+    const { userMyBooks, setUserMyBooks, todaysDateInput } = useContext(AppContext)
     const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
     const [dateFinished, setDateFinished] = useState<Book["date_finished"]>(date_finished)
     const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
@@ -50,13 +49,14 @@ const BookStartedFinished = ({
     ])
 
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
-        if (fieldName !== "date_reading" && fieldName !== "date_finished"){
-            console.warn('changeDates: Wrong fieldName given')
+        if (fieldName !== "date_reading" && fieldName !== "date_finished") {
+            console.warn("changeDates: Wrong fieldName given")
             return
         }
 
         if (fieldName === "date_reading") setDateStarted(fieldVal)
-        else { // fieldName === "date_finished"
+        else {
+            // fieldName === "date_finished"
             if (Number.isNaN(fieldVal)) {
                 setDateFinished(undefined)
                 list = 2
