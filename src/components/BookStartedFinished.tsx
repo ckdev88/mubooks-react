@@ -55,10 +55,14 @@ const BookStartedFinished = ({
         } else msg = "Changed the date."
         setPopupNotification(msg)
     }
+    function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
+        if (fieldName !== "date_reading" && fieldName !== "date_finished"){
+            console.warn('changeDates: Wrong fieldName given')
+            return
+        }
 
-    function changeDates(fieldName: string, fieldVal: number) {
         if (fieldName === "date_reading") setDateStarted(fieldVal)
-        else if (fieldName === "date_finished") {
+        else { // fieldName === "date_finished"
             if (Number.isNaN(fieldVal)) {
                 setDateFinished(undefined)
                 list = 2
@@ -92,10 +96,9 @@ const BookStartedFinished = ({
 
     function modifyDateReading(field: "date_reading" | "date_finished") {
         if (document.getElementById(field + book_id) === null) return
-        const inputfield: string = field + book_id
-        const newDateArr = (document.getElementById(inputfield) as HTMLInputElement).value.split(
-            "-",
-        )
+        const newDateArr = (
+            document.getElementById(field + book_id) as HTMLInputElement
+        ).value.split("-")
         const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
         changeDates(field, newDate)
     }

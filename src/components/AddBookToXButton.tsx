@@ -81,6 +81,7 @@ const AddBookToXButton = ({
         <div className="mark">
             <BtnTextGeneral
                 bOnClick={() => {
+                    // TODO: fadeout animation is a bit meh
                     fadeout(book.id)
                     AddBookToXButtonAct()
                 }}
