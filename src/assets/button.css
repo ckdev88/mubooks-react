@@ -412,97 +412,104 @@ input[type="number"] + .btn-submit-inside-caret-right {
     background-color: white;
     color: red;
 }
+.btn-text,
+.btn-icon {
+    .icon {
+        display: block;
+        clear: both;
+        line-height: 1em;
+        height: 1.3rem;
+        width: 1em;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        text-align: center;
+    }
+}
 .btn-text {
     display: flex;
     width: auto;
+    &:hover {
+        background: none;
+    }
+    .icon {
+        margin-right: 0.35em;
+    }
+    .icon-reading {
+        background-image: var(--icon-reading);
+    }
+    .icon-wishlist {
+        background-image: var(--icon-wishlist);
+    }
+    .icon-finished {
+        background-image: var(--icon-finished);
+    }
+    .icon-favorite {
+        background-image: var(--icon-favorite);
+    }
+    .icon-remove {
+        background-image: var(--icon-remove);
+    }
 }
-.btn-text .icon,
-.btn-icon .icon {
-    display: block;
-    clear: both;
-    line-height: 1em;
-    height: 1.3rem;
-    width: 1em;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    text-align: center;
+
+.btn-icon {
+    .icon-eraser,
+    .icon-pencil {
+        opacity: 0.2;
+        transition: opacity 0.18s ease-in-out;
+    }
+    .icon-eraser {
+        background-image: var(--icon-eraser);
+        width: 16px;
+    }
+    .icon-pencil {
+        background-image: var(--icon-pencil);
+        width: 12px;
+        height: 12px;
+    }
+    &:hover {
+        .icon-pencil,
+        .icon-eraser {
+            opacity: 1;
+        }
+    }
+    .icon-star,
+    .icon-spice {
+        font-weight: normal;
+        background: transparent;
+        background-size: cover;
+        mask-border: 1px solid black;
+        mask-border-width: 1px;
+        mask-border-outset: -1px;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        color: transparent;
+        background-color: var(--icon-faded-bg);
+        mask-size: cover;
+        transition: background-color 0.18s ease-in-out;
+        &:hover {
+            background-color: #555;
+        }
+    }
+    .icon-spice {
+        --svg-icon: url('data:image/svg+xml,\ <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">\ <path d="M330.67 263.12V173.4l-52.75-24.22C219.44 218.76 197.58 400 56 400a56 56 0 0 0 0 112c212.64 0 370.65-122.87 419.18-210.34l-37.05-38.54zm131.09-128.37C493.92 74.91 477.18 26.48 458.62 3a8 8 0 0 0-11.93-.59l-22.9 23a8.06 8.06 0 0 0-.89 10.23c6.86 10.36 17.05 35.1-1.4 72.32A142.85 142.85 0 0 0 364.34 96c-28 0-54 8.54-76.34 22.59l74.67 34.29v78.24h89.09L506.44 288c3.26-12.62 5.56-25.63 5.56-39.31a154 154 0 0 0-50.24-113.94z"/>\ </svg>');
+        mask-image: var(--svg-icon);
+        &.active {
+            background-color: #c90000;
+        }
+    }
+    .icon-star {
+        --svg-icon: url("/img/icon-star.svg");
+        mask-image: var(--svg-icon);
+        &.active {
+            background-color: gold;
+        }
+    }
 }
-.btn-text:hover {
-    background: none;
-}
-.btn-text .icon {
-    margin-right: 0.35em;
-}
-.btn-text .icon-reading {
-    background-image: var(--icon-reading);
-}
-.btn-text .icon-wishlist {
-    background-image: var(--icon-wishlist);
-}
-.btn-text .icon-finished {
-    background-image: var(--icon-finished);
-}
-.btn-text .icon-favorite {
-    background-image: var(--icon-favorite);
-}
-.btn-text .icon-remove {
-    background-image: var(--icon-remove);
-}
-.btn-icon .icon-eraser,
-.btn-icon .icon-pencil {
-    opacity: 0.2;
-    transition: opacity 0.18s ease-in-out;
-}
-.btn-icon:hover .icon-pencil,
-.btn-icon:hover .icon-eraser {
-    opacity: 1;
-}
-.btn-icon .icon-eraser {
-    background-image: var(--icon-eraser);
-    width: 16px;
-}
-.btn-icon .icon-pencil {
-    background-image: var(--icon-pencil);
-    width: 12px;
-    height: 12px;
-}
+
 .reviews > div > button:first-child {
     margin-right: 0.5rem;
-}
-.btn-icon .icon-star,
-.btn-icon .icon-spice {
-    font-weight: normal;
-    background: transparent;
-    background-size: cover;
-    mask-border: 1px solid black;
-    mask-border-width: 1px;
-    mask-border-outset: -1px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    color: transparent;
-    background-color: var(--text-primary-dimmed);
-    mask-size: cover;
-    transition: background-color 0.18s ease-in-out;
-}
-.btn-icon .icon-spice {
-    --svg-icon: url('data:image/svg+xml,\ <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">\ <path d="M330.67 263.12V173.4l-52.75-24.22C219.44 218.76 197.58 400 56 400a56 56 0 0 0 0 112c212.64 0 370.65-122.87 419.18-210.34l-37.05-38.54zm131.09-128.37C493.92 74.91 477.18 26.48 458.62 3a8 8 0 0 0-11.93-.59l-22.9 23a8.06 8.06 0 0 0-.89 10.23c6.86 10.36 17.05 35.1-1.4 72.32A142.85 142.85 0 0 0 364.34 96c-28 0-54 8.54-76.34 22.59l74.67 34.29v78.24h89.09L506.44 288c3.26-12.62 5.56-25.63 5.56-39.31a154 154 0 0 0-50.24-113.94z"/>\ </svg>');
-    mask-image: var(--svg-icon);
-}
-.btn-icon .icon-star {
-    --svg-icon: url("/img/icon-star.svg");
-    mask-image: var(--svg-icon);
-}
-.btn-icon .icon-star:hover,
-.btn-icon .icon-spice:hover {
-    background-color: #555;
-}
-.btn-icon .icon-star.active {
-    background-color: gold;
-}
-.btn-icon .icon-spice.active {
-    background-color: #c90000;
 }
 
 button.icon-heart {
