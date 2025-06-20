@@ -56,9 +56,7 @@ const BooksOverviewPage = ({
     useLayoutEffect(() => {
         let bookstmp: Books = []
         if (books !== undefined && books.length > 0) {
-            // this is the default, should always work with pages
-            // just not with WISHLIST & FAVOURITES
-            bookstmp = books
+            bookstmp = books // this is the default, should always work with pages
         } else if (booklist) {
             if (booklist === 3)
                 bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)

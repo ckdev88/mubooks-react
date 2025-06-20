@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { AppContext } from "../App"
 import { supabase } from "../../utils/supabase"
 
+/** Updates database json, returns either error message or msg prop */
 export default async function useUpdateDb({
     msg,
     logMsg,

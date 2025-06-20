@@ -145,7 +145,7 @@ const RemoveBookFromXButton = ({
         return myBooksNew
     }
 
-    const RemoveBookFromXButtonAct = (meth?: "move" | "toss" | "permtoss") => {
+    const RemoveBookFromXButtonInit = (meth?: "move" | "toss" | "permtoss") => {
         setIsLoading(true)
         let method = meth
         if (meth === undefined) method = "move"
@@ -153,28 +153,28 @@ const RemoveBookFromXButton = ({
         if (method === "move") newArr = RemoveBookFromX(book_id)
         else if (method === "toss") newArr = TossBook(book_id)
         else if (method === "permtoss") newArr = TossBookPerm(book_id)
-        setUserMyBooks(newArray)
-        setNewArray(newArr)
-        updateMyBooksDb()
+        setUserMyBooks(newArray) // TODO this is to respect order, but might cause one too much re-renders
+        setNewArray(newArr) // update array to handle in hook updateMyBooksDb
+        updateMyBooksDb() // trigger hook
         setIsLoading(false)
     }
 
     if (icon && targetList === 4 && !permtoss === true) {
-        return <BtnHeart fn={() => RemoveBookFromXButtonAct()} faved={true} />
+        return <BtnHeart fn={() => RemoveBookFromXButtonInit()} faved={true} />
     }
 
     return (
         <div className="mark">
             {permtoss === true ? (
                 <BtnPermToss
-                    bOnClick={() => RemoveBookFromXButtonAct("permtoss")}
+                    bOnClick={() => RemoveBookFromXButtonInit("permtoss")}
                     bIsLoading={isLoading}
                 />
             ) : (
                 <>
                     {book_list > 1 && !toss === true && (
                         <BtnTextGeneral
-                            bOnClick={() => RemoveBookFromXButtonAct("move")}
+                            bOnClick={() => RemoveBookFromXButtonInit("move")}
                             bIsLoading={isLoading}
                             bIcon={getListName(book_list - 1)}
                             bText={
@@ -188,7 +188,7 @@ const RemoveBookFromXButton = ({
                         <BtnToss
                             bOnClick={() => {
                                 fadeout(book_id)
-                                RemoveBookFromXButtonAct("toss")
+                                RemoveBookFromXButtonInit("toss")
                             }}
                             bIsLoading={isLoading}
                         />
