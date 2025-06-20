@@ -15,8 +15,8 @@ const useMyBooksAdd = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const updateMyBooksDb = useUpdateDb({
-        msg: book.title_short + " added to " + getListName(targetList),
-        logMsg: book.title_short + " added to " + getListName(targetList),
+        msg: "Added to " + getListName(targetList).toUpperCase() + " list",
+        logMsg: book.title_short + " added to " + getListName(targetList).toUpperCase(),
     })
 
     function MyBooksUpdate(myBooksNew: Books) {

@@ -9,13 +9,13 @@ import fadeout from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
 
 const mesg = {
-    finished_to_reading: "Unfinished, moved to Reading list",
+    finished_to_reading: "Unfinished, moved to READING",
     tossed: "Tossed it",
     permtossed: "Permanently tossed",
-    wishlist_added: "Added to Wish list",
-    reading_added: "Added to Reading list",
-    finished_added: "Finished!",
-    favorite_added: "Added to favourites!",
+    wishlist_added: "Added to WISHLIST",
+    reading_added: "Added to READING",
+    finished_added: "Added to FINISHED",
+    favorite_added: "Added to FAVOURITES",
     favorite_removed: "Removed from favourites",
 }
 
