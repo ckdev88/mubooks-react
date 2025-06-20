@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect, useState } from "react"
+import { useContext } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -14,11 +14,7 @@ const booklist = undefined
 
 const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    const [books, setBooks] = useState(userMyBooks.filter((book) => book.tossed === true))
-
-    useLayoutEffect(() => {
-        setBooks(userMyBooks.filter((book) => book.tossed === true))
-    }, [userMyBooks])
+    const books = userMyBooks.filter((book) => book.tossed === true)
 
     let hasbooks: boolean
     if (books.length > 0) {
@@ -37,7 +33,6 @@ const TossedPage = () => {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSubText} />
-
             {hasbooks ? (
                 <>
                     <TossTossers />
