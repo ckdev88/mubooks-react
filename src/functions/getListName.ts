@@ -1,15 +1,9 @@
-const getListName = (listId: number): string => {
-    if (listId === undefined) {
-        console.log("aint got no listid, see? ", listId)
-        return "nada"
-    }
-    let listName = "none"
-    if (listId === 1) listName = "wishlist"
-    else if (listId === 2) listName = "reading"
-    else if (listId === 3) listName = "finished"
-    else if (listId === 4) listName = "favorite"
-    else console.error("No list name? There must be something wrong...", listId)
+import logError from "../utils/logError"
+const getListName = (listId: BookList): string => {
+    if (listId === undefined || listId > 4 || listId < 1)
+        logError("getListName", "getListName.ts", 4)
 
-    return listName
+    const listNameMap = {0: "outerspace", 1: "wishlist", 2: "reading", 3: "finished", 4: "favorite" }
+    return listNameMap[listId]
 }
 export default getListName
