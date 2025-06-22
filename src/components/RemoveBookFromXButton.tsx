@@ -10,6 +10,7 @@ import BtnHeart from "./ui/buttons/BtnHeart"
 
 const mesg = {
     finished_to_reading: "Unfinished, moved to READING",
+    x_to_wishlist: "Moved back to WISHLIST",
     tossed: "Tossed it",
     permtossed: "Permanently tossed",
     wishlist_added: "Added to WISHLIST",
@@ -42,7 +43,7 @@ const RemoveBookFromXButton = ({
     const [newArray, setNewArray] = useState<Books>(userMyBooks)
     let msg = ""
 
-    if (targetList === 1 && book_list === 2) msg = "Moved back to wishlist"
+    if (targetList === 1 && book_list === 2) msg = mesg.x_to_wishlist
     else if (permtoss === true) msg = mesg.permtossed
     else if (toss === true) msg = mesg.tossed
     else if (targetList > 0) {
