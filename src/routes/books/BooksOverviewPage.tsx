@@ -5,6 +5,7 @@ import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
 import BooksOverviewPageQuoted from "../../components/BooksOverviewPageQuoted"
 import BooksOverviewFilterResultsMessage from "../../components/BooksOverviewFilterResultsMessage"
+import BooksOverviewSearchPage from "../../components/BooksOverviewSearchPage"
 
 /** Array of pages which should have a search field to filter the list */
 const fsPages: Page[] = ["wishlist", "finished", "favorites", "savedbooks"]
@@ -26,7 +27,7 @@ const BooksOverviewPage = ({
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
 
     let hasbooks: boolean
-    let booklistStart: Books
+    let booklistStart: Books = books ? books : userMyBooks
     if (books !== undefined && books.length > 0) {
         hasbooks = true
         booklistStart = books
@@ -116,24 +117,7 @@ const BooksOverviewPage = ({
                 </div>
             )}
             {page === "search" ? (
-                <>
-                    {books?.map((book) => {
-                        userMyBooks.find((savedbook) => {
-                            if (savedbook.id === book.id) {
-                                book.list = savedbook.list
-                                book.date_reading = savedbook.date_reading
-                                book.date_finished = savedbook.date_finished
-                            }
-                        })
-                        return (
-                            <BookSummary
-                                book={book}
-                                key={`BookSummary${book.id}`}
-                                currentPage={page}
-                            />
-                        )
-                    })}
-                </>
+                <BooksOverviewSearchPage books={booklistStart} />
             ) : booksFilter.length > 0 ? (
                 booksList.map((book) => {
                     return (
