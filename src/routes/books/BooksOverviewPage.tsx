@@ -38,11 +38,17 @@ const BooksOverviewPage = ({
     }
 
     // if (page === "tossed") booklistStart = userMyBooks.filter((book: Book) => book.tossed === true)
-    // if (page === "finished") {
-    //     // OPTIMIZE this looks like garbage
-    //     booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
-    //     books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
-    // }
+    if (page === "finished") {
+        // OPTIMIZE this looks like garbage
+        booklistStart = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+        books = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
+    }
+    if (page === "tossed") {
+        // redundancy galore FIXME
+        // OPTIMIZE this looks like garbage (bit is useful, just replace with something better)
+        booklistStart = userMyBooks.filter((book: Book) => book.tossed)
+        books = userMyBooks.filter((book: Book) => book.tossed)
+    }
     if (page === "tropes") books = tropesInMyBooksArr
 
     let hasfilter: boolean
@@ -58,6 +64,18 @@ const BooksOverviewPage = ({
         let bookstmp: Books = []
         if (books !== undefined && books.length > 0) {
             bookstmp = books // this is the default, should always work with pages
+            if (page === "finished") {
+                bookstmp = userMyBooks.filter(
+                    (book: Book) => !book.tossed && (book.list === 3 || book.list === 4),
+                )
+                setBooksList(bookstmp)
+                return
+            }
+            if (page === "tossed") {
+                bookstmp = userMyBooks.filter((book: Book) => book.tossed === true)
+                setBooksList(bookstmp)
+                return
+            }
         } else if (booklist) {
             if (booklist === 3)
                 bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
@@ -119,31 +137,32 @@ const BooksOverviewPage = ({
             {page === "search" ? (
                 <BooksOverviewSearchPage books={booklistStart} />
             ) : booksFilter.length > 0 ? (
+                booksList.map((book) => (
+                    <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                ))
+            ) : page === "quoted" ? (
+                <BooksOverviewPageQuoted
+                    books={booksList.filter((book: Book) => !book.tossed)}
+                    page={page}
+                />
+            ) : (
+                // pages: reading, wishlist, finished, favourites, saved, tropes
                 booksList.map((book) => {
-                    return (
-                        <>
+                    if (
+                        (book.list === booklist && book.tossed !== true) || // reading, wishlist, finished page
+                        (page === "tropes" && book.tossed !== true) || // tropes page
+                        (booklist === undefined && book.tossed !== true) || // saved page
+                        (booklist === 3 && book.list === 4 && book.tossed !== true) || // favourites page
+                        (page === "tossed" && book.tossed === true && book.list > 0) // tossed page
+                    ) {
+                        return (
                             <BookSummary
                                 book={book}
-                                key={`BookSummary${book.id}`}
+                                key={`BookSummary${book.list}${book.id}`}
                                 currentPage={page}
                             />
-                        </>
-                    )
-                })
-            ) : page === "quoted" ? (
-                <BooksOverviewPageQuoted books={booksList} page={page} />
-            ) : (
-                books?.map((book) => {
-                    // if (
-                    //     book.list === booklist ||
-                    //     page === "tropes" ||
-                    //     booklist === undefined ||
-                    //     (booklist === 3 && book.list === 4)
-                    // ) {
-                    return (
-                        <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
-                    )
-                    // }
+                        )
+                    }
                 })
             )}
         </>

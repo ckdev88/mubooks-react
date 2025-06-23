@@ -14,7 +14,13 @@ const booklist = 2
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
 
-    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
+    const [books, setBooks] = useState(
+        userMyBooks.filter((book) => book.list === booklist && !book.tossed),
+    )
+
+    useEffect(() => {
+        setBooks(userMyBooks.filter((book) => book.list === booklist && !book.tossed))
+    }, [userMyBooks])
 
     let hasbooks: boolean
     if (books.length > 0) {

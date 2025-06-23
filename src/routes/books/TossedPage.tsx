@@ -43,8 +43,14 @@ const TossedPage = () => {
                     No books here.
                     <br />
                     <br />
-                    <Link to="/dashboard">Back to dashboard</Link> or{" "}
-                    <Link to="/wishlist">View your wishlist</Link> or{" "}
+                    <Link to="/dashboard">Back to dashboard</Link> <br />
+                    or <br />
+                    <Link to="/wishlist">View your wishlist</Link> <br />
+                    or <br />
+                    <Link to="/reading">View your reading list</Link> <br />
+                    or <br />
+                    <Link to="/finished">View your finished list</Link> <br />
+                    or <br />
                     <Link to="/search">Search</Link> to add a book.
                     <br />
                     <br />

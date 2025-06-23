@@ -447,7 +447,8 @@ input[type="number"] + .btn-submit-inside-caret-right {
     .icon-favorite {
         background-image: var(--icon-favorite);
     }
-    .icon-remove {
+    .icon-remove,
+    .icon-toss {
         background-image: var(--icon-remove);
     }
 }

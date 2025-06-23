@@ -11,16 +11,17 @@ function useMyBooksUpdateDb({
     book_id: Book["id"] | null
     msg: string
 }): () => Promise<void> {
-    const { setPopupNotification } = useContext(AppContext)
-    const updateDb = useUpdateDb({
+    const { setPopupNotification, setUserMyBooks } = useContext(AppContext)
+    const initUpdateDb = useUpdateDb({
         msg: msg,
         logMsg: `${msg} ${book_id !== null && "for book: " + book_id}`,
         newJson: myBooksNew,
     })
 
     const updateMyBooksDb = async (): Promise<void> => {
-        setPopupNotification("optimist")
-        setPopupNotification(updateDb)
+        setUserMyBooks(myBooksNew)
+        const notification = await initUpdateDb()
+        setPopupNotification(notification)
     }
     return updateMyBooksDb
 }

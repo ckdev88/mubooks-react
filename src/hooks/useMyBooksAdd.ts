@@ -14,15 +14,19 @@ const useMyBooksAdd = ({
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const updateMyBooksDb = useUpdateDb({
+    const initUpdateDb = useUpdateDb({
         msg: "Added to " + getListName(targetList).toUpperCase() + " list",
         logMsg: book.title_short + " added to " + getListName(targetList).toUpperCase(),
     })
 
-    function MyBooksUpdate(myBooksNew: Books) {
-        setPopupNotification("optimist")
+    async function MyBooksUpdate(myBooksNew: Books) {
+        // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksRemove
         setUserMyBooks(myBooksNew)
-        setPopupNotification(updateMyBooksDb)
+        setPopupNotification("optimist")
+        const notification: string = await initUpdateDb()
+        setIsLoading(false)
+        setPopupNotification(notification)
+        setRerender(true)
     }
 
     const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
@@ -68,6 +72,7 @@ const useMyBooksAdd = ({
                 review_tropes: [],
                 title: book.title,
                 title_short: title_short,
+                tossed: false,
             }
             newUserMyBooks.push(newBook)
         } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure
@@ -83,7 +88,7 @@ const useMyBooksAdd = ({
             if (myBooks[i].id === book.id) {
                 bookIsSaved = true
                 myBooks[i].list = targetList
-                myBooks[i].tossed = book.tossed === true
+                myBooks[i].tossed = false // always false when moving (restoring) to a list
                 if (targetList === 2) myBooks[i].date_reading = todaysDateDigit
                 if (targetList === 3) myBooks[i].date_finished = todaysDateDigit
                 break

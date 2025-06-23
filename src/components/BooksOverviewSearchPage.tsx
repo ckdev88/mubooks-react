@@ -2,8 +2,8 @@ import BookSummary from "./BookSummary"
 import { useContext } from "react"
 import { AppContext } from "../App"
 
-/** 
- * Maps though search results to match with saved books to show data, e.g. date_reading, date_finished 
+/**
+ * Maps though search results to match with saved books to show data, e.g. date_reading, date_finished
  * @returns JSX.Element: `BookSummary` component
  */
 export default function BooksOverviewSearchPage({ books }: { books: Books }) {

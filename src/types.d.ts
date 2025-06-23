@@ -89,7 +89,7 @@ type User = {
 
 /**
  * On which list the book is or should be.
- * 0: No list, about to be removed
+ * 0: No list, about to be removed, is used in "limit" though
  * 1: Wishlist -- Reading,  finished, favorite = false
  * 2: Reading  -- Wishlist, finished, favorite = false
  * 3: Finished -- Wishlist & reading = false, favorite ambiguous

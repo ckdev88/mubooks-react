@@ -148,6 +148,8 @@ const App = () => {
                 bodyBgColor,
                 pageName,
                 setPageName,
+                reRender,
+                setRerender,
                 GLOBALS,
             }}
         >
