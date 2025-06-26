@@ -3,22 +3,10 @@ import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import assignListById from "../utils/assignListById"
 import updateDb from "../utils/updateDb"
+import { notification as nm } from "../i18n/notifications"
 
 // TODO: apply these messages for better feedback
 // TODO: would be even nicer if the notifications are clickable to targeted listname
-const mesg = {
-    finished_to_reading: "Unfinished, moved to READING",
-    x_to_wishlist: "Moved back to WISHLIST",
-    tossed: "Tossed it",
-    permatossed: "Permanently tossed",
-    wishlist_added: "Added to WISHLIST",
-    reading_added: "Added to READING",
-    finished_added: "Added to FINISHED",
-    favourite_added: "Added to FAVOURITES",
-    favourite_removed: "Removed from favourites",
-    restored_to: "Restored to ",
-    permatossed_tossers: "Permanently tossed all tossers",
-}
 
 const useMyBooksRemove = ({
     removeType,
@@ -63,7 +51,7 @@ const useMyBooksRemove = ({
         if (userMyBooks !== undefined) myBooks = userMyBooks
         return updateMyBooks(
             myBooks.filter((mybook) => !mybook.tossed),
-            mesg.permatossed_tossers,
+            nm.permatossed_tossers,
         )
     }
 
@@ -84,45 +72,45 @@ const useMyBooksRemove = ({
                             case 3:
                                 return updateMyBooks(
                                     assignListById(myBooks, book.id, 2),
-                                    mesg.reading_added,
+                                    nm.reading_added,
                                 ) // finished favourite > reading
                             default:
                                 return updateMyBooks(
                                     assignListById(myBooks, book.id, 3),
-                                    mesg.favourite_removed,
+                                    nm.favourite_removed,
                                 ) // favourite > finished
                         }
                     case 3:
                         return updateMyBooks(
                             assignListById(myBooks, book.id, 2),
-                            mesg.finished_to_reading,
+                            nm.finished_to_reading,
                         ) // finished > reading
                     case 2:
                         return updateMyBooks(
                             assignListById(myBooks, book.id, 1),
-                            mesg.wishlist_added,
+                            nm.wishlist_added,
                         ) // reading > wishlist
                     case 1:
                         return updateMyBooks(
                             assignListById(myBooks, book.id, 1, "toss"),
-                            mesg.tossed,
+                            nm.tossed,
                         ) // wishlist > tossed
                 }
                 break
             case "toss": // toss book into trash
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "toss"),
-                    mesg.tossed,
+                    nm.tossed,
                 )
             case "untoss": // restore tossed > book.list
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "untoss"),
-                    mesg.restored_to + getListName(book.list),
+                    nm.restored_to + getListName(book.list),
                 )
             case "permatoss": // remove book completely
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "permatoss"),
-                    mesg.permatossed,
+                    nm.permatossed,
                 )
             case "permatoss_tossers":
                 return

@@ -4,6 +4,7 @@ import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
 import useUpdateDb from "./useUpdateDb"
+import { notification as nm } from "../i18n/notifications"
 
 const useMyBooksAdd = ({
     book,
@@ -15,8 +16,8 @@ const useMyBooksAdd = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const initUpdateDb = useUpdateDb({
-        msg: "Added to " + getListName(targetList, true),
-        logMsg: book.title_short + " added to " + getListName(targetList).toUpperCase(),
+        msg: nm.Added_to + getListName(targetList, true),
+        logMsg: book.title_short + nm.added_to + getListName(targetList).toUpperCase(),
     })
 
     async function MyBooksUpdate(myBooksNew: Books) {

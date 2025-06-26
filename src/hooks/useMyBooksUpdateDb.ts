@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "../App"
 import useUpdateDb from "./useUpdateDb"
+import {notification as nm} from "../i18n/notifications"
 
 function useMyBooksUpdateDb({
     myBooksNew,
@@ -14,7 +15,7 @@ function useMyBooksUpdateDb({
     const { setPopupNotification, setUserMyBooks } = useContext(AppContext)
     const initUpdateDb = useUpdateDb({
         msg: msg,
-        logMsg: `${msg} ${book_id !== null && "for book: " + book_id}`,
+        logMsg: `${msg} ${book_id !== null && nm.for_book_ + book_id}`,
         newJson: myBooksNew,
     })
 
