@@ -34,10 +34,10 @@ export default function DashboardPage() {
                 icon="icon-wishlist.svg"
             />
             <DashboardDeck
-                page="favorites"
-                title="Mu Favorites"
+                page="favourites"
+                title="Mu Favourites"
                 noBooksText="Only the best ones here"
-                icon="icon-favorites.svg"
+                icon="icon-favourites.svg"
             />
             <DashboardDeck
                 page="finished"

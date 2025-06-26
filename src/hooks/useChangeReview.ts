@@ -3,6 +3,7 @@ import { AppContext } from "../App"
 import useMyBooksUpdateDb from "./useMyBooksUpdateDb"
 import { cleanInput } from "../helpers/cleanInput"
 import { IsModdingReviewContext } from "../components/BookSummaryReview"
+import { notification as nm } from "../i18n/notifications"
 
 const useChangeReview = (
     book_id: Book["id"],
@@ -11,7 +12,7 @@ const useChangeReview = (
     const { userMyBooks } = useContext(AppContext)
     const { setIsModding, setReviewText } = useContext(IsModdingReviewContext)
 
-    const msg: string = "Updated review"
+    const msg: string = nm.Updated_ + nm.review
     const updateMyBooksDb = useMyBooksUpdateDb({
         myBooksNew: userMyBooks,
         book_id,

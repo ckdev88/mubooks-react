@@ -115,8 +115,8 @@ const NavWrapper = () => {
                             alignItems: "center",
                         }}
                     >
-                        <NavLink to={"/favorites"} onClick={toggleNav0}>
-                            Favorites
+                        <NavLink to={"/favourites"} onClick={toggleNav0}>
+                            Favourites
                         </NavLink>
                         <NavLink to={"/account/profile"} onClick={toggleNav0}>
                             Profile
@@ -180,7 +180,7 @@ Current layout:
 dashboard -- add book
 reading -- statistics
 wishlist -- profile
-favorites -- Logout
+favourites -- Logout
 finished
 Saved
 quoted

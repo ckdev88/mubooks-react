@@ -4,8 +4,11 @@ import { AppContext } from "../../App"
 function PopupNotification() {
     const { popupNotification, setPopupNotification } = useContext(AppContext)
 
+    // FIXME dirty hack to trigger a re-render to show Heart animation immediately
+    if (popupNotification === "optimist") return
+
     const Popper = () => {
-        setTimeout(() => setPopupNotification(""), 1250)
+        setTimeout(() => setPopupNotification(""), 1750)
         return <>{popupNotification}</>
     }
     // online state checker & notifier

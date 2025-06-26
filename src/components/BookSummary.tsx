@@ -17,7 +17,7 @@ import BookSummaryQuoted from "./BookSummaryQuoted"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
-const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
+const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 const BookSummary = ({
@@ -49,10 +49,12 @@ const BookSummary = ({
                 ) : (
                     <>
                         <header style={{ position: "relative", width: "100%" }}>
-                            {currentPage !== "dashboard" && (
+                            {currentPage !== "dashboard" && currentPage !== "tossed" && (
+                                // favourite heart icon button
                                 <AddToRemoveFromX book={book} limit={4} currentPage={currentPage} />
                             )}
                             {currentPage === "dashboard" && refer !== undefined ? (
+                                // click on title to directly scroll to target in list
                                 <Link to={`/${refer}`}>
                                     <BookSummaryTitle
                                         book_author_name={book.author_name}
@@ -63,6 +65,7 @@ const BookSummary = ({
                                     />
                                 </Link>
                             ) : (
+                                // just show the title
                                 <BookSummaryTitle
                                     book_author_name={book.author_name}
                                     book_first_publish_year={book.first_publish_year}

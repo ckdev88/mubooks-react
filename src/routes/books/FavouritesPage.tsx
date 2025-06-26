@@ -5,22 +5,19 @@ import { Link } from "react-router-dom"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
-const pageTitle: string = "Favorites"
+const pageTitle: string = "Favourites"
 const pageTitleSub = "Beloved and adored books"
-let pageTitleSubText = pageTitleSub
-const currentPage: Page = "favorites"
+const currentPage: Page = "favourites"
 const booklist = 4
 
-const FavoritesPage = () => {
+const FavouritesPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
 
-    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
-
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true // OPTIMIZE this is a bit meh
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    } else hasbooks = false
+    const books = userMyBooks
+        .filter((i) => i.list === booklist && !i.tossed)
+        .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
+    const hasbooks: boolean = books.length > 0
+    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
 
     return (
         <motion.div
@@ -32,14 +29,14 @@ const FavoritesPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading text={pageTitle} icon={"icon-favorites.svg"} sub={pageTitleSubText} />
+            <Heading text={pageTitle} icon={"icon-favourites.svg"} sub={pageTitleSubText} />
             {hasbooks ? (
                 <BooksOverviewPage page={currentPage} books={books} booklist={booklist} />
             ) : (
                 <>
-                    <h4>No books marked as favorite yet.</h4>
+                    <h4>No books marked as favourite yet.</h4>
                     <p>
-                        Select and mark your favorite book from{" "}
+                        Select and mark your favourite book from{" "}
                         <Link to="/finished">your finished books</Link> add to this list.
                     </p>
                 </>
@@ -47,4 +44,4 @@ const FavoritesPage = () => {
         </motion.div>
     )
 }
-export default FavoritesPage
+export default FavouritesPage

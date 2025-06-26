@@ -41,12 +41,14 @@
     --red-darker: #780000;
     --gray: #666;
     --hr: rgba(0, 0, 0, 0.1);
+    --icon-faded-bg: #bbb;
 
     --icon-wishlist: url("/img/icon-wishlist.png");
     --icon-reading: url("/img/icon-reading.png");
     --icon-finished: url("/img/icon-finished.png");
-    --icon-favorite: url("/img/icon-favorites.png");
+    --icon-favourite: url("/img/icon-favourites.png");
     --icon-remove: url("/img/icon-remove.png");
+    --icon-toss: url("/img/icon-toss.png");
     --icon-pencil: url("/img/icon-pencil.svg");
     --icon-eraser: url("/img/icon-eraser.svg");
     --icon-loep: url("/img/loep.svg");
@@ -78,13 +80,15 @@
     --icon-wishlist: url("/img/icon-wishlist-white.png");
     --icon-reading: url("/img/icon-reading-white.png");
     --icon-finished: url("/img/icon-finished-white.png");
-    --icon-favorite: url("/img/icon-favorites-white.png");
+    --icon-favourite: url("/img/icon-favourites-white.png");
     --icon-remove: url("/img/icon-remove-white.png");
+    --icon-toss: url("/img/icon-toss-white.png");
     --icon-pencil: url("/img/icon-pencil-white.svg");
     --icon-eraser: url("/img/icon-eraser-light.svg");
     --icon-calendar: url("/img/icon-calendar-white.svg");
     --icon-loep: url("/img/loep-wit.svg");
 
+    --icon-faded-bg: #777;
     --shade-around: box-shadow 0 0 0.4rem rgba(255, 255, 255, 25%);
     --shade-around-subtle: box-shadow 0 0 0.4rem rgba(255, 255, 255, 15%);
     --disabled-loading-descr-bg: #575f65;

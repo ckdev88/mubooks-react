@@ -14,7 +14,7 @@ const DashboardDeckItems = ({ page, noBooksText }: { page: Page; noBooksText: st
         book_list = 2
         btnIconAdd = "img/plus-icon.svg"
     } else if (page === "wishlist") book_list = 1
-    else if (page === "favorites") book_list = 4
+    else if (page === "favourites") book_list = 4
     else if (page === "finished") book_list = 3
     else if (page === "savedbooks") btnIconAdd = "img/save-books-icon.png"
 

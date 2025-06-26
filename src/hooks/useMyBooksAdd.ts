@@ -1,32 +1,33 @@
 import convertDate from "../helpers/convertDate"
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
-import { supabase } from "../../utils/supabase"
 import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
+import useUpdateDb from "./useUpdateDb"
+import { notification as nm } from "../i18n/notifications"
 
 const useMyBooksAdd = ({
     book,
     targetList,
 }: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, userid, todaysDateDigit } =
+    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit, setRerender } =
         useContext(AppContext)
+
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const initUpdateDb = useUpdateDb({
+        msg: nm.Added_to + getListName(targetList, true),
+        logMsg: book.title_short + nm.added_to + getListName(targetList).toUpperCase(),
+    })
+
     async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string = book.title_short + " moved to " + getListName(targetList)
+        // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksRemove
         setUserMyBooks(myBooksNew)
-        const { error } = await supabase
-            .from("user_entries")
-            .update({
-                json: myBooksNew,
-                testdata: `${book.title_short} updated list to ${getListName(targetList)}`,
-            })
-            .eq("user_id", userid)
-            .select("*")
-        if (error) msg = error.message
-        setPopupNotification(msg)
+        setPopupNotification("optimist")
+        const notification: string = await initUpdateDb()
         setIsLoading(false)
+        setPopupNotification(notification)
+        setRerender(true)
     }
 
     const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
@@ -35,7 +36,7 @@ const useMyBooksAdd = ({
     }
 
     const runMyBooksAdd = async (bookIsSaved: boolean): Promise<Books> => {
-        let newUserMyBooks = userMyBooks
+        let newUserMyBooks: Books = userMyBooks
         if (bookIsSaved === false) {
             let title_short: Book["title_short"]
             if (book.title.length > 55) title_short = book.title.slice(0, 55) + "..."
@@ -72,9 +73,10 @@ const useMyBooksAdd = ({
                 review_tropes: [],
                 title: book.title,
                 title_short: title_short,
+                tossed: false,
             }
             newUserMyBooks.push(newBook)
-        } else newUserMyBooks = userMyBooks // just update or keep intact.. not sure
+        } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure
         return newUserMyBooks
     }
 
@@ -87,7 +89,7 @@ const useMyBooksAdd = ({
             if (myBooks[i].id === book.id) {
                 bookIsSaved = true
                 myBooks[i].list = targetList
-                myBooks[i].tossed = book.tossed === true
+                myBooks[i].tossed = false // always false when moving (restoring) to a list
                 if (targetList === 2) myBooks[i].date_reading = todaysDateDigit
                 if (targetList === 3) myBooks[i].date_finished = todaysDateDigit
                 break

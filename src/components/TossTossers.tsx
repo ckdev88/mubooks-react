@@ -1,28 +1,27 @@
-import { useContext } from "react"
-import { AppContext } from "../App"
-import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
 import BtnBig from "./ui/buttons/BtnBig"
+import useMyBooksRemove from "../hooks/useMyBooksRemove"
 
-export default function TossTossers() {
-    const { userMyBooks, setUserMyBooks } = useContext(AppContext)
-    const newArr = userMyBooks.filter((book) => book.tossed !== true)
-
-    const clearbooks = useMyBooksUpdateDb({
-        myBooksNew: newArr,
-        book_id: null,
-        msg: "Books tossed",
+const TossTossers = () => {
+    // const newArr: Books = userMyBooks.filter((book) => !book.tossed)
+    const removeBookFromXButtonAct = useMyBooksRemove({
+        book: undefined,
+        removeType: "permatoss_tossers",
+        targetList: undefined,
     })
-    function clearbooksyes() {
-        clearbooks()
-        setUserMyBooks(newArr)
-    }
+
+    // function clearbooksyes() {
+    // setUserMyBooks(newArr.filter((book) => !book.tossed))
+    // updateDb({ msg: "lallaa", userid: userid, newJson: newArr.filter((book) => !book.tossed) })
+    // setIsLoading(false)
+    // }
     return (
         <div className="py1 mb1">
             <BtnBig
+                bOnClick={removeBookFromXButtonAct}
                 bClassName="btn btn-red"
-                bText="Permanently toss all these books"
-                bOnClick={() => clearbooksyes()}
+                bText="PERMANENTLY toss all these books"
             />
         </div>
     )
 }
+export default TossTossers

@@ -7,7 +7,6 @@ import { motion } from "motion/react"
 
 const pageTitle = "Mu Wishlist"
 const pageTitleSub = "Books I will read soon"
-let pageTitleSubText = pageTitleSub
 const currentPage = "wishlist"
 const booklist = 1
 
@@ -15,12 +14,8 @@ const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
 
     const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
-
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    } else hasbooks = false
+    const hasbooks: boolean = books.length > 0
+    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
 
     return (
         <motion.div

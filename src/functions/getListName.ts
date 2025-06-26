@@ -1,15 +1,13 @@
-const getListName = (listId: number): string => {
-    if (listId === undefined) {
-        console.log("aint got no listid, see? ", listId)
-        return "nada"
-    }
-    let listName = "none"
-    if (listId === 1) listName = "wishlist"
-    else if (listId === 2) listName = "reading"
-    else if (listId === 3) listName = "finished"
-    else if (listId === 4) listName = "favorite"
-    else console.error("No list name? There must be something wrong...", listId)
+import logError from "../utils/logError"
+import { listNameMap } from "../i18n/listnames"
 
-    return listName
+const getListName = (listId: BookList, capitalize = false): string => {
+    if (listId === undefined || listId > 4 || listId < 0)
+        logError("getListName", "getListName.ts", 4, `passed id: ${listId}`)
+
+    if (capitalize)
+        return listNameMap[listId].slice(0, 1).toUpperCase() + listNameMap[listId].slice(1)
+
+    return listNameMap[listId]
 }
 export default getListName

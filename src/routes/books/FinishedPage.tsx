@@ -7,20 +7,17 @@ import { motion } from "motion/react"
 
 const pageTitle = "Finished books"
 const pageTitleSub = "Done and counting"
-let pageTitleSubText = pageTitleSub
 const currentPage = "finished"
 const booklist = 3
 
 const FinishedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    const books = userMyBooks.filter(
-        (book) => (book.list === booklist || book.list === 4) && !book.tossed,
-    )
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    } else hasbooks = false
+    const books = userMyBooks
+        .filter((b) => (b.list === booklist || b.list === 4) && !b.tossed)
+        .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
+
+    const hasbooks: boolean = books.length > 0
+    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
 
     return (
         <motion.div
@@ -37,7 +34,7 @@ const FinishedPage = () => {
                 <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
             ) : (
                 <>
-                    <p>Have any favorites? Add them to your favorites from here.</p>
+                    <p>Have any favourites? Add them to your favourites from here.</p>
                     <h4>Not finished any book yet.</h4>
                     <p>
                         Are you finished with the book you're reading?

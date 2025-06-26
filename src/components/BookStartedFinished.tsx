@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
 import { debounce, openCalendarPopUp } from "../Helpers"
 import { AppContext } from "../App"
-import { supabase } from "../../utils/supabase"
 import { convertDate } from "../helpers/convertDate"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
+import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
 
 const BookStartedFinished = ({
     date_started,
@@ -16,12 +16,19 @@ const BookStartedFinished = ({
     book_id: Book["id"]
     list: Book["list"]
 }) => {
-    const { userMyBooks, setUserMyBooks, setPopupNotification, userid, todaysDateInput } =
-        useContext(AppContext)
+    const { userMyBooks, setUserMyBooks, todaysDateInput } = useContext(AppContext)
     const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
     const [dateFinished, setDateFinished] = useState<Book["date_finished"]>(date_finished)
     const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
     const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
+
+    const [newArray, setNewArray] = useState<Books>(userMyBooks)
+    const msg = "Book starting / finished date changed"
+    const updateMyBooksDb = useMyBooksUpdateDb({
+        myBooksNew: newArray,
+        book_id: null,
+        msg,
+    })
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
@@ -41,24 +48,15 @@ const BookStartedFinished = ({
         dateFinished,
     ])
 
-    async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string
-        setUserMyBooks(myBooksNew)
-        const { error } = await supabase
-            .from("user_entries")
-            .update({ json: myBooksNew })
-            .eq("user_id", userid)
-            .select()
-        if (error) {
-            msg = "Error, date was not changed"
-            console.log("error:", error)
-        } else msg = "Changed the date."
-        setPopupNotification(msg)
-    }
+    function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
+        if (fieldName !== "date_reading" && fieldName !== "date_finished") {
+            console.warn("changeDates: Wrong fieldName given")
+            return
+        }
 
-    function changeDates(fieldName: string, fieldVal: number) {
         if (fieldName === "date_reading") setDateStarted(fieldVal)
-        else if (fieldName === "date_finished") {
+        else {
+            // fieldName === "date_finished"
             if (Number.isNaN(fieldVal)) {
                 setDateFinished(undefined)
                 list = 2
@@ -86,16 +84,20 @@ const BookStartedFinished = ({
                 }
             }
         }
-        const myBooksNew = myBooks
-        MyBooksUpdate(myBooksNew)
+        setNewArray(myBooks)
+        updateMyBooks(myBooks)
+    }
+
+    function updateMyBooks(arr: Books) {
+        setUserMyBooks(arr)
+        updateMyBooksDb()
     }
 
     function modifyDateReading(field: "date_reading" | "date_finished") {
         if (document.getElementById(field + book_id) === null) return
-        const inputfield: string = field + book_id
-        const newDateArr = (document.getElementById(inputfield) as HTMLInputElement).value.split(
-            "-",
-        )
+        const newDateArr = (
+            document.getElementById(field + book_id) as HTMLInputElement
+        ).value.split("-")
         const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
         changeDates(field, newDate)
     }

@@ -7,7 +7,6 @@ import { motion } from "motion/react"
 
 const pageTitle = "Mu Quotes"
 const pageTitleSub = "Lines to remember"
-let pageTitleSubText = pageTitleSub
 const currentPage = "quoted"
 const booklist = undefined
 
@@ -20,8 +19,9 @@ const QuotedPage = () => {
     if (userMyBooks.length > 0) {
         quotedbooks = userMyBooks.filter(
             (book) =>
-                (book.review_fav_quote && book.review_fav_quote !== "") ||
-                (book.review_fav_quote2 && book.review_fav_quote2 !== ""),
+                book.tossed !== true &&
+                ((book.review_fav_quote && book.review_fav_quote !== "") ||
+                    (book.review_fav_quote2 && book.review_fav_quote2 !== "")),
         )
         if (quotedbooks.length > 0) hasbooks = true
         else hasbooks = false
@@ -29,7 +29,6 @@ const QuotedPage = () => {
         hasbooks = false
         quotedbooks = []
     }
-    if (quotedbooks.length > 0) pageTitleSubText = quotedbooks.length + ". " + pageTitleSub
 
     return (
         <motion.div
@@ -38,7 +37,7 @@ const QuotedPage = () => {
             transition={{ duration: 1 }}
             animate={{ opacity: 1, transition: { duration: 2 } }}
         >
-            <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSubText} />
+            <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSub} />
             {hasbooks ? (
                 <BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
             ) : (

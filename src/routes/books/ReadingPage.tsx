@@ -7,30 +7,24 @@ import { motion } from "motion/react"
 
 const pageTitle = `What I'm reading now`
 const pageTitleSub = "Currently enjoying books"
-let pageTitleSubText = pageTitleSub
 const currentPage = "reading"
 const booklist = 2
 
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-
-    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
-
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    } else hasbooks = false
+    const books = userMyBooks.filter((b) => b.list === booklist && !b.tossed)
+    const hasbooks: boolean = books.length > 0
+    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
                 duration: GLOBALS.pageAnimationDuration,
                 delay: GLOBALS.pageAnimationDelay,
             }}
-            animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
             {hasbooks ? (

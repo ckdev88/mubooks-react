@@ -34,7 +34,8 @@ const BookSummaryStatus = ({
                             )}
                             {book.list === 4 && (
                                 <>
-                                    &nbsp;and <Link to={"/favorites#" + bookAnchor}>favorited</Link>
+                                    &nbsp;and{" "}
+                                    <Link to={"/favourites#" + bookAnchor}>favourited</Link>
                                 </>
                             )}
                             .

@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect, useState } from "react"
+import { useContext } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -8,23 +8,14 @@ import TossTossers from "../../components/TossTossers"
 
 const pageTitle = "Removed books"
 const pageTitleSub = "To permanently remove or not to permanently remove"
-let pageTitleSubText = pageTitleSub
 const currentPage = "tossed"
 const booklist = undefined
 
 const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    const [books, setBooks] = useState(userMyBooks.filter((book) => book.tossed === true))
 
-    useLayoutEffect(() => {
-        setBooks(userMyBooks.filter((book) => book.tossed === true))
-    }, [userMyBooks])
-
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true
-        pageTitleSubText = pageTitleSub
-    } else hasbooks = false
+    const books = userMyBooks.filter((b) => b.tossed && b.list > 0)
+    const hasbooks: boolean = books.length > 0
 
     return (
         <motion.div
@@ -36,20 +27,29 @@ const TossedPage = () => {
             }}
             animate={{ opacity: 1 }}
         >
-            <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSubText} />
-
+            <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSub} />
             {hasbooks ? (
                 <>
                     <TossTossers />
-                    <BooksOverviewPage booklist={booklist} books={books} page={currentPage} />
+                    <BooksOverviewPage
+                        booklist={booklist}
+                        books={userMyBooks.filter((book) => book.tossed && book.list > 0)}
+                        page={currentPage}
+                    />
                 </>
             ) : (
                 <p>
                     No books here.
                     <br />
                     <br />
-                    <Link to="/dashboard">Back to dashboard</Link> or{" "}
-                    <Link to="/wishlist">View your wishlist</Link> or{" "}
+                    <Link to="/dashboard">Back to dashboard</Link> <br />
+                    or <br />
+                    <Link to="/wishlist">View your wishlist</Link> <br />
+                    or <br />
+                    <Link to="/reading">View your reading list</Link> <br />
+                    or <br />
+                    <Link to="/finished">View your finished list</Link> <br />
+                    or <br />
                     <Link to="/search">Search</Link> to add a book.
                     <br />
                     <br />
