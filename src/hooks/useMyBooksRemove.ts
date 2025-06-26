@@ -86,22 +86,13 @@ const useMyBooksRemove = ({
                             nm.finished_to_reading,
                         ) // finished > reading
                     case 2:
-                        return updateMyBooks(
-                            assignListById(myBooks, book.id, 1),
-                            nm.wishlist_added,
-                        ) // reading > wishlist
+                        return updateMyBooks(assignListById(myBooks, book.id, 1), nm.wishlist_added) // reading > wishlist
                     case 1:
-                        return updateMyBooks(
-                            assignListById(myBooks, book.id, 1, "toss"),
-                            nm.tossed,
-                        ) // wishlist > tossed
+                        return updateMyBooks(assignListById(myBooks, book.id, 1, "toss"), nm.tossed) // wishlist > tossed
                 }
                 break
             case "toss": // toss book into trash
-                return updateMyBooks(
-                    assignListById(myBooks, book.id, book.list, "toss"),
-                    nm.tossed,
-                )
+                return updateMyBooks(assignListById(myBooks, book.id, book.list, "toss"), nm.tossed)
             case "untoss": // restore tossed > book.list
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "untoss"),
