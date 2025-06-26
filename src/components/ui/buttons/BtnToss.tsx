@@ -11,7 +11,7 @@ const BtnToss = ({
             disabled={bIsLoading}
         >
             <span className="icon icon-remove" />
-            Toss it ads
+            Toss it
         </button>
     )
 }
