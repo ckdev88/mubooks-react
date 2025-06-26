@@ -9,13 +9,13 @@ const useMyBooksAdd = ({
     book,
     targetList,
 }: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } =
+    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit, setRerender } =
         useContext(AppContext)
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const initUpdateDb = useUpdateDb({
-        msg: "Added to " + getListName(targetList).toUpperCase() + " list",
+        msg: "Added to " + getListName(targetList, true),
         logMsg: book.title_short + " added to " + getListName(targetList).toUpperCase(),
     })
 

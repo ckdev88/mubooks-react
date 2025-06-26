@@ -1,15 +1,13 @@
 import logError from "../utils/logError"
-const getListName = (listId: BookList): string => {
+import { listNameMap } from "../i18n/listnames"
+
+const getListName = (listId: BookList, capitalize = false): string => {
     if (listId === undefined || listId > 4 || listId < 0)
         logError("getListName", "getListName.ts", 4, `passed id: ${listId}`)
 
-    const listNameMap = {
-        0: "outerspace",
-        1: "wishlist",
-        2: "reading",
-        3: "finished",
-        4: "favorite",
-    }
+    if (capitalize)
+        return listNameMap[listId].slice(0, 1).toUpperCase() + listNameMap[listId].slice(1)
+
     return listNameMap[listId]
 }
 export default getListName

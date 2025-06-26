@@ -110,7 +110,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                         />
                     </div>
                     <br />
-                    <BooksOverviewPage booklist={booklist} page={page} />
+                    <BooksOverviewPage booklist={booklist} page={page} books={userMyBooks} />
                 </>
             )}
         </section>

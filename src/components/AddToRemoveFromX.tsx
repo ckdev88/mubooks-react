@@ -7,7 +7,7 @@ import getListName from "../functions/getListName"
  * Show button which can add/remove
  * @prop {Book} book - book object
  * @prop {Page} currentPage - current page/path, without prefixed /
- * @prop {BookList} limit - 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favorited)
+ * @prop {BookList} limit - 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favourited)
  */
 const AddToRemoveFromX = ({
     book,
@@ -18,11 +18,11 @@ const AddToRemoveFromX = ({
     currentPage: Page
     limit: BookList
 }) => {
-    // limit 01234, 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favorited)
+    // limit 01234, 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favourited)
     const [showHiddenMarks, setShowHiddenMarks] = useState<boolean>(currentPage === "tossed")
 
     if (limit === 4 && book.list > 2) {
-        // favorited book (heart icon), on list 3 or 4
+        // favourited book (heart icon), on list 3 or 4
         return (
             <>
                 {book.list === limit ? (
@@ -93,7 +93,7 @@ const AddToRemoveFromX = ({
                                     targetList={2}
                                     icon={true}
                                     removeType="move"
-                                    button_title="Move back to wishlist"
+                                    button_title="Move back to Wishlist"
                                 />
                             ) : (
                                 (book.list === 3 || book.list === 4) && (
@@ -102,12 +102,13 @@ const AddToRemoveFromX = ({
                                         targetList={3}
                                         icon={true}
                                         removeType="move"
-                                        button_title="Move back to READING"
+                                        button_title="Move back to Reading"
                                     />
                                 )
                             )}
                             <RemoveBookFromXButton
                                 bookProp={book}
+                                targetList={3}
                                 removeType="toss"
                                 icon={true}
                                 button_title="Toss it"

@@ -7,25 +7,34 @@ export default function assignListById(
     const myBooks: Books = myBooksArg
     for (let i = 0; i < myBooks.length; i++) {
         if (myBooks[i].id === bookId) {
-            console.log("myBooks[i].list REMOVE:", myBooks[i].list, listId)
-            switch (listId) {
-                case 3:
-                    myBooks[i].list = 3
+            switch (toss) {
+                case "no":
+                    switch (listId) {
+                        case 3:
+                            myBooks[i].list = 3
+                            break
+                        case 2:
+                            myBooks[i].list = 2
+                            myBooks[i].date_finished = undefined
+                            break
+                        case 1:
+                            myBooks[i].list = 1
+                            myBooks[i].date_reading = undefined
+                            myBooks[i].date_finished = undefined
+                            break
+                    }
                     break
-                case 2:
-                    myBooks[i].list = 2
-                    myBooks[i].date_finished = undefined
+                case "untoss":
+                    myBooks[i].tossed = false
                     break
-                case 1:
-                    myBooks[i].list = 1
-                    myBooks[i].date_reading = undefined
-                    myBooks[i].date_finished = undefined
+                case "toss":
+                    myBooks[i].tossed = true
+                    break
+                case "permatoss":
+                    myBooks[i].list = 0
+                    // splice(i, 1)
                     break
             }
-            if (toss === "toss") myBooks[i].tossed = true
-            else if (toss === "untoss") myBooks[i].tossed = false
-            else if (toss === "permatoss") myBooks.splice(i, 1)
-            break
         }
     }
     return myBooks

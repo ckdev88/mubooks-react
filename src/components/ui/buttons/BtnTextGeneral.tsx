@@ -14,7 +14,7 @@ const BtnTextGeneral = ({
     return (
         <button
             type="button"
-            className={"btn-text " + bClassName}
+            className={`btn-text ${bClassName ? bClassName : ""}`}
             onClick={bOnClick && bOnClick}
             disabled={bIsLoading}
         >

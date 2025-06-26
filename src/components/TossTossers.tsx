@@ -1,33 +1,25 @@
-import { useContext, useState } from "react"
-import { AppContext } from "../App"
-import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
 import BtnBig from "./ui/buttons/BtnBig"
+import useMyBooksRemove from "../hooks/useMyBooksRemove"
 
 const TossTossers = () => {
-    const { userMyBooks, setUserMyBooks } = useContext(AppContext)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [newArray, setNewArray] = useState<Books>(userMyBooks.filter((book) => !book.tossed))
-    const newArr: Books = userMyBooks.filter((book) => !book.tossed)
-
-    const updateMyBooksDb = useMyBooksUpdateDb({
-        myBooksNew: newArray,
-        book_id: null,
-        msg: "Books tossed",
+    // const newArr: Books = userMyBooks.filter((book) => !book.tossed)
+    const removeBookFromXButtonAct = useMyBooksRemove({
+        book: undefined,
+        removeType: "permatoss_tossers",
+        targetList: undefined,
     })
-    function clearbooksyes() {
-        setIsLoading(true)
-        setUserMyBooks(newArr.filter((book) => !book.tossed))
-        setNewArray(newArr.filter((book) => !book.tossed))
-        updateMyBooksDb()
-        setIsLoading(false)
-    }
+
+    // function clearbooksyes() {
+    // setUserMyBooks(newArr.filter((book) => !book.tossed))
+    // updateDb({ msg: "lallaa", userid: userid, newJson: newArr.filter((book) => !book.tossed) })
+    // setIsLoading(false)
+    // }
     return (
         <div className="py1 mb1">
             <BtnBig
+                bOnClick={removeBookFromXButtonAct}
                 bClassName="btn btn-red"
-                bText="Permanently toss all these books"
-                bOnClick={() => clearbooksyes()}
-                bIsLoading={isLoading}
+                bText="PERMANENTLY toss all these books"
             />
         </div>
     )

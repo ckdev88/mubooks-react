@@ -7,7 +7,7 @@ import CheckMailNewAccountPage from "./routes/account/CheckMailNewAccountPage"
 import CheckMailPasswordPage from "./routes/account/CheckMailPasswordPage"
 import DashboardPage from "./routes/account/DashboardPage"
 import ErrorPage from "./routes/ErrorPage"
-import FavoritesPage from "./routes/books/FavoritesPage"
+import FavouritesPage from "./routes/books/FavouritesPage"
 import FinishedPage from "./routes/books/FinishedPage"
 import NavWrapper from "./components/NavWrapper"
 import QuotedPage from "./routes/books/QuotedPage"
@@ -49,6 +49,7 @@ const App = () => {
     const [usermail, setUsermail] = useState<string>("")
     const [userid, setUserid] = useState<string>("")
     const [userMyBooks, setUserMyBooks] = useState<Books>([])
+    const [reRender, setRerender] = useState<boolean>(false)
     const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitVal)
     const [popupNotification, setPopupNotification] = useState<string>("")
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
@@ -57,12 +58,21 @@ const App = () => {
     const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
     const [pageName, setPageName] = useState<string>("default")
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    useEffect(() => {
+        if (reRender === true) {
+            setUserMyBooks(userMyBooks)
+            setRerender(false)
+        }
+    }, [reRender])
+
     // Settings
     const GLOBALS: GlobalSettings = {
         headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
         synopsisEnabled: false,
-        pageAnimationDelay: 0, // .28
-        pageAnimationDuration: 1.4, // .4
+        pageAnimationDelay: 0.28, // .28
+        pageAnimationDuration: 0.4, // .4
+        userid: userid,
     }
 
     /* NOTE
@@ -190,7 +200,7 @@ const App = () => {
                             <Route path="/wishlist" element={<WishlistPage />} />
                             <Route path="/reading" element={<ReadingPage />} />
                             <Route path="/finished" element={<FinishedPage />} />
-                            <Route path="/favorites" element={<FavoritesPage />} />
+                            <Route path="/favourites" element={<FavouritesPage />} />
                             <Route path="/quoted" element={<QuotedPage />} />
                             <Route path="/tropes" element={<TropesPage />} />
                             <Route path="/statistics" element={<StatisticsPage />} />

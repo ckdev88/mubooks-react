@@ -3,6 +3,7 @@ interface GlobalSettings {
     synopsisEnabled: boolean
     pageAnimationDelay: number
     pageAnimationDuration: number
+    userid: string
 }
 
 interface AppContextType {
@@ -27,6 +28,8 @@ interface AppContextType {
     bodyBgColor: string
     pageName: string
     setPageName(pageName: pageName): void
+    reRender: boolean
+    setRerender(reRender: reRender): void
     GLOBALS: GlobalSettings
 }
 
@@ -56,13 +59,13 @@ interface TropesPageContextType {
 interface BooksOverviewFilterContextType {
     booksFilter: string
     setBooksFilter(booksFilter: booksFilter): void
-    booksList: Books
+    booksOverview: Books
 }
 
 type PageWithoutParameters =
     | "addbook"
     | "dashboard"
-    | "favorites"
+    | "favourites"
     | "finished"
     | "profile"
     | "quoted"
@@ -90,10 +93,10 @@ type User = {
 /**
  * On which list the book is or should be.
  * 0: No list, about to be removed, is used in "limit" though
- * 1: Wishlist -- Reading,  finished, favorite = false
- * 2: Reading  -- Wishlist, finished, favorite = false
- * 3: Finished -- Wishlist & reading = false, favorite ambiguous
- * 4: Favorite -- Wishlist & reading = false, finished true
+ * 1: Wishlist -- Reading,  finished, favourite = false
+ * 2: Reading  -- Wishlist, finished, favourite = false
+ * 3: Finished -- Wishlist & reading = false, favourite ambiguous
+ * 4: Favourite -- Wishlist & reading = false, finished true
  */
 type BookList = 0 | 1 | 2 | 3 | 4
 
@@ -133,7 +136,7 @@ interface Book {
     index?: number
     isbn?: string[]
     key?: string[]
-    /** 1: Wishlist | 2: Reading | 3: Finished | 4: Favorite (+Finished) */
+    /** 1: Wishlist | 2: Reading | 3: Finished | 4: Favourite (+Finished) */
     list: BookList
     number_of_pages_median: number
     title: string

@@ -19,6 +19,7 @@ function useMyBooksUpdateDb({
     })
 
     const updateMyBooksDb = async (): Promise<void> => {
+        // setPopupNotification("optimist")
         setUserMyBooks(myBooksNew)
         const notification = await initUpdateDb()
         setPopupNotification(notification)

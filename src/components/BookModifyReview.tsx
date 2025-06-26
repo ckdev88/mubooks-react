@@ -21,8 +21,8 @@ const BookModifyReview = ({
     const [processForm] = useChangeReview(book_id, o_key)
 
     let inputPlaceholder = "Add review"
-    if (o_key === "review_fav_quote") inputPlaceholder = "Add your favorite quote"
-    else if (o_key === "review_fav_quote2") inputPlaceholder = "Your second favorite quote"
+    if (o_key === "review_fav_quote") inputPlaceholder = "Add your favourite quote"
+    else if (o_key === "review_fav_quote2") inputPlaceholder = "Your second favourite quote"
 
     const input = {
         form_class: "single-small-form clr",

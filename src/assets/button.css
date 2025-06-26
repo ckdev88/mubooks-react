@@ -444,12 +444,14 @@ input[type="number"] + .btn-submit-inside-caret-right {
     .icon-finished {
         background-image: var(--icon-finished);
     }
-    .icon-favorite {
-        background-image: var(--icon-favorite);
+    .icon-favourite {
+        background-image: var(--icon-favourite);
     }
-    .icon-remove,
-    .icon-toss {
+    .icon-remove {
         background-image: var(--icon-remove);
+    }
+    .icon-toss {
+        background-image: var(--icon-toss);
     }
 }
 

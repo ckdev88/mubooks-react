@@ -6,9 +6,9 @@ const BtnHeart = ({ fn, faved }: { fn: () => void; faved: boolean }): React.Reac
         <button
             type="button"
             className={bClass}
-            onKeyDown={(event) => {
-                if (event.key === "Enter") fn
-            }}
+            // onKeyDown={(event) => {
+            //     if (event.key === "Enter") fn
+            // }}
             onClick={fn}
             aria-label={faved === true ? "Remove from favourites" : "Add to favourites"}
         >

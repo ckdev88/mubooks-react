@@ -17,7 +17,7 @@ import BookSummaryQuoted from "./BookSummaryQuoted"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
-const pagesReviewQuotes: Page[] = ["finished", "favorites", "savedbooks"]
+const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 const BookSummary = ({

@@ -1,3 +1,4 @@
+// TODO is this used?
 const BtnToss = ({
     bOnClick,
     bIsLoading,
@@ -10,7 +11,7 @@ const BtnToss = ({
             disabled={bIsLoading}
         >
             <span className="icon icon-remove" />
-            Toss it
+            Toss it ads
         </button>
     )
 }

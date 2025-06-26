@@ -17,7 +17,7 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
             )
         })
     }
-    if (page === "favorites" || page === "savedbooks") shuffleArray(booksarr as [])
+    if (page === "favourites" || page === "savedbooks") shuffleArray(booksarr as [])
     if (page === "finished")
         booksarr.sort((a, b) => Number(b.date_finished) - Number(a.date_finished))
 

@@ -1,11 +1,11 @@
 import getListName from "../functions/getListName"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-import fadeout from "../utils/uiMisc"
+// import fadeout from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
 import useMyBooksRemove from "../hooks/useMyBooksRemove"
 
 /**
- * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favorite or toss
+ * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
  */
 const RemoveBookFromXButton = ({
     bookProp,
@@ -18,16 +18,15 @@ const RemoveBookFromXButton = ({
     targetList?: BookList
     icon: boolean
     button_title?: string
-    removeType: "move" | "toss" | "untoss" | "permatoss"
+    removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
     if (button_title === "") button_title = `Remove from ${getListName(targetList)}`
 
     const book: Book = bookProp
-    const [RemoveBookFromXButtonAct, isLoading] = useMyBooksRemove({ book, removeType, targetList })
+    const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4) return <BtnHeart fn={RemoveBookFromXButtonAct} faved={true} />
-    //
+    if (icon && targetList === 4) return <BtnHeart fn={removeBookFromXButtonAct} faved={true} />
 
     let actionIcon: string | undefined
     if (icon) {
@@ -46,14 +45,11 @@ const RemoveBookFromXButton = ({
         }
     }
 
+    // fadeout(book.id) // was attached to bOnClick, before RemoveBookFromXButtonAct, but works meh
     return (
         <div className="mark">
             <BtnTextGeneral
-                bOnClick={() => {
-                    fadeout(book.id)
-                    RemoveBookFromXButtonAct()
-                }}
-                bIsLoading={isLoading}
+                bOnClick={removeBookFromXButtonAct}
                 bIcon={actionIcon}
                 bText={
                     button_title

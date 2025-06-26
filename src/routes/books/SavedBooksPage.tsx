@@ -7,20 +7,14 @@ import { motion } from "motion/react"
 
 const pageTitle = "Saved books"
 const pageTitleSub = "Books in whatever list"
-let pageTitleSubText = pageTitleSub
 const currentPage = "savedbooks"
 const booklist = undefined
 
 const SavedBooksPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-
     const books = userMyBooks.filter((book) => !book.tossed)
-
-    let hasbooks: boolean
-    if (books.length > 0) {
-        hasbooks = true
-        pageTitleSubText = books.length + ". " + pageTitleSub
-    } else hasbooks = false
+    const hasbooks: boolean = books.length > 0
+    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
 
     return (
         <motion.div
@@ -38,7 +32,7 @@ const SavedBooksPage = () => {
             ) : (
                 <>
                     <p>
-                        An overview of my saved books, this includes books that are favorited, read
+                        An overview of my saved books, this includes books that are favourited, read
                         and finished, the wishlist and the book currently reading.
                     </p>
                     <div>

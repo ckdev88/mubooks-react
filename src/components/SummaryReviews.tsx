@@ -2,7 +2,7 @@
 import ReviewTropes from "./ReviewTropes"
 import BookSummaryReview from "./BookSummaryReview"
 
-const pagesShowReviewTextAndTropes: Page[] = ["finished", "favorites", "savedbooks", "tropes"]
+const pagesShowReviewTextAndTropes: Page[] = ["finished", "favourites", "savedbooks", "tropes"]
 
 export default function SummaryReviews({ currentPage, book }: { currentPage: Page; book: Book }) {
     return (

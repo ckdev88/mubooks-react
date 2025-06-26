@@ -5,7 +5,7 @@ export default function fadeout(book_id: Book["id"]): void {
     // if (
     //     (tcp === "reading" && targetList !== 2) ||
     //     (tcp === "wishlist" && targetList !== 1) ||
-    //     (tcp === "favorites" && targetList !== 4) ||
+    //     (tcp === "favourites" && targetList !== 4) ||
     //     (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
     //     (tcp === "tossed" && targetList > 0)
     // ) {
