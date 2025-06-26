@@ -156,3 +156,11 @@ label:focus-within .description em {
     background-color: var(--disabled-loading-descr-bg);
     color: var(--text-primary-dimmed);
 }
+
+a,
+button,
+input[type="submit"] {
+    -webkit-tap-highlight-color: transparent;
+    /* biome-ignore lint/correctness/noUnknownProperty: <awaiting w3c approval> */
+    tap-highlight-color: transparent;
+}
