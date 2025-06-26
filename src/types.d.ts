@@ -179,6 +179,9 @@ interface ApiError {
     error_code?: string
     error_description?: string
 }
+type Language = "en" | "pt" | "nl"
+type TranslationMap = { [key: string]: Record<string, unknown> }
+type TranslatedText = { [key in Language]: string }
 
 type StatsAmountTypes = "books" | "pages" | "daysperbook" | "pagesperday"
 
