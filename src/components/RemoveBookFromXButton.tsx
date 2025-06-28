@@ -29,8 +29,7 @@ const RemoveBookFromXButton = ({
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4)
-        return <BtnHeart fn={removeBookFromXButtonAct} faved={true}  />
+    if (icon && targetList === 4) return <BtnHeart fn={handleClick} faved={true} />
 
     let actionIcon: string | undefined
     if (icon) {
@@ -49,7 +48,7 @@ const RemoveBookFromXButton = ({
         }
     }
 
-    // OPTIMIZE apply function caching (forgot the hook name for now)
+    // OPTIMIZE apply function caching/memoization
     async function handleClick() {
         await collapseItem(book.id).then(() => {
             setTimeout(() => {
