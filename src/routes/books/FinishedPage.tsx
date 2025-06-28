@@ -32,7 +32,7 @@ const FinishedPage = () => {
         >
             <Heading text={pageTitle} icon="icon-finished.svg" sub={pageTitleSubText} />
             {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+                <BooksOverviewPage books={books} page={currentPage} />
             ) : (
                 <>
                     <p>Have any favourites? Add them to your favourites from here.</p>

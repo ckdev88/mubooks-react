@@ -31,7 +31,7 @@ const FavouritesPage = () => {
         >
             <Heading text={pageTitle} icon={"icon-favourites.svg"} sub={pageTitleSubText} />
             {hasbooks ? (
-                <BooksOverviewPage page={currentPage} books={books} booklist={booklist} />
+                <BooksOverviewPage page={currentPage} books={books} />
             ) : (
                 <>
                     <h4>No books marked as favourite yet.</h4>

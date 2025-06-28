@@ -16,13 +16,10 @@ export const BooksOverviewFilterContext = createContext<BooksOverviewFilterConte
 const BooksOverviewPage = ({
     books,
     page,
-    booklist,
 }: {
     books: Books
     page: Page
-    booklist: Book["list"] | undefined
 }) => {
-    console.log("booklist doesnt seem te be used...", booklist) // TODO weg of houden?
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
 
     const booklistStart: Books = books

@@ -8,7 +8,6 @@ import SearchResultsMessage from "../../components/SearchResultsMessage"
 
 const pageTitle = "Search"
 const currentPage = "search"
-const booklist = undefined
 const minimumSearchLetters = 3
 const maximumSearchResults = 30
 const maximumSearchResultsMessage =
@@ -97,11 +96,7 @@ const SearchPage = () => {
                             resultsMessage={resultsMessage}
                             resultCount={resultCount}
                         />
-                        <BooksOverviewPage
-                            books={searchResults}
-                            page={currentPage}
-                            booklist={booklist}
-                        />
+                        <BooksOverviewPage books={searchResults} page={currentPage} />
                     </div>
                 </div>
             </motion.div>

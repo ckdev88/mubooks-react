@@ -8,7 +8,6 @@ import { motion } from "motion/react"
 const pageTitle = "Saved books"
 const pageTitleSub = "Books in whatever list"
 const currentPage = "savedbooks"
-const booklist = undefined
 
 const SavedBooksPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
@@ -28,7 +27,7 @@ const SavedBooksPage = () => {
         >
             <Heading text={pageTitle} icon={"icon-saved.svg"} sub={pageTitleSubText} />
             {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+                <BooksOverviewPage books={books} page={currentPage} />
             ) : (
                 <>
                     <p>

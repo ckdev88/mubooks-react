@@ -9,7 +9,6 @@ import TossTossers from "../../components/TossTossers"
 const pageTitle = "Removed books"
 const pageTitleSub = "To permanently remove or not to permanently remove"
 const currentPage = "tossed"
-const booklist = undefined
 
 const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
@@ -32,7 +31,6 @@ const TossedPage = () => {
                 <>
                     <TossTossers />
                     <BooksOverviewPage
-                        booklist={booklist}
                         books={userMyBooks.filter((book) => book.tossed && book.list > 0)}
                         page={currentPage}
                     />

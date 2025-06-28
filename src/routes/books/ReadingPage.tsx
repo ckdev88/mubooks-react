@@ -28,7 +28,7 @@ const ReadingPage = () => {
         >
             <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
             {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+                <BooksOverviewPage books={books} page={currentPage} />
             ) : (
                 <p>
                     Want to add a book to your reading list?

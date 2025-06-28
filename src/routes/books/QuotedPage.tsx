@@ -8,7 +8,6 @@ import { motion } from "motion/react"
 const pageTitle = "Mu Quotes"
 const pageTitleSub = "Lines to remember"
 const currentPage = "quoted"
-const booklist = undefined
 
 const QuotedPage = () => {
     const { userMyBooks } = useContext(AppContext)
@@ -39,7 +38,7 @@ const QuotedPage = () => {
         >
             <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSub} />
             {hasbooks ? (
-                <BooksOverviewPage booklist={booklist} books={quotedbooks} page={currentPage} />
+                <BooksOverviewPage books={quotedbooks} page={currentPage} />
             ) : (
                 <div>
                     <h4>No books added yet, find them and add them.</h4>

@@ -7,7 +7,6 @@ import { cleanAnchor } from "../helpers/cleanInput"
 import { Link } from "react-router-dom"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
-const booklist = undefined
 const TropesInMyBooks = ({ page }: { page: Page }) => {
     const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] = useState<boolean>(true)
     const { likedTropesLowercase, dislikedTropesLowercase } = useContext(TropesPageContext)
@@ -110,7 +109,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                         />
                     </div>
                     <br />
-                    <BooksOverviewPage booklist={booklist} page={page} books={userMyBooks} />
+                    <BooksOverviewPage page={page} books={userMyBooks} />
                 </>
             )}
         </section>
