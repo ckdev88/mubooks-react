@@ -34,8 +34,7 @@ const AddBookToXButton = ({
         })
     }
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4)
-        return <BtnHeart fn={AddBookToXButtonAct} faved={false} unfave={false} />
+    if (icon && targetList === 4) return <BtnHeart fn={AddBookToXButtonAct} faved={false} />
 
     return (
         <div className="mark">

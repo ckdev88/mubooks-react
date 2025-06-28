@@ -30,7 +30,7 @@ const RemoveBookFromXButton = ({
 
     // Show heart icon in top right, depending on targetList & icon args
     if (icon && targetList === 4)
-        return <BtnHeart fn={removeBookFromXButtonAct} faved={true} unfave={true} />
+        return <BtnHeart fn={removeBookFromXButtonAct} faved={true}  />
 
     let actionIcon: string | undefined
     if (icon) {

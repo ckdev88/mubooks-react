@@ -7,7 +7,7 @@ import useUpdateDb from "./useUpdateDb"
 import { notification as nm } from "../i18n/notifications"
 
 const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit} =
+    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } =
         useContext(AppContext)
 
     const initUpdateDb = useUpdateDb({

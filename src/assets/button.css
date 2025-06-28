@@ -537,13 +537,16 @@ button.icon-heart {
     display: flex;
     align-items: center;
     justify-content: center;
-
     &.inactive {
         opacity: 0.25;
-        animation: icon-heart-popin .4s linear;
     }
     &.active {
         opacity: 1;
+    }
+    &.shrink {
+        animation: icon-heart-popin .4s linear;
+    }
+    &.grow {
         animation: icon-heart-popup .4s linear;
     }
     .inside {
