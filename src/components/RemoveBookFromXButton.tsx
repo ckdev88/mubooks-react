@@ -29,7 +29,7 @@ const RemoveBookFromXButton = ({
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4) return <BtnHeart fn={handleClick} faved={true} />
+    if (icon && targetList === 4 && removeType!=="permatoss") return <BtnHeart fn={handleClick} faved={true} />
 
     let actionIcon: string | undefined
     if (icon) {
