@@ -28,6 +28,7 @@ const FinishedPage = () => {
                 duration: GLOBALS.pageAnimationDuration,
                 delay: GLOBALS.pageAnimationDelay,
             }}
+            id="overview-wrapper"
         >
             <Heading text={pageTitle} icon="icon-finished.svg" sub={pageTitleSubText} />
             {hasbooks ? (

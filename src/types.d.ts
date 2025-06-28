@@ -4,6 +4,7 @@ interface GlobalSettings {
     pageAnimationDelay: number
     pageAnimationDuration: number
     userid: string
+    bookRemoveAnimationDuration: number
 }
 
 interface AppContextType {
@@ -28,8 +29,6 @@ interface AppContextType {
     bodyBgColor: string
     pageName: string
     setPageName(pageName: pageName): void
-    reRender: boolean
-    setRerender(reRender: reRender): void
     GLOBALS: GlobalSettings
 }
 

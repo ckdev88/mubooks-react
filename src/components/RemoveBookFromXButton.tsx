@@ -1,8 +1,10 @@
 import getListName from "../functions/getListName"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-// import fadeout from "../utils/uiMisc"
+import collapseItem from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
 import useMyBooksRemove from "../hooks/useMyBooksRemove"
+import { useContext } from "react"
+import { AppContext } from "../App"
 
 /**
  * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
@@ -20,13 +22,15 @@ const RemoveBookFromXButton = ({
     button_title?: string
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
+    const { GLOBALS } = useContext(AppContext)
     if (button_title === "") button_title = `Remove from ${getListName(targetList)}`
 
     const book: Book = bookProp
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4) return <BtnHeart fn={removeBookFromXButtonAct} faved={true} />
+    if (icon && targetList === 4)
+        return <BtnHeart fn={removeBookFromXButtonAct} faved={true} unfave={true} />
 
     let actionIcon: string | undefined
     if (icon) {
@@ -45,11 +49,19 @@ const RemoveBookFromXButton = ({
         }
     }
 
-    // fadeout(book.id) // was attached to bOnClick, before RemoveBookFromXButtonAct, but works meh
+    // OPTIMIZE apply function caching (forgot the hook name for now)
+    async function handleClick() {
+        await collapseItem(book.id).then(() => {
+            setTimeout(() => {
+                removeBookFromXButtonAct()
+            }, GLOBALS.bookRemoveAnimationDuration)
+        })
+    }
+
     return (
         <div className="mark">
             <BtnTextGeneral
-                bOnClick={removeBookFromXButtonAct}
+                bOnClick={handleClick}
                 bIcon={actionIcon}
                 bText={
                     button_title

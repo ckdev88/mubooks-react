@@ -42,6 +42,7 @@ const BookSummary = ({
             }
         >
             <div style={{ marginTop: "-4rem", position: "absolute" }} id={bookAnchor} />
+            <div className="seperator" />
             <BookSummaryAside book={book} currentPage={currentPage} />
             <div className="article-main">
                 {currentPage === "quoted" ? (
@@ -103,7 +104,7 @@ const BookSummary = ({
                 )}
             </div>
             {currentPage !== "dashboard" && (
-                <footer>
+                <footer className="footer">
                     {pagesReviewQuotes.includes(currentPage) && (
                         <>
                             <BookSummaryReview

@@ -4,7 +4,7 @@ import { AppContext } from "./../App"
 import useUpdateDb from "./useUpdateDb"
 
 const useMyBooksUpdate = (myBooksNew: Books) => {
-    const { setUserMyBooks, setPopupNotification, setRerender } = useContext(AppContext)
+    const { setUserMyBooks, setPopupNotification } = useContext(AppContext)
 
     const initUpdateDb = useUpdateDb({
         msg: "zo gaat ie goed",
@@ -12,14 +12,11 @@ const useMyBooksUpdate = (myBooksNew: Books) => {
         newJson: myBooksNew,
     })
 
-    // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksAdd.ts
+    // TODO  also ./useMyBooksAdd.ts -- DRY
     const runMyBooksUpdate = async () => {
         setUserMyBooks(myBooksNew)
-        setPopupNotification("optimist")
         const notification: string = await initUpdateDb()
-        // setIsLoading(false)
         setPopupNotification(notification)
-        setRerender(true)
     }
     const runUpdate = () => runMyBooksUpdate()
     return runUpdate

@@ -5,11 +5,11 @@ const BtnHeart = ({ fn, faved }: { fn: () => void; faved: boolean }): React.Reac
     return (
         <button
             type="button"
-            className={bClass}
-            // onKeyDown={(event) => {
-            //     if (event.key === "Enter") fn
-            // }}
-            onClick={fn}
+            className={isActive ? "icon-heart active" : "icon-heart inactive"}
+            onClick={() => {
+                fn()
+                setIsActive(!isActive)
+            }}
             aria-label={faved === true ? "Remove from favourites" : "Add to favourites"}
         >
             <span className="inside" />

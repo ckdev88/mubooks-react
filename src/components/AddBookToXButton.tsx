@@ -1,8 +1,10 @@
 import getListName from "../functions/getListName"
 import useMyBooksAdd from "../hooks/useMyBooksAdd"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-import fadeout from "../utils/uiMisc"
+import collapseItem from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
+import { useContext } from "react"
+import { AppContext } from "../App"
 
 const AddBookToXButton = ({
     bookProp,
@@ -15,27 +17,33 @@ const AddBookToXButton = ({
     icon: boolean
     button_title?: string
 }) => {
+    const { GLOBALS } = useContext(AppContext)
     if (button_title === "") button_title = `Add to ${getListName(targetList)}`
 
     const book: Book = bookProp
-    const [AddBookToXButtonAct, isLoading] = useMyBooksAdd({ book, targetList })
+    const AddBookToXButtonAct = useMyBooksAdd({ book, targetList })
 
     const iconClassName = "icon icon-" + getListName(targetList)
 
+    // OPTIMIZE apply function caching (forgot the hook name for now)
+    async function handleClick() {
+        await collapseItem(book.id).then(() => {
+            setTimeout(() => {
+                AddBookToXButtonAct()
+            }, GLOBALS.bookRemoveAnimationDuration)
+        })
+    }
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4) return <BtnHeart fn={AddBookToXButtonAct} faved={false} />
+    if (icon && targetList === 4)
+        return <BtnHeart fn={AddBookToXButtonAct} faved={false} unfave={false} />
 
     return (
         <div className="mark">
             <BtnTextGeneral
-                bOnClick={() => {
-                    // TODO: fadeout animation is a bit meh
-                    fadeout(book.id)
-                    AddBookToXButtonAct()
-                }}
+                bOnClick={handleClick}
                 bIcon={iconClassName}
                 bText={button_title}
-                bIsLoading={isLoading}
+                // bIsLoading={isLoading}
             />
         </div>
     )

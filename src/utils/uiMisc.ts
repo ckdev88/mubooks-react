@@ -1,15 +1,25 @@
-export default function fadeout(book_id: Book["id"]): void {
+export default async function collapseItem(book_id: Book["id"]) {
     /** Temporary Current Page, taken from url */
     const tcp = window.location.pathname.replace("/", "")
-    // TODO see if conditionals below are still applicable
-    // if (
-    //     (tcp === "reading" && targetList !== 2) ||
-    //     (tcp === "wishlist" && targetList !== 1) ||
-    //     (tcp === "favourites" && targetList !== 4) ||
-    //     (tcp === "finished" && targetList !== 3 && targetList !== 4) ||
-    //     (tcp === "tossed" && targetList > 0)
-    // ) {
-    if (tcp !== "search" && tcp !== "savedbooks") {
-        document.getElementById(`bookSummaryTransitioner${book_id}`)?.classList.add("fadeout")
+    if (tcp !== "search") {
+        const ele = document.getElementById(`bookSummaryTransitioner${book_id}`)
+        if (ele) {
+            // Get the actual height first
+            const height = ele.offsetHeight
+
+            // Apply the starting max-height
+            ele.style.maxHeight = `${height}px`
+
+            // Force reflow to ensure styles are applied
+            void ele.offsetHeight
+
+            // Add the animation class
+            ele.classList.add("collapse-item")
+
+            // Remove element after animation completes
+            ele.addEventListener("animationend", () => {
+                ele.style = "display:none"
+            })
+        }
     }
 }

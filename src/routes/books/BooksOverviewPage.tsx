@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, createContext } from "react"
+import { useState, useContext, useEffect, createContext, useLayoutEffect } from "react"
 import BookSummary from "../../components/BookSummary"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
@@ -35,46 +35,10 @@ const BooksOverviewPage = ({
     const [booksFilter, setBooksFilter] = useState<string>("")
     const [booksOverview, setBooksOverview] = useState<Books>(books)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        // useEffect would create a flash of old state on updating state (toss, restore, or unfav on favs page) ... TODO make it better/faster?
         setBooksOverview(books)
     }, [books])
-
-    // PER LIST
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO OPTIMIZE>
-    // useEffect(() => {
-    //     console.log("USERMYBOOKS changed? useEffect in BooksOverviewPage on userMyBooks triggered")
-    //     let bookstmp: Books = []
-    //     if (books !== undefined && books.length > 0) {
-    //         bookstmp = books // this is the default, should always work with pages
-    // if (page === "finished") {
-    //     bookstmp = userMyBooks.filter(
-    //         (book: Book) => !book.tossed && (book.list === 3 || book.list === 4),
-    //     )
-    //     setBooksOverview(bookstmp)
-    //     return
-    // }
-    //     if (page === "tossed") {
-    //         console.log("... in TOSSED")
-    //         bookstmp = userMyBooks.filter((book: Book) => book.tossed === true && book.list > 0)
-    //         setBooksOverview(bookstmp)
-    //         return
-    //     }
-    // } else if (booklist) {
-    // if (booklist === 3) {
-    //     bookstmp = userMyBooks.filter((book: Book) => book.list === 3 || book.list === 4)
-    // } else {
-    //     if (page === "tossed") {
-    //         bookstmp = userMyBooks.filter((book) => book.tossed === true)
-    //     } else
-    //         bookstmp = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
-    // }
-
-    // if (booklist === 3 || booklist === 4) {
-    //     bookstmp.sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
-    // }
-    //     }
-    //     setBooksOverview(bookstmp)
-    // }, [userMyBooks])
 
     // TROPES
     // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified

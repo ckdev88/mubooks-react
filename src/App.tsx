@@ -49,7 +49,6 @@ const App = () => {
     const [usermail, setUsermail] = useState<string>("")
     const [userid, setUserid] = useState<string>("")
     const [userMyBooks, setUserMyBooks] = useState<Books>([])
-    const [reRender, setRerender] = useState<boolean>(false)
     const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitVal)
     const [popupNotification, setPopupNotification] = useState<string>("")
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
@@ -58,21 +57,15 @@ const App = () => {
     const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
     const [pageName, setPageName] = useState<string>("default")
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    useEffect(() => {
-        if (reRender === true) {
-            setUserMyBooks(userMyBooks)
-            setRerender(false)
-        }
-    }, [reRender])
-
     // Settings
+    // TODO: put this in settings.json file or something
     const GLOBALS: GlobalSettings = {
         headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
         synopsisEnabled: false,
-        pageAnimationDelay: 0.28, // .28
-        pageAnimationDuration: 0.4, // .4
+        pageAnimationDelay: 0.19,
+        pageAnimationDuration: 0.19,
         userid: userid,
+        bookRemoveAnimationDuration: 0.19,
     }
 
     /* NOTE
@@ -158,8 +151,6 @@ const App = () => {
                 bodyBgColor,
                 pageName,
                 setPageName,
-                reRender,
-                setRerender,
                 GLOBALS,
             }}
         >

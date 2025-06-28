@@ -579,18 +579,20 @@ button.icon-heart .inside::before,
 button.icon-heart .inside::after {
     position: absolute;
 }
-button.icon-heart.inactive .inside,
-button.icon-heart.inactive .inside::before,
-button.icon-heart.inactive .inside::after {
-    animation: icon-heart-popin-inside .4s ease-in-out;
-    background-color: var(--text-primary-dimmed);
+button.icon-heart.inactive {
+    .inside,
+    .inside::before,
+    .inside::after {
+        background-color: var(--text-primary-dimmed);
+    }
 }
 
-button.icon-heart.active .inside,
-button.icon-heart.active .inside::before,
-button.icon-heart.active .inside::after {
-    animation: icon-heart-popup-inside .4s ease-in-out;
-    background-color: var(--red);
+button.icon-heart.active {
+    .inside,
+    .inside::before,
+    .inside::after {
+        background-color: var(--red);
+    }
 }
 
 @keyframes icon-heart-popup {

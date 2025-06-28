@@ -1,19 +1,14 @@
 import convertDate from "../helpers/convertDate"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
 import useUpdateDb from "./useUpdateDb"
 import { notification as nm } from "../i18n/notifications"
 
-const useMyBooksAdd = ({
-    book,
-    targetList,
-}: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit, setRerender } =
+const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
+    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit} =
         useContext(AppContext)
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const initUpdateDb = useUpdateDb({
         msg: nm.Added_to + getListName(targetList, true),
@@ -21,15 +16,12 @@ const useMyBooksAdd = ({
     })
 
     async function MyBooksUpdate(myBooksNew: Books) {
-        // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksRemove
         setUserMyBooks(myBooksNew)
-        setPopupNotification("optimist")
         const notification: string = await initUpdateDb()
-        setIsLoading(false)
         setPopupNotification(notification)
-        setRerender(true)
     }
 
+    // TODO move into utils/
     const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
         const bookCoverSrcRedir: string = await fetch(bookCoverM).then((res) => res.url)
         return bookCoverSrcRedir
@@ -100,10 +92,9 @@ const useMyBooksAdd = ({
     }
 
     const AddBookToXButtonAct = (): void => {
-        setIsLoading(true)
         AddBookToX()
     }
 
-    return [AddBookToXButtonAct, isLoading]
+    return AddBookToXButtonAct
 }
 export default useMyBooksAdd

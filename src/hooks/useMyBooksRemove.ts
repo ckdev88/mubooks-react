@@ -28,7 +28,6 @@ const useMyBooksRemove = ({
     async function updateMyBooks(myBooksNew: Books, msg: string) {
         // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksAdd.ts
         setUserMyBooks(myBooksNew)
-        setPopupNotification("optimist")
         setPopupNotification(await updateMyBooksDb(myBooksNew, msg))
     }
 

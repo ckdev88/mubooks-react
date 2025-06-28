@@ -1,19 +1,18 @@
-.transition-wrapper.fadeout {
-    animation-name: fadeout;
-    animation-duration: 0.3s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+/* OPTIMIZE maybe apply as js style or styled component */
+.collapse-item {
+    animation: collapse .19s linear forwards; /* see GLOBALS.bookRemoveAnimationDuration */
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
-@keyframes fadeout {
+@keyframes collapse {
     0% {
-        opacity: 1;
+        max-height: 500px; /* Adjust to your content's max height */
     }
     99% {
-        opacity: 0;
+        max-height: 0;
     }
     100% {
-        display: none;
+        max-height: 0;
     }
 }
