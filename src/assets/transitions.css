@@ -1,6 +1,6 @@
 /* OPTIMIZE maybe apply as js style or styled component */
 .collapse-item {
-    animation: collapse .19s linear forwards; /* see GLOBALS.bookRemoveAnimationDuration */
+    animation: collapse 380ms linear forwards; /* see GLOBALS.bookRemoveAnimationDuration - which is currently not used */
     overflow: hidden;
     box-sizing: border-box;
 }

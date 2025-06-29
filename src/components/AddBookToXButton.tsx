@@ -3,8 +3,7 @@ import useMyBooksAdd from "../hooks/useMyBooksAdd"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import collapseItem from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
-import { useContext } from "react"
-import { AppContext } from "../App"
+import checkPreventCollapse from "../utils/checkPreventCollapse"
 
 const AddBookToXButton = ({
     bookProp,
@@ -17,7 +16,6 @@ const AddBookToXButton = ({
     icon: boolean
     button_title?: string
 }) => {
-    const { GLOBALS } = useContext(AppContext)
     if (button_title === "") button_title = `Add to ${getListName(targetList)}`
 
     const book: Book = bookProp
@@ -25,14 +23,12 @@ const AddBookToXButton = ({
 
     const iconClassName = "icon icon-" + getListName(targetList)
 
-    // OPTIMIZE apply function caching (forgot the hook name for now)
-    async function handleClick() {
-        await collapseItem(book.id).then(() => {
-            setTimeout(() => {
-                AddBookToXButtonAct()
-            }, GLOBALS.bookRemoveAnimationDuration)
-        })
+    async function handleClick(): Promise<void> {
+        const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+        if (checkPreventCollapse(targetList, currentPage)) return AddBookToXButtonAct()
+        await collapseItem(book.id).then(() => AddBookToXButtonAct())
     }
+
     // Show heart icon in top right, depending on targetList & icon args
     if (icon && targetList === 4) return <BtnHeart fn={AddBookToXButtonAct} faved={false} />
 

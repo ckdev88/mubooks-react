@@ -55,6 +55,7 @@ const App = () => {
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
     const [darkTheme, setDarkTheme] = useState<undefined | boolean>(undefined)
     const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
+    // TODO: check if pageName is actually useful or used/ related to rendering amount
     const [pageName, setPageName] = useState<string>("default")
 
     // Settings
@@ -62,10 +63,10 @@ const App = () => {
     const GLOBALS: GlobalSettings = {
         headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
         synopsisEnabled: false,
-        pageAnimationDelay: 0.19,
-        pageAnimationDuration: 0.19,
+        pageAnimationDelay: 0.19, // .28
+        pageAnimationDuration: 0.19, // .4
         userid: userid,
-        bookRemoveAnimationDuration: 0.19,
+        bookRemoveAnimationDuration: 380, // in ms // TODO this is currenly not used, remove?
     }
 
     /* NOTE

@@ -3,13 +3,11 @@ import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import collapseItem from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
 import useMyBooksRemove from "../hooks/useMyBooksRemove"
-import { useContext } from "react"
-import { AppContext } from "../App"
+import checkPreventCollapse from "../utils/checkPreventCollapse"
 
 /**
  * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
  */
-const tcp = window.location.pathname.replace("/", "") // OPTIMIZE hoort hier eigenlijk niet
 const RemoveBookFromXButton = ({
     bookProp,
     targetList = bookProp.list,
@@ -23,21 +21,16 @@ const RemoveBookFromXButton = ({
     button_title?: string
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
-    const { GLOBALS } = useContext(AppContext)
     if (button_title === "") button_title = `Remove from ${getListName(targetList)}`
 
     const book: Book = bookProp
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4 && removeType !== "permatoss"){
-        return (
-            <BtnHeart
-                fn={() => handleClick(tcp === "favourites")}
-                faved={true}
-            />
-        )
-
+    // OPTIMIZE make static pathnames dynamic or via settings.json
+    // OPTIMIZE, just improve the whole thing, it's meh
+    if (icon && targetList === 4 && removeType !== "permatoss") {
+        return <BtnHeart fn={handleClick} faved={true} />
     }
 
     let actionIcon: string | undefined
@@ -57,15 +50,11 @@ const RemoveBookFromXButton = ({
         }
     }
 
-    // OPTIMIZE apply function caching/memoization
-    async function handleClick(collapse = true) {
-        if (collapse === true) {
-            await collapseItem(book.id).then(() => {
-                setTimeout(() => {
-                    removeBookFromXButtonAct()
-                }, GLOBALS.bookRemoveAnimationDuration)
-            })
-        } else removeBookFromXButtonAct()
+    async function handleClick(): Promise<void> {
+        const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+        if (checkPreventCollapse(targetList, currentPage, removeType))
+            return removeBookFromXButtonAct()
+        await collapseItem(book.id).then(() => removeBookFromXButtonAct())
     }
 
     return (

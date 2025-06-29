@@ -4,22 +4,9 @@ export default async function collapseItem(book_id: Book["id"]) {
     if (tcp !== "search") {
         const ele = document.getElementById(`bookSummaryTransitioner${book_id}`)
         if (ele) {
-            // Get the actual height first
-            const height = ele.offsetHeight
-
-            // Apply the starting max-height
-            ele.style.maxHeight = `${height}px`
-
-            // Force reflow to ensure styles are applied
-            void ele.offsetHeight
-
-            // Add the animation class
+            ele.style.maxHeight = `${ele.offsetHeight}px` // Apply the starting max-height
+            void ele.offsetHeight // Force reflow to ensure styles are applied
             ele.classList.add("collapse-item")
-
-            // Remove element after animation completes
-            ele.addEventListener("animationend", () => {
-                ele.style = "display:none"
-            })
         }
     }
 }
