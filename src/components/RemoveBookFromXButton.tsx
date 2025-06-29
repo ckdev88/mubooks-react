@@ -9,6 +9,7 @@ import { AppContext } from "../App"
 /**
  * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
  */
+const tcp = window.location.pathname.replace("/", "") // OPTIMIZE hoort hier eigenlijk niet
 const RemoveBookFromXButton = ({
     bookProp,
     targetList = bookProp.list,
@@ -29,7 +30,15 @@ const RemoveBookFromXButton = ({
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
     // Show heart icon in top right, depending on targetList & icon args
-    if (icon && targetList === 4 && removeType!=="permatoss") return <BtnHeart fn={handleClick} faved={true} />
+    if (icon && targetList === 4 && removeType !== "permatoss"){
+        return (
+            <BtnHeart
+                fn={() => handleClick(tcp === "favourites")}
+                faved={true}
+            />
+        )
+
+    }
 
     let actionIcon: string | undefined
     if (icon) {
@@ -49,12 +58,14 @@ const RemoveBookFromXButton = ({
     }
 
     // OPTIMIZE apply function caching/memoization
-    async function handleClick() {
-        await collapseItem(book.id).then(() => {
-            setTimeout(() => {
-                removeBookFromXButtonAct()
-            }, GLOBALS.bookRemoveAnimationDuration)
-        })
+    async function handleClick(collapse = true) {
+        if (collapse === true) {
+            await collapseItem(book.id).then(() => {
+                setTimeout(() => {
+                    removeBookFromXButtonAct()
+                }, GLOBALS.bookRemoveAnimationDuration)
+            })
+        } else removeBookFromXButtonAct()
     }
 
     return (

@@ -21,7 +21,8 @@ const AddToRemoveFromX = ({
     // limit 01234, 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favourited)
     const [showHiddenMarks, setShowHiddenMarks] = useState<boolean>(currentPage === "tossed")
 
-    if (limit === 4 && book.list > 2) {
+    // TODO memoize, this eats CPU
+    if (limit === 4 && book.list > 2 && location.pathname.slice(1) !== "tossed") {
         // favourited book (heart icon), on list 3 or 4
         return (
             <>

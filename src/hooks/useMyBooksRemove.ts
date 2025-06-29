@@ -74,6 +74,7 @@ const useMyBooksRemove = ({
                                     nm.reading_added,
                                 ) // finished favourite > reading
                             default:
+                                // FIXME klopt dit? in /finished het verwijderen van fave status geeft problemen
                                 return updateMyBooks(
                                     assignListById(myBooks, book.id, 3),
                                     nm.favourite_removed,
