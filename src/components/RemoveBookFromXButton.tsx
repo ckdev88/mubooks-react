@@ -17,7 +17,7 @@ const RemoveBookFromXButton = ({
 }: {
     bookProp: Book
     targetList?: BookList
-    icon: boolean
+    icon?: boolean
     button_title?: string
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {

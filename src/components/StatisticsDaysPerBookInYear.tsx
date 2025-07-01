@@ -1,3 +1,4 @@
+// TODO are these used anywhere?
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
 import { AppContext } from "../App"
@@ -9,9 +10,9 @@ interface ConciseDaysPerBook {
     title_short: Book["title_short"]
     days: Book["days"]
 }
-type ArrayConciseDaysPerBook = ConciseDaysPerBook[]
+type ConciseDaysPerBookArray = ConciseDaysPerBook[]
 
-type OutputPerDaysAmount = {
+interface OutputPerDaysAmount {
     days: number
     amount: number
     books: {
@@ -20,18 +21,19 @@ type OutputPerDaysAmount = {
         days: number
     }[]
 }
+type OutputPerDaysAmountArray = OutputPerDaysAmount[]
 
 function getBooksFinishedInYear(
     inputArray: Books,
     year: number,
     format: "concise" | "concise_daysperbook" | "full",
-): Books | ArrayConciseDaysPerBook {
+): Books | ConciseDaysPerBookArray {
     const arrayFull = inputArray.filter(
         (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
     )
     if (format === "concise_daysperbook") {
         // OPTIMIZE might be quicker to just append 'days' into database
-        const arrayConcise: ArrayConciseDaysPerBook = []
+        const arrayConcise: ConciseDaysPerBookArray = []
         for (let i = 0; i < arrayFull.length; i++) {
             const bookToPush: ConciseDaysPerBook = {
                 id: arrayFull[i].id,
@@ -44,9 +46,10 @@ function getBooksFinishedInYear(
     }
     return arrayFull
 }
+
 function getDpbData(userMyBooks: Books, year: number) {
     const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_daysperbook")
-    const outputArray: OutputPerDaysAmount[] = []
+    const outputArray: OutputPerDaysAmountArray = []
 
     const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
 

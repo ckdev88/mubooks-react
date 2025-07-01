@@ -23,18 +23,18 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
     const dpb: number[] = []
     /** Average Pages Per Day */
     let appd = 0
-    /** Counted Books with STars */
+    /** Counted Books with Stars */
     let cbst = 0
-    /** Counted Books without STars */
+    /** Counted Books without Stars */
     let cbwst = 0
-    /** Counted STars Total */
+    /** Counted Stars Total */
     let cstt = 0
     /**
-     * Counted STars Per Book
+     * Counted Stars Per Book
      * array of 5 values, [0]=1 star, [4]=5 stars, incremented by the amount of books per amount of stars/index
      */
     const cstpb: number[] = [0, 0, 0, 0, 0]
-    /** Average STars Per Book */
+    /** Average Stars Per Book */
     let astpb = 0
 
     const bwp: BooksWithoutPages = []
