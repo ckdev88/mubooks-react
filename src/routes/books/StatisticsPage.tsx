@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../../App"
 import getFinishedBooksStatsYears from "../../functions/getFinishedBooksStatsYears"
-import StatisticsYear from "../../components/StatisticsYear"
+import StatisticsYear from "../../components/stats/StatisticsYear"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 
