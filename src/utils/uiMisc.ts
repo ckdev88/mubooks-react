@@ -10,3 +10,27 @@ export default async function collapseItem(book_id: Book["id"]) {
         }
     }
 }
+
+export const animateHeight = (element: HTMLElement, isOpen: boolean, duration = 250) => {
+    if (isOpen) {
+        // Open animation
+        element.style.height = "auto"
+        const fullHeight = element.scrollHeight
+        element.style.height = "0px"
+
+        requestAnimationFrame(() => {
+            element.style.transition = `height ${duration}ms ease`
+            element.style.height = `${fullHeight}px`
+        })
+    } else {
+        // Close animation
+        element.style.transition = `height ${duration}ms ease`
+        element.style.height = "0px"
+    }
+}
+
+export const cleanupAnimation = (element: HTMLElement) => {
+    // Remove inline styles when component unmounts
+    element.style.height = ""
+    element.style.transition = ""
+}

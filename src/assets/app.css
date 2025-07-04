@@ -71,3 +71,7 @@ html:not(.loggedin) .h1 {
 .footer-suggestions.active {
     display: none;
 }
+
+.stats-item {
+    border-bottom: 1px solid var(--cardbg);
+}
