@@ -1,46 +1,51 @@
-import { supabase } from "../utils/supabase"
+import { useEffect, createContext, useState, useMemo, Suspense } from "react"
+import { Routes, Route } from "react-router-dom"
+import { supabase, localStorageKey } from "../utils/supabase"
 import "./functions/miscEventListeners.ts"
-import { useEffect } from "react"
+
+// utils TODO move into ./utils/
+import { isLocal } from "./Helpers.ts"
+import { timestampConverter } from "./helpers/convertDate.ts"
+
+// components
+import AppFooter from "./components/AppFooter.tsx"
+import SuggestionsPage from "./routes/SuggestionsPage.tsx"
+import NavWrapper from "./components/NavWrapper"
+import PopupNotification from "./components/ui/PopupNotification"
+
+// routes
+import DashboardPage from "./routes/account/DashboardPage"
+import AddBookPage from "./routes/books/AddBookPage"
 import AuthConfirm from "./routes/auth/Confirm"
-import ResetPasswordPage from "./routes/auth/ResetPasswordPage"
 import CheckMailNewAccountPage from "./routes/account/CheckMailNewAccountPage"
 import CheckMailPasswordPage from "./routes/account/CheckMailPasswordPage"
-import DashboardPage from "./routes/account/DashboardPage"
+import ClearMyBooks from "./routes/books/ClearMyBooks"
 import ErrorPage from "./routes/ErrorPage"
 import FavouritesPage from "./routes/books/FavouritesPage"
 import FinishedPage from "./routes/books/FinishedPage"
-import NavWrapper from "./components/NavWrapper"
 import QuotedPage from "./routes/books/QuotedPage"
 import ReadingPage from "./routes/books/ReadingPage"
+import ResetPasswordPage from "./routes/auth/ResetPasswordPage"
 import RootPage from "./routes/RootPage"
 import SavedBooksPage from "./routes/books/SavedBooksPage"
-import TossedPage from "./routes/books/TossedPage.tsx"
 import SearchPage from "./routes/books/SearchPage"
 import StatisticsPage from "./routes/books/StatisticsPage"
+import TossedPage from "./routes/books/TossedPage.tsx"
 import TropesPage from "./routes/books/TropesPage"
 import UserLoginPage from "./routes/account/UserLoginPage"
 import UserLogoutPage from "./routes/account/UserLogoutPage"
 import UserProfilePage from "./routes/account/UserProfilePage"
 import WishlistPage from "./routes/books/WishlistPage"
-import { Routes, Route } from "react-router-dom"
-import { createContext, useState } from "react"
-import { localStorageKey } from "../utils/supabase"
-import ClearMyBooks from "./routes/books/ClearMyBooks"
-import { timestampConverter } from "./helpers/convertDate.ts"
-import AddBookPage from "./routes/books/AddBookPage"
-import PopupNotification from "./components/ui/PopupNotification"
-import { isLocal } from "./Helpers.ts"
-import AppFooter from "./components/AppFooter.tsx"
-import SuggestionsPage from "./routes/SuggestionsPage.tsx"
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-const todaysDateInput = timestampConverter(Date.now(), "input")
-const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
-const bgColorLight: string = "#f4f1ea"
 const bgColorDark: string = "#152129"
+const bgColorLight: string = "#f4f1ea"
+const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
+const todaysDateInput = timestampConverter(Date.now(), "input")
 
 let userIsLoggedInInitVal: boolean
+
 const App = () => {
     if (localStorage.getItem(localStorageKey)) userIsLoggedInInitVal = true
     else userIsLoggedInInitVal = false
@@ -60,14 +65,17 @@ const App = () => {
 
     // Settings
     // TODO: put this in settings.json file or something
-    const GLOBALS: GlobalSettings = {
-        headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
-        synopsisEnabled: false,
-        pageAnimationDelay: 0.19, // .28
-        pageAnimationDuration: 0.19, // .4
-        userid: userid,
-        bookRemoveAnimationDuration: 380, // in ms // TODO this is currenly not used, remove?
-    }
+    const GLOBALS: GlobalSettings = useMemo(
+        () => ({
+            headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
+            synopsisEnabled: false,
+            pageAnimationDelay: 0.19, // .28
+            pageAnimationDuration: 0.19, // .4
+            userid: userid,
+            bookRemoveAnimationDuration: 250, // in ms // TODO this is currenly not used, remove?
+        }),
+        [userid],
+    )
 
     /* NOTE
      * 3 kinds of settings?
@@ -156,11 +164,13 @@ const App = () => {
             }}
         >
             <div id="top" style={{ position: "absolute" }} />
+
             {userIsLoggedIn && (
                 <header id="header" className="shade">
                     <NavWrapper />
                 </header>
             )}
+
             <main id="main" className={pageName + " main"}>
                 <PopupNotification />
                 <Routes>
