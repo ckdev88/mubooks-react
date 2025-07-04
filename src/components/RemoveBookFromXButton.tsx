@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react"
 import getListName from "../functions/getListName"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import collapseItem from "../utils/uiMisc"
@@ -21,53 +22,63 @@ const RemoveBookFromXButton = ({
     button_title?: string
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
-    if (button_title === "") button_title = `Remove from ${getListName(targetList)}`
-
     const book: Book = bookProp
     const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
+
+    const targetListName = useMemo(() => getListName(targetList), [targetList])
+    const previousListName = useMemo(() => getListName((book.list - 1) as BookList), [book.list])
+
+    const buttonTitle = useMemo(() => {
+        if (button_title) return button_title
+        return removeType === "move"
+            ? `Move back to ${previousListName}`
+            : `Remove from ${targetListName}`
+    }, [button_title, removeType, previousListName, targetListName])
+
+    const actionIconFn = () => {
+        // if (!icon) return undefined
+        switch (removeType) {
+            case "toss":
+            case "permatoss":
+                return "toss"
+            case "untoss":
+                console.log("untoss")
+                return getListName(book.list as BookList)
+            default:
+                return previousListName
+        }
+    }
+    const actionIcon = actionIconFn()
+
+    const handleClick = useCallback(
+        // biome-ignore lint/complexity/useArrowFunction: <TODO: arrow function call better?>
+        async function (): Promise<void> {
+            const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+            if (checkPreventCollapse(targetList, currentPage, removeType))
+                return removeBookFromXButtonAct()
+            await collapseItem(book.id)
+            removeBookFromXButtonAct() // OPTIMIZE to await or not to await here?
+        },
+        [targetList, removeType, book.id, removeBookFromXButtonAct],
+    )
 
     // Show heart icon in top right, depending on targetList & icon args
     // OPTIMIZE make static pathnames dynamic or via settings.json
     // OPTIMIZE, just improve the whole thing, it's meh
-    if (icon && targetList === 4 && removeType !== "permatoss") {
+    if (icon && targetList === 4 && removeType !== "permatoss" && removeType !== "untoss") {
         return <BtnHeart fn={handleClick} faved={true} />
     }
 
-    let actionIcon: string | undefined
-    if (icon) {
-        switch (removeType) {
-            case "toss":
-                actionIcon = "toss"
-                break
-            case "permatoss":
-                actionIcon = "toss"
-                break
-            case "untoss":
-                actionIcon = getListName(book.list as BookList)
-                break
-            default:
-                actionIcon = getListName((book.list - 1) as BookList)
-        }
-    }
-
-    async function handleClick(): Promise<void> {
-        const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
-        if (checkPreventCollapse(targetList, currentPage, removeType))
-            return removeBookFromXButtonAct()
-        await collapseItem(book.id).then(() => removeBookFromXButtonAct())
-    }
+    // async function handleClick(): Promise<void> {
+    //     const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+    //     if (checkPreventCollapse(targetList, currentPage, removeType))
+    //         return removeBookFromXButtonAct()
+    //     await collapseItem(book.id).then(() => removeBookFromXButtonAct())
+    // }
 
     return (
         <div className="mark">
-            <BtnTextGeneral
-                bOnClick={handleClick}
-                bIcon={actionIcon}
-                bText={
-                    button_title
-                        ? button_title
-                        : `Move back to ${getListName((book.list - 1) as BookList)}`
-                }
-            />
+            <BtnTextGeneral bOnClick={handleClick} bIcon={actionIcon} bText={buttonTitle} />
         </div>
     )
 }

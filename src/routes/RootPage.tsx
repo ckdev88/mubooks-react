@@ -1,103 +1,112 @@
 // TODO account_emails: when making an account on an emailaddress that already exists, send an email to that address, need to figure out text for that
+/*
+https://ckdev88.github.io/mubooks/#error=access_denied&error_code=403&error_description=Email+link+is+invalid+or+has+expired
+*/
+import { useCallback, useContext, useEffect, useMemo } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useCallback } from "react"
-import { localStorageKey } from "../../utils/supabase"
-import { useContext } from "react"
 import { AppContext } from "../App"
+import { supabase, localStorageKey } from "../../utils/supabase"
 import { getUrlParamVal } from "../Helpers"
-import { supabase } from "../../utils/supabase"
-
-const url: string = window.location.href
-const accessToken: string = getUrlParamVal(url, "access_token", true)
-const refreshToken: string = getUrlParamVal(url, "refresh_token", true)
 
 const RootPage = () => {
-    const { setPopupNotification, setPopupNotificationShow } = useContext(AppContext)
-    const checkApiErrorCallback = useCallback(function checkApiError(): boolean {
-        if (getUrlParamVal(url, "error", true)) return true
-        return false
+    const navigate = useNavigate()
+    const { setUsermail, userIsLoggedIn, setPopupNotification, setPopupNotificationShow } =
+        useContext(AppContext)
+
+    // Memoize URL and tokens
+    const { url, accessToken, refreshToken } = useMemo(
+        () => ({
+            url: window.location.href,
+            accessToken: getUrlParamVal(window.location.href, "access_token", true),
+            refreshToken: getUrlParamVal(window.location.href, "refresh_token", true),
+        }),
+        [],
+    )
+
+    // Memoize user from localStorage
+    const userInLs = useMemo(() => {
+        const item = localStorage.getItem(localStorageKey)
+        return item ? JSON.parse(item) : null
     }, [])
 
-    const apiErrorsCallback = useCallback(function apiErrors(): ApiError {
-        const apiErr: ApiError = {
+    // Memoize API error check
+    const hasApiError = useMemo(() => Boolean(getUrlParamVal(url, "error", true)), [url])
+
+    // Memoize API errors
+    const apiErrors = useMemo(
+        () => ({
             error: getUrlParamVal(url, "error", true),
             error_code: getUrlParamVal(url, "error_code", true),
             error_description: getUrlParamVal(url, "error_description", true),
-        }
-        return apiErr
-    }, [])
+        }),
+        [url],
+    )
 
-    async function loginwithtoken(accessToken: string, refreshToken: string) {
+    // Handle token login
+    const loginWithToken = useCallback(async (accessToken: string, refreshToken: string) => {
+        if (!accessToken || !refreshToken) return
+
         const { error } = await supabase.auth.setSession({
-            // data,error
             access_token: accessToken,
             refresh_token: refreshToken,
         })
-        if (error) console.log("Error logging in with token:", error.message)
-    }
-    if (accessToken !== "" && refreshToken !== "") loginwithtoken(accessToken, refreshToken)
-
-    const { setUsermail, setUserIsLoggedIn, userIsLoggedIn } = useContext(AppContext)
-    const navigate = useNavigate()
-
-    const userInLs = JSON.parse(localStorage.getItem(localStorageKey) as string)
-
-    useEffect(() => {
-        let navigateTo: string
-        let loggedin = false
-        if (userInLs?.user?.aud === "authenticated") {
-            loggedin = true
-            setUserIsLoggedIn(true)
+        if (error) {
+            console.error("Error logging in with token:", error.message)
         }
-        if (!checkApiErrorCallback()) {
-            if (loggedin) navigateTo = "/dashboard"
-            else {
-                if (getUrlParamVal(url, "type") === "recovery") navigateTo = "/auth/resetpassword"
-                else navigateTo = "/account/login" // main redirection on account related error
-            }
-        } else navigateTo = "/error?error_description=" + apiErrorsCallback().error_description
+    }, [])
 
-        if (loggedin) {
+    // Handle navigation logic
+    useEffect(() => {
+        const isAuthenticated = userInLs?.user?.aud === "authenticated"
+        const isRecovery = getUrlParamVal(url, "type") === "recovery"
+
+        let navigateTo: string
+
+        if (hasApiError) {
+            navigateTo = `/error?error_description=${encodeURIComponent(apiErrors.error_description)}`
+        } else if (isAuthenticated) {
+            navigateTo = "/dashboard"
             setUsermail(userInLs.user.email)
             setPopupNotification("Logged in, redirecting")
             setPopupNotificationShow(true)
-            navigate(navigateTo)
         } else {
-            if (userIsLoggedIn) setUserIsLoggedIn(true)
-            setTimeout(() => {
-                if (getUrlParamVal(url, "type") === "recover") {
-                    // TODO cleanup: is this ever used? recover / recovery
-                    navigateTo = "/auth/resetpassword"
-                }
-            }, 1500)
+            navigateTo = isRecovery ? "/auth/resetpassword" : "/account/login"
+        }
+
+        // Handle token login if tokens exist
+        if (accessToken && refreshToken) {
+            loginWithToken(accessToken, refreshToken)
+        }
+
+        // Navigate immediately unless we need to wait for auth state
+        if (!userIsLoggedIn || isAuthenticated) {
             navigate(navigateTo)
         }
     }, [
+        url,
+        hasApiError,
+        apiErrors.error_description,
+        userInLs,
+        accessToken,
+        refreshToken,
+        loginWithToken,
         navigate,
         setUsermail,
-        userInLs,
-        apiErrorsCallback,
-        checkApiErrorCallback,
-        setUserIsLoggedIn,
         userIsLoggedIn,
         setPopupNotification,
         setPopupNotificationShow,
     ])
 
     return (
-        <>
-            <main id="main">
-                <div>
-                    Redirecting to wherever you should be right now... <br />
-                    <a href="/dashboard">dashboard</a>
-                    <br />
-                    <Link to="/auth/resetpassword">password reset page</Link>
-                </div>
-            </main>
-        </>
+        <main id="main">
+            <div>
+                Redirecting to wherever you should be right now... <br />
+                <Link to="/dashboard">dashboard</Link>
+                <br />
+                <Link to="/auth/resetpassword">password reset page</Link>
+            </div>
+        </main>
     )
 }
-/*
-https://ckdev88.github.io/mubooks/#error=access_denied&error_code=403&error_description=Email+link+is+invalid+or+has+expired
-*/
+
 export default RootPage

@@ -67,7 +67,7 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
                 title_short: title_short,
                 tossed: false,
             }
-            newUserMyBooks.push(newBook)
+            newUserMyBooks?.push(newBook)
         } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure
         return newUserMyBooks
     }

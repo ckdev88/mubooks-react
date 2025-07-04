@@ -9,7 +9,7 @@ import getListName from "../functions/getListName"
  * @prop {Page} currentPage - current page/path, without prefixed /
  * @prop {BookList} limit - 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favourited)
  */
-const AddToRemoveFromX = ({
+function AddToRemoveFromX({
     book,
     currentPage,
     limit,
@@ -17,12 +17,17 @@ const AddToRemoveFromX = ({
     book: Book
     currentPage: Page
     limit: BookList
-}) => {
+}) {
     // limit 01234, 0 = no limit, so do all, otherwise just 1 of 1234 (wishlist, reading, saved, favourited)
     const [showHiddenMarks, setShowHiddenMarks] = useState<boolean>(currentPage === "tossed")
 
     // TODO memoize, this eats CPU
-    if (limit === 4 && book.list > 2 && location.pathname.slice(1) !== "tossed") {
+    if (
+        currentPage !== "tossed" &&
+        limit === 4 &&
+        book.list > 2 &&
+        location.pathname.slice(1) !== "tossed"
+    ) {
         // favourited book (heart icon), on list 3 or 4
         return (
             <>
