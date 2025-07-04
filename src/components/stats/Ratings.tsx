@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import PieG from "./PieG"
 import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
-import StatisticsStarsPerBookInYear from "../StatisticsStarsPerBookInYear"
-import BooksWithoutStarsList from "../BooksWithoutStarsList"
+import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
+import BooksWithoutStarsList from "./BooksWithoutStarsList"
 import { animateHeight, cleanupAnimation } from "../../utils/uiMisc"
 
 const Ratings = ({

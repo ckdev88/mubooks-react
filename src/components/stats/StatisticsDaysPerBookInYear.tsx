@@ -1,40 +1,44 @@
+// TODO are these used anywhere?
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
-import { AppContext } from "../App"
-import { cleanAnchor } from "../helpers/cleanInput"
+import { AppContext } from "../../App"
+import { getDurationDays } from "../../Helpers"
+import { cleanAnchor } from "../../helpers/cleanInput"
 
-interface ConciseStarsPerBook {
+interface ConciseDaysPerBook {
     id: Book["id"]
     title_short: Book["title_short"]
-    rate_stars: Book["rate_stars"]
+    days: Book["days"]
 }
-type ArrayConciseStarsPerBook = ConciseStarsPerBook[]
+type ConciseDaysPerBookArray = ConciseDaysPerBook[]
 
-type OutputPerStarsAmount = {
-    rate_stars: number
+interface OutputPerDaysAmount {
+    days: number
     amount: number
     books: {
         id: string
         title_short: string
-        rate_stars: number
+        days: number
     }[]
 }
+type OutputPerDaysAmountArray = OutputPerDaysAmount[]
 
 function getBooksFinishedInYear(
     inputArray: Books,
     year: number,
-    format: "concise" | "concise_starsperbook" | "full",
-): Books | ArrayConciseStarsPerBook {
+    format: "concise" | "concise_daysperbook" | "full",
+): Books | ConciseDaysPerBookArray {
     const arrayFull = inputArray.filter(
         (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
     )
-    if (format === "concise_starsperbook") {
-        const arrayConcise: ArrayConciseStarsPerBook = []
+    if (format === "concise_daysperbook") {
+        // OPTIMIZE might be quicker to just append 'days' into database
+        const arrayConcise: ConciseDaysPerBookArray = []
         for (let i = 0; i < arrayFull.length; i++) {
-            const bookToPush: ConciseStarsPerBook = {
+            const bookToPush: ConciseDaysPerBook = {
                 id: arrayFull[i].id,
                 title_short: arrayFull[i].title_short,
-                rate_stars: arrayFull[i].rate_stars,
+                days: getDurationDays(arrayFull[i].date_reading, arrayFull[i].date_finished),
             }
             arrayConcise[i] = bookToPush
         }
@@ -42,35 +46,32 @@ function getBooksFinishedInYear(
     }
     return arrayFull
 }
-function getDpbData(userMyBooks: Books, year: number) {
-    const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_starsperbook")
-    const outputArray: OutputPerStarsAmount[] = []
 
-    const groupedItems: { [rate_stars: number]: OutputPerStarsAmount } = {}
+function getDpbData(userMyBooks: Books, year: number) {
+    const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_daysperbook")
+    const outputArray: OutputPerDaysAmountArray = []
+
+    const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
 
     for (const bitem of inputArray) {
-        const { id, title_short, rate_stars } = bitem
-        if (rate_stars) {
-            if (!groupedItems[rate_stars]) {
-                groupedItems[rate_stars] = {
-                    rate_stars: rate_stars,
-                    amount: 0,
-                    books: [],
-                }
+        const { id, title_short, days } = bitem
+        if (days) {
+            if (!groupedItems[days]) {
+                groupedItems[days] = { days: days, amount: 0, books: [] }
             }
 
-            groupedItems[rate_stars].amount++
-            groupedItems[rate_stars].books.push({ id, title_short, rate_stars })
+            groupedItems[days].amount++
+            groupedItems[days].books.push({ id, title_short, days })
         }
     }
 
-    for (const rate_stars in groupedItems) {
-        outputArray.push(groupedItems[rate_stars])
+    for (const days in groupedItems) {
+        outputArray.push(groupedItems[days])
     }
     return outputArray
 }
 
-const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
+const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
     const { userMyBooks } = useContext(AppContext)
     const dpbd = getDpbData(userMyBooks, year)
 
@@ -78,10 +79,10 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
         <div>
             {dpbd.length > 0 &&
                 dpbd.map((b, index) => {
-                    const dpbd_key = "dpbd" + year + index
+                    const key = "sdpbiy_dpbd" + year + index
                     return (
-                        <div key={dpbd_key}>
-                            {b.rate_stars} stars:{" "}
+                        <div key={key}>
+                            {b.days} days:{" "}
                             <b>
                                 {b.amount} {b.amount === 1 ? "book" : "books"}{" "}
                             </b>
@@ -89,7 +90,7 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
                                 {b.books.map((book, index) => {
                                     const refer: string =
                                         "/finished" + `#${cleanAnchor(book.title_short)}_${book.id}`
-                                    const key = "bokmap" + index
+                                    const key = "sdpbiy_bokmap" + year + book.id + index
                                     return (
                                         <li key={key}>
                                             <HashLink to={refer} className="a-text">
@@ -105,4 +106,4 @@ const StatisticsStarsPerBookInYear = ({ year }: { year: number }) => {
         </div>
     )
 }
-export default StatisticsStarsPerBookInYear
+export default StatisticsDaysPerBookInYear

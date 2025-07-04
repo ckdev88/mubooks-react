@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react"
 import LineG2 from "./LineG2"
 import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 import getMonthName from "../../utils/monthName"
-import StatisticsFinishedInMonth from "../StatisticsFinishedInMonth"
-import BooksWithoutPagesList from "../BooksWithoutPagesList"
+import StatisticsFinishedInMonth from "./StatisticsFinishedInMonth"
+import BooksWithoutPagesList from "./BooksWithoutPagesList"
 import { animateHeight, cleanupAnimation } from "../../utils/uiMisc"
 
 const BooksAndPagesPerMonth = ({

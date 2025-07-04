@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import LineG3 from "./LineG3"
 import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
-import StatisticsDaysPerBookInYear from "../StatisticsDaysPerBookInYear"
+import StatisticsDaysPerBookInYear from "./StatisticsDaysPerBookInYear"
 import { animateHeight, cleanupAnimation } from "../../utils/uiMisc"
 
 const DaysPerBook = ({
