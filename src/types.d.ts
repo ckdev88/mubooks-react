@@ -83,6 +83,19 @@ type Quote = {
     title: string
 }
 
+interface BookToQuote {
+    review_fav_quote?: string
+    review_fav_quote2?: string
+    author_name?: string[]
+    title?: string
+}
+
+interface BookQuote {
+    title: string
+    quote: string
+    authors: string
+}
+
 type User = {
     email: string
     password: string
