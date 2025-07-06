@@ -1,6 +1,6 @@
+import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import BooksOverviewPage from "./BooksOverviewPage"
-import { useContext } from "react"
 import { AppContext } from "../../App"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
@@ -12,22 +12,20 @@ const currentPage = "quoted"
 const QuotedPage = () => {
     const { userMyBooks } = useContext(AppContext)
 
-    let quotedbooks: Books
-    let hasbooks: boolean
-    if (userMyBooks === undefined) quotedbooks = []
-    if (userMyBooks.length > 0) {
-        quotedbooks = userMyBooks.filter(
-            (book) =>
-                book.tossed !== true &&
-                ((book.review_fav_quote && book.review_fav_quote !== "") ||
-                    (book.review_fav_quote2 && book.review_fav_quote2 !== "")),
-        )
-        if (quotedbooks.length > 0) hasbooks = true
-        else hasbooks = false
-    } else {
-        hasbooks = false
-        quotedbooks = []
-    }
+    const [quotedBooks, setQuotedBooks] = useState<Books | undefined>(undefined)
+
+    useEffect(() => {
+        if (userMyBooks !== undefined) {
+            setQuotedBooks(
+                userMyBooks.filter(
+                    (book) =>
+                        book.tossed !== true &&
+                        ((book.review_fav_quote && book.review_fav_quote !== "") ||
+                            (book.review_fav_quote2 && book.review_fav_quote2 !== "")),
+                ),
+            )
+        }
+    }, [userMyBooks])
 
     return (
         <motion.div
@@ -37,18 +35,19 @@ const QuotedPage = () => {
             animate={{ opacity: 1, transition: { duration: 2 } }}
         >
             <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSub} />
-            {hasbooks ? (
-                <BooksOverviewPage books={quotedbooks} page={currentPage} />
-            ) : (
-                <div>
-                    <h4>No books added yet, find them and add them.</h4>
-                    <p>
-                        <Link to={"/search"} className="wauto">
-                            Search
-                        </Link>
-                    </p>
-                </div>
-            )}
+            {quotedBooks !== undefined &&
+                (quotedBooks.length > 0 ? (
+                    <BooksOverviewPage books={quotedBooks} page={currentPage} />
+                ) : (
+                    <div>
+                        <h4>No book quotes added yet, find them and add them.</h4>
+                        <p>
+                            <Link to={"/search"} className="wauto">
+                                Search
+                            </Link>
+                        </p>
+                    </div>
+                ))}
         </motion.div>
     )
 }
