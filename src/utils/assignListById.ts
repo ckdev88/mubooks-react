@@ -4,6 +4,7 @@ export default function assignListById(
     listId: Book["list"],
     toss: "no" | "toss" | "untoss" | "permatoss" = "no",
 ): Books {
+    if (myBooksArg === undefined) return // revert to login?
     const myBooks: Books = myBooksArg
     for (let i = 0; i < myBooks.length; i++) {
         if (myBooks[i].id === bookId) {

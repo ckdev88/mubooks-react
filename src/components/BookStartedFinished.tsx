@@ -64,7 +64,7 @@ const BookStartedFinished = ({
         }
 
         let myBooks: Books
-        if (userMyBooks === undefined) myBooks = []
+        if (userMyBooks === null || userMyBooks === undefined) myBooks = []
         else myBooks = userMyBooks
         for (let i = 0; i < myBooks.length; i++) {
             if (myBooks[i].id === book_id) {

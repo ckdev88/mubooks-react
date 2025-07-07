@@ -42,7 +42,6 @@ const RemoveBookFromXButton = ({
             case "permatoss":
                 return "toss"
             case "untoss":
-                console.log("untoss")
                 return getListName(book.list as BookList)
             default:
                 return previousListName

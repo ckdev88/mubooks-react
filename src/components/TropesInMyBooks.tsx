@@ -8,11 +8,13 @@ import { Link } from "react-router-dom"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
 const TropesInMyBooks = ({ page }: { page: Page }) => {
+    const { userMyBooks } = useContext(AppContext)
+    if (userMyBooks === undefined) return <>Loading tropes...</>
+
     const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] = useState<boolean>(true)
     const { likedTropesLowercase, dislikedTropesLowercase } = useContext(TropesPageContext)
     const { setTropesInMyBooksArr } = useContext(TropesPageContext)
 
-    const { userMyBooks } = useContext(AppContext)
     const [activeTrope, setActiveTrope] = useState<string>("")
     const [tropeBooks, setTropeBooks] = useState<Books>([])
     const tropesSet = new Set<string>()
@@ -32,14 +34,15 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
     function showTropeBooks(trope: string) {
         // TODO OPTIMIZE: turn into hook and/or apply caching
         const tropeBooksFiltered: Books = []
-        userMyBooks.map((b: Book) => {
-            if (b.review_tropes !== undefined && b.review_tropes.length > 0)
-                b.review_tropes.map((t: string) => {
-                    if (trope === t.toLowerCase()) {
-                        tropeBooksFiltered.push(b)
-                    }
-                })
-        })
+        if (userMyBooks !== undefined)
+            userMyBooks.map((b: Book) => {
+                if (b.review_tropes !== undefined && b.review_tropes.length > 0)
+                    b.review_tropes.map((t: string) => {
+                        if (trope === t.toLowerCase()) {
+                            tropeBooksFiltered.push(b)
+                        }
+                    })
+            })
         setTropeBooks(tropeBooksFiltered)
         setActiveTrope(trope)
         setTimeout(() => {
@@ -99,7 +102,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                     <Link to={savedbookslink}>Go to my books</Link>
                 </div>
             )}
-            {tropeBooks.length > 0 && (
+            {tropeBooks !== undefined && tropeBooks.length > 0 && (
                 <>
                     <div className="h2" style={{ position: "relative" }}>
                         My Books for <em>{activeTrope}</em>

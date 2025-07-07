@@ -32,6 +32,7 @@ const useMyBooksRemove = ({
     }
 
     async function updateMyBooksDb(myBooksNew: Books, msg: string) {
+        if (userid === null) return
         return updateDb({
             msg: msg,
             newJson: myBooksNew,

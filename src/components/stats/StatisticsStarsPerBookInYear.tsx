@@ -25,6 +25,7 @@ function getBooksFinishedInYear(
     year: number,
     format: "concise" | "concise_starsperbook" | "full",
 ): Books | ArrayConciseStarsPerBook {
+    if (inputArray === undefined) return undefined
     const arrayFull = inputArray.filter(
         (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
     )
@@ -42,25 +43,29 @@ function getBooksFinishedInYear(
     }
     return arrayFull
 }
-function getDpbData(userMyBooks: Books, year: number) {
+function getDpbData(userMyBooks: Books, year: number): OutputPerStarsAmount[] {
+    if (userMyBooks === undefined) return []
+
     const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_starsperbook")
     const outputArray: OutputPerStarsAmount[] = []
 
     const groupedItems: { [rate_stars: number]: OutputPerStarsAmount } = {}
 
-    for (const bitem of inputArray) {
-        const { id, title_short, rate_stars } = bitem
-        if (rate_stars) {
-            if (!groupedItems[rate_stars]) {
-                groupedItems[rate_stars] = {
-                    rate_stars: rate_stars,
-                    amount: 0,
-                    books: [],
+    if (inputArray !== undefined) {
+        for (const bitem of inputArray) {
+            const { id, title_short, rate_stars } = bitem
+            if (rate_stars) {
+                if (!groupedItems[rate_stars]) {
+                    groupedItems[rate_stars] = {
+                        rate_stars: rate_stars,
+                        amount: 0,
+                        books: [],
+                    }
                 }
-            }
 
-            groupedItems[rate_stars].amount++
-            groupedItems[rate_stars].books.push({ id, title_short, rate_stars })
+                groupedItems[rate_stars].amount++
+                groupedItems[rate_stars].books.push({ id, title_short, rate_stars })
+            }
         }
     }
 

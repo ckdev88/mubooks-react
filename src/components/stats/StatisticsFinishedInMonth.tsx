@@ -6,6 +6,7 @@ import { cleanAnchor } from "../../helpers/cleanInput"
 const StatisticsFinishedInMonth = ({ yearmonth }: { yearmonth: number }) => {
     const { userMyBooks } = useContext(AppContext)
     // OPTIMIZE instead of using the whole thing, getting a parameter array of year might be better, not sure yet
+    if (userMyBooks === undefined) return <>Nah, not doing it</>
     const filteredUserMyBooks: Books = userMyBooks.filter(
         (b) => b.date_finished && Math.floor(b.date_finished / 100) === yearmonth,
     )

@@ -10,6 +10,7 @@ export default function MyAccountEditCard() {
     const { see } = useCardRotate()
     const { username, setUsername, usermail, setUsermail } = useContext(AppContext)
 
+    if (usermail === null) return <>Are you sure you are logged in?</>
     function afterSbUpdate(name: string, mail: string) {
         setUsername(name)
         setUsermail(mail)
@@ -61,7 +62,6 @@ export default function MyAccountEditCard() {
                         icon="icon-profile.svg"
                     />
                 </header>
-
                 <main>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="account_screenname">
@@ -70,7 +70,7 @@ export default function MyAccountEditCard() {
                                 type="text"
                                 id="account_screenname"
                                 name="account_screenname"
-                                defaultValue={username}
+                                defaultValue={username ? username : ""}
                                 autoComplete="off"
                             />
                         </label>
@@ -102,6 +102,7 @@ export default function MyAccountEditCard() {
                 <footer>
                     <BtnTextGeneral bOnClick={see} bText="Return without saving" />
                 </footer>
+                )
             </div>
         </>
     )

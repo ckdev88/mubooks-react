@@ -9,6 +9,7 @@ import BtnAddTrope from "./ui/buttons/BtnAddTrope"
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
+    if (userMyBooks === undefined) return <>Loading tropes...</>
     const [bookTropes, setBookTropes] = useState<BookTropes>(tropes)
     const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     const [showTropesForm, setShowTropesForm] = useState<boolean>(false)
@@ -27,15 +28,17 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     }
 
     async function updateTropes(newArr: BookTropes) {
-        setBookTropes(newArr)
-        for (let i = 0; i < userMyBooks.length; i++) {
-            if (userMyBooks[i].id === book.id) {
-                userMyBooks[i].review_tropes = newArr
-                break
+        if (userid !== null && userMyBooks !== undefined) {
+            setBookTropes(newArr)
+            for (let i = 0; i < userMyBooks.length; i++) {
+                if (userMyBooks[i].id === book.id) {
+                    userMyBooks[i].review_tropes = newArr
+                    break
+                }
             }
+            const msg: string = await updateEntriesDbxxx(userMyBooks, userid)
+            setPopupNotification(msg)
         }
-        const msg: string = await updateEntriesDbxxx(userMyBooks, userid)
-        setPopupNotification(msg)
     }
 
     // NOTE: similar, but not same as TropesList in ./TropesPrefs.tsx

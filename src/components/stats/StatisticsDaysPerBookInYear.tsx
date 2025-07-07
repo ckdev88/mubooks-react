@@ -28,9 +28,13 @@ function getBooksFinishedInYear(
     year: number,
     format: "concise" | "concise_daysperbook" | "full",
 ): Books | ConciseDaysPerBookArray {
-    const arrayFull = inputArray.filter(
-        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
-    )
+    const arrayFull =
+        inputArray !== undefined
+            ? inputArray.filter(
+                  (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
+              )
+            : []
+
     if (format === "concise_daysperbook") {
         // OPTIMIZE might be quicker to just append 'days' into database
         const arrayConcise: ConciseDaysPerBookArray = []
@@ -53,6 +57,8 @@ function getDpbData(userMyBooks: Books, year: number) {
 
     const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
 
+    if (inputArray === undefined) return 0
+
     for (const bitem of inputArray) {
         const { id, title_short, days } = bitem
         if (days) {
@@ -73,7 +79,9 @@ function getDpbData(userMyBooks: Books, year: number) {
 
 const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
     const { userMyBooks } = useContext(AppContext)
+    if (userMyBooks === undefined) return 0
     const dpbd = getDpbData(userMyBooks, year)
+    if (!dpbd) return <>Can't stat what is not there, right?</>
 
     return (
         <div>

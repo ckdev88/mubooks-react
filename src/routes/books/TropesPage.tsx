@@ -18,6 +18,7 @@ const TropesPage = () => {
         likedTropes.map((trope) => trope.toLowerCase()),
     )
     const [tropesInMyBooksArr, setTropesInMyBooksArr] = useState<Books>([])
+
     useEffect(() => {
         setLikedTropesLowercase(likedTropes.map((t) => t.toLowerCase()))
     }, [likedTropes])

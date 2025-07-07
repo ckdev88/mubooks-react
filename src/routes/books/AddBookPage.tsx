@@ -61,6 +61,10 @@ const AddBookPage = () => {
     const processAbForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // NOTE set to false when all is done if the redirect to wishlist is canceled
+        if (userid === null){
+            console.log('processing?',userid);
+            return
+        }
         setIsSubmitting(true)
 
         let coverImgPosted: string = coverImg.trim() // coverImg = via url
@@ -122,9 +126,9 @@ const AddBookPage = () => {
             rate_spice: rate_spice,
             tossed: false,
         }
-        newArr.push(book)
+        newArr?.push(book)
 
-        setUserMyBooks([...userMyBooks, book])
+        if(userMyBooks!==undefined) setUserMyBooks([...userMyBooks, book])
         const msg = await updateEntriesDb(newArr, userid)
 
         const bookAnchor: string = `${cleanAnchor(title_short)}_${bookId}`

@@ -3,16 +3,16 @@ interface GlobalSettings {
     synopsisEnabled: boolean
     pageAnimationDelay: number
     pageAnimationDuration: number
-    userid: string
+    userid: string | null
     bookRemoveAnimationDuration: number
 }
 
 interface AppContextType {
-    username: string
+    username: string | null
     setUsername(username: username): void
-    usermail: string
+    usermail: string | null
     setUsermail(usermail: username): void
-    userid: string
+    userid: string | null
     setUserid(userid: userid): void
     userMyBooks: Books
     setUserMyBooks(userMyBooks: Books): void
@@ -73,11 +73,26 @@ type PageWithoutParameters =
     | "reading"
     | "savedbooks"
     | "search"
+    | "tossed"
     | "tropes"
     | "wishlist"
-    | "tossed"
 
 type Page = `${PageWithoutParameters}${string | null}`
+
+type DeckPage = "reading" | "wishlist" | "favourites" | "finished" | "savedbooks"
+
+interface DeckItem {
+    btnIconAdd: string
+    books: Books
+    page: PageWithoutParameters
+    title: string
+    noBooksText: string
+    icon: string
+}
+// type DeckItemProps = DeckItem
+type DeckArray = {
+    [key in DeckPage]: DeckItem
+}
 
 type Quote = {
     quote: string
@@ -174,8 +189,10 @@ type BookTropes = BookTrope[]
 type BookSubject = string
 type BookSubjects = BookSubject[]
 
-type Results = Book[]
-interface Books extends Array<Book> {}
+type Results = Book[] | null
+
+type Books = Book[] | undefined // TODO why use `extends`?
+// interface Books extends Array<Book> {}
 
 interface BookObject {
     book: Book

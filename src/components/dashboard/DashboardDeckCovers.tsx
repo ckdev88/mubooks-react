@@ -5,6 +5,7 @@ import { shuffleArray } from "../../Helpers"
 import { cleanAnchor } from "../../helpers/cleanInput"
 
 function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }) {
+    if (booksarr === undefined) return <>Just wait a sec...</>
     if (booksarr.length === 1) {
         return booksarr.map((book: Book) => {
             return (

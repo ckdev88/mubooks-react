@@ -30,7 +30,7 @@ const StatisticsPage = () => {
             {hasStats ? (
                 <>
                     {years.map((y) => {
-                        const filteredByYear = userMyBooks.filter(
+                        const filteredByYear = userMyBooks?.filter(
                             (b) =>
                                 b.date_finished !== undefined &&
                                 Math.floor(b.date_finished / 10000) === y,

@@ -8,6 +8,8 @@ import { AppContext } from "../App"
  */
 export default function BooksOverviewSearchPage({ books }: { books: Books }) {
     const { userMyBooks } = useContext(AppContext)
+    if (userMyBooks === undefined) return <>Loading overview search...</>
+
     const page: Page = "search"
     return (
         <>

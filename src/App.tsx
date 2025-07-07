@@ -1,4 +1,4 @@
-import { useEffect, createContext, useState, useMemo, Suspense } from "react"
+import { useEffect, createContext, useState, useMemo } from "react"
 import { Routes, Route } from "react-router-dom"
 import { supabase, localStorageKey } from "../utils/supabase"
 import "./functions/miscEventListeners.ts"
@@ -9,57 +9,70 @@ import { timestampConverter } from "./helpers/convertDate.ts"
 
 // components
 import AppFooter from "./components/AppFooter.tsx"
-import SuggestionsPage from "./routes/SuggestionsPage.tsx"
 import NavWrapper from "./components/NavWrapper"
 import PopupNotification from "./components/ui/PopupNotification"
 
 // routes
+import AuthConfirm from "./routes/auth/AuthConfirm"
+import ResetPasswordPage from "./routes/auth/ResetPasswordPage"
 import DashboardPage from "./routes/account/DashboardPage"
-import AddBookPage from "./routes/books/AddBookPage"
-import AuthConfirm from "./routes/auth/Confirm"
 import CheckMailNewAccountPage from "./routes/account/CheckMailNewAccountPage"
 import CheckMailPasswordPage from "./routes/account/CheckMailPasswordPage"
+import UserLoginPage from "./routes/account/UserLoginPage"
+import UserLogoutPage from "./routes/account/UserLogoutPage"
+import UserProfilePage from "./routes/account/UserProfilePage"
+import SavedBooksPage from "./routes/books/SavedBooksPage"
+import AddBookPage from "./routes/books/AddBookPage"
 import ClearMyBooks from "./routes/books/ClearMyBooks"
-import ErrorPage from "./routes/ErrorPage"
 import FavouritesPage from "./routes/books/FavouritesPage"
 import FinishedPage from "./routes/books/FinishedPage"
 import QuotedPage from "./routes/books/QuotedPage"
 import ReadingPage from "./routes/books/ReadingPage"
-import ResetPasswordPage from "./routes/auth/ResetPasswordPage"
-import RootPage from "./routes/RootPage"
-import SavedBooksPage from "./routes/books/SavedBooksPage"
 import SearchPage from "./routes/books/SearchPage"
 import StatisticsPage from "./routes/books/StatisticsPage"
-import TossedPage from "./routes/books/TossedPage.tsx"
+import TossedPage from "./routes/books/TossedPage"
 import TropesPage from "./routes/books/TropesPage"
-import UserLoginPage from "./routes/account/UserLoginPage"
-import UserLogoutPage from "./routes/account/UserLogoutPage"
-import UserProfilePage from "./routes/account/UserProfilePage"
 import WishlistPage from "./routes/books/WishlistPage"
+import ErrorPage from "./routes/ErrorPage"
+import RootPage from "./routes/RootPage"
+import SuggestionsPage from "./routes/SuggestionsPage"
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-const bgColorDark: string = "#152129"
-const bgColorLight: string = "#f4f1ea"
+const BG_COLORS = { dark: "#152129", light: "#f4f1ea" }
+
 const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
 const todaysDateInput = timestampConverter(Date.now(), "input")
 
-let userIsLoggedInInitVal: boolean
-
 const App = () => {
-    if (localStorage.getItem(localStorageKey)) userIsLoggedInInitVal = true
-    else userIsLoggedInInitVal = false
+    const initVal = {
+        userIsLoggedIn: false,
+        username: null,
+        userid: null,
+        usermail: null,
+        darkTheme: undefined,
+    }
+    if (localStorage.getItem(localStorageKey)) {
+        const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
+        initVal.userIsLoggedIn = true
+        initVal.username = parsed.user.user_metadata.screenname
+        initVal.userid = parsed.user.id
+        initVal.usermail = parsed.user.email
+        initVal.darkTheme = parsed.user.user_metadata.darktheme
+    }
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(initVal.userIsLoggedIn)
+    const [userid, setUserid] = useState<string | null>(initVal.userid)
+    const [username, setUsername] = useState<string | null>(initVal.username)
+    const [usermail, setUsermail] = useState<string | null>(initVal.usermail)
+    const [darkTheme, setDarkTheme] = useState<undefined | boolean>(initVal.darkTheme)
 
-    const [username, setUsername] = useState<string>("")
-    const [usermail, setUsermail] = useState<string>("")
-    const [userid, setUserid] = useState<string>("")
-    const [userMyBooks, setUserMyBooks] = useState<Books>([])
-    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitVal)
+    const [userMyBooks, setUserMyBooks] = useState<Books | undefined>(undefined)
     const [popupNotification, setPopupNotification] = useState<string>("")
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
-    const [darkTheme, setDarkTheme] = useState<undefined | boolean>(undefined)
-    const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
+    const [bodyBgColor, setBodyBgColor] = useState<string>(
+        darkTheme ? BG_COLORS.dark : BG_COLORS.light,
+    )
     // TODO: check if pageName is actually useful or used/ related to rendering amount
     const [pageName, setPageName] = useState<string>("default")
 
@@ -100,27 +113,11 @@ const App = () => {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: TODO uselayouteffect or use hook
     useEffect(() => {
-        if (userIsLoggedIn === true && userMyBooks.length < 1) {
+        if (userIsLoggedIn === true && userMyBooks === undefined) {
             persistMyBooks()
         }
-    }, [userIsLoggedIn, initialMyBooksSet, userMyBooks.length])
+    }, [userIsLoggedIn, initialMyBooksSet, userMyBooks])
     // /add persistency to userMyBooks state throughout page refreshes
-
-    if (username === "" && localStorage.getItem(localStorageKey)) {
-        setUsername(
-            JSON.parse(localStorage.getItem(localStorageKey) as string).user.user_metadata
-                .screenname,
-        )
-    }
-
-    if (darkTheme === undefined && localStorage.getItem(localStorageKey)) {
-        const dtInitVal = JSON.parse(localStorage.getItem(localStorageKey) as string).user
-            .user_metadata.darktheme
-        if (dtInitVal !== undefined) setDarkTheme(dtInitVal)
-    }
-
-    if (userid === "" && localStorage.getItem(localStorageKey))
-        setUserid(JSON.parse(localStorage.getItem(localStorageKey) as string).user.id)
 
     if (userIsLoggedIn) document.getElementsByTagName("html")[0].classList.add("loggedin")
     else document.getElementsByTagName("html")[0].classList.remove("loggedin")
@@ -129,10 +126,10 @@ const App = () => {
         const htmlNode = document.getElementsByTagName("html")[0]
         if (darkTheme === true) {
             if (!htmlNode.classList.contains("dark-mode")) htmlNode.classList.add("dark-mode")
-            setBodyBgColor(bgColorDark)
+            setBodyBgColor(BG_COLORS.dark)
         } else {
             htmlNode.classList.remove("dark-mode")
-            setBodyBgColor(bgColorLight)
+            setBodyBgColor(BG_COLORS.light)
         }
     }, [darkTheme])
 
