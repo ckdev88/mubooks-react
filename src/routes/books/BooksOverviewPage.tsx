@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, createContext, useLayoutEffect } from "react"
+import { useState, useContext, useEffect, createContext, useMemo } from "react"
 import BookSummary from "../../components/BookSummary"
 import BooksOverviewFilterSort from "../../components/BooksOverviewFilterSort"
 import { TropesPageContext } from "./TropesPage"
@@ -6,12 +6,24 @@ import BooksOverviewPageQuoted from "../../components/BooksOverviewPageQuoted"
 import BooksOverviewFilterResultsMessage from "../../components/BooksOverviewFilterResultsMessage"
 import BooksOverviewSearchPage from "../../components/BooksOverviewSearchPage"
 
-/** Array of pages which should have a search field to filter the list */
+// Array of pages which should have a search field to filter the list
 const fsPages: Page[] = ["wishlist", "finished", "favourites", "savedbooks"]
 
 export const BooksOverviewFilterContext = createContext<BooksOverviewFilterContextType>(
     {} as BooksOverviewFilterContextType,
 )
+
+// Memoize the filter function to prevent recreation on every render
+const filterBooks = (books: Books, filterValue: string): Books => {
+    if (!filterValue || filterValue.length === 1) return books
+
+    const lowerFilter = filterValue.toLowerCase()
+    return books?.filter(
+        (book) =>
+            book.title_short.toLowerCase().includes(lowerFilter) ||
+            book.author_name.join("").toLowerCase().includes(lowerFilter),
+    )
+}
 
 const BooksOverviewPage = ({
     books,
@@ -21,89 +33,74 @@ const BooksOverviewPage = ({
     page: Page
 }) => {
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
+    const [booksFilter, setBooksFilter] = useState<BooksFilterValue>(undefined)
 
-    const booklistStart: Books = books
-    const hasbooks: boolean = books !== undefined && books.length > 0
+    // Determine if we should show filters
+    let hasBooks = false
+    if (books !== undefined) hasBooks = books?.length > 0
+    const hasFilter = fsPages.includes(page) && hasBooks
 
-    if (page === "tropes") books = tropesInMyBooksArr // OPTIMIZE, shouldnt this come via `books` param?
+    // Memoize the current book list based on page and other conditions
+    const currentBookList = useMemo(() => {
+        return page === "tropes" ? tropesInMyBooksArr : books
+    }, [page, books, tropesInMyBooksArr])
 
-    const hasfilter: boolean = fsPages.includes(page) && hasbooks
+    // Memoize the filtered books
+    const filteredBooks = useMemo(() => {
+        if (!booksFilter || booksFilter.length === 1) return currentBookList
+        return filterBooks(currentBookList, booksFilter)
+    }, [currentBookList, booksFilter])
 
-    const [booksFilter, setBooksFilter] = useState<string>("")
-    const [booksOverview, setBooksOverview] = useState<Books>(books)
-
-    useLayoutEffect(() => {
-        // useEffect would create a flash of old state on updating state (toss, restore, or unfav on favs page) ... TODO make it better/faster?
-        setBooksOverview(books)
-    }, [books])
-
-    // TROPES
-    // biome-ignore lint/correctness/useExhaustiveDependencies: trigger when tropesInMyBooksArr is modified
+    // Handle hash navigation (only runs once on mount)
     useEffect(() => {
-        if (page === "tropes") setBooksOverview(tropesInMyBooksArr)
-    }, [tropesInMyBooksArr])
-
-    // FILTERED
-    // biome-ignore lint/correctness/useExhaustiveDependencies: only trigger on booksFilter change
-    useEffect(() => {
-        if (hasfilter)
-            setBooksOverview(
-                booklistStart.filter((book) =>
-                    book.title_short.toLowerCase().includes(booksFilter),
-                ),
-            )
-    }, [booksFilter])
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <Only run once via []>
-    useEffect(() => {
-        // jump to # of book after clicking a specific book
-        if (fsPages.includes(page)) {
-            if (window.location.hash !== undefined && window.location.hash !== "") {
-                setTimeout(() => {
-                    location.href = window.location.hash
-                }, 500)
-            }
+        if (fsPages.includes(page) && window.location.hash) {
+            const timer = setTimeout(() => {
+                location.href = window.location.hash
+            }, 400)
+            return () => clearTimeout(timer)
         }
-    }, [])
+    }, [page])
+
+    // Memoize the context value to prevent unnecessary re-renders
+    const filterContextValue = useMemo(
+        () => ({
+            setBooksFilter,
+            booksFilter,
+            booksOverview: filteredBooks,
+        }),
+        [booksFilter, filteredBooks],
+    )
+
+    // Render different views based on page type
+    const renderBooks = () => {
+        if (page === "search") return <BooksOverviewSearchPage books={books} />
+
+        if (page === "quoted")
+            return (
+                <BooksOverviewPageQuoted
+                    books={filteredBooks?.filter((book: Book) => !book.tossed)}
+                    page={page}
+                />
+            )
+
+        return filteredBooks?.map((book) => (
+            <BookSummary book={book} key={`BookSummary${book.list}${book.id}`} currentPage={page} />
+        ))
+    }
 
     return (
         <>
-            {fsPages.includes(page) && (
+            {hasFilter && (
                 <div>
-                    {hasfilter && (
-                        <BooksOverviewFilterContext.Provider
-                            value={{ setBooksFilter, booksFilter, booksOverview }}
-                        >
-                            <BooksOverviewFilterSort />
-                            <BooksOverviewFilterResultsMessage />
-                        </BooksOverviewFilterContext.Provider>
-                    )}
+                    <BooksOverviewFilterContext.Provider value={filterContextValue}>
+                        <BooksOverviewFilterSort />
+                        <BooksOverviewFilterResultsMessage />
+                    </BooksOverviewFilterContext.Provider>
                 </div>
             )}
-            {page === "search" ? (
-                <BooksOverviewSearchPage books={booklistStart} />
-            ) : booksFilter.length > 0 ? (
-                booksOverview.map((book) => (
-                    <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
-                ))
-            ) : page === "quoted" ? (
-                <BooksOverviewPageQuoted
-                    books={booksOverview.filter((book: Book) => !book.tossed)}
-                    page={page}
-                />
-                // ) : page === "finished" || page === "reading" || page==="wishlist" || page==="favourites" || page==="tossed" ? (
-            ) : (
-                booksOverview.map((book) => {
-                    return (
-                        <BookSummary
-                            book={book}
-                            key={`BookSummary${book.list}${book.id}`}
-                            currentPage={page}
-                        />
-                    )
-                })
-            )}
+            {renderBooks()}
         </>
     )
 }
+
 export default BooksOverviewPage

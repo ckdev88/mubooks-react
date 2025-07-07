@@ -55,8 +55,10 @@ interface TropesPageContextType {
     tropesInMyBooksArr: Books
     setTropesInMyBooksArr(tropesInMyBooksArr: tropesInMyBooksArr): void
 }
+type BooksFilterValue = string | undefined
+
 interface BooksOverviewFilterContextType {
-    booksFilter: string
+    booksFilter: BooksFilterValue
     setBooksFilter(booksFilter: booksFilter): void
     booksOverview: Books
 }

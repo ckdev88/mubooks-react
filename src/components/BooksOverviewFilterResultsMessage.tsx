@@ -3,14 +3,16 @@ import { BooksOverviewFilterContext } from "../routes/books/BooksOverviewPage"
 
 const BooksOverviewFilterResultsMessage = () => {
     const { booksFilter, booksOverview } = useContext(BooksOverviewFilterContext)
+    if (booksFilter === undefined || booksOverview === undefined) return
+
     return (
         <div className="h2 resultsfound mt0i">
-            {booksFilter.length > 0 && booksOverview.length > 0 ? (
+            {booksFilter.length > 1 && booksOverview.length > 0 ? (
                 <>
                     {booksOverview.length} book
                     {booksOverview.length !== 1 && "s"} found for <em>"{booksFilter}"</em>
                 </>
-            ) : booksFilter.length > 0 && booksOverview.length === 0 ? (
+            ) : booksOverview !== undefined && booksOverview.length === 0 ? (
                 <>
                     No books found for <em>"{booksFilter}"</em>
                 </>
