@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -13,8 +13,11 @@ const currentPage = "tossed"
 const TossedPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
 
-    const books = userMyBooks.filter((b) => b.tossed && b.list > 0)
-    const hasbooks: boolean = books.length > 0
+    const [books, setBooks] = useState<Books | undefined>(undefined)
+    useEffect(() => {
+        if (userMyBooks !== undefined) setBooks(userMyBooks.filter((b) => b.tossed && b.list > 0))
+    }, [userMyBooks])
+    const hasbooks: boolean = books !== undefined && books.length > 0
 
     return (
         <motion.div
@@ -27,31 +30,35 @@ const TossedPage = () => {
             animate={{ opacity: 1 }}
         >
             <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSub} />
-            {hasbooks ? (
-                <>
-                    <TossTossers />
-                    <BooksOverviewPage
-                        books={userMyBooks.filter((book) => book.tossed && book.list > 0)}
-                        page={currentPage}
-                    />
-                </>
+            {books !== undefined ? (
+                hasbooks ? (
+                    <>
+                        <TossTossers />
+                        <BooksOverviewPage
+                            books={userMyBooks?.filter((book) => book.tossed && book.list > 0)}
+                            page={currentPage}
+                        />
+                    </>
+                ) : (
+                    <p>
+                        No books here.
+                        <br />
+                        <br />
+                        <Link to="/dashboard">Back to dashboard</Link> <br />
+                        or <br />
+                        <Link to="/wishlist">View your wishlist</Link> <br />
+                        or <br />
+                        <Link to="/reading">View your reading list</Link> <br />
+                        or <br />
+                        <Link to="/finished">View your finished list</Link> <br />
+                        or <br />
+                        <Link to="/search">Search</Link> to add a book.
+                        <br />
+                        <br />
+                    </p>
+                )
             ) : (
-                <p>
-                    No books here.
-                    <br />
-                    <br />
-                    <Link to="/dashboard">Back to dashboard</Link> <br />
-                    or <br />
-                    <Link to="/wishlist">View your wishlist</Link> <br />
-                    or <br />
-                    <Link to="/reading">View your reading list</Link> <br />
-                    or <br />
-                    <Link to="/finished">View your finished list</Link> <br />
-                    or <br />
-                    <Link to="/search">Search</Link> to add a book.
-                    <br />
-                    <br />
-                </p>
+                <span className="loader-dots" />
             )}
         </motion.div>
     )
