@@ -12,7 +12,7 @@ function LineG3({ data }: { data: number[] }) {
         ]
 
         for (let i = 0; i < data.length; i++) {
-            if (data[i] !== undefined) result.push([i, data[i]])
+            data[i] !== undefined && result.push([i, data[i]])
         }
         return result
     }, [data])

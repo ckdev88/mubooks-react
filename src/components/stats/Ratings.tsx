@@ -1,86 +1,86 @@
-import { useState, useRef, useEffect } from "react"
+import { memo, useMemo } from "react"
 import PieG from "./PieG"
-import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
 import BooksWithoutStarsList from "./BooksWithoutStarsList"
-import { animateHeight, cleanupAnimation } from "../../utils/uiMisc"
+import ExpandableContainer from "../ui/ExpandableContainer"
 
-const Ratings = ({
-    countStarsPerBook,
-    averageStarsPerBook,
-    countBooksWithoutStars,
-    year,
-    booksWithoutStars,
-}: {
+interface RatingsProps {
     countStarsPerBook: number[]
     averageStarsPerBook: number
     countBooksWithoutStars: number
     year: number
     booksWithoutStars: BooksWithoutStars
-}) => {
-    const [showDetails, setShowDetails] = useState<boolean>(false)
-    const detailsRef = useRef<HTMLDivElement>(null)
+}
 
-    useEffect(() => {
-        if (!detailsRef.current) return
+const Ratings = memo(
+    ({
+        countStarsPerBook,
+        averageStarsPerBook,
+        year,
+        booksWithoutStars,
+    }: RatingsProps) => {
 
-        // <div className={showDetails ? "mt05 sf" : "mt05 sf dnone"}>
-        animateHeight(detailsRef.current, showDetails)
+        // Memoize the expandable content to prevent unnecessary re-renders
+        const expandableContent = useMemo(
+            () => (
+                <>
+                    {countStarsPerBook.length > 0 && <StatisticsStarsPerBookInYear year={year} />}
+                    {booksWithoutStars.length > 0 && (
+                        <div>
+                            <br />
+                            <i>* Books without stars defined: </i>
+                            <ul className="mt0">
+                                <BooksWithoutStarsList
+                                    booksWithoutStars={booksWithoutStars}
+                                    year={year}
+                                    key={year}
+                                />
+                            </ul>
+                        </div>
+                    )}
+                </>
+            ),
+            [countStarsPerBook.length, booksWithoutStars, year],
+        )
 
-        return () => {
-            if (detailsRef.current) {
-                cleanupAnimation(detailsRef.current)
-            }
-        }
-    }, [showDetails])
-
-    return (
-        <article className="stats-item">
-            <div className="h2 mb0">
-                How I rated my books in {year}
+        const averageStarsText = useMemo(
+            () => (
                 <sub>
                     {averageStarsPerBook}. Stars on average
                     <span className="sf2">*</span>
                 </sub>
-            </div>
-            <PieG data={countStarsPerBook} />
-            {countBooksWithoutStars > 0 && (
-                <>
-                    <br />
-                    <BtnTextGeneral
-                        bOnClick={() => setShowDetails(!showDetails)}
-                        bText={!showDetails ? "More details..." : "Less details"}
-                        bAlign="right"
-                    />
-                    <div
-                        ref={detailsRef}
-                        style={{
-                            overflow: "hidden",
-                            height: 0,
-                        }}
-                    >
-                        {countStarsPerBook.length > 0 && (
-                            <StatisticsStarsPerBookInYear year={year} />
-                        )}
+            ),
+            [averageStarsPerBook],
+        )
 
-                        {booksWithoutStars.length > 0 && (
-                            <div>
-                                <br />
-                                <i>* Books without stars defined: </i>
-                                <ul className="mt0">
-                                    <BooksWithoutStarsList
-                                        booksWithoutStars={booksWithoutStars}
-                                        year={year}
-                                        key={year}
-                                    />
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                </>
-            )}
-        </article>
+        return (
+            <article className="stats-item">
+                <div className="h2 mb0">
+                    How I rated my books in {year}
+                    {averageStarsText}
+                </div>
+                <PieG data={countStarsPerBook} />
+                <ExpandableContainer>{expandableContent}</ExpandableContainer>
+            </article>
+        )
+    },
+)
+
+// Custom comparison function for memo
+function areEqual(prevProps: RatingsProps, nextProps: RatingsProps) {
+    return (
+        prevProps.year === nextProps.year &&
+        prevProps.averageStarsPerBook === nextProps.averageStarsPerBook &&
+        prevProps.countBooksWithoutStars === nextProps.countBooksWithoutStars &&
+        prevProps.countStarsPerBook.length === nextProps.countStarsPerBook.length &&
+        prevProps.booksWithoutStars.length === nextProps.booksWithoutStars.length &&
+        // Deep comparison of booksWithoutStars array if needed
+        prevProps.booksWithoutStars.every(
+            (book, index) =>
+                book.id === nextProps.booksWithoutStars[index]?.id &&
+                book.title_short === nextProps.booksWithoutStars[index]?.title_short,
+        )
     )
 }
 
-export default Ratings
+export default memo(Ratings, areEqual)

@@ -1,0 +1,68 @@
+import { useRef, useEffect, useState, type ReactNode, useCallback } from "react"
+import BtnTextGeneral from "./buttons/BtnTextGeneral"
+
+export default function ExpandableContainer({ children }: { children: ReactNode }) {
+    const [isExpanded, setIsExpanded] = useState(false)
+    const contentRef = useRef<HTMLDivElement>(null)
+    const animationDuration = "400ms"
+
+    const toggleExpansion = useCallback(() => {
+        setIsExpanded((prev) => !prev)
+    }, [])
+
+    useEffect(() => {
+        const element = contentRef.current
+        if (!element) return
+
+        if (isExpanded) {
+            // Expand
+            element.style.height = "0"
+            const fullHeight = element.scrollHeight
+            void element.offsetHeight // Force reflow
+
+            element.style.transition = `height ${animationDuration} linear`
+            element.style.height = `${fullHeight}px`
+
+            const onComplete = () => {
+                element.style.height = "auto"
+                element.style.transition = "none"
+            }
+            element.addEventListener("transitionend", onComplete, { once: true })
+        } else {
+            // Collapse
+            const currentHeight = element.scrollHeight
+            element.style.height = `${currentHeight}px`
+            element.style.transition = `height ${animationDuration} linear`
+
+            void element.offsetHeight // Force reflow
+            element.style.height = "0"
+
+            const onComplete = () => {
+                element.style.transition = "none"
+            }
+            element.addEventListener("transitionend", onComplete, { once: true })
+        }
+    }, [isExpanded])
+
+    return (
+        <div className="expandable-container">
+            <BtnTextGeneral
+                bClassName="fs-inherit"
+                bOnClick={toggleExpansion}
+                bText={isExpanded ? "Less details" : "More details..."}
+                bAlign="right"
+                aria-expanded={isExpanded}
+            />
+            <div
+                ref={contentRef}
+                style={{
+                    overflow: "hidden",
+                    height: "0",
+                }}
+                aria-hidden={!isExpanded}
+            >
+                {children}
+            </div>
+        </div>
+    )
+}

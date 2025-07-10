@@ -86,7 +86,6 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
                 }
 
                 if (b.date_reading !== undefined && b.date_finished !== undefined) {
-                    console.log("b:", b)
                     const date_difference: number = getDurationDays(b.date_reading, b.date_finished)
                     if (daysPerBook[date_difference] === undefined) daysPerBook[date_difference] = 1
                     else daysPerBook[date_difference] += 1
