@@ -7,8 +7,8 @@ import useUpdateDb from "./useUpdateDb"
 import { notification as nm } from "../i18n/notifications"
 
 const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } =
-        useContext(AppContext)
+    // const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } = // FIXME: want the notification, but causes bug
+    const { userMyBooks, setUserMyBooks, todaysDateDigit } = useContext(AppContext)
 
     const initUpdateDb = useUpdateDb({
         msg: nm.Added_to + getListName(targetList, true),
@@ -17,8 +17,10 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
 
     async function MyBooksUpdate(myBooksNew: Books) {
         setUserMyBooks(myBooksNew)
-        const notification: string = await initUpdateDb()
-        setPopupNotification(notification)
+        // FIXME: i want that notification, but it causes a bug
+        // const notification: string = await initUpdateDb()
+        // setPopupNotification(notification)
+        await initUpdateDb()
     }
 
     // TODO move into utils/

@@ -17,7 +17,9 @@ const useMyBooksRemove = ({
     book?: Book
     targetList?: BookList
 }) => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, userid } = useContext(AppContext)
+    // const { setPopupNotification, userMyBooks, setUserMyBooks, userid } = useContext(AppContext) // FIXME i want that popup, but it causes a bug
+    const { userMyBooks, setUserMyBooks, userid } = useContext(AppContext)
+
     // const [isLoading, setIsLoading] = useState<boolean>(false)
 
     /**
@@ -26,9 +28,9 @@ const useMyBooksRemove = ({
      * 3. Use return value `msg` to use in `setPopupNotification`
      */
     async function updateMyBooks(myBooksNew: Books, msg: string) {
-        // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksAdd.ts
         setUserMyBooks(myBooksNew)
-        setPopupNotification(await updateMyBooksDb(myBooksNew, msg))
+        updateMyBooksDb(myBooksNew, msg)
+        // setPopupNotification(await updateMyBooksDb(myBooksNew, msg)) // FIXME i want that popup, but it causes a bug
     }
 
     async function updateMyBooksDb(myBooksNew: Books, msg: string) {
@@ -69,11 +71,11 @@ const useMyBooksRemove = ({
                 switch (book.list) {
                     case 4:
                         switch (targetList) {
-                            case 3:
+                            case 4:
                                 return updateMyBooks(
-                                    assignListById(myBooks, book.id, 2),
+                                    assignListById(myBooks, book.id, 3),
                                     nm.reading_added,
-                                ) // finished favourite > reading
+                                ) // favourite > finished
                             default:
                                 // FIXME klopt dit? in /finished het verwijderen van fave status geeft problemen
                                 return updateMyBooks(

@@ -36,8 +36,7 @@ const BooksOverviewPage = ({
     const [booksFilter, setBooksFilter] = useState<BooksFilterValue>(undefined)
 
     // Determine if we should show filters
-    let hasBooks = false
-    if (books !== undefined) hasBooks = books?.length > 0
+    const hasBooks = books !== undefined && books?.length > 0
     const hasFilter = fsPages.includes(page) && hasBooks
 
     // Memoize the current book list based on page and other conditions
@@ -73,19 +72,25 @@ const BooksOverviewPage = ({
 
     // Render different views based on page type
     const renderBooks = () => {
-        if (page === "search") return <BooksOverviewSearchPage books={books} />
-
-        if (page === "quoted")
-            return (
-                <BooksOverviewPageQuoted
-                    books={filteredBooks?.filter((book: Book) => !book.tossed)}
-                    page={page}
-                />
-            )
-
-        return filteredBooks?.map((book) => (
-            <BookSummary book={book} key={`BookSummary${book.list}${book.id}`} currentPage={page} />
-        ))
+        switch (page) {
+            case "search":
+                return <BooksOverviewSearchPage books={books} />
+            case "quoted":
+                return (
+                    <BooksOverviewPageQuoted
+                        books={filteredBooks?.filter((book: Book) => !book.tossed)}
+                        page={page}
+                    />
+                )
+            default:
+                return filteredBooks?.map((book) => (
+                    <BookSummary
+                        book={book}
+                        key={`BookSummary${book.list}${book.id}`}
+                        currentPage={page}
+                    />
+                ))
+        }
     }
 
     return (
