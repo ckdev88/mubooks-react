@@ -13,13 +13,13 @@ const RemoveBookFromXButton = ({
     bookProp,
     targetList = bookProp.list,
     icon = false,
-    button_title,
+    button_title="",
     removeType,
 }: {
     bookProp: Book
     targetList?: BookList
     icon?: boolean
-    button_title: string
+    button_title?: string
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
     const book: Book = bookProp
