@@ -154,7 +154,6 @@ main button.alt,
     line-height: 1.3rem;
     padding: 0;
     text-align: left;
-    text-decoration: none;
 }
 .btn-text:disabled,
 .btn-text:disabled:hover,
@@ -182,7 +181,7 @@ main button.alt,
 .a-text:active,
 .btn-text:hover,
 .btn-text:active {
-    color: var(--text-primary);
+    color: var(--link-hover);
     text-decoration: none;
 }
 
@@ -198,20 +197,31 @@ main button.alt,
     transform: scaleY(-1);
     width: 1em;
 }
-.btn-text.caret-right-toggle::after {
-    background-image: url("/img/cv-caret-medium.light.svg");
-    background-position-x: center;
-    background-position-y: 30%;
-    background-size: 1.5em;
-    content: " ";
-    display: inline-block;
-    height: 1em;
-    margin-left: 0.35em;
-    transform: scaleY(-1);
-    width: 1em;
-}
-.btn-text.caret-right-toggle.notext::after {
+.btn-text {
+    &.caret-right-toggle::after {
+        background-image: url("/img/cv-caret-medium.light.svg");
+        background-position-x: center;
+        background-position-y: 30%;
+        background-size: 1.5em;
+        content: " ";
+        display: inline-block;
+        height: 1em;
+        margin-left: 0.35em;
+        transform: scaleY(-1);
+        width: 1em;
+    }
+    &.caret-right-toggle {
+        &::after {
+            transition: .18s linear;
+        }
+        &.active::after {
+            background-position-y: -10%;
+            transform: scaleY(1);
+        }
+        &.notext::after{
     margin-left: 0;
+        }
+    }
 }
 .icon-dots::before {
     color: var(--text-primary-dimmed);
@@ -224,26 +234,25 @@ main button.alt,
     background-position-y: top;
     transform: scaleY(1);
 }
-.caret-right-toggle::after,
-.caret-right-toggle.active::after {
-    background-position-y: top;
-    transform: scaleY(1);
-}
+
 .expandable {
     transition: opacity 0.18s ease-in-out;
     overflow: hidden;
-}
-.expandable.expanded {
-    height: auto;
-    opacity: 1;
+    &.expanded {
+        height: auto;
+        opacity: 1;
+    }
 }
 ul.expandable {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-ul.expandable li {
-    font-size: 0.9rem;
+    li {
+        font-size: 0.9rem;
+    }
+    a {
+        text-decoration: none;
+    }
 }
 ul.expandable-list a {
     text-decoration: none;

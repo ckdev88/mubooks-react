@@ -47,9 +47,9 @@ export default function ExpandableContainer({ children }: { children: ReactNode 
     return (
         <div className="expandable-container">
             <BtnTextGeneral
-                bClassName="fs-inherit"
+                bClassName={isExpanded ? "sf bold caret-right-toggle active" : "sf bold caret-right-toggle"}
                 bOnClick={toggleExpansion}
-                bText={isExpanded ? "Less details" : "More details..."}
+                bText={isExpanded ? "Hide details" : "Show details"}
                 bAlign="right"
                 aria-expanded={isExpanded}
             />

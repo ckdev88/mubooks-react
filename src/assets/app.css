@@ -72,6 +72,3 @@ html:not(.loggedin) .h1 {
     display: none;
 }
 
-.stats-item {
-    border-bottom: 1px solid var(--cardbg);
-}
