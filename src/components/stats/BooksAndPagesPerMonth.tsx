@@ -44,7 +44,7 @@ const BooksAndPagesPerMonth = ({
                     subjects={["Books", "Pages"]}
                 />
                 {countBooksWithoutPages > 0 && <span className="sf2">*</span>}
-                <ExpandableContainer>
+                <ExpandableContainer buttonText="Details">
                     <StatisticsBooksAndPagesPerMonth
                         countBooksFinishedMonthly={countBooksFinishedMonthly}
                         currentMonth={currentMonth}

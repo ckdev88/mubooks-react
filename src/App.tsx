@@ -81,7 +81,7 @@ const App = () => {
     const GLOBALS: GlobalSettings = useMemo(
         () => ({
             headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
-            synopsisEnabled: false,
+            synopsisEnabled: false, // OPTIMIZE use webworkers or something to not fetch all synopsises at once from openlibrary.org
             pageAnimationDelay: 0.19, // .28
             pageAnimationDuration: 0.19, // .4
             userid: userid,

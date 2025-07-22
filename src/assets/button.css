@@ -177,6 +177,7 @@ main button.alt,
     border: none;
     box-shadow: none;
 }
+
 .a-text:hover,
 .a-text:active,
 .btn-text:hover,
@@ -185,20 +186,11 @@ main button.alt,
     text-decoration: none;
 }
 
-.btn-text.caret-toggle::before {
-    background-image: url("/img/cv-caret-medium.light.svg");
-    background-position-x: center;
-    background-position-y: 30%;
-    background-size: 1.5em;
-    content: " ";
-    display: inline-block;
-    height: 1em;
-    margin-right: 0.35em;
-    transform: scaleY(-1);
-    width: 1em;
-}
 .btn-text {
-    &.caret-right-toggle::after {
+    &.synopsis {
+        font-weight: bold;
+    }
+    &.caret-toggle::before {
         background-image: url("/img/cv-caret-medium.light.svg");
         background-position-x: center;
         background-position-y: 30%;
@@ -206,33 +198,66 @@ main button.alt,
         content: " ";
         display: inline-block;
         height: 1em;
-        margin-left: 0.35em;
+        margin-right: 0.35em;
         transform: scaleY(-1);
         width: 1em;
     }
+
     &.caret-right-toggle {
         &::after {
+            background-image: url("/img/cv-caret-medium.light.svg");
+            background-position-x: center;
+            background-position-y: 30%;
+            background-size: 1.5em;
+            content: " ";
+            display: inline-block;
+            height: 1em;
+            margin-left: 0.35em;
+            transform: scaleY(-1);
+            width: 1em;
+
             transition: .18s linear;
         }
-        &.active::after {
-            background-position-y: -10%;
-            transform: scaleY(1);
+        &.badge::after {
+            background-position-y: 25%;
         }
-        &.notext::after{
-    margin-left: 0;
+        &.active {
+            &::after {
+                background-position-y: -10%;
+                transform: scaleY(1);
+            }
+            &.synopsis {
+                font-weight: bold;
+            }
+        }
+        &.notext::after {
+            margin-left: 0;
+        }
+        &.active {
+            color: var(--text-primary);
+            text-decoration: underline;
         }
     }
 }
+.dark-mode .btn-text.caret-right-toggle::after {
+    background-image: url("/img/cv-caret-medium.dark.svg");
+}
+
 .icon-dots::before {
     color: var(--text-primary-dimmed);
     content: "...";
     letter-spacing: -0.02rem;
     border-radius: 50%;
 }
+
 .expandable.expanded .caret-toggle::before,
 .caret-toggle.active::before {
     background-position-y: top;
     transform: scaleY(1);
+}
+.expandable-container.synopsis .btn-text {
+    margin-left: .4rem;
+    margin-top: .4rem;
 }
 
 .expandable {
@@ -317,6 +342,7 @@ ul.expandable-list a {
     transition: background-color 0.18s ease-in-out, border-color 0.18s ease-in-out;
     width: 1rem;
 }
+
 input[type="number"] + .btn-submit-inside-caret-right {
     margin-top: 0.25rem;
     margin-right: 0.25rem;
@@ -368,10 +394,14 @@ input[type="number"] + .btn-submit-inside-caret-right {
 .badge {
     background-color: var(--badgebg);
     color: var(--badgefg);
-}
-.badge.subject {
-    background-color: var(--bg-invert1);
-    color: var(--bgInvert);
+    &.subject {
+        background-color: var(--bg-invert1);
+        color: var(--bgInvert);
+    }
+    &.badge-invis {
+        background-color: transparent;
+        color: var(--text-primary-dimmed);
+    }
 }
 .badge.cgreen,
 .btn-sm.cgreen {

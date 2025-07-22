@@ -7,7 +7,6 @@ const DaysPerBook = ({
     year,
     avgReadingPerFinished,
 }: { daysPerBook: number[]; year: number; avgReadingPerFinished: number }) => {
-
     return (
         <>
             <article className="stats-item">
@@ -16,7 +15,7 @@ const DaysPerBook = ({
                     <sub>{avgReadingPerFinished}. Days average to start and finish.</sub>
                 </div>
                 <LineG3 data={daysPerBook} />
-                <ExpandableContainer>
+                <ExpandableContainer buttonText="Details">
                     <StatisticsDaysPerBookInYear year={year} />
                 </ExpandableContainer>
             </article>

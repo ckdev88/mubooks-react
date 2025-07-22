@@ -1,10 +1,15 @@
 import { useRef, useEffect, useState, type ReactNode, useCallback } from "react"
 import BtnTextGeneral from "./buttons/BtnTextGeneral"
 
-export default function ExpandableContainer({ children }: { children: ReactNode }) {
+export default function ExpandableContainer({
+    children,
+    buttonText = "Details",
+    extraClass,
+}: { children: ReactNode; buttonText?: string; extraClass?: string }) {
     const [isExpanded, setIsExpanded] = useState(false)
     const contentRef = useRef<HTMLDivElement>(null)
     const animationDuration = "400ms"
+    const bText = buttonText
 
     const toggleExpansion = useCallback(() => {
         setIsExpanded((prev) => !prev)
@@ -44,13 +49,17 @@ export default function ExpandableContainer({ children }: { children: ReactNode 
         }
     }, [isExpanded])
 
+    const containerClassName = `expandable-container${extraClass !== undefined && extraClass !== "" ? ` ${extraClass}` : ""}`
+
     return (
-        <div className="expandable-container">
+        <div className={containerClassName}>
             <BtnTextGeneral
-                bClassName={isExpanded ? "sf bold caret-right-toggle active" : "sf bold caret-right-toggle"}
+                bClassName={
+                    isExpanded ? "sf bold caret-right-toggle active" : "sf bold caret-right-toggle"
+                }
                 bOnClick={toggleExpansion}
-                bText={isExpanded ? "Hide details" : "Show details"}
-                bAlign="right"
+                bText={bText}
+                bAlign="left"
                 aria-expanded={isExpanded}
             />
             <div
