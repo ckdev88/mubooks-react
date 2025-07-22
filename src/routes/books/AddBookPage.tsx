@@ -61,8 +61,8 @@ const AddBookPage = () => {
     const processAbForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // NOTE set to false when all is done if the redirect to wishlist is canceled
-        if (userid === null){
-            console.log('processing?',userid);
+        if (userid === null) {
+            console.log("processing?", userid)
             return
         }
         setIsSubmitting(true)

@@ -76,8 +76,7 @@ const App = () => {
     // TODO: check if pageName is actually useful or used/ related to rendering amount
     const [pageName, setPageName] = useState<string>("default")
 
-    // Settings
-    // TODO: put this in settings.json file or something
+    // Settings // TODO: abstract away or something, beware of `userid`
     const GLOBALS: GlobalSettings = useMemo(
         () => ({
             headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work

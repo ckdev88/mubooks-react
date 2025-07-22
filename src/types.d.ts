@@ -38,6 +38,7 @@ interface IsModdingPagesContextType {
     numberOfPages: number
     setNumberOfPages(numberOfPages: numberOfPages): void
 }
+
 interface IsModdingReviewContextType {
     isModding: boolean
     setIsModding(isModding: isModding): void
@@ -45,6 +46,7 @@ interface IsModdingReviewContextType {
     setReviewText(reviewText: reviewText): void
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
 }
+
 interface TropesPageContextType {
     likedTropes: BookTropes
     setLikedTropes(likedTropes: likedTropes): void
@@ -55,6 +57,7 @@ interface TropesPageContextType {
     tropesInMyBooksArr: Books
     setTropesInMyBooksArr(tropesInMyBooksArr: tropesInMyBooksArr): void
 }
+
 type BooksFilterValue = string | undefined
 
 interface BooksOverviewFilterContextType {
