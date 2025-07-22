@@ -1,41 +1,36 @@
 import convertDate from "../helpers/convertDate"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { AppContext } from "../App"
-import { supabase } from "../../utils/supabase"
 import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
+import useUpdateDb from "./useUpdateDb"
+import { notification as nm } from "../i18n/notifications"
 
-const useMyBooksAdd = ({
-    book,
-    targetList,
-}: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, userid, todaysDateDigit } =
-        useContext(AppContext)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
+    // const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } = // FIXME: want the notification, but causes bug
+    const { userMyBooks, setUserMyBooks, todaysDateDigit } = useContext(AppContext)
+
+    const initUpdateDb = useUpdateDb({
+        msg: nm.Added_to + getListName(targetList, true),
+        logMsg: book.title_short + nm.added_to + getListName(targetList).toUpperCase(),
+    })
 
     async function MyBooksUpdate(myBooksNew: Books) {
-        let msg: string = book.title_short + " added to " + getListName(targetList)
         setUserMyBooks(myBooksNew)
-        const { error } = await supabase
-            .from("user_entries")
-            .update({
-                json: myBooksNew,
-                testdata: `${book.title_short} updated list to ${getListName(targetList)}`,
-            })
-            .eq("user_id", userid)
-            .select("*")
-        if (error) msg = error.message
-        setPopupNotification(msg)
-        setIsLoading(false)
+        // FIXME: i want that notification, but it causes a bug
+        // const notification: string = await initUpdateDb()
+        // setPopupNotification(notification)
+        await initUpdateDb()
     }
 
+    // TODO move into utils/
     const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
         const bookCoverSrcRedir: string = await fetch(bookCoverM).then((res) => res.url)
         return bookCoverSrcRedir
     }
 
     const runMyBooksAdd = async (bookIsSaved: boolean): Promise<Books> => {
-        let newUserMyBooks = userMyBooks
+        let newUserMyBooks: Books = userMyBooks
         if (bookIsSaved === false) {
             let title_short: Book["title_short"]
             if (book.title.length > 55) title_short = book.title.slice(0, 55) + "..."
@@ -63,19 +58,19 @@ const useMyBooksAdd = ({
                 img: book.img,
                 list: targetList,
                 number_of_pages_median:
-                    book.number_of_pages_median === undefined
-                        ? 0
-                        : book.number_of_pages_median,
+                    book.number_of_pages_median === undefined ? 0 : book.number_of_pages_median,
                 rate_spice: 0,
                 rate_stars: 0,
                 review_fav_quote: "",
+                review_fav_quote2: "",
                 review_text: "",
                 review_tropes: [],
                 title: book.title,
                 title_short: title_short,
+                tossed: false,
             }
-            newUserMyBooks.push(newBook)
-        } else newUserMyBooks = userMyBooks // just update or keep intact.. not sure
+            newUserMyBooks?.push(newBook)
+        } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure
         return newUserMyBooks
     }
 
@@ -88,6 +83,7 @@ const useMyBooksAdd = ({
             if (myBooks[i].id === book.id) {
                 bookIsSaved = true
                 myBooks[i].list = targetList
+                myBooks[i].tossed = false // always false when moving (restoring) to a list
                 if (targetList === 2) myBooks[i].date_reading = todaysDateDigit
                 if (targetList === 3) myBooks[i].date_finished = todaysDateDigit
                 break
@@ -98,10 +94,9 @@ const useMyBooksAdd = ({
     }
 
     const AddBookToXButtonAct = (): void => {
-        setIsLoading(true)
         AddBookToX()
     }
 
-    return [AddBookToXButtonAct, isLoading]
+    return AddBookToXButtonAct
 }
 export default useMyBooksAdd

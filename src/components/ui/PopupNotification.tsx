@@ -4,8 +4,12 @@ import { AppContext } from "../../App"
 function PopupNotification() {
     const { popupNotification, setPopupNotification } = useContext(AppContext)
 
+    // FIXME dirty hack to trigger a re-render to show Heart animation immediately
+    if (popupNotification === "optimist") return
+
     const Popper = () => {
-        setTimeout(() => setPopupNotification(""), 1250)
+        // TODO apply time into global settings.json or something
+        setTimeout(() => setPopupNotification(""), 2000)
         return <>{popupNotification}</>
     }
     // online state checker & notifier
@@ -22,23 +26,19 @@ function PopupNotification() {
             window.removeEventListener("offline", handleStatusChange)
         }
     }, [isOnline])
-    // /online state checker & notifier
+
     return (
         <>
-            {!isOnline ? (
-                <div id="popupNotificationOffline">
-                    Offline. Some things won&lsquo;t work.
-                </div>
-            ) : (
-                popupNotification !== "" && (
-                    <div
-                        id="popupNotification"
-                        className={popupNotification ? "show" : "hide"}
-                    >
-                        {popupNotification && <Popper />}
-                    </div>
-                )
-            )}
+            <div
+                id="popupNotification"
+                className={popupNotification || !isOnline ? "show" : "hide"}
+            >
+                {!isOnline ? (
+                    <>Offline. Some things won&lsquo;t work.</>
+                ) : (
+                    popupNotification !== "" && <> {popupNotification && <Popper />}</>
+                )}
+            </div>
         </>
     )
 }

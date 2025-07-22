@@ -1,21 +1,22 @@
 import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
 import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
-import BtnInsideCaret from "./ui/BtnInsideCaret"
+import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import updateEntriesDbxxx from "../functions/updateEntriesDb"
 import BaseBadge from "./ui/BaseBadge"
-import BtnCancel from "./ui/BtnCancel"
+import BtnCancel from "./ui/buttons/BtnCancel"
+import BtnAddTrope from "./ui/buttons/BtnAddTrope"
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
+    if (userMyBooks === undefined) return <>Loading tropes...</>
     const [bookTropes, setBookTropes] = useState<BookTropes>(tropes)
     const [bookTropesLowercase, setBookTropesLowercase] = useState<BookTropes>([])
     const [showTropesForm, setShowTropesForm] = useState<boolean>(false)
     const [tropeInputValue, setTropeInputValue] = useState<BookTrope>("")
 
     useEffect(() => {
-        if (bookTropes.length > 0)
-            setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
+        if (bookTropes.length > 0) setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
     }, [bookTropes])
 
     function removeTrope(trope: string): void {
@@ -27,15 +28,17 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     }
 
     async function updateTropes(newArr: BookTropes) {
-        setBookTropes(newArr)
-        for (let i = 0; i < userMyBooks.length; i++) {
-            if (userMyBooks[i].id === book.id) {
-                userMyBooks[i].review_tropes = newArr
-                break
+        if (userid !== null && userMyBooks !== undefined) {
+            setBookTropes(newArr)
+            for (let i = 0; i < userMyBooks.length; i++) {
+                if (userMyBooks[i].id === book.id) {
+                    userMyBooks[i].review_tropes = newArr
+                    break
+                }
             }
+            const msg: string = await updateEntriesDbxxx(userMyBooks, userid)
+            setPopupNotification(msg)
         }
-        const msg: string = await updateEntriesDbxxx(userMyBooks, userid)
-        setPopupNotification(msg)
     }
 
     // NOTE: similar, but not same as TropesList in ./TropesPrefs.tsx
@@ -45,27 +48,14 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                 {bookTropes.map((trope, index) => {
                     const key = cleanIndexKey("review_tropes" + bookid, index)
                     return (
-                        <BaseBadge
-                            key={key}
-                            text={trope}
-                            removeText={removeTrope}
-                            type="trope"
-                        />
+                        <BaseBadge key={key} text={trope} removeText={removeTrope} type="trope" />
                     )
                 })}
-                {!showTropesForm && (
-                    <button
-                        type="button"
-                        className={
-                            showTropesForm
-                                ? "btn-sm mb0 active trope_add"
-                                : "btn-sm mb0 trope_add"
-                        }
-                        onClick={() => setShowTropesForm(!showTropesForm)}
-                    >
-                        {bookTropes.length > 0 ? <>+</> : <>Add Tropes</>}
-                    </button>
-                )}
+                <BtnAddTrope
+                    bOnClick={() => setShowTropesForm(!showTropesForm)}
+                    bText={tropes.length === 0 ? "Add tropes" : "+"}
+                    bActiveForm={showTropesForm}
+                />
             </div>
         )
     }
@@ -74,10 +64,13 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
+                // remove first instance of duplicate Trope, before adding the newer version
                 const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
-                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
+                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1) {
                     bookTropes.splice(tropeIndex, 1)
+                }
                 const newArr: BookTropes = [...bookTropes, tropeToAdd]
+
                 newArr.sort((a, b) => a.localeCompare(b))
                 updateTropes(newArr)
                 setTropeInputValue("")
@@ -89,14 +82,11 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     if (book.review_tropes === undefined) book.review_tropes = []
 
     useEffect(() => {
-        if (showTropesForm === true)
-            document.getElementById(`add_trope_${book.id}`)?.focus()
+        if (showTropesForm === true) document.getElementById(`add_trope_${book.id}`)?.focus()
     }, [showTropesForm, book.id])
 
     if (!bookTropes) {
-        console.error(
-            "bookTropes should never be falsey here! Empty array is allowed though",
-        )
+        console.error("bookTropes should never be falsey here! Empty array is allowed though")
         return
     }
 
@@ -120,15 +110,9 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                         onKeyDown={handleKeyDownTrope}
                         placeholder="Add a trope..."
                     />
-                    <BtnInsideCaret
-                        bStyle={{ margin: "0 0 0 -2rem" }}
-                        bOnClick={addTrope}
-                    />
+                    <BtnInsideCaret bStyle={{ margin: "0 0 0 -2rem" }} bOnClick={addTrope} />
                 </div>
-                <BtnCancel
-                    bClassName="diblock"
-                    bOnClick={() => setShowTropesForm(false)}
-                />
+                <BtnCancel bClassName="diblock" bOnClick={() => setShowTropesForm(false)} />
             </div>
         </>
     )

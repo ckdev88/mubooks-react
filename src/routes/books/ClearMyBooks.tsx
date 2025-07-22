@@ -1,6 +1,8 @@
 import { useContext } from "react"
 import { AppContext } from "../../App"
 import useMyBooksUpdateDb from "../../hooks/useMyBooksUpdateDb"
+import BtnBig from "../../components/ui/buttons/BtnBig"
+import { notification as nm } from "../../i18n/notifications"
 
 const newArr: [] = []
 function ClearMyBooks() {
@@ -9,16 +11,18 @@ function ClearMyBooks() {
     const clearbooks = useMyBooksUpdateDb({
         myBooksNew: newArr,
         book_id: null,
-        msg: "Books cleared",
+        msg: nm.Books_cleared,
     })
     function clearbooksyes() {
         clearbooks()
     }
 
     return (
-        <button type="button" onClick={() => clearbooksyes()}>
-            Clear my books
-        </button>
+        <BtnBig
+            bClassName="btn btn-red"
+            bText="Clear all my books"
+            bOnClick={() => clearbooksyes()}
+        />
     )
 }
 export default ClearMyBooks

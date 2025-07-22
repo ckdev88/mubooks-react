@@ -72,10 +72,7 @@ function shuffleArray(array: []) {
     while (currentIndex > 0) {
         const randomIndex = Math.floor(Math.random() * currentIndex)
         currentIndex--
-        ;[array[currentIndex], array[randomIndex]] = [
-            array[randomIndex],
-            array[currentIndex],
-        ]
+        ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
     }
 }
 
@@ -128,10 +125,11 @@ function getNavTitle(path: string = location.pathname.slice(1)): string {
     titleMap.set("wishlist", "Wishlist")
     titleMap.set("reading", "Currently reading")
     titleMap.set("finished", "Finished books")
-    titleMap.set("favorites", "Favorite books")
+    titleMap.set("favourites", "Favourite books")
     titleMap.set("savedbooks", "Saved books")
-    titleMap.set("quoted", "Favorite quotes")
+    titleMap.set("quoted", "Favourite quotes")
     titleMap.set("tropes", "Tropes")
+    titleMap.set("tossed", "Tossed corner")
     titleMap.set("statistics", "Stats")
     titleMap.set("account/profile", "Profile")
     titleMap.set("account/login", "Log in")

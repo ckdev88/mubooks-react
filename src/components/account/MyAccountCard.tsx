@@ -1,11 +1,12 @@
-import { useContext } from "react"
-import useCardRotate from "../../hooks/useCardRotate"
+import { memo, useContext } from "react"
 import { Link } from "react-router-dom"
 import { AppContext } from "../../App"
 import Heading from "../ui/Heading"
+import BtnBig from "../ui/buttons/BtnBig"
+import useCardRotate from "../../hooks/useCardRotate"
 import useResetUsermail from "../../hooks/useResetUsermail"
 
-export default function MyAccountCard() {
+function MyAccountCard() {
     const { change } = useCardRotate()
     const { username, usermail } = useContext(AppContext)
 
@@ -21,23 +22,23 @@ export default function MyAccountCard() {
                 />
             </header>
             <main>
-                <dl>
+                <dl className="account-details">
                     <dt>Screen name</dt>
-                    <dd>{username ? username : "-"}</dd>
+                    <dd>{username || "-"}</dd>
                     <dt>Email address</dt>
                     <dd>{usermail}</dd>
                     <dt>Password</dt>
-                    <dd>******</dd>
+                    <dd>••••••</dd>
                 </dl>
-                <button type="button" className="btn-lg" onClick={change}>
-                    <span>Change</span>
-                </button>
+                <BtnBig bText="Change" bOnClick={change} />
             </main>
             <footer>
-                <Link className="a-text" to="/dashboard">
+                <Link className="a-text" to="/dashboard" aria-label="Return to dashboard">
                     Return to dashboard
                 </Link>
             </footer>
         </div>
     )
 }
+
+export default memo(MyAccountCard)

@@ -5,6 +5,8 @@ import { useContext } from "react"
 import { AppContext } from "../../App"
 import { supabase } from "../../../utils/supabase"
 import Heading from "../ui/Heading"
+import BtnBig from "../ui/buttons/BtnBig"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
 
 async function userSignup(user: User) {
     const signup = await supabase.auth.signUp(user)
@@ -45,10 +47,7 @@ export default function SignupCard() {
                     />
                 </header>
                 <main>
-                    <form
-                        onSubmit={processSignupForm}
-                        className={isLoading ? "form-loading" : ""}
-                    >
+                    <form onSubmit={processSignupForm} className={isLoading ? "form-loading" : ""}>
                         <label htmlFor="signup_screenname">
                             <div className="description">Screen name</div>
                             <input
@@ -84,15 +83,11 @@ export default function SignupCard() {
                         <div className={error !== "" ? "dblock error" : "dblock"}>
                             {error}&nbsp;
                         </div>
-                        <button type="submit" className="btn-lg" disabled={isLoading}>
-                            Create account {isLoading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bType="submit" bIsLoading={isLoading} bText="Create account" />
                     </form>
                 </main>
                 <footer className="content-right">
-                    <button type="button" className="btn-text" onClick={login}>
-                        I already have an account
-                    </button>
+                    <BtnTextGeneral bOnClick={login} bText="I already have an account" />
                 </footer>
             </article>
         </>

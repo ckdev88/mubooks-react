@@ -16,9 +16,7 @@ const useGetSynopsis = (
         const fetchSynopsis = async (book_id: string): Promise<void> => {
             if (book_id.slice(0, 2) !== "OL") return
 
-            const fetchSynopsisPromise = fetch(
-                `https://openlibrary.org/works/${book_id}.json`,
-            )
+            const fetchSynopsisPromise = fetch(`https://openlibrary.org/works/${book_id}.json`)
             fetchSynopsisPromise
                 .then((response) => {
                     if (!response.ok) throw new Error(`Error ${response.status}`)
@@ -42,9 +40,7 @@ const useGetSynopsis = (
         }
 
         const fetchSynopsis2 = async (book_id: string): Promise<void> => {
-            const fetchSynopsisPromise = fetch(
-                "https://openlibrary.org/books/" + book_id + ".json",
-            )
+            const fetchSynopsisPromise = fetch("https://openlibrary.org/books/" + book_id + ".json")
             fetchSynopsisPromise
                 .then((response) => {
                     if (!response.ok) throw new Error(`Error ${response.status}`)

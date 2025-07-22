@@ -4,9 +4,12 @@ import { cleanInput } from "../helpers/cleanInput"
 import useResetUsermail from "../hooks/useResetUsermail"
 import { isLocal } from "../Helpers"
 import { Link } from "react-router-dom"
+import BtnBig from "./ui/buttons/BtnBig"
 
 const SuggestionsForm: React.FC = () => {
     const { userid, usermail } = useContext(AppContext)
+
+    if (usermail === null || userid === null) return <>Loading user...</>
 
     useResetUsermail()
 
@@ -14,6 +17,7 @@ const SuggestionsForm: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isPosted, setIsPosted] = useState<boolean>(false)
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        if (userid === null) return
         event.preventDefault()
         setIsLoading(true)
         // checking & sanitizing input
@@ -22,17 +26,13 @@ const SuggestionsForm: React.FC = () => {
             .get("suggestion")
             ?.toString()
             .trim()
-        if (
-            !formdata_suggestion ||
-            (formdata_suggestion && formdata_suggestion.length < 1)
-        )
+        if (!formdata_suggestion || (formdata_suggestion && formdata_suggestion.length < 1))
             return false
         const formdata_anythingElse: string | undefined = formdata
             .get("anythingElse")
             ?.toString()
             .trim()
-        if (formdata_suggestion)
-            formdata.set("suggestion", cleanInput(formdata_suggestion))
+        if (formdata_suggestion) formdata.set("suggestion", cleanInput(formdata_suggestion))
         if (formdata_anythingElse !== undefined)
             formdata.set("anythingElse", cleanInput(formdata_anythingElse))
         else formdata.set("anythingElse", "")
@@ -61,9 +61,7 @@ const SuggestionsForm: React.FC = () => {
                         <br />
                         <b>Anything else?</b>
                         <br />
-                        {formdata_anythingElse !== ""
-                            ? formdata_anythingElse
-                            : "Not right now"}
+                        {formdata_anythingElse !== "" ? formdata_anythingElse : "Not right now"}
                     </blockquote>
                 </div>,
             )
@@ -120,16 +118,12 @@ const SuggestionsForm: React.FC = () => {
                     <div>
                         What do you think about MuBooks, and what could make it better?
                         <br />
-                        Please tell us anything: a request, a complaint or a suggestion,
-                        we need your help to make this app as friendly and helpful as
-                        possible for you.
+                        Please tell us anything: a request, a complaint or a suggestion, we need
+                        your help to make this app as friendly and helpful as possible for you.
                     </div>
                     <br />
                     <br />
-                    <form
-                        onSubmit={handleSubmit}
-                        className={isLoading ? "form-loading" : ""}
-                    >
+                    <form onSubmit={handleSubmit} className={isLoading ? "form-loading" : ""}>
                         <label htmlFor="fsb_suggestion">
                             <div className="description">Your ideas or suggestions</div>
                             <textarea
@@ -149,9 +143,7 @@ const SuggestionsForm: React.FC = () => {
                                 readOnly={isLoading}
                             />
                         </label>
-                        <button className="btn-lg" type="submit" disabled={isLoading}>
-                            Send {isLoading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bType="submit" bIsLoading={isLoading} bText="Send" />
                     </form>
                 </>
             )}

@@ -1,11 +1,11 @@
 import { useState } from "react"
 import BaseBadge from "./ui/BaseBadge"
 import { cleanIndexKey } from "../helpers/cleanInput"
+import BtnMoreToggle from "./ui/buttons/BtnMoreToggle"
 
-const SearchSubjects = ({
-    book_id,
-    subjects,
-}: { book_id: Book["id"]; subjects: BookSubjects }) => {
+const subjectExpandLimit = 5
+
+const SearchSubjects = ({ book_id, subjects }: { book_id: Book["id"]; subjects: BookSubjects }) => {
     const [showMore, setShowMore] = useState(false)
 
     function showMoreToggle() {
@@ -13,6 +13,9 @@ const SearchSubjects = ({
     }
 
     if (subjects === undefined) return
+    let toggleSubjects = false
+    if (subjects.length > subjectExpandLimit) toggleSubjects = true
+
     return (
         <div className="subjects">
             {subjects.map((subject, index) => {
@@ -20,17 +23,16 @@ const SearchSubjects = ({
                 if (showMore === true) {
                     return <BaseBadge key={key} type="subject" text={subject} />
                 }
-                if (!showMore && index < 5) {
+                if (!showMore && index < subjectExpandLimit) {
                     return <BaseBadge key={key} type="subject" text={subject} />
                 }
             })}
-            <button
-                type="button"
-                onClick={() => showMoreToggle()}
-                className="btn-text diblock"
-            >
-                {showMore ? "<" : "..."}
-            </button>
+            {toggleSubjects && (
+                <BtnMoreToggle
+                    bText={showMore ? "Show less" : "Show more..."}
+                    bOnClick={() => showMoreToggle()}
+                />
+            )}
         </div>
     )
 }

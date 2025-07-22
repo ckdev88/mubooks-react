@@ -3,6 +3,8 @@ import { AppContext } from "../../App"
 import { supabase } from "../../../utils/supabase"
 import useCardRotate from "../../hooks/useCardRotate"
 import Heading from "../ui/Heading"
+import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import BtnBig from "../ui/buttons/BtnBig"
 
 const LoginCard = () => {
     const { setUserIsLoggedIn, setUsername, setUsermail } = useContext(AppContext)
@@ -49,11 +51,7 @@ const LoginCard = () => {
                         <Heading text="Log in" sub="to continue" />
                     </header>
                     <form onSubmit={processLoginForm}>
-                        <div
-                            className={
-                                error !== "" ? "notification error" : "notification"
-                            }
-                        >
+                        <div className={error !== "" ? "notification error" : "notification"}>
                             {error}
                         </div>
                         <label htmlFor="login_email">
@@ -77,32 +75,24 @@ const LoginCard = () => {
                                 readOnly={isLoading}
                             />
                         </label>
-                        <button
-                            type="submit"
-                            value="Log in"
-                            disabled={isLoading}
-                            className="btn-lg"
-                        >
-                            Log in {isLoading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bText="Log in" bType="submit" bIsLoading={isLoading} />
                     </form>
                 </main>
                 <footer>
-                    <button
-                        type="button"
-                        className="btn-text wauto-md nowrap"
-                        onClick={recover}
-                    >
-                        Forgot password
-                    </button>
-                    <button
-                        type="button"
-                        className="btn-text ta-right wauto-md nowrap diblock"
-                        onClick={signup}
-                    >
-                        <span className="dnone diblock-md">New here?&nbsp;</span>
-                        Join now
-                    </button>
+                    <BtnTextGeneral
+                        bClassName="wauto-md nowrap"
+                        bOnClick={recover}
+                        bText="Forgot password"
+                    />
+                    <BtnTextGeneral
+                        bClassName="ta-right wauto-md nowrap diblock"
+                        bOnClick={signup}
+                        bText={
+                            <>
+                                <span className="dnone diblock-md">New here?&nbsp;</span> Join now
+                            </>
+                        }
+                    />
                 </footer>
             </article>
         </>

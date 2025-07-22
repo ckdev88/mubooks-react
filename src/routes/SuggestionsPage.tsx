@@ -7,15 +7,7 @@ function SuggestionsPage() {
     const { GLOBALS } = useContext(AppContext)
     return (
         <>
-            <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                    duration: GLOBALS.pageAnimationDuration,
-                    delay: GLOBALS.pageAnimationDelay,
-                }}
-                animate={{ opacity: 1 }}
-            >
+            <motion.div {...GLOBALS.motionPageProps}>
                 <SuggestionsForm />
             </motion.div>
         </>

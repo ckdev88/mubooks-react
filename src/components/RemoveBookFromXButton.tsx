@@ -1,130 +1,83 @@
-import { useContext, useState } from "react"
-import { AppContext } from "../App"
+import { useMemo, useCallback } from "react"
 import getListName from "../functions/getListName"
-import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
+import collapseItem from "../utils/uiMisc"
+import BtnHeart from "./ui/buttons/BtnHeart"
+import useMyBooksRemove from "../hooks/useMyBooksRemove"
+import checkPreventCollapse from "../utils/checkPreventCollapse"
 
+/**
+ * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
+ */
 const RemoveBookFromXButton = ({
-    book_id,
-    book_list,
-    targetList,
+    bookProp,
+    targetList = bookProp.list,
     icon = false,
+    button_title="",
+    removeType,
 }: {
-    book_id: Book["id"]
-    book_list: Book["list"]
-    targetList: BookList
-    icon: boolean
+    bookProp: Book
+    targetList?: BookList
+    icon?: boolean
+    button_title?: string
+    removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 }) => {
-    const { userMyBooks, setUserMyBooks } = useContext(AppContext)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const book: Book = bookProp
+    const removeBookFromXButtonAct = useMyBooksRemove({ book, removeType, targetList })
 
-    let msg: string = "Moved to " + getListName(targetList)
-    if ((book_list === 3 || book_list === 4) && targetList === 3)
-        msg = "Unfinished, moved to READING"
-    else if (targetList === 4) msg = "Removed FAVORITE status"
+    const targetListName = useMemo(() => getListName(targetList), [targetList])
+    const previousListName = useMemo(() => getListName((book.list - 1) as BookList), [book.list])
 
-    const updateMyBooksDb = useMyBooksUpdateDb({
-        myBooksNew: userMyBooks,
-        book_id: null,
-        msg,
-    })
+    const buttonTitle = useMemo(() => {
+        if (button_title) return button_title
+        return removeType === "move"
+            ? `Move back to ${previousListName}`
+            : `Remove from ${targetListName}`
+    }, [button_title, removeType, previousListName, targetListName])
 
-    /**
-     * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favorite
-     */
-    function RemoveBookFromX(book_id: Book["id"]): Books {
-        let myBooks: Books
-        if (userMyBooks === undefined) myBooks = []
-        else myBooks = userMyBooks
-        if (book_list === 4 && icon && targetList === 3) {
-            // Move FINISHED > READING on favorited book, using "Remove from finished" button
-            for (let i = 0; i < myBooks.length; i++) {
-                if (myBooks[i].id === book_id) {
-                    myBooks[i].list = 2
-                    break
-                }
-            }
-        } else if (book_list === 4 && icon) {
-            // Remove from FAVORITES & unmark favorited in SAVED page, using heart icon
-            for (let i = 0; i < myBooks.length; i++) {
-                if (myBooks[i].id === book_id) {
-                    myBooks[i].list = 3
-                    break
-                }
-            }
-        } else if (book_list === 3) {
-            // Move Finished > READING on non-favorited book, using "Remove from finished" button
-            for (let i = 0; i < myBooks.length; i++) {
-                if (myBooks[i].id === book_id) {
-                    myBooks[i].list = 2
-                    myBooks[i].date_finished = undefined
-                    break
-                }
-            }
-        } else {
-            let removeIndex = 0
-            // Remove book completely
-            for (let i = 0; i < myBooks.length; i++) {
-                if (myBooks[i].id === book_id) {
-                    removeIndex = i
-                    break
-                }
-            }
-            myBooks.splice(removeIndex, 1)
-        }
-        const myBooksNew: Books = myBooks
-        return myBooksNew
-    }
-
-    function fadeout(): void {
-        /** Current Page, taken from url */
-        // OPTIMIZE: this same function is used in RemoveBookFromXButton & AddBookToXButton
-        const cp = window.location.pathname.replace("/", "")
-        // OPTIMIZE: the finished one is a bit weird, but works for now, its Remove from finished button
-        if (
-            (cp === "reading" && targetList === 2) ||
-            (cp === "wishlist" && targetList !== 1) ||
-            (cp === "favorites" && targetList === 4) ||
-            (cp === "finished" && targetList === 3)
-        ) {
-            document
-                .getElementById(`bookSummaryTransitioner${book_id}`)
-                ?.classList.add("fadeout")
+    const actionIconFn = () => {
+        // if (!icon) return undefined
+        switch (removeType) {
+            case "toss":
+            case "permatoss":
+                return "toss"
+            case "untoss":
+                return getListName(book.list as BookList)
+            default:
+                return previousListName
         }
     }
+    const actionIcon = actionIconFn()
 
-    async function RemoveBookFromXButtonAct() {
-        fadeout()
-        setIsLoading(true)
-        const newArr: Books = RemoveBookFromX(book_id)
-        setUserMyBooks(newArr)
-        await MyBooksUpdate()
+    const handleClick = useCallback(
+        // biome-ignore lint/complexity/useArrowFunction: <TODO: arrow function call better?>
+        async function (): Promise<void> {
+            const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+            if (checkPreventCollapse(targetList, currentPage, removeType))
+                return removeBookFromXButtonAct()
+            await collapseItem(book.id)
+            removeBookFromXButtonAct() // OPTIMIZE to await or not to await here?
+        },
+        [targetList, removeType, book.id, removeBookFromXButtonAct],
+    )
+
+    // Show heart icon in top right, depending on targetList & icon args
+    // OPTIMIZE make static pathnames dynamic or via settings.json
+    // OPTIMIZE, just improve the whole thing, it's meh
+    if (icon && targetList === 4 && removeType !== "permatoss" && removeType !== "untoss") {
+        return <BtnHeart fn={handleClick} faved={true} />
     }
 
-    async function MyBooksUpdate() {
-        await updateMyBooksDb()
-        setIsLoading(false)
-    }
-
-    if (icon && targetList === 4)
-        return (
-            <span
-                className="icon-heart active"
-                onClick={RemoveBookFromXButtonAct}
-                onKeyDown={RemoveBookFromXButtonAct}
-            />
-        )
+    // async function handleClick(): Promise<void> {
+    //     const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
+    //     if (checkPreventCollapse(targetList, currentPage, removeType))
+    //         return removeBookFromXButtonAct()
+    //     await collapseItem(book.id).then(() => removeBookFromXButtonAct())
+    // }
 
     return (
         <div className="mark">
-            <button
-                type="button"
-                className="btn-text"
-                onClick={RemoveBookFromXButtonAct}
-                disabled={isLoading}
-            >
-                <span className="icon icon-remove" />
-                Remove from {getListName(targetList)}
-            </button>
+            <BtnTextGeneral bOnClick={handleClick} bIcon={actionIcon} bText={buttonTitle} />
         </div>
     )
 }

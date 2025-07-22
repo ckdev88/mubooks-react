@@ -22,6 +22,7 @@
     --primary-darker: hsl(325, 55%, 39%);
     --primary-darker2: #7e2559; /* hsl(325, 55%, 32%) */
     --link: hsl(325, 55%, 46%);
+    --link-hover: hsl(325,55%,26%);
 
     --cardbg: #faf8f5; /* hsl 42 31% 97% */
     --draaideurbg: #efebe1; /*  hsl(42, 31%, 91%)  */
@@ -36,15 +37,19 @@
     --green: #0d8846;
     --lightgreen: #aff4c6;
     --lightred: #ffc7c2;
-    --red: #f24822;
+    --red: #ee0000;
+    --red-dark: #d80000;
+    --red-darker: #780000;
     --gray: #666;
     --hr: rgba(0, 0, 0, 0.1);
+    --icon-faded-bg: #bbb;
 
     --icon-wishlist: url("/img/icon-wishlist.png");
     --icon-reading: url("/img/icon-reading.png");
     --icon-finished: url("/img/icon-finished.png");
-    --icon-favorite: url("/img/icon-favorites.png");
+    --icon-favourite: url("/img/icon-favourites.png");
     --icon-remove: url("/img/icon-remove.png");
+    --icon-toss: url("/img/icon-toss.png");
     --icon-pencil: url("/img/icon-pencil.svg");
     --icon-eraser: url("/img/icon-eraser.svg");
     --icon-loep: url("/img/loep.svg");
@@ -69,6 +74,7 @@
     --primary-darker: hsl(325, 55%, 25%);
     --primary-darker2: #471532; /* hsl(325,55,18%) */
     --link: hsl(325, 55%, 66%);
+    --link-hover: hsl(325, 55%, 46%);
     --cardbg: hsl(204, 33%, 15%); /* #0f181f; /* hsl: 204 33% 9% */
     --draaideurbg: hsl(204, 33%, 9%);
     --badgebg: hsl(204, 33%, 15%);
@@ -76,13 +82,15 @@
     --icon-wishlist: url("/img/icon-wishlist-white.png");
     --icon-reading: url("/img/icon-reading-white.png");
     --icon-finished: url("/img/icon-finished-white.png");
-    --icon-favorite: url("/img/icon-favorites-white.png");
+    --icon-favourite: url("/img/icon-favourites-white.png");
     --icon-remove: url("/img/icon-remove-white.png");
+    --icon-toss: url("/img/icon-toss-white.png");
     --icon-pencil: url("/img/icon-pencil-white.svg");
     --icon-eraser: url("/img/icon-eraser-light.svg");
     --icon-calendar: url("/img/icon-calendar-white.svg");
     --icon-loep: url("/img/loep-wit.svg");
 
+    --icon-faded-bg: #777;
     --shade-around: box-shadow 0 0 0.4rem rgba(255, 255, 255, 25%);
     --shade-around-subtle: box-shadow 0 0 0.4rem rgba(255, 255, 255, 15%);
     --disabled-loading-descr-bg: #575f65;

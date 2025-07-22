@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { getOlCover } from "../Helpers"
 import Heading from "./ui/Heading"
-import BtnCancel from "./ui/BtnCancel"
+import BtnCancel from "./ui/buttons/BtnCancel"
 // TODO currently not used anywhere, this would be nice for cases where a search is executed on every keypress, and easily selects one of the results, which is also only useful if zoomin in on 1 result is utilized
 
 /*
@@ -31,7 +31,7 @@ async function fetchBook() {
 }
 */
 const QuickBookSearch = () => {
-    const [searchResults, setSearchResults] = useState<Books>([])
+    const [searchResults, setSearchResults] = useState<Books | null>(null)
     const [resultsWarning, setResultsWarning] = useState<string>("")
     const [resultsMessage, setResultsMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
@@ -64,21 +64,13 @@ const QuickBookSearch = () => {
                 .then((filtered) => {
                     for (let i = 0; i < filtered.length; i++) {
                         filtered[i].id = filtered[i].edition_key.slice(0, 1).toString()
-                        filtered[i].title_short = filtered[i].title
-                            .slice(0, 45)
-                            .toString()
+                        filtered[i].title_short = filtered[i].title.slice(0, 45).toString()
                         filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
                     filtered.length > 30
-                        ? setResultsMessage(
-                              "Showing only 30 results. Specify a bit more.",
-                          )
+                        ? setResultsMessage("Showing only 30 results. Specify a bit more.")
                         : setResultsMessage(
-                              "Showing " +
-                                  filtered.length +
-                                  " results for " +
-                                  search_term +
-                                  ".",
+                              "Showing " + filtered.length + " results for " + search_term + ".",
                           )
                     return filtered
                 })
@@ -101,10 +93,7 @@ const QuickBookSearch = () => {
     return (
         <>
             <div className="booksearch">
-                <Heading
-                    text="Quick search"
-                    sub="Click on a book to prefill the fields"
-                />
+                <Heading text="Quick search" sub="Click on a book to prefill the fields" />
                 <form onSubmit={processSearchForm} className="single-small-form clr">
                     <input type="text" id="search_term" name="search_term" />
                     <button
@@ -123,50 +112,53 @@ const QuickBookSearch = () => {
                 <div className={resultsWarning !== "" ? "dblock sf2" : "dnone"}>
                     <i>{resultsWarning}</i>
                 </div>
-                {searchResults.map((res, result_index) => {
-                    const resultKey = "result" + res.id + result_index
-                    if (res.id !== undefined) {
-                        let title: string
-                        if (res.title.length > 55) title = res.title.slice(0, 55) + "..."
-                        else title = res.title
-                        let authorKey: string
-                        const authors = res.author_name.map((author, author_index) => {
-                            authorKey = "author" + authorKey + "-" + author_index
-                            return (
-                                <span key={authorKey}>
-                                    {author}
-                                    {author_index < res.author_name.length - 1 && ", "}
-                                </span>
-                            )
-                        })
+                {searchResults !== undefined && searchResults !== null ? (
+                    searchResults.map((res, result_index) => {
+                        const resultKey = "result" + res.id + result_index
+                        if (res.id !== undefined) {
+                            let title: string
+                            if (res.title.length > 55) title = res.title.slice(0, 55) + "..."
+                            else title = res.title
+                            let authorKey: string
+                            const authors = res.author_name.map((author, author_index) => {
+                                authorKey = "author" + authorKey + "-" + author_index
+                                return (
+                                    <span key={authorKey}>
+                                        {author}
+                                        {author_index < res.author_name.length - 1 && ", "}
+                                    </span>
+                                )
+                            })
 
-                        return (
-                            <div
-                                key={resultKey}
-                                className="result"
-                                onKeyDown={checkit}
-                                onClick={checkit}
-                            >
-                                <div className="wrapper">
-                                    <div className="text">
-                                        {title}{" "}
-                                        <em className="sf2">
-                                            {" "}
-                                            ({res.first_publish_year})
-                                        </em>
-                                        <br />
-                                        <em className="sf2 cl">{authors}</em>
+                            return (
+                                <div
+                                    key={resultKey}
+                                    className="result"
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") checkit()
+                                    }}
+                                    onClick={checkit}
+                                >
+                                    <div className="wrapper">
+                                        <div className="text">
+                                            {title}{" "}
+                                            <em className="sf2"> ({res.first_publish_year})</em>
+                                            <br />
+                                            <em className="sf2 cl">{authors}</em>
+                                        </div>
                                     </div>
+                                    <img
+                                        src={getOlCover(res.id, "S")}
+                                        className="thumbnail"
+                                        alt=""
+                                    />
                                 </div>
-                                <img
-                                    src={getOlCover(res.id, "S")}
-                                    className="thumbnail"
-                                    alt=""
-                                />
-                            </div>
-                        )
-                    }
-                })}
+                            )
+                        }
+                    })
+                ) : (
+                    <>No books yet...</>
+                )}
             </div>
         </>
     )

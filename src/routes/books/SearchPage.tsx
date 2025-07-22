@@ -1,14 +1,21 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { getOlCover } from "../../Helpers"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
+import BtnBig from "../../components/ui/buttons/BtnBig"
+import SearchResultsMessage from "../../components/SearchResultsMessage"
+import { AppContext } from "../../App"
 
 const pageTitle = "Search"
 const currentPage = "search"
-const booklist = undefined
+const minimumSearchLetters = 3
+const maximumSearchResults = 30
+const maximumSearchResultsMessage =
+    "Showing only" + maximumSearchResults + " results. Specify a bit more."
 
 const SearchPage = () => {
+    const { GLOBALS } = useContext(AppContext)
     const [resultsMessage, setResultsMessage] = useState<string>("")
     const [resultCount, setResultCount] = useState<number>(0)
     const [searchResults, setSearchResults] = useState<Books>([])
@@ -21,10 +28,8 @@ const SearchPage = () => {
 
     async function processSearchForm(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        // const before = performance.now()
         const search_term: string = e.currentTarget.search_term.value.trim()
-        // const search_author: string = e.currentTarget.search_term.value.trim()
-        if (search_term.length > 4) {
+        if (search_term.length > minimumSearchLetters) {
             setLoading(true)
             setResultsMessage("")
             const searchfields: string =
@@ -32,7 +37,9 @@ const SearchPage = () => {
             await fetch(
                 "https://openlibrary.org/search.json?q=" +
                     search_term +
-                    "&mode=everything&limit=30&fields=" +
+                    "&mode=everything&limit=" +
+                    maximumSearchResults +
+                    "&fields=" +
                     searchfields,
             )
                 .then((response) => response.json())
@@ -49,15 +56,11 @@ const SearchPage = () => {
                     setResultCount(filtered.length)
                     for (let i = 0; i < filtered.length; i++) {
                         filtered[i].id = filtered[i].key.toString().replace("/works/", "")
-                        filtered[i].title_short = filtered[i].title
-                            .slice(0, 45)
-                            .toString()
+                        filtered[i].title_short = filtered[i].title.slice(0, 45).toString()
                         filtered[i].cover = getOlCover(filtered[i].cover_edition_key)
                     }
-                    filtered.length > 30
-                        ? setResultsMessage(
-                              "Showing only 30 results. Specify a bit more.",
-                          )
+                    filtered.length > maximumSearchResults
+                        ? setResultsMessage(maximumSearchResultsMessage)
                         : setResultsMessage("Showing " + filtered.length + " results.")
                     setSearchTerm(search_term)
                     return filtered
@@ -74,12 +77,7 @@ const SearchPage = () => {
 
     return (
         <>
-            <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
-                animate={{ opacity: 1, transition: { duration: 2 } }}
-            >
+            <motion.div {...GLOBALS.motionPageProps}>
                 <div>
                     <Heading text={pageTitle} sub="Find the book you want to add" />
                     <form onSubmit={processSearchForm}>
@@ -87,36 +85,15 @@ const SearchPage = () => {
                             <div className="description">Term or title</div>
                             <input type="text" id="search_term" />
                         </label>
-                        <button type="submit" className="btn-lg" disabled={loading}>
-                            Search {loading && <span className="loader-dots" />}
-                        </button>
+                        <BtnBig bType="submit" bIsLoading={loading} bText="Search" />
                     </form>
                     <div>
-                        <div
-                            className={
-                                searchTerm !== "" || resultsMessage !== ""
-                                    ? "dblock"
-                                    : "dnone"
-                            }
-                        >
-                            <div className="h2 resultsfound">
-                                {resultCount > 30 ? "Over 30" : resultCount}
-                                {resultCount > 1 || resultCount === 0
-                                    ? " books"
-                                    : " book"}{" "}
-                                found for <em>"{searchTerm}"</em>
-                                <sub
-                                    className={resultsMessage !== "" ? "dblock" : "dnone"}
-                                >
-                                    {resultsMessage}
-                                </sub>
-                            </div>
-                            <BooksOverviewPage
-                                books={searchResults}
-                                page={currentPage}
-                                booklist={booklist}
-                            />
-                        </div>
+                        <SearchResultsMessage
+                            searchTerm={searchTerm}
+                            resultsMessage={resultsMessage}
+                            resultCount={resultCount}
+                        />
+                        <BooksOverviewPage books={searchResults} page={currentPage} />
                     </div>
                 </div>
             </motion.div>

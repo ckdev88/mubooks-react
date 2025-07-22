@@ -1,16 +1,9 @@
-interface GlobalSettings {
-    headingIconsEnabled: boolean
-    synopsisEnabled: boolean
-    pageAnimationDelay: number
-    pageAnimationDuration: number
-}
-
 interface AppContextType {
-    username: string
+    username: string | null
     setUsername(username: username): void
-    usermail: string
+    usermail: string | null
     setUsermail(usermail: username): void
-    userid: string
+    userid: string | null
     setUserid(userid: userid): void
     userMyBooks: Books
     setUserMyBooks(userMyBooks: Books): void
@@ -36,13 +29,15 @@ interface IsModdingPagesContextType {
     numberOfPages: number
     setNumberOfPages(numberOfPages: numberOfPages): void
 }
+
 interface IsModdingReviewContextType {
     isModding: boolean
     setIsModding(isModding: isModding): void
     reviewText: Book["review_text"]
     setReviewText(reviewText: reviewText): void
-    o_key: "review_text" | "review_fav_quote"
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
 }
+
 interface TropesPageContextType {
     likedTropes: BookTropes
     setLikedTropes(likedTropes: likedTropes): void
@@ -53,30 +48,63 @@ interface TropesPageContextType {
     tropesInMyBooksArr: Books
     setTropesInMyBooksArr(tropesInMyBooksArr: tropesInMyBooksArr): void
 }
+
+type BooksFilterValue = string | undefined
+
 interface BooksOverviewFilterContextType {
-    booksFilter: string
+    booksFilter: BooksFilterValue
     setBooksFilter(booksFilter: booksFilter): void
+    booksOverview: Books
 }
 
 type PageWithoutParameters =
     | "addbook"
     | "dashboard"
-    | "favorites"
+    | "favourites"
     | "finished"
     | "profile"
     | "quoted"
     | "reading"
     | "savedbooks"
     | "search"
+    | "tossed"
     | "tropes"
     | "wishlist"
 
 type Page = `${PageWithoutParameters}${string | null}`
 
+type DeckPage = "reading" | "wishlist" | "favourites" | "finished" | "savedbooks"
+
+interface DeckItem {
+    btnIconAdd: string
+    books: Books
+    page: PageWithoutParameters
+    title: string
+    noBooksText: string
+    icon: string
+}
+// type DeckItemProps = DeckItem
+type DeckArray = {
+    [key in DeckPage]: DeckItem
+}
+
 type Quote = {
     quote: string
     authors: string
     title: string
+}
+
+interface BookToQuote {
+    review_fav_quote?: string
+    review_fav_quote2?: string
+    author_name?: string[]
+    title?: string
+}
+
+interface BookQuote {
+    title: string
+    quote: string
+    authors: string
 }
 
 type User = {
@@ -87,11 +115,11 @@ type User = {
 
 /**
  * On which list the book is or should be.
- * 0: No list, about to be removed
- * 1: Wishlist -- Reading,  finished, favorite = false
- * 2: Reading  -- Wishlist, finished, favorite = false
- * 3: Finished -- Wishlist & reading = false, favorite ambiguous
- * 4: Favorite -- Wishlist & reading = false, finished true
+ * 0: No list, about to be removed, is used in "limit" though
+ * 1: Wishlist -- Reading,  finished, favourite = false
+ * 2: Reading  -- Wishlist, finished, favourite = false
+ * 3: Finished -- Wishlist & reading = false, favourite ambiguous
+ * 4: Favourite -- Wishlist & reading = false, finished true
  */
 type BookList = 0 | 1 | 2 | 3 | 4
 
@@ -131,7 +159,7 @@ interface Book {
     index?: number
     isbn?: string[]
     key?: string[]
-    /** 1: Wishlist | 2: Reading | 3: Finished | 4: Favorite (+Finished) */
+    /** 1: Wishlist | 2: Reading | 3: Finished | 4: Favourite (+Finished) */
     list: BookList
     number_of_pages_median: number
     title: string
@@ -142,9 +170,11 @@ interface Book {
     rate_spice: Scale5
     review_tropes: BookTropes
     review_text?: string | undefined
-    review_fav_quote?: Book["review_text"]
+    review_fav_quote?: string | undefined
+    review_fav_quote2?: string | undefined
     subject?: BookSubjects
     days?: number
+    tossed?: boolean
 }
 type BookAuthor = string
 type BookAuthors = BookAuthor[]
@@ -153,8 +183,10 @@ type BookTropes = BookTrope[]
 type BookSubject = string
 type BookSubjects = BookSubject[]
 
-type Results = Book[]
-interface Books extends Array<Book> {}
+type Results = Book[] | null
+
+type Books = Book[] | undefined // TODO why use `extends`?
+// interface Books extends Array<Book> {}
 
 interface BookObject {
     book: Book
@@ -172,6 +204,9 @@ interface ApiError {
     error_code?: string
     error_description?: string
 }
+type Language = "en" | "pt" | "nl"
+type TranslationMap = { [key: string]: Record<string, unknown> }
+type TranslatedText = { [key in Language]: string }
 
 type StatsAmountTypes = "books" | "pages" | "daysperbook" | "pagesperday"
 

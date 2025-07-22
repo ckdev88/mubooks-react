@@ -2,15 +2,14 @@ import { useState, useContext, useEffect } from "react"
 import { AppContext } from "../App"
 import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
 import { supabase } from "../../utils/supabase"
-import BtnInsideCaret from "./ui/BtnInsideCaret"
+import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import updateTropesDb from "../functions/updateTropesDb"
 import BaseBadge from "./ui/BaseBadge"
-import BtnCancel from "./ui/BtnCancel"
+import BtnCancel from "./ui/buttons/BtnCancel"
+import BtnAddTrope from "./ui/buttons/BtnAddTrope"
 
-const TropesPrefs = ({
-    field,
-}: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
+const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
     const {
         setLikedTropes,
         likedTropes,
@@ -25,7 +24,7 @@ const TropesPrefs = ({
     const [tropeInputValue, setTropeInputValue] = useState<BookTrope>("")
 
     /** Updates supabase user_entries tropes_liked and/or tropes_disliked */
-    const tropesDb = async () => {
+    async function tropesDb() {
         if (field === "tropes_liked") {
             const res = await supabase.from("user_entries").select("tropes_liked")
             if (res.data) setLikedTropes(res.data[0].tropes_liked)
@@ -59,24 +58,26 @@ const TropesPrefs = ({
         tropesArr = dislikedTropes
     }
 
-    async function addTrope() {
+    async function addTrope(): Promise<void> {
         if (tropeInputValue.trim()) {
             const tropeToAdd: string = cleanInput(tropeInputValue.trim(), true)
             if (tropeToAdd !== undefined && tropeToAdd.length > 1) {
                 if (
                     field === "tropes_liked" &&
                     dislikedTropesLowercase.includes(tropeToAdd.toLowerCase())
-                )
+                ) {
                     removeTrope(tropeToAdd, "tropes_disliked")
-                else if (
+                } else if (
                     field === "tropes_disliked" &&
                     likedTropesLowercase.includes(tropeToAdd.toLowerCase())
-                )
+                ) {
                     removeTrope(tropeToAdd, "tropes_liked")
+                }
 
                 const tropeIndex = bookTropesLowercase.indexOf(tropeToAdd.toLowerCase())
-                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1)
+                if (bookTropesLowercase.indexOf(tropeToAdd.toLowerCase()) > -1) {
                     tropesArr.splice(tropeIndex, 1)
+                }
                 const newArr: BookTropes = [...tropesArr, tropeToAdd]
                 newArr.sort((a, b) => a.localeCompare(b))
                 updateTropes(newArr, field)
@@ -85,12 +86,12 @@ const TropesPrefs = ({
         }
     }
 
-    async function updateTropes(
-        newArr: BookTropes,
-        field: "tropes_liked" | "tropes_disliked",
-    ) {
+    async function updateTropes(newArr: BookTropes, field: "tropes_liked" | "tropes_disliked") {
+        if (userid === null) return
         if (field === "tropes_liked") setLikedTropes(newArr)
         else if (field === "tropes_disliked") setDislikedTropes(newArr)
+        else console.warn('field should be "tropes_liked" || "tropes_disliked"')
+
         const msg = await updateTropesDb(newArr, userid, field)
         setPopupNotification(msg)
     }
@@ -102,6 +103,10 @@ const TropesPrefs = ({
         if (field === "tropes_disliked")
             newArr = dislikedTropes.filter((t) => t.toLowerCase() !== trope.toLowerCase())
         updateTropes(newArr, field)
+    }
+
+    const changeShowTropesFormState = () => {
+        setShowTropesForm(!showTropesForm)
     }
 
     // NOTE: similar, but not same as TropesList in ./ReviewTropes.tsx
@@ -120,17 +125,11 @@ const TropesPrefs = ({
                         />
                     )
                 })}
-                <button
-                    type="button"
-                    className={
-                        showTropesForm
-                            ? "trope_add btn-sm mb0 active"
-                            : "trope_add btn-sm mb0"
-                    }
-                    onClick={() => setShowTropesForm(!showTropesForm)}
-                >
-                    {tropes.length > 0 ? <>+</> : <>Add tropes</>}
-                </button>
+                <BtnAddTrope
+                    bOnClick={changeShowTropesFormState}
+                    bText={tropes.length > 0 ? "+" : "Add tropes"}
+                    bActiveForm={showTropesForm}
+                />
             </div>
         )
     }
@@ -145,15 +144,10 @@ const TropesPrefs = ({
         <>
             <div className="h2">{field === "tropes_liked" ? "Like" : "Dislike"}</div>
             <section className="section-badges">
-                <TropesList
-                    tropes={field === "tropes_liked" ? likedTropes : dislikedTropes}
-                />
+                <TropesList tropes={field === "tropes_liked" ? likedTropes : dislikedTropes} />
                 {showTropesForm && (
                     <>
-                        <div
-                            className="single-small-form clr"
-                            style={{ alignItems: "center" }}
-                        >
+                        <div className="single-small-form clr" style={{ alignItems: "center" }}>
                             <input
                                 type="text"
                                 name="trope_add"
@@ -172,10 +166,7 @@ const TropesPrefs = ({
                                 bOnClick={addTrope}
                             />
                         </div>
-                        <BtnCancel
-                            bClassName="wauto"
-                            bOnClick={() => setShowTropesForm(false)}
-                        />
+                        <BtnCancel bClassName="wauto" bOnClick={() => setShowTropesForm(false)} />
                     </>
                 )}
             </section>

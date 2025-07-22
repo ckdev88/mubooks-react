@@ -1,4 +1,5 @@
 import { supabase } from "../../utils/supabase"
+import { notification as nm } from "../i18n/notifications"
 
 // very much alike ./src/functions/updateTropesDb.ts
 // used in ./src/routes/books/AddBookPage
@@ -13,7 +14,7 @@ async function updateEntriesDbxxx(newArr: Books, userid: string): Promise<string
         .eq("user_id", userid)
         .select("*")
     if (error) msg = error.message
-    else msg = "Updated."
+    else msg = nm.Updated
     return msg
 }
 

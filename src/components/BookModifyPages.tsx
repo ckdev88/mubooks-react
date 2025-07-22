@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
 import { IsModdingPagesContext } from "./BookPages"
-import BtnInsideCaret from "./ui/BtnInsideCaret"
+import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
 import useChangePages from "../hooks/useChangePages"
-import BtnCancel from "./ui/BtnCancel"
+import BtnCancel from "./ui/buttons/BtnCancel"
 
 const BookModifyPages = ({
     book_id,
@@ -39,10 +39,7 @@ const BookModifyPages = ({
                     autoComplete="off"
                     min={input.type === "number" ? "0" : undefined}
                 />
-                <BtnInsideCaret
-                    bType="submit"
-                    bStyle={{ margin: ".26rem .2rem 0 -2rem" }}
-                />
+                <BtnInsideCaret bType="submit" bStyle={{ margin: ".26rem .2rem 0 -2rem" }} />
             </form>
             {isModding && <BtnCancel bOnClick={() => setIsModding(false)} />}
         </>

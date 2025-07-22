@@ -5,6 +5,7 @@ import { AppContext } from "../../App"
 import HeaderBranding from "../../components/HeaderBranding"
 import Heading from "../../components/ui/Heading"
 import { localStorageKey } from "../../../utils/supabase"
+import BtnBig from "../../components/ui/buttons/BtnBig"
 
 const ResetPasswordPage = () => {
     const { userIsLoggedIn, setPopupNotification, setPopupNotificationShow } =
@@ -31,14 +32,12 @@ const ResetPasswordPage = () => {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const emailaddress: string = JSON.parse(
-            localStorage.getItem(localStorageKey) as string,
-        ).user.email
+        const emailaddress: string = JSON.parse(localStorage.getItem(localStorageKey) as string)
+            .user.email
         e.currentTarget.username.value = emailaddress
 
         if (
-            e.currentTarget.account_password.value ===
-            e.currentTarget.account_password_again.value
+            e.currentTarget.account_password.value === e.currentTarget.account_password_again.value
         ) {
             setIsLoading(true)
             const form_userpass: string = e.currentTarget.account_password.value.trim()
@@ -71,15 +70,8 @@ const ResetPasswordPage = () => {
                         />
                     </header>
                     <main>
-                        <form
-                            onSubmit={handleSubmit}
-                            className={isLoading ? "form-loading" : ""}
-                        >
-                            <div
-                                className={
-                                    error !== "" ? "notification error" : "notification"
-                                }
-                            >
+                        <form onSubmit={handleSubmit} className={isLoading ? "form-loading" : ""}>
+                            <div className={error !== "" ? "notification error" : "notification"}>
                                 {error}
                             </div>
                             <label htmlFor="username" style={{ visibility: "hidden" }}>
@@ -113,9 +105,11 @@ const ResetPasswordPage = () => {
                                     required
                                 />
                             </label>
-                            <button type="submit" className="btn-lg" disabled={isLoading}>
-                                Save new password and login
-                            </button>
+                            <BtnBig
+                                bType="submit"
+                                bIsLoading={isLoading}
+                                bText="Save new password and login"
+                            />
                         </form>
                     </main>
                     <footer>

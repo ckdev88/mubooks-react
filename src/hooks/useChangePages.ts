@@ -3,14 +3,13 @@ import { AppContext } from "../App"
 import useMyBooksUpdateDb from "./useMyBooksUpdateDb"
 import { cleanInput } from "../helpers/cleanInput"
 import { IsModdingPagesContext } from "../components/BookPages"
+import { notification as nm } from "../i18n/notifications"
 
-const useChangePages = (
-    book_id: Book["id"],
-): [(e: React.FormEvent<HTMLFormElement>) => void] => {
+const useChangePages = (book_id: Book["id"]): [(e: React.FormEvent<HTMLFormElement>) => void] => {
     const { userMyBooks } = useContext(AppContext)
     const { setIsModding, setNumberOfPages } = useContext(IsModdingPagesContext)
 
-    const msg: string = "Updated pages amount"
+    const msg: string = nm.Updated_ + nm.pages_amount
     const updateMyBooksDb = useMyBooksUpdateDb({
         myBooksNew: userMyBooks,
         book_id,
@@ -24,6 +23,7 @@ const useChangePages = (
     }
 
     function updatePages(newvalue: Book["number_of_pages_median"]): void {
+        if (userMyBooks === undefined) return
         const myBooks: Books = userMyBooks
         for (let i = 0; i < myBooks.length; i++) {
             if (myBooks[i].id === book_id) {

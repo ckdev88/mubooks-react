@@ -5,16 +5,16 @@ import BooksOverviewPage from "../routes/books/BooksOverviewPage"
 import { TropesPageContext } from "../routes/books/TropesPage"
 import { cleanAnchor } from "../helpers/cleanInput"
 import { Link } from "react-router-dom"
+import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 
-const booklist = undefined
 const TropesInMyBooks = ({ page }: { page: Page }) => {
-    const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] =
-        useState<boolean>(true)
-    const { likedTropesLowercase, dislikedTropesLowercase } =
-        useContext(TropesPageContext)
+    const { userMyBooks } = useContext(AppContext)
+    if (userMyBooks === undefined) return <>Loading tropes...</>
+
+    const [isShowingTropesInMyBooks, setIsShowingTropesInMyBooks] = useState<boolean>(true)
+    const { likedTropesLowercase, dislikedTropesLowercase } = useContext(TropesPageContext)
     const { setTropesInMyBooksArr } = useContext(TropesPageContext)
 
-    const { userMyBooks } = useContext(AppContext)
     const [activeTrope, setActiveTrope] = useState<string>("")
     const [tropeBooks, setTropeBooks] = useState<Books>([])
     const tropesSet = new Set<string>()
@@ -27,23 +27,22 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
 
     userMyBooks.map((book) => {
         if (book.review_tropes)
-            book.review_tropes.map((reviewtrope) =>
-                tropesSet.add(reviewtrope.trim().toLowerCase()),
-            )
+            book.review_tropes.map((reviewtrope) => tropesSet.add(reviewtrope.trim().toLowerCase()))
     })
     const tropesArr = Array.from(tropesSet).sort((a, b) => a.localeCompare(b))
 
     function showTropeBooks(trope: string) {
         // TODO OPTIMIZE: turn into hook and/or apply caching
         const tropeBooksFiltered: Books = []
-        userMyBooks.map((b: Book) => {
-            if (b.review_tropes !== undefined && b.review_tropes.length > 0)
-                b.review_tropes.map((t: string) => {
-                    if (trope === t.toLowerCase()) {
-                        tropeBooksFiltered.push(b)
-                    }
-                })
-        })
+        if (userMyBooks !== undefined)
+            userMyBooks.map((b: Book) => {
+                if (b.review_tropes !== undefined && b.review_tropes.length > 0)
+                    b.review_tropes.map((t: string) => {
+                        if (trope === t.toLowerCase()) {
+                            tropeBooksFiltered.push(b)
+                        }
+                    })
+            })
         setTropeBooks(tropeBooksFiltered)
         setActiveTrope(trope)
         setTimeout(() => {
@@ -61,16 +60,13 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
             <div className="h2">
                 Tropes in my Books&nbsp;
                 {tropesArr.length > 0 && (
-                    <button
-                        type="button"
-                        className={
+                    <BtnTextGeneral
+                        bClassName={
                             isShowingTropesInMyBooks
-                                ? "btn-text caret-right-toggle active wauto notext diblock"
-                                : "btn-text caret-right-toggle wauto notext diblock"
+                                ? "caret-right-toggle active wauto notext diblock"
+                                : "caret-right-toggle wauto notext diblock"
                         }
-                        onClick={() =>
-                            setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)
-                        }
+                        bOnClick={() => setIsShowingTropesInMyBooks(!isShowingTropesInMyBooks)}
                     />
                 )}
             </div>
@@ -85,8 +81,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                 >
                     {tropesArr.map((trope, index) => {
                         let cn = "btn-sm mb0 badge"
-                        if (likedTropesLowercase.includes(trope.toLowerCase()))
-                            cn += " cgreen"
+                        if (likedTropesLowercase.includes(trope.toLowerCase())) cn += " cgreen"
                         else if (dislikedTropesLowercase.includes(trope.toLowerCase()))
                             cn += " cred"
                         return (
@@ -107,7 +102,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                     <Link to={savedbookslink}>Go to my books</Link>
                 </div>
             )}
-            {tropeBooks.length > 0 && (
+            {tropeBooks !== undefined && tropeBooks.length > 0 && (
                 <>
                     <div className="h2" style={{ position: "relative" }}>
                         My Books for <em>{activeTrope}</em>
@@ -117,7 +112,7 @@ const TropesInMyBooks = ({ page }: { page: Page }) => {
                         />
                     </div>
                     <br />
-                    <BooksOverviewPage booklist={booklist} page={page} />
+                    <BooksOverviewPage page={page} books={userMyBooks} />
                 </>
             )}
         </section>

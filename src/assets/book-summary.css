@@ -4,17 +4,30 @@
     margin: 1.5em 0;
 }
 
+#overview-wrapper > .book-summary:first-of-type > .seperator {
+    border-width: 0;
+}
+
 .book-summary {
     list-style: none;
     transition: padding 0.18s linear, background-color 0.18s linear;
     display: flex;
     flex-wrap: wrap;
-    padding: 0 0 1rem;
-    border-bottom: 1px solid var(--cardbg);
 }
 .book-summary,
 .book-summary.tropes {
-    margin: 0 0 1rem;
+    margin: 0;
+}
+/* TODO: apply css nesting */
+.book-summary {
+    .seperator {
+        width: 100%;
+        border-top: 1px solid var(--cardbg);
+        min-height: 1rem;
+    }
+    footer {
+        margin-bottom: 1rem;
+    }
 }
 .book-summary.tropes {
     padding-bottom: 0.5rem;
@@ -26,7 +39,8 @@
     display: flex;
     align-items: center;
 }
-.review_fav_quote {
+.review_fav_quote,
+.review_fav_quote2 {
     font-style: italic;
     text-align: center;
 }
@@ -68,14 +82,6 @@
     height: auto;
     margin: 0 0.75rem 0.75rem 0;
     min-width: 9rem;
-}
-
-.book-summary .article-main .icon-heart {
-    position: absolute;
-    top: 0;
-    right: 1px;
-    color: red;
-    margin-top: 0.375em;
 }
 
 .deck .book-summary .article-main {
@@ -233,7 +239,7 @@
     padding-bottom: 0;
 }
 
-.book-summary .marks .favorites.active {
+.book-summary .marks .favourites.active {
     color: red;
 }
 
