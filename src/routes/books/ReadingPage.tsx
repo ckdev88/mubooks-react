@@ -22,15 +22,7 @@ const ReadingPage = () => {
     const pageTitleSubText = hasbooks ? books?.length + ". " + pageTitleSub : pageTitleSub
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
             {books !== undefined ? (
                 books.length > 0 ? (

@@ -1,12 +1,3 @@
-interface GlobalSettings {
-    headingIconsEnabled: boolean
-    synopsisEnabled: boolean
-    pageAnimationDelay: number
-    pageAnimationDuration: number
-    userid: string | null
-    bookRemoveAnimationDuration: number
-}
-
 interface AppContextType {
     username: string | null
     setUsername(username: username): void

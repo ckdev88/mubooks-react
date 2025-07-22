@@ -20,15 +20,7 @@ const TossedPage = () => {
     const hasbooks: boolean = books !== undefined && books.length > 0
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-            animate={{ opacity: 1 }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon="icon-reading.svg" sub={pageTitleSub} />
             {books !== undefined ? (
                 hasbooks ? (

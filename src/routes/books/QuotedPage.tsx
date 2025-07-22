@@ -10,7 +10,7 @@ const pageTitleSub = "Lines to remember"
 const currentPage = "quoted"
 
 const QuotedPage = () => {
-    const { userMyBooks } = useContext(AppContext)
+    const { userMyBooks, GLOBALS } = useContext(AppContext)
 
     const [quotedBooks, setQuotedBooks] = useState<Books | undefined>(undefined)
 
@@ -28,12 +28,7 @@ const QuotedPage = () => {
     }, [userMyBooks])
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            animate={{ opacity: 1, transition: { duration: 2 } }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon={"icon-quoted.svg"} sub={pageTitleSub} />
             {quotedBooks !== undefined &&
                 (quotedBooks.length > 0 ? (

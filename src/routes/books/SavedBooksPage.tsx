@@ -19,15 +19,7 @@ const SavedBooksPage = () => {
     const pageTitleSubText = hasbooks ? books?.length + ". " + pageTitleSub : pageTitleSub
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-            animate={{ opacity: 1 }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon={"icon-saved.svg"} sub={pageTitleSubText} />
             {books !== undefined ? (
                 books.length > 0 ? (

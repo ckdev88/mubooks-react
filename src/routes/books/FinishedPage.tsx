@@ -28,16 +28,8 @@ const FinishedPage = () => {
     const pageTitleSubText = hasbooks ? books?.length + ". " + pageTitleSub : pageTitleSub
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-            id="overview-wrapper"
-        >
+        <motion.div {...GLOBALS.motionPageProps} id="overview-wrapper">
+            {/* TODO see if overview-wrapper should be used everywhere, more or nowhere */}
             <Heading text={pageTitle} icon="icon-finished.svg" sub={pageTitleSubText} />
             {books !== undefined ? (
                 <>

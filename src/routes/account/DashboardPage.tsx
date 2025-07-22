@@ -5,7 +5,7 @@ import { motion } from "motion/react"
 import { AppContext } from "../../App"
 
 export default function DashboardPage() {
-    const { userMyBooks, darkTheme } = useContext(AppContext)
+    const { userMyBooks, darkTheme, GLOBALS } = useContext(AppContext)
 
     // Memoize the filtered books to avoid recalculating on every render
     const booksNotTossed: Books | undefined = useMemo(() => {
@@ -61,12 +61,7 @@ export default function DashboardPage() {
 
     if (deck !== undefined)
         return (
-            <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
-                animate={{ opacity: 1, transition: { duration: 2 } }}
-            >
+            <motion.div {...GLOBALS.motionPageProps}>
                 {booksNotTossed !== undefined && <QuoteCard booksToQuote={booksNotTossed} />}
                 <DashboardDeck props={deck.reading} />
                 <DashboardDeck props={deck.wishlist} />

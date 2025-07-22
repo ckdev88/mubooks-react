@@ -1,14 +1,16 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState, useContext } from "react"
 import TropesInMyBooks from "../../components/TropesInMyBooks"
 import TropesPrefs from "../../components/TropesPrefs"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
+import { AppContext } from "../../App"
 
 export const TropesPageContext = createContext<TropesPageContextType>({} as TropesPageContextType)
 
 const currentPage = "tropes"
 
 const TropesPage = () => {
+    const { GLOBALS } = useContext(AppContext)
     const [likedTropes, setLikedTropes] = useState<BookTropes>([])
     const [dislikedTropes, setDislikedTropes] = useState<BookTropes>([])
     const [dislikedTropesLowercase, setDislikedTropesLowercase] = useState(
@@ -40,12 +42,7 @@ const TropesPage = () => {
                 setTropesInMyBooksArr,
             }}
         >
-            <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
-                animate={{ opacity: 1, transition: { duration: 2 } }}
-            >
+            <motion.div {...GLOBALS.motionPageProps}>
                 <Heading text="My Tropes" icon="icon-tropes.svg" />
                 <TropesPrefs field="tropes_liked" />
                 <TropesPrefs field="tropes_disliked" />

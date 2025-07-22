@@ -36,6 +36,7 @@ import WishlistPage from "./routes/books/WishlistPage"
 import ErrorPage from "./routes/ErrorPage"
 import RootPage from "./routes/RootPage"
 import SuggestionsPage from "./routes/SuggestionsPage"
+import type { MotionProps } from "motion/react"
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
@@ -77,12 +78,25 @@ const App = () => {
     const [pageName, setPageName] = useState<string>("default")
 
     // Settings // TODO: abstract away or something, beware of `userid`
+    interface GlobalSettings {
+        headingIconsEnabled: boolean
+        synopsisEnabled: boolean
+        userid: string | null
+        bookRemoveAnimationDuration: number
+        motionPageProps: MotionProps
+    }
     const GLOBALS: GlobalSettings = useMemo(
         () => ({
             headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
             synopsisEnabled: false, // OPTIMIZE use webworkers or something to not fetch all synopsises at once from openlibrary.org
-            pageAnimationDelay: 0.19, // .28
-            pageAnimationDuration: 0.19, // .4
+            motionPageProps: {
+                initial: {
+                    opacity: 0,
+                },
+                exit: { opacity: 0 },
+                transition: { duration: 1, delay: 0.19 },
+                animate: { opacity: 1 },
+            },
             userid: userid,
             bookRemoveAnimationDuration: 250, // in ms // TODO this is currenly not used, remove?
         }),
