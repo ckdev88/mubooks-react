@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -13,37 +13,41 @@ const booklist = 1
 const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
 
-    const books = userMyBooks.filter((book) => book.list === booklist && !book.tossed)
-    const hasbooks: boolean = books.length > 0
-    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
+    const [books, setBooks] = useState<Books | undefined>(undefined)
+
+    useEffect(() => {
+        userMyBooks !== undefined &&
+            setBooks(userMyBooks.filter((book) => book.list === booklist && !book.tossed))
+    }, [userMyBooks])
+
+    const hasbooks: boolean = books !== undefined && books.length > 0
+    const pageTitleSubText = hasbooks ? books?.length + ". " + pageTitleSub : pageTitleSub
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-            animate={{ opacity: 1 }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon={"icon-wishlist.svg"} sub={pageTitleSubText} />
-            {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
-            ) : (
+            {books !== undefined ? (
                 <>
-                    <h4>No books here yet.</h4>
-                    <p>
-                        Want to add a book to your wishlist?
-                        <br />
-                        <Link to="/search">Search</Link> or{" "}
-                        <Link to="/addbook">Add a book yourself</Link>.
-                        <br />
-                        <br />
-                        <Link to="/reading">See my reading list.</Link>
-                        <br />
-                    </p>
+                    {books.length > 0 ? (
+                        <BooksOverviewPage books={books} page={currentPage} />
+                    ) : (
+                        <>
+                            <h4>No books here yet.</h4>
+                            <p>
+                                Want to add a book to your wishlist?
+                                <br />
+                                <Link to="/search">Search</Link> or{" "}
+                                <Link to="/addbook">Add a book yourself</Link>.
+                                <br />
+                                <br />
+                                <Link to="/reading">See my reading list.</Link>
+                                <br />
+                            </p>
+                        </>
+                    )}
                 </>
+            ) : (
+                <span className="loader-dots" />
             )}
         </motion.div>
     )

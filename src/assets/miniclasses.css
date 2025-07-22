@@ -1,6 +1,9 @@
+.bold {
+    font-weight: bold;
+}
 .bu {
     font-weight: bold;
-    font-style: italic;
+    text-decoration: underline;
 }
 .bi {
     font-weight: bold;

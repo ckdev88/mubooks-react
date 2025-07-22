@@ -1,7 +1,5 @@
-import { useState } from "react"
 import AddToRemoveFromX from "./AddToRemoveFromX"
 import BookStartedFinished from "./BookStartedFinished"
-import ReactMarkdown from "react-markdown"
 import SearchSubjects from "./SearchSubjects"
 import { HashLink as Link } from "react-router-hash-link"
 import { cleanAnchor } from "../helpers/cleanInput"
@@ -12,8 +10,9 @@ import useGetSynopsis from "../hooks/useGetSynopsis"
 import BookSummaryAside from "./BookSummaryAside"
 import BookSummaryStatus from "./BookSummaryStatus"
 import BookSummaryReview from "./BookSummaryReview"
-import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import BookSummaryQuoted from "./BookSummaryQuoted"
+import BookSummarySynopsis from "./BookSummarySynopsis"
+import ExpandableContainer from "./ui/ExpandableContainer"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
@@ -27,7 +26,6 @@ const BookSummary = ({
     special,
 }: { book: Book; currentPage: Page; refer?: Page; special?: "quote2" }) => {
     const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
-    const [isShowingSynopsis, setIsShowingSynopsis] = useState<boolean>(false)
 
     const bookAnchor: string = `${cleanAnchor(book.title_short)}_${book.id}`
     if (currentPage === "quoted") refer = "savedbooks#" + bookAnchor
@@ -42,6 +40,7 @@ const BookSummary = ({
             }
         >
             <div style={{ marginTop: "-4rem", position: "absolute" }} id={bookAnchor} />
+            <div className="seperator" />
             <BookSummaryAside book={book} currentPage={currentPage} />
             <div className="article-main">
                 {currentPage === "quoted" ? (
@@ -103,7 +102,7 @@ const BookSummary = ({
                 )}
             </div>
             {currentPage !== "dashboard" && (
-                <footer>
+                <footer className="footer">
                     {pagesReviewQuotes.includes(currentPage) && (
                         <>
                             <BookSummaryReview
@@ -123,31 +122,10 @@ const BookSummary = ({
                     {currentPage === "search" && book.subject && (
                         <SearchSubjects book_id={book.id} subjects={book.subject} />
                     )}
-                    {synopsisPages.includes(currentPage) && synopsis ? (
-                        <div className="synopsis" style={{ marginTop: ".75rem" }}>
-                            <BtnTextGeneral
-                                bClassName={
-                                    isShowingSynopsis
-                                        ? "caret-right-toggle active"
-                                        : "caret-right-toggle"
-                                }
-                                bOnClick={() => setIsShowingSynopsis(!isShowingSynopsis)}
-                                bText="Synopsis"
-                            />
-                            <div
-                                className={
-                                    isShowingSynopsis
-                                        ? "mt05 expandable expanded"
-                                        : "mt05 expandable collapsed"
-                                }
-                                aria-expanded={isShowingSynopsis}
-                            >
-                                <ReactMarkdown>{synopsis}</ReactMarkdown>
-                            </div>
-                        </div>
-                    ) : (
-                        // TODO openlibrary: make link like 'no synopsis yet... write one?' and link to the OL page
-                        <></>
+                    {synopsisPages.includes(currentPage) && synopsis && (
+                        <ExpandableContainer buttonText="Synopsis" extraClass="synopsis">
+                            <BookSummarySynopsis synopsis={synopsis} />
+                        </ExpandableContainer>
                     )}
                 </footer>
             )}

@@ -1,19 +1,14 @@
 import convertDate from "../helpers/convertDate"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { AppContext } from "../App"
 import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
 import useUpdateDb from "./useUpdateDb"
 import { notification as nm } from "../i18n/notifications"
 
-const useMyBooksAdd = ({
-    book,
-    targetList,
-}: { book: Book; targetList: BookList }): [() => void, boolean] => {
-    const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit, setRerender } =
-        useContext(AppContext)
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
+    // const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } = // FIXME: want the notification, but causes bug
+    const { userMyBooks, setUserMyBooks, todaysDateDigit } = useContext(AppContext)
 
     const initUpdateDb = useUpdateDb({
         msg: nm.Added_to + getListName(targetList, true),
@@ -21,15 +16,14 @@ const useMyBooksAdd = ({
     })
 
     async function MyBooksUpdate(myBooksNew: Books) {
-        // OPTIMIZE ewwwwwww brother ewwwwwww, see also ./useMyBooksRemove
         setUserMyBooks(myBooksNew)
-        setPopupNotification("optimist")
-        const notification: string = await initUpdateDb()
-        setIsLoading(false)
-        setPopupNotification(notification)
-        setRerender(true)
+        // FIXME: i want that notification, but it causes a bug
+        // const notification: string = await initUpdateDb()
+        // setPopupNotification(notification)
+        await initUpdateDb()
     }
 
+    // TODO move into utils/
     const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
         const bookCoverSrcRedir: string = await fetch(bookCoverM).then((res) => res.url)
         return bookCoverSrcRedir
@@ -75,7 +69,7 @@ const useMyBooksAdd = ({
                 title_short: title_short,
                 tossed: false,
             }
-            newUserMyBooks.push(newBook)
+            newUserMyBooks?.push(newBook)
         } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure
         return newUserMyBooks
     }
@@ -100,10 +94,9 @@ const useMyBooksAdd = ({
     }
 
     const AddBookToXButtonAct = (): void => {
-        setIsLoading(true)
         AddBookToX()
     }
 
-    return [AddBookToXButtonAct, isLoading]
+    return AddBookToXButtonAct
 }
 export default useMyBooksAdd

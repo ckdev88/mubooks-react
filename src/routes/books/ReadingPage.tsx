@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { AppContext } from "../../App"
 import { Link } from "react-router-dom"
@@ -12,32 +12,33 @@ const booklist = 2
 
 const ReadingPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-    const books = userMyBooks.filter((b) => b.list === booklist && !b.tossed)
-    const hasbooks: boolean = books.length > 0
-    const pageTitleSubText = hasbooks ? books.length + ". " + pageTitleSub : pageTitleSub
+
+    const [books, setBooks] = useState<Books | undefined>(undefined)
+    useEffect(() => {
+        userMyBooks !== undefined &&
+            setBooks(userMyBooks.filter((b) => b.list === booklist && !b.tossed))
+    }, [userMyBooks])
+    const hasbooks: boolean = books !== undefined && books.length > 0
+    const pageTitleSubText = hasbooks ? books?.length + ". " + pageTitleSub : pageTitleSub
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-                duration: GLOBALS.pageAnimationDuration,
-                delay: GLOBALS.pageAnimationDelay,
-            }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} icon={"icon-reading.svg"} sub={pageTitleSubText} />
-            {hasbooks ? (
-                <BooksOverviewPage books={books} page={currentPage} booklist={booklist} />
+            {books !== undefined ? (
+                books.length > 0 ? (
+                    <BooksOverviewPage books={books} page={currentPage} />
+                ) : (
+                    <p>
+                        Want to add a book to your reading list?
+                        <br />
+                        <Link to="/wishlist">View your wishlist</Link> or{" "}
+                        <Link to="/search">Search</Link> to add a book.
+                        <br />
+                        <br />
+                    </p>
+                )
             ) : (
-                <p>
-                    Want to add a book to your reading list?
-                    <br />
-                    <Link to="/wishlist">View your wishlist</Link> or{" "}
-                    <Link to="/search">Search</Link> to add a book.
-                    <br />
-                    <br />
-                </p>
+                <span className="loader-dots" />
             )}
         </motion.div>
     )

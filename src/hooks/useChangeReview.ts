@@ -26,6 +26,7 @@ const useChangeReview = (
     }
 
     function updateReviewText(newvalue: Book["review_text"]): void {
+        if (userMyBooks === undefined) return
         for (let i = 0; i < userMyBooks.length; i++) {
             if (userMyBooks[i].id === book_id) {
                 if (o_key === "review_text") userMyBooks[i].review_text = newvalue

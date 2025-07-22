@@ -1,16 +1,17 @@
+import useBtnHeartAnimation from "../../../hooks/useBtnHeartAnimation"
 const BtnHeart = ({ fn, faved }: { fn: () => void; faved: boolean }): React.ReactNode => {
-    let bClass = "icon-heart"
-    if (faved === true) bClass += " active"
-    else bClass += " inactive"
+    const { showAnimation, isFaved, buttonClassName } = useBtnHeartAnimation(faved)
+    function handleClick() {
+        showAnimation()
+        fn()
+    }
+
     return (
         <button
             type="button"
-            className={bClass}
-            // onKeyDown={(event) => {
-            //     if (event.key === "Enter") fn
-            // }}
-            onClick={fn}
-            aria-label={faved === true ? "Remove from favourites" : "Add to favourites"}
+            className={buttonClassName}
+            onClick={handleClick}
+            aria-label={isFaved === true ? "Remove from favourites" : "Add to favourites"}
         >
             <span className="inside" />
         </button>

@@ -87,6 +87,7 @@ const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): 
     }
 
     async function updateTropes(newArr: BookTropes, field: "tropes_liked" | "tropes_disliked") {
+        if (userid === null) return
         if (field === "tropes_liked") setLikedTropes(newArr)
         else if (field === "tropes_disliked") setDislikedTropes(newArr)
         else console.warn('field should be "tropes_liked" || "tropes_disliked"')

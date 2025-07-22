@@ -6,7 +6,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "biome format ./src --write && tsc && vite build",
+        "format": "biome format ./src --write",
+        "build": "tsc && vite build",
         "lint": "biome lint --error-on-warnings ./src",
         "preview": "vite preview"
     },

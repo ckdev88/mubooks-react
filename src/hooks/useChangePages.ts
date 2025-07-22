@@ -23,6 +23,7 @@ const useChangePages = (book_id: Book["id"]): [(e: React.FormEvent<HTMLFormEleme
     }
 
     function updatePages(newvalue: Book["number_of_pages_median"]): void {
+        if (userMyBooks === undefined) return
         const myBooks: Books = userMyBooks
         for (let i = 0; i < myBooks.length; i++) {
             if (myBooks[i].id === book_id) {

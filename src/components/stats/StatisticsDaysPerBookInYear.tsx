@@ -1,17 +1,18 @@
+// TODO are these used anywhere?
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
-import { AppContext } from "../App"
-import { getDurationDays } from "../Helpers"
-import { cleanAnchor } from "../helpers/cleanInput"
+import { AppContext } from "../../App"
+import { getDurationDays } from "../../Helpers"
+import { cleanAnchor } from "../../helpers/cleanInput"
 
 interface ConciseDaysPerBook {
     id: Book["id"]
     title_short: Book["title_short"]
     days: Book["days"]
 }
-type ArrayConciseDaysPerBook = ConciseDaysPerBook[]
+type ConciseDaysPerBookArray = ConciseDaysPerBook[]
 
-type OutputPerDaysAmount = {
+interface OutputPerDaysAmount {
     days: number
     amount: number
     books: {
@@ -20,18 +21,23 @@ type OutputPerDaysAmount = {
         days: number
     }[]
 }
+type OutputPerDaysAmountArray = OutputPerDaysAmount[]
 
 function getBooksFinishedInYear(
     inputArray: Books,
     year: number,
     format: "concise" | "concise_daysperbook" | "full",
-): Books | ArrayConciseDaysPerBook {
-    const arrayFull = inputArray.filter(
-        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
-    )
+): Books | ConciseDaysPerBookArray {
+    const arrayFull =
+        inputArray !== undefined
+            ? inputArray.filter(
+                  (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
+              )
+            : []
+
     if (format === "concise_daysperbook") {
         // OPTIMIZE might be quicker to just append 'days' into database
-        const arrayConcise: ArrayConciseDaysPerBook = []
+        const arrayConcise: ConciseDaysPerBookArray = []
         for (let i = 0; i < arrayFull.length; i++) {
             const bookToPush: ConciseDaysPerBook = {
                 id: arrayFull[i].id,
@@ -44,11 +50,14 @@ function getBooksFinishedInYear(
     }
     return arrayFull
 }
+
 function getDpbData(userMyBooks: Books, year: number) {
     const inputArray = getBooksFinishedInYear(userMyBooks, year, "concise_daysperbook")
-    const outputArray: OutputPerDaysAmount[] = []
+    const outputArray: OutputPerDaysAmountArray = []
 
     const groupedItems: { [days: number]: OutputPerDaysAmount } = {}
+
+    if (inputArray === undefined) return 0
 
     for (const bitem of inputArray) {
         const { id, title_short, days } = bitem
@@ -70,7 +79,9 @@ function getDpbData(userMyBooks: Books, year: number) {
 
 const StatisticsDaysPerBookInYear = ({ year }: { year: number }) => {
     const { userMyBooks } = useContext(AppContext)
+    if (userMyBooks === undefined) return 0
     const dpbd = getDpbData(userMyBooks, year)
+    if (!dpbd) return <>Can't stat what is not there, right?</>
 
     return (
         <div>

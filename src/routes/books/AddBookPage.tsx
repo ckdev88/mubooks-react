@@ -20,7 +20,8 @@ import BtnBig from "../../components/ui/buttons/BtnBig"
 const pageTitle: string = "Add a book"
 
 const AddBookPage = () => {
-    const { userMyBooks, setUserMyBooks, userid, setPopupNotification } = useContext(AppContext)
+    const { userMyBooks, setUserMyBooks, userid, setPopupNotification, GLOBALS } =
+        useContext(AppContext)
     const [coverImg, setCoverImg] = useState<string>("")
 
     useLayoutEffect(() => {
@@ -61,6 +62,10 @@ const AddBookPage = () => {
     const processAbForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // NOTE set to false when all is done if the redirect to wishlist is canceled
+        if (userid === null) {
+            console.log("processing?", userid)
+            return
+        }
         setIsSubmitting(true)
 
         let coverImgPosted: string = coverImg.trim() // coverImg = via url
@@ -122,9 +127,9 @@ const AddBookPage = () => {
             rate_spice: rate_spice,
             tossed: false,
         }
-        newArr.push(book)
+        newArr?.push(book)
 
-        setUserMyBooks([...userMyBooks, book])
+        if (userMyBooks !== undefined) setUserMyBooks([...userMyBooks, book])
         const msg = await updateEntriesDb(newArr, userid)
 
         const bookAnchor: string = `${cleanAnchor(title_short)}_${bookId}`
@@ -221,12 +226,7 @@ const AddBookPage = () => {
 
     // TODO generate same badge as in preview, with x-feature: to erase input field, put cursor in empty input field
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            animate={{ opacity: 1, transition: { duration: 2 } }}
-        >
+        <motion.div {...GLOBALS.motionPageProps}>
             <Heading text={pageTitle} sub="See your preview below" icon="icon-addbook.svg" />
             <form onSubmit={processAbForm}>
                 <fieldset style={{ display: "flex", flexDirection: "column" }}>

@@ -9,12 +9,15 @@ import BtnBig from "./ui/buttons/BtnBig"
 const SuggestionsForm: React.FC = () => {
     const { userid, usermail } = useContext(AppContext)
 
+    if (usermail === null || userid === null) return <>Loading user...</>
+
     useResetUsermail()
 
     const [message, setMessage] = useState<JSX.Element>(<div />)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isPosted, setIsPosted] = useState<boolean>(false)
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        if (userid === null) return
         event.preventDefault()
         setIsLoading(true)
         // checking & sanitizing input

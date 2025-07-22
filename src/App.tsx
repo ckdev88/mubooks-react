@@ -1,79 +1,107 @@
-import { supabase } from "../utils/supabase"
+import { useEffect, createContext, useState, useMemo } from "react"
+import { Routes, Route } from "react-router-dom"
+import { supabase, localStorageKey } from "../utils/supabase"
 import "./functions/miscEventListeners.ts"
-import { useEffect } from "react"
-import AuthConfirm from "./routes/auth/Confirm"
+
+// utils TODO move into ./utils/
+import { isLocal } from "./Helpers.ts"
+import { timestampConverter } from "./helpers/convertDate.ts"
+
+// components
+import AppFooter from "./components/AppFooter.tsx"
+import NavWrapper from "./components/NavWrapper"
+import PopupNotification from "./components/ui/PopupNotification"
+
+// routes
+import AuthConfirm from "./routes/auth/AuthConfirm"
 import ResetPasswordPage from "./routes/auth/ResetPasswordPage"
+import DashboardPage from "./routes/account/DashboardPage"
 import CheckMailNewAccountPage from "./routes/account/CheckMailNewAccountPage"
 import CheckMailPasswordPage from "./routes/account/CheckMailPasswordPage"
-import DashboardPage from "./routes/account/DashboardPage"
-import ErrorPage from "./routes/ErrorPage"
-import FavouritesPage from "./routes/books/FavouritesPage"
-import FinishedPage from "./routes/books/FinishedPage"
-import NavWrapper from "./components/NavWrapper"
-import QuotedPage from "./routes/books/QuotedPage"
-import ReadingPage from "./routes/books/ReadingPage"
-import RootPage from "./routes/RootPage"
-import SavedBooksPage from "./routes/books/SavedBooksPage"
-import TossedPage from "./routes/books/TossedPage.tsx"
-import SearchPage from "./routes/books/SearchPage"
-import StatisticsPage from "./routes/books/StatisticsPage"
-import TropesPage from "./routes/books/TropesPage"
 import UserLoginPage from "./routes/account/UserLoginPage"
 import UserLogoutPage from "./routes/account/UserLogoutPage"
 import UserProfilePage from "./routes/account/UserProfilePage"
-import WishlistPage from "./routes/books/WishlistPage"
-import { Routes, Route } from "react-router-dom"
-import { createContext, useState } from "react"
-import { localStorageKey } from "../utils/supabase"
-import ClearMyBooks from "./routes/books/ClearMyBooks"
-import { timestampConverter } from "./helpers/convertDate.ts"
+import SavedBooksPage from "./routes/books/SavedBooksPage"
 import AddBookPage from "./routes/books/AddBookPage"
-import PopupNotification from "./components/ui/PopupNotification"
-import { isLocal } from "./Helpers.ts"
-import AppFooter from "./components/AppFooter.tsx"
-import SuggestionsPage from "./routes/SuggestionsPage.tsx"
+import ClearMyBooks from "./routes/books/ClearMyBooks"
+import FavouritesPage from "./routes/books/FavouritesPage"
+import FinishedPage from "./routes/books/FinishedPage"
+import QuotedPage from "./routes/books/QuotedPage"
+import ReadingPage from "./routes/books/ReadingPage"
+import SearchPage from "./routes/books/SearchPage"
+import StatisticsPage from "./routes/books/StatisticsPage"
+import TossedPage from "./routes/books/TossedPage"
+import TropesPage from "./routes/books/TropesPage"
+import WishlistPage from "./routes/books/WishlistPage"
+import ErrorPage from "./routes/ErrorPage"
+import RootPage from "./routes/RootPage"
+import SuggestionsPage from "./routes/SuggestionsPage"
+import type { MotionProps } from "motion/react"
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-const todaysDateInput = timestampConverter(Date.now(), "input")
+const BG_COLORS = { dark: "#152129", light: "#f4f1ea" }
+
 const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
-const bgColorLight: string = "#f4f1ea"
-const bgColorDark: string = "#152129"
+const todaysDateInput = timestampConverter(Date.now(), "input")
 
-let userIsLoggedInInitVal: boolean
 const App = () => {
-    if (localStorage.getItem(localStorageKey)) userIsLoggedInInitVal = true
-    else userIsLoggedInInitVal = false
+    const initVal = {
+        userIsLoggedIn: false,
+        username: null,
+        userid: null,
+        usermail: null,
+        darkTheme: undefined,
+    }
+    if (localStorage.getItem(localStorageKey)) {
+        const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
+        initVal.userIsLoggedIn = true
+        initVal.username = parsed.user.user_metadata.screenname
+        initVal.userid = parsed.user.id
+        initVal.usermail = parsed.user.email
+        initVal.darkTheme = parsed.user.user_metadata.darktheme
+    }
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(initVal.userIsLoggedIn)
+    const [userid, setUserid] = useState<string | null>(initVal.userid)
+    const [username, setUsername] = useState<string | null>(initVal.username)
+    const [usermail, setUsermail] = useState<string | null>(initVal.usermail)
+    const [darkTheme, setDarkTheme] = useState<undefined | boolean>(initVal.darkTheme)
 
-    const [username, setUsername] = useState<string>("")
-    const [usermail, setUsermail] = useState<string>("")
-    const [userid, setUserid] = useState<string>("")
-    const [userMyBooks, setUserMyBooks] = useState<Books>([])
-    const [reRender, setRerender] = useState<boolean>(false)
-    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(userIsLoggedInInitVal)
+    const [userMyBooks, setUserMyBooks] = useState<Books | undefined>(undefined)
     const [popupNotification, setPopupNotification] = useState<string>("")
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
-    const [darkTheme, setDarkTheme] = useState<undefined | boolean>(undefined)
-    const [bodyBgColor, setBodyBgColor] = useState<string>(darkTheme ? bgColorDark : bgColorLight)
+    const [bodyBgColor, setBodyBgColor] = useState<string>(
+        darkTheme ? BG_COLORS.dark : BG_COLORS.light,
+    )
+    // TODO: check if pageName is actually useful or used/ related to rendering amount
     const [pageName, setPageName] = useState<string>("default")
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    useEffect(() => {
-        if (reRender === true) {
-            setUserMyBooks(userMyBooks)
-            setRerender(false)
-        }
-    }, [reRender])
-
-    // Settings
-    const GLOBALS: GlobalSettings = {
-        headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
-        synopsisEnabled: false,
-        pageAnimationDelay: 0.28, // .28
-        pageAnimationDuration: 0.4, // .4
-        userid: userid,
+    // Settings // TODO: abstract away or something, beware of `userid`
+    interface GlobalSettings {
+        headingIconsEnabled: boolean
+        synopsisEnabled: boolean
+        userid: string | null
+        bookRemoveAnimationDuration: number
+        motionPageProps: MotionProps
     }
+    const GLOBALS: GlobalSettings = useMemo(
+        () => ({
+            headingIconsEnabled: false, // OPTIMIZE where this is used as true, needs some work
+            synopsisEnabled: false, // OPTIMIZE use webworkers or something to not fetch all synopsises at once from openlibrary.org
+            motionPageProps: {
+                initial: {
+                    opacity: 0,
+                },
+                exit: { opacity: 0 },
+                transition: { duration: 1, delay: 0.19 },
+                animate: { opacity: 1 },
+            },
+            userid: userid,
+            bookRemoveAnimationDuration: 250, // in ms // TODO this is currenly not used, remove?
+        }),
+        [userid],
+    )
 
     /* NOTE
      * 3 kinds of settings?
@@ -98,27 +126,11 @@ const App = () => {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: TODO uselayouteffect or use hook
     useEffect(() => {
-        if (userIsLoggedIn === true && userMyBooks.length < 1) {
+        if (userIsLoggedIn === true && userMyBooks === undefined) {
             persistMyBooks()
         }
-    }, [userIsLoggedIn, initialMyBooksSet, userMyBooks.length])
+    }, [userIsLoggedIn, initialMyBooksSet, userMyBooks])
     // /add persistency to userMyBooks state throughout page refreshes
-
-    if (username === "" && localStorage.getItem(localStorageKey)) {
-        setUsername(
-            JSON.parse(localStorage.getItem(localStorageKey) as string).user.user_metadata
-                .screenname,
-        )
-    }
-
-    if (darkTheme === undefined && localStorage.getItem(localStorageKey)) {
-        const dtInitVal = JSON.parse(localStorage.getItem(localStorageKey) as string).user
-            .user_metadata.darktheme
-        if (dtInitVal !== undefined) setDarkTheme(dtInitVal)
-    }
-
-    if (userid === "" && localStorage.getItem(localStorageKey))
-        setUserid(JSON.parse(localStorage.getItem(localStorageKey) as string).user.id)
 
     if (userIsLoggedIn) document.getElementsByTagName("html")[0].classList.add("loggedin")
     else document.getElementsByTagName("html")[0].classList.remove("loggedin")
@@ -127,10 +139,10 @@ const App = () => {
         const htmlNode = document.getElementsByTagName("html")[0]
         if (darkTheme === true) {
             if (!htmlNode.classList.contains("dark-mode")) htmlNode.classList.add("dark-mode")
-            setBodyBgColor(bgColorDark)
+            setBodyBgColor(BG_COLORS.dark)
         } else {
             htmlNode.classList.remove("dark-mode")
-            setBodyBgColor(bgColorLight)
+            setBodyBgColor(BG_COLORS.light)
         }
     }, [darkTheme])
 
@@ -158,17 +170,17 @@ const App = () => {
                 bodyBgColor,
                 pageName,
                 setPageName,
-                reRender,
-                setRerender,
                 GLOBALS,
             }}
         >
             <div id="top" style={{ position: "absolute" }} />
+
             {userIsLoggedIn && (
                 <header id="header" className="shade">
                     <NavWrapper />
                 </header>
             )}
+
             <main id="main" className={pageName + " main"}>
                 <PopupNotification />
                 <Routes>

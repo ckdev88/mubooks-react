@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import BooksOverviewPage from "./BooksOverviewPage"
 import { getOlCover } from "../../Helpers"
 import Heading from "../../components/ui/Heading"
 import { motion } from "motion/react"
 import BtnBig from "../../components/ui/buttons/BtnBig"
 import SearchResultsMessage from "../../components/SearchResultsMessage"
+import { AppContext } from "../../App"
 
 const pageTitle = "Search"
 const currentPage = "search"
-const booklist = undefined
 const minimumSearchLetters = 3
 const maximumSearchResults = 30
 const maximumSearchResultsMessage =
     "Showing only" + maximumSearchResults + " results. Specify a bit more."
 
 const SearchPage = () => {
+    const { GLOBALS } = useContext(AppContext)
     const [resultsMessage, setResultsMessage] = useState<string>("")
     const [resultCount, setResultCount] = useState<number>(0)
     const [searchResults, setSearchResults] = useState<Books>([])
@@ -76,12 +77,7 @@ const SearchPage = () => {
 
     return (
         <>
-            <motion.div
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
-                animate={{ opacity: 1, transition: { duration: 2 } }}
-            >
+            <motion.div {...GLOBALS.motionPageProps}>
                 <div>
                     <Heading text={pageTitle} sub="Find the book you want to add" />
                     <form onSubmit={processSearchForm}>
@@ -97,11 +93,7 @@ const SearchPage = () => {
                             resultsMessage={resultsMessage}
                             resultCount={resultCount}
                         />
-                        <BooksOverviewPage
-                            books={searchResults}
-                            page={currentPage}
-                            booklist={booklist}
-                        />
+                        <BooksOverviewPage books={searchResults} page={currentPage} />
                     </div>
                 </div>
             </motion.div>

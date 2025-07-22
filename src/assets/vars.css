@@ -22,6 +22,7 @@
     --primary-darker: hsl(325, 55%, 39%);
     --primary-darker2: #7e2559; /* hsl(325, 55%, 32%) */
     --link: hsl(325, 55%, 46%);
+    --link-hover: hsl(325,55%,26%);
 
     --cardbg: #faf8f5; /* hsl 42 31% 97% */
     --draaideurbg: #efebe1; /*  hsl(42, 31%, 91%)  */
@@ -73,6 +74,7 @@
     --primary-darker: hsl(325, 55%, 25%);
     --primary-darker2: #471532; /* hsl(325,55,18%) */
     --link: hsl(325, 55%, 66%);
+    --link-hover: hsl(325, 55%, 46%);
     --cardbg: hsl(204, 33%, 15%); /* #0f181f; /* hsl: 204 33% 9% */
     --draaideurbg: hsl(204, 33%, 9%);
     --badgebg: hsl(204, 33%, 15%);

@@ -1,17 +1,9 @@
-interface GlobalSettings {
-    headingIconsEnabled: boolean
-    synopsisEnabled: boolean
-    pageAnimationDelay: number
-    pageAnimationDuration: number
-    userid: string
-}
-
 interface AppContextType {
-    username: string
+    username: string | null
     setUsername(username: username): void
-    usermail: string
+    usermail: string | null
     setUsermail(usermail: username): void
-    userid: string
+    userid: string | null
     setUserid(userid: userid): void
     userMyBooks: Books
     setUserMyBooks(userMyBooks: Books): void
@@ -28,8 +20,6 @@ interface AppContextType {
     bodyBgColor: string
     pageName: string
     setPageName(pageName: pageName): void
-    reRender: boolean
-    setRerender(reRender: reRender): void
     GLOBALS: GlobalSettings
 }
 
@@ -39,6 +29,7 @@ interface IsModdingPagesContextType {
     numberOfPages: number
     setNumberOfPages(numberOfPages: numberOfPages): void
 }
+
 interface IsModdingReviewContextType {
     isModding: boolean
     setIsModding(isModding: isModding): void
@@ -46,6 +37,7 @@ interface IsModdingReviewContextType {
     setReviewText(reviewText: reviewText): void
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
 }
+
 interface TropesPageContextType {
     likedTropes: BookTropes
     setLikedTropes(likedTropes: likedTropes): void
@@ -56,8 +48,11 @@ interface TropesPageContextType {
     tropesInMyBooksArr: Books
     setTropesInMyBooksArr(tropesInMyBooksArr: tropesInMyBooksArr): void
 }
+
+type BooksFilterValue = string | undefined
+
 interface BooksOverviewFilterContextType {
-    booksFilter: string
+    booksFilter: BooksFilterValue
     setBooksFilter(booksFilter: booksFilter): void
     booksOverview: Books
 }
@@ -72,16 +67,44 @@ type PageWithoutParameters =
     | "reading"
     | "savedbooks"
     | "search"
+    | "tossed"
     | "tropes"
     | "wishlist"
-    | "tossed"
 
 type Page = `${PageWithoutParameters}${string | null}`
+
+type DeckPage = "reading" | "wishlist" | "favourites" | "finished" | "savedbooks"
+
+interface DeckItem {
+    btnIconAdd: string
+    books: Books
+    page: PageWithoutParameters
+    title: string
+    noBooksText: string
+    icon: string
+}
+// type DeckItemProps = DeckItem
+type DeckArray = {
+    [key in DeckPage]: DeckItem
+}
 
 type Quote = {
     quote: string
     authors: string
     title: string
+}
+
+interface BookToQuote {
+    review_fav_quote?: string
+    review_fav_quote2?: string
+    author_name?: string[]
+    title?: string
+}
+
+interface BookQuote {
+    title: string
+    quote: string
+    authors: string
 }
 
 type User = {
@@ -160,8 +183,10 @@ type BookTropes = BookTrope[]
 type BookSubject = string
 type BookSubjects = BookSubject[]
 
-type Results = Book[]
-interface Books extends Array<Book> {}
+type Results = Book[] | null
+
+type Books = Book[] | undefined // TODO why use `extends`?
+// interface Books extends Array<Book> {}
 
 interface BookObject {
     book: Book

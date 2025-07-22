@@ -31,7 +31,7 @@ async function fetchBook() {
 }
 */
 const QuickBookSearch = () => {
-    const [searchResults, setSearchResults] = useState<Books>([])
+    const [searchResults, setSearchResults] = useState<Books | null>(null)
     const [resultsWarning, setResultsWarning] = useState<string>("")
     const [resultsMessage, setResultsMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
@@ -112,44 +112,53 @@ const QuickBookSearch = () => {
                 <div className={resultsWarning !== "" ? "dblock sf2" : "dnone"}>
                     <i>{resultsWarning}</i>
                 </div>
-                {searchResults.map((res, result_index) => {
-                    const resultKey = "result" + res.id + result_index
-                    if (res.id !== undefined) {
-                        let title: string
-                        if (res.title.length > 55) title = res.title.slice(0, 55) + "..."
-                        else title = res.title
-                        let authorKey: string
-                        const authors = res.author_name.map((author, author_index) => {
-                            authorKey = "author" + authorKey + "-" + author_index
-                            return (
-                                <span key={authorKey}>
-                                    {author}
-                                    {author_index < res.author_name.length - 1 && ", "}
-                                </span>
-                            )
-                        })
+                {searchResults !== undefined && searchResults !== null ? (
+                    searchResults.map((res, result_index) => {
+                        const resultKey = "result" + res.id + result_index
+                        if (res.id !== undefined) {
+                            let title: string
+                            if (res.title.length > 55) title = res.title.slice(0, 55) + "..."
+                            else title = res.title
+                            let authorKey: string
+                            const authors = res.author_name.map((author, author_index) => {
+                                authorKey = "author" + authorKey + "-" + author_index
+                                return (
+                                    <span key={authorKey}>
+                                        {author}
+                                        {author_index < res.author_name.length - 1 && ", "}
+                                    </span>
+                                )
+                            })
 
-                        return (
-                            <div
-                                key={resultKey}
-                                className="result"
-                                onKeyDown={(event) => {
-                                    if (event.key === "Enter") checkit()
-                                }}
-                                onClick={checkit}
-                            >
-                                <div className="wrapper">
-                                    <div className="text">
-                                        {title} <em className="sf2"> ({res.first_publish_year})</em>
-                                        <br />
-                                        <em className="sf2 cl">{authors}</em>
+                            return (
+                                <div
+                                    key={resultKey}
+                                    className="result"
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") checkit()
+                                    }}
+                                    onClick={checkit}
+                                >
+                                    <div className="wrapper">
+                                        <div className="text">
+                                            {title}{" "}
+                                            <em className="sf2"> ({res.first_publish_year})</em>
+                                            <br />
+                                            <em className="sf2 cl">{authors}</em>
+                                        </div>
                                     </div>
+                                    <img
+                                        src={getOlCover(res.id, "S")}
+                                        className="thumbnail"
+                                        alt=""
+                                    />
                                 </div>
-                                <img src={getOlCover(res.id, "S")} className="thumbnail" alt="" />
-                            </div>
-                        )
-                    }
-                })}
+                            )
+                        }
+                    })
+                ) : (
+                    <>No books yet...</>
+                )}
             </div>
         </>
     )
