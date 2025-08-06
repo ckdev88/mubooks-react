@@ -8,36 +8,188 @@
     border-width: 0;
 }
 
+/* start .book-summary */
 .book-summary {
     list-style: none;
     transition: padding 0.18s linear, background-color 0.18s linear;
     display: flex;
     flex-wrap: wrap;
-}
-.book-summary,
-.book-summary.tropes {
+
     margin: 0;
-}
-/* TODO: apply css nesting */
-.book-summary {
+    &.tropes {
+        margin: 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .aside {
+        width: 7rem;
+        min-width: 7rem;
+        max-width: 8rem;
+        @media screen and (max-width: 399.98px) {
+            width: 100%;
+            min-width: 0;
+            max-width: 6rem; /* same width as review stars */
+        }
+    }
+
+    .cover {
+        height: auto;
+        max-width: 100%;
+        border-radius: 0.5rem;
+        display: block;
+    }
+
     .seperator {
         width: 100%;
         border-top: 1px solid var(--cardbg);
         min-height: 1rem;
     }
+    .h3 {
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+        text-decoration: underline;
+    }
+    .status {
+        em {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        a {
+            color: inherit;
+        }
+        a:hover,
+        a:focus,
+        a:active {
+            color: #b73581;
+        }
+    }
+    .article-main button.modify {
+        margin-left: 0.5em;
+    }
+
+    .aside,
+    .article-main {
+        flex: 1 1 30%;
+        @media screen and (max-width: 399.98px) {
+            flex: 1 1 30%;
+        }
+    }
+    .aside {
+        margin-bottom: 0;
+    }
+
+    .mark {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+
+    .review-rates {
+        margin: 0.5rem 0;
+    }
+    .rating {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .synopsis {
+        align-self: flex-end;
+        p {
+            margin-top: 0;
+            font-size: var(--smallerfont);
+        }
+        .h3 {
+            margin: 0 0 1em;
+            padding: 0;
+        }
+    }
     footer {
         margin-bottom: 1rem;
     }
+    &.quoted {
+        .article-main {
+            margin-top: 0.75rem;
+        }
+        display: flex;
+        align-items: center;
+        .review-text.review_fav_quote {
+            padding-top: 0;
+        }
+    }
+    .review-text {
+        font-size: 0.9rem;
+    }
+    .calendar-hidden {
+        overflow: hidden;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        position: absolute;
+        + .btn-text {
+            margin-top: -1rem;
+        }
+    }
+    .h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        sup {
+            vertical-align: baseline;
+        }
+    }
+    .icon-heart + .h2 {
+        padding-right: 1.25rem;
+    }
+    aside {
+        width: 9rem;
+        height: auto;
+        margin: 0 0.75rem 0.75rem 0;
+        min-width: 9rem;
+    }
+    footer {
+        width: 100%;
+    }
+    button {
+        width: auto;
+    }
+    .rating .h3 {
+        margin-top: 0.5rem;
+    }
+    .tropes .h3 {
+        padding-bottom: 0;
+    }
+
+    .marks .favourites.active {
+        color: red;
+    }
+
+    .marked {
+        color: var(--primary);
+        font-weight: bold;
+    }
+    .article-main .review-text,
+    .book-started-finished {
+        padding-top: 0.5rem;
+    }
+    .article-main {
+        position: relative;
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    .book-started-finished {
+        font-size: 0.9rem;
+    }
+    .quote:has(main) {
+        border: 2px dashed rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .review-text.review_fav_quote {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
 }
-.book-summary.tropes {
-    padding-bottom: 0.5rem;
-}
+/* end .book-summary */
+
 .main-dashboard .book-summary {
     padding-bottom: 0;
-}
-.book-summary.quoted {
-    display: flex;
-    align-items: center;
 }
 .review_fav_quote,
 .review_fav_quote2 {
@@ -47,119 +199,8 @@
 .quoteblock .review-text.review_fav_quote {
     padding-bottom: 0.75em;
 }
-.book-summary.quoted .review-text.review_fav_quote {
-    padding-top: 0;
-}
-.book-summary .review-text {
-    font-size: 0.9rem;
-}
-
-.book-summary .aside {
-    margin-bottom: 0;
-}
-.book-summary .calendar-hidden {
-    overflow: hidden;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    position: absolute;
-}
-.book-summary .calendar-hidden + .btn-text {
-    margin-top: -1rem;
-}
-.book-summary .h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.book-summary .icon-heart + .h2 {
-    padding-right: 1.25rem;
-}
-.book-summary .h2 sup {
-    vertical-align: baseline;
-}
-.book-summary aside {
-    width: 9rem;
-    height: auto;
-    margin: 0 0.75rem 0.75rem 0;
-    min-width: 9rem;
-}
-
 .deck .book-summary .article-main {
     max-width: calc(100vw - 10.5rem);
-}
-
-.book-summary .article-main button.modify {
-    margin-left: 0.5em;
-}
-.book-summary .aside,
-.book-summary .article-main {
-    flex: 1 1 30%;
-    @media screen and (max-width: 399.98px) {
-        flex: 1 1 30%;
-    }
-}
-
-.book-summary .aside {
-    width: 7rem;
-    min-width: 7rem;
-    max-width: 8rem;
-    @media screen and (max-width: 399.98px) {
-        width: 100%;
-        min-width: 0;
-        max-width: 6rem; /* same width as review stars */
-    }
-}
-
-.book-summary footer {
-    width: 100%;
-}
-
-.book-summary .cover {
-    height: auto;
-    max-width: 100%;
-    border-radius: 0.5rem;
-    display: block;
-}
-
-.book-summary .synopsis {
-    align-self: flex-end;
-}
-
-.book-summary .synopsis p {
-    margin-top: 0;
-    font-size: var(--smallerfont);
-}
-
-.book-summary .synopsis .h3 {
-    margin: 0 0 1em;
-    padding: 0;
-}
-
-.book-summary button {
-    width: auto;
-}
-
-.book-summary .h3 {
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
-    text-decoration: underline;
-}
-
-.book-summary .status em {
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-.book-summary .status a {
-    color: inherit;
-}
-.book-summary .status a:hover,
-.book-summary .status a:focus,
-.book-summary .status a:active {
-    color: #b73581;
-}
-.book-summary .mark {
-    font-size: 0.9rem;
-    line-height: 1.3;
 }
 
 @media screen and (max-width: 379.98px) {
@@ -175,29 +216,28 @@
     margin: 0.25rem 0;
     display: flex;
     justify-content: space-between;
+    input[type="text"] {
+        padding: 0.3rem 1.8rem 0.3rem 0.3rem;
+        border-style: dashed;
+        border-width: 2px;
+        border-radius: 0.4rem;
+        margin-bottom: 0;
+        width: 100%;
+    }
+    input[type="number"] {
+        padding: 0.3rem 1.8rem 0.3rem 0.3rem;
+        border-style: dashed;
+        border-width: 2px;
+        border-radius: 0.4rem;
+        margin-bottom: 0;
+        width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="text"]:active {
+        border-style: solid;
+    }
 }
 
-.single-small-form input[type="number"] {
-    padding: 0.3rem 1.8rem 0.3rem 0.3rem;
-    border-style: dashed;
-    border-width: 2px;
-    border-radius: 0.4rem;
-    margin-bottom: 0;
-    width: 100%;
-}
-
-.single-small-form input[type="text"] {
-    padding: 0.3rem 1.8rem 0.3rem 0.3rem;
-    border-style: dashed;
-    border-width: 2px;
-    border-radius: 0.4rem;
-    margin-bottom: 0;
-    width: 100%;
-}
-.single-small-form input[type="text"]:focus,
-.single-small-form input[type="text"]:active {
-    border-style: solid;
-}
 .single-small-form + .btn-text,
 .btn-text-cancel {
     margin-top: -0.2em;
@@ -217,57 +257,10 @@
     margin-bottom: 0;
 }
 
-.book-summary .review-rates {
-    margin: 0.5rem 0;
-}
 .review-rates > div {
     width: 6rem;
     display: flex;
     margin: 0 auto;
     padding-right: 0.1rem;
     margin-top: 0.5rem;
-}
-.book-summary .rating {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.book-summary .rating .h3 {
-    margin-top: 0.5rem;
-}
-.book-summary .tropes .h3 {
-    padding-bottom: 0;
-}
-
-.book-summary .marks .favourites.active {
-    color: red;
-}
-
-.book-summary .marked {
-    color: var(--primary);
-    font-weight: bold;
-}
-.book-summary .article-main .review-text,
-.book-summary .book-started-finished {
-    padding-top: 0.5rem;
-}
-.book-summary .article-main {
-    position: relative;
-    margin-bottom: 0.5rem;
-    width: 100%;
-}
-.book-summary.quoted .article-main {
-    margin-top: 0.75rem;
-}
-.book-summary .book-started-finished {
-    font-size: 0.9rem;
-}
-.book-summary .quote:has(main) {
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-.book-summary .review-text.review_fav_quote {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
 }
