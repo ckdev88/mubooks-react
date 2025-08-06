@@ -25,6 +25,7 @@ dist-ssr
 
 data
 release.sh
+release_beta.sh
 notes
 ideas
 todos.md
