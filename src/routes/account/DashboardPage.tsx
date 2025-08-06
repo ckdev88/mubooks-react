@@ -53,7 +53,7 @@ export default function DashboardPage() {
             books: booksNotTossed?.filter((book) => book.list > 0),
             btnIconAdd: "img/save-books-icon.png",
             icon: "savedbooks.svg",
-            noBooksText: "Let&lsquo;s start saving books.",
+            noBooksText: "Let\'s start saving books.",
             page: "savedbooks",
             title: "All of Mu Books",
         },
