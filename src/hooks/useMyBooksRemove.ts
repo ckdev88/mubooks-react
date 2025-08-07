@@ -4,6 +4,8 @@ import getListName from "../functions/getListName"
 import assignListById from "../utils/assignListById"
 import updateDb from "../utils/updateDb"
 import { notification as nm } from "../i18n/notifications"
+import { getCurrentPage } from "../Helpers"
+const currentPage = getCurrentPage()
 
 // TODO: apply these messages for better feedback
 // TODO: would be even nicer if the notifications are clickable to targeted listname

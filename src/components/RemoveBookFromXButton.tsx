@@ -52,7 +52,6 @@ const RemoveBookFromXButton = ({
     const handleClick = useCallback(
         // biome-ignore lint/complexity/useArrowFunction: <TODO: arrow function call better?>
         async function (): Promise<void> {
-            const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
             if (checkPreventCollapse(targetList, currentPage, removeType))
                 return removeBookFromXButtonAct()
             await collapseItem(book.id)
@@ -69,7 +68,6 @@ const RemoveBookFromXButton = ({
     }
 
     // async function handleClick(): Promise<void> {
-    //     const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
     //     if (checkPreventCollapse(targetList, currentPage, removeType))
     //         return removeBookFromXButtonAct()
     //     await collapseItem(book.id).then(() => removeBookFromXButtonAct())

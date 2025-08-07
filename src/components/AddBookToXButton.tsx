@@ -28,7 +28,6 @@ function AddBookToXButton({
     const handleClick = useCallback(
         // biome-ignore lint/complexity/useArrowFunction: <TODO: flat arrow function really better that traditional?>
         async function (): Promise<void> {
-            const currentPage = window.location.pathname.slice(1) as PageWithoutParameters
             if (checkPreventCollapse(targetList, currentPage)) return AddBookToXButtonAct()
             await collapseItem(book.id)
             AddBookToXButtonAct()

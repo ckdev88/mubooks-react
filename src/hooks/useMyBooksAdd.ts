@@ -20,6 +20,7 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
         // FIXME: i want that notification, but it causes a bug
         // const notification: string = await initUpdateDb()
         // setPopupNotification(notification)
+        const currentPage = getCurrentPage()
         await initUpdateDb()
     }
 
