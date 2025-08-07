@@ -4,7 +4,7 @@ import useMyBooksAdd from "../hooks/useMyBooksAdd"
 import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
 import collapseItem from "../utils/uiMisc"
 import BtnHeart from "./ui/buttons/BtnHeart"
-import checkPreventCollapse from "../utils/checkPreventCollapse"
+import shouldCollapse from "../utils/shouldCollapse"
 
 function AddBookToXButton({
     bookProp,
@@ -25,14 +25,18 @@ function AddBookToXButton({
     const iconClassName = `icon icon-${targetListName}`
 
     // TODO apply not only to add/remove books, but also to Details like in Stats & synopsis, etc
+    // TODO animations
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <TODO: should be handled, prio: med>
     const handleClick = useCallback(
         // biome-ignore lint/complexity/useArrowFunction: <TODO: flat arrow function really better that traditional?>
         async function (): Promise<void> {
-            if (checkPreventCollapse(targetList, currentPage)) return AddBookToXButtonAct()
-            await collapseItem(book.id)
-            AddBookToXButtonAct()
+            // TODO: animations tweak this
+            if (shouldCollapse(targetList)) {
+                await collapseItem(book.id).then(() => AddBookToXButtonAct())
+            } else AddBookToXButtonAct()
         },
-        [targetList, book.id, AddBookToXButtonAct],
+        // TODO animations check if book.list dependency is necessary
+        [targetList, book.id, book.list, AddBookToXButtonAct],
     )
 
     // Show heart icon in top right, depending on targetList & icon args

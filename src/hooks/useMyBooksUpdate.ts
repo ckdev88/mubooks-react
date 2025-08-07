@@ -12,7 +12,7 @@ const useMyBooksUpdate = (myBooksNew: Books) => {
         newJson: myBooksNew,
     })
 
-    // TODO  also ./useMyBooksAdd.ts -- DRY
+    // TODO animation also ./useMyBooksAdd.ts -- DRY
     const runMyBooksUpdate = async () => {
         setUserMyBooks(myBooksNew)
         const notification: string = await initUpdateDb()

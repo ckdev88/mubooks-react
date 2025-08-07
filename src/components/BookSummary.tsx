@@ -17,6 +17,7 @@ import ExpandableContainer from "./ui/ExpandableContainer"
 const synopsisPages: Page[] = ["search", "wishlist"]
 const pagesMedianPages: Page[] = ["search", "reading", "finished"]
 const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
+const pagesHideHeart: Page[] = ["dashboard", "tossed"]
 
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 const BookSummary = ({
@@ -48,7 +49,7 @@ const BookSummary = ({
                 ) : (
                     <>
                         <header style={{ position: "relative", width: "100%" }}>
-                            {currentPage !== "dashboard" && currentPage !== "tossed" && (
+                            {!pagesHideHeart.includes(currentPage) && (
                                 // favourite heart icon button
                                 <AddToRemoveFromX book={book} limit={4} currentPage={currentPage} />
                             )}

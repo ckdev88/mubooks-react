@@ -5,10 +5,12 @@ import getListName from "../functions/getListName"
 import { getBookCover } from "../Helpers"
 import useUpdateDb from "./useUpdateDb"
 import { notification as nm } from "../i18n/notifications"
+import shouldCollapse from "../utils/shouldCollapse"
+import shouldNotify from "../utils/shouldNotify"
 
 const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
-    // const { setPopupNotification, userMyBooks, setUserMyBooks, todaysDateDigit } = // FIXME: want the notification, but causes bug
-    const { userMyBooks, setUserMyBooks, todaysDateDigit } = useContext(AppContext)
+    const { userMyBooks, setUserMyBooks, todaysDateDigit, setPopupNotification } =
+        useContext(AppContext)
 
     const initUpdateDb = useUpdateDb({
         msg: nm.Added_to + getListName(targetList, true),
@@ -17,10 +19,13 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
 
     async function MyBooksUpdate(myBooksNew: Books) {
         setUserMyBooks(myBooksNew)
-        // FIXME: i want that notification, but it causes a bug
-        // const notification: string = await initUpdateDb()
-        // setPopupNotification(notification)
-        const currentPage = getCurrentPage()
+        // TODO: animation - notification should be return value of initUpdateDb(), but now the load order is slightly different, because conflict with shouldCollapse and the hearting animation
+        const notification: string =
+            book.title_short + nm.added_to + getListName(targetList).toUpperCase()
+        // TODO animations maybe combine should* into useAnimation:notify|collapse|heart
+        if (shouldCollapse(targetList) === false && shouldNotify(targetList) === true)
+            setPopupNotification(notification)
+
         await initUpdateDb()
     }
 
