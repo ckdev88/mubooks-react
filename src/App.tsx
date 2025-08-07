@@ -102,6 +102,7 @@ const App = () => {
             },
             userid: userid,
             bookRemoveAnimationDuration: 250, // in ms // TODO this is currenly not used, remove?
+
         }),
         [userid],
     )

@@ -8,10 +8,22 @@ export const IsModdingPagesContext = createContext<IsModdingPagesContextType>(
 const BookPages = ({
     book_id,
     book_number_of_pages_median,
+    readOnly,
 }: {
     book_id: Book["id"]
     book_number_of_pages_median: Book["number_of_pages_median"]
+    readOnly?: boolean
 }) => {
+    if (readOnly)
+        return (
+            <div className="dflex">
+                {book_number_of_pages_median === 0 || !book_number_of_pages_median
+                    ? "?"
+                    : book_number_of_pages_median}
+                pages &nbsp;
+            </div>
+        )
+
     const [isModding, setIsModding] = useState<boolean>(false)
     const [numberOfPages, setNumberOfPages] = useState<number>(book_number_of_pages_median)
 

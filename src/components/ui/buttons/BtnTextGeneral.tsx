@@ -7,6 +7,7 @@ const BtnTextGeneral = ({
     bIcon,
     bText,
     bAlign,
+    readOnly,
 }: {
     bOnClick?: () => Promise<void> | void
     bIsLoading?: boolean
@@ -14,9 +15,17 @@ const BtnTextGeneral = ({
     bIcon?: string
     bText?: string | React.ReactNode
     bAlign?: "left" | "right" // will not work if bClassName contains "diblock"
+    readOnly?: boolean
 }) => {
-    const buttonClasses = `btn-text ${bClassName}`.trim()
+    const buttonClasses = `btn-text ${bClassName} ${readOnly && "readonly"}`.trim()
     const buttonStyle = bAlign ? { justifySelf: bAlign } : undefined
+
+    if (readOnly)
+        return (
+            <span className={buttonClasses} style={buttonStyle}>
+                {bText}
+            </span>
+        )
 
     return (
         <button

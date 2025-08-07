@@ -15,9 +15,10 @@ import BookSummarySynopsis from "./BookSummarySynopsis"
 import ExpandableContainer from "./ui/ExpandableContainer"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
-const pagesMedianPages: Page[] = ["search", "reading", "finished"]
+const pagesMedianPages: Page[] = ["search", "reading", "finished", "dashboard","favourites"]
 const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 const pagesHideHeart: Page[] = ["dashboard", "tossed"]
+const pagesReadOnly: Page[] = ["dashboard"]
 
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 const BookSummary = ({
@@ -78,6 +79,7 @@ const BookSummary = ({
                                 <BookPages
                                     book_id={book.id}
                                     book_number_of_pages_median={book.number_of_pages_median}
+                                    readOnly={currentPage==='dashboard'}
                                 />
                             )}
                         </header>
@@ -90,13 +92,20 @@ const BookSummary = ({
                                     date_finished={book.date_finished}
                                     book_id={book.id}
                                     list={book.list}
+                                    readOnly={currentPage==='dashboard'}
                                 />
                             )}
                             <div>
                                 {currentPage === "search" && (
                                     <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
                                 )}
-                                <AddToRemoveFromX book={book} limit={0} currentPage={currentPage} />
+                                {!pagesReadOnly.includes(currentPage) && (
+                                    <AddToRemoveFromX
+                                        book={book}
+                                        limit={0}
+                                        currentPage={currentPage}
+                                    />
+                                )}
                             </div>
                         </div>
                     </>
