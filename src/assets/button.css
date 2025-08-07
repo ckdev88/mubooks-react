@@ -140,12 +140,18 @@ main button.alt,
 .btn-icon {
     text-decoration: none;
     color: var(--link);
+    &.readonly {
+        color: var(--text-primary);
+    }
 }
 .btn-text,
 .btn-icon {
     background: none;
     border: 0;
     cursor: pointer;
+    &.readonly {
+        cursor: default;
+    }
     display: inline-block;
     font-size: 1rem;
     font-weight: normal;
@@ -171,6 +177,11 @@ main button.alt,
     &:active {
         color: var(--link-hover);
         text-decoration: none;
+    }
+    &.readonly {
+        &:hover {
+            color: inherit;
+        }
     }
 }
 

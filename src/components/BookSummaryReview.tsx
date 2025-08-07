@@ -1,5 +1,6 @@
 import { createContext, useState } from "react"
 import BookModifyReview from "./BookModifyReview"
+import { getCurrentPage } from "../Helpers"
 
 export const IsModdingReviewContext = createContext<IsModdingReviewContextType>(
     {} as IsModdingReviewContextType,
@@ -9,11 +10,15 @@ const BookSummaryReview = ({
     book_id,
     o_key,
     review_text,
+    readOnly,
 }: {
     book_id: Book["id"]
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
     review_text: Book["review_text"]
+    readOnly?: boolean
 }) => {
+    if (readOnly) return <div className={`review-text ${o_key} pt05 pb05 ${getCurrentPage()==='dashboard'&&'on-dashboard'}`}>“{review_text}”</div>
+
     let addButtonTitle: string
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
     else if (o_key === "review_fav_quote2") addButtonTitle = "one more quote"

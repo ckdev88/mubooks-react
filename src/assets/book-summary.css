@@ -184,6 +184,11 @@
         display: flex;
         flex-direction: column;
         margin: 0;
+        &.on-dashboard {
+            text-align: left;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
     }
 }
 /* end .book-summary */
