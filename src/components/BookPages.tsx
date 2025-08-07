@@ -20,7 +20,7 @@ const BookPages = ({
                 {book_number_of_pages_median === 0 || !book_number_of_pages_median
                     ? "?"
                     : book_number_of_pages_median}
-                pages &nbsp;
+                &nbsp;pages
             </div>
         )
 
