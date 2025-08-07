@@ -8,12 +8,12 @@ import { AppContext } from "../App"
  */
 export default function BooksOverviewSearchPage({ books }: { books: Books }) {
     const { userMyBooks } = useContext(AppContext)
-    if (userMyBooks === undefined) return 
+    if (userMyBooks === undefined) return
 
     const page: Page = "search"
     return (
         <>
-            {books?.map((book: Book) => {
+            {books?.map((book: Book, index) => {
                 userMyBooks.find((savedbook) => {
                     if (savedbook.id === book.id) {
                         book.list = savedbook.list
@@ -21,7 +21,15 @@ export default function BooksOverviewSearchPage({ books }: { books: Books }) {
                         book.date_finished = savedbook.date_finished
                     }
                 })
-                return <BookSummary book={book} key={`BookSummary${book.id}`} currentPage={page} />
+                return (
+                    <>
+                        <BookSummary
+                            book={book}
+                            key={`BookSummary${book.id}${index}`}
+                            currentPage={page}
+                        />
+                    </>
+                )
             })}
         </>
     )

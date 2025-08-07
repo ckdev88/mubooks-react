@@ -150,6 +150,10 @@ function getTabTitle() {
     return "MuBooks!"
 }
 
+function getCurrentPage(): PageWithoutParameters {
+    return window.location.pathname.slice(1) as PageWithoutParameters
+}
+
 export {
     isUrl,
     isLocal,
@@ -163,4 +167,5 @@ export {
     getDurationDays,
     getNavTitle,
     getTabTitle,
+    getCurrentPage
 }

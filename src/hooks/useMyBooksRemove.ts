@@ -4,6 +4,9 @@ import getListName from "../functions/getListName"
 import assignListById from "../utils/assignListById"
 import updateDb from "../utils/updateDb"
 import { notification as nm } from "../i18n/notifications"
+import shouldCollapse from "../utils/shouldCollapse"
+import { getCurrentPage } from "../Helpers"
+const currentPage = getCurrentPage()
 
 // TODO: apply these messages for better feedback
 // TODO: would be even nicer if the notifications are clickable to targeted listname
@@ -17,8 +20,8 @@ const useMyBooksRemove = ({
     book?: Book
     targetList?: BookList
 }) => {
-    // const { setPopupNotification, userMyBooks, setUserMyBooks, userid } = useContext(AppContext) // FIXME i want that popup, but it causes a bug
-    const { userMyBooks, setUserMyBooks, userid } = useContext(AppContext)
+    // const { setPopupNotification, userMyBooks, setUserMyBooks, userid } = useContext(AppContext) // FIXME i want that popup, but it causes a bug with "should collapse"
+    const { userMyBooks, setUserMyBooks, userid, setPopupNotification } = useContext(AppContext)
 
     // const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -29,8 +32,28 @@ const useMyBooksRemove = ({
      */
     async function updateMyBooks(myBooksNew: Books, msg: string) {
         setUserMyBooks(myBooksNew)
-        updateMyBooksDb(myBooksNew, msg)
-        // setPopupNotification(await updateMyBooksDb(myBooksNew, msg)) // FIXME i want that popup, but it causes a bug
+        // updateMyBooksDb(myBooksNew, msg)
+        const notification = updateMyBooksDb(myBooksNew, msg)
+
+        // const notification: string =
+        //     book.title_short + nm.added_to + getListName(targetList).toUpperCase()
+        if (shouldCollapse(targetList) === false) {
+            // TODO: animations this should be way less hacky
+            // TODO animation combine checks below into global setting/var or method
+            // TODO animation somehow, collapsing AND showing notification after collapse works on /tropes of toss, lets find out (maybe because amount of listitems is low?)
+            if (
+                (currentPage === "finished" && targetList === 4) ||
+                (currentPage === "search" && targetList === 4) ||
+                (currentPage === "savedbooks" && targetList === 4) ||
+                (currentPage === "tropes" && targetList === 4)
+            ) {
+            } else {
+                setPopupNotification(notification)
+            }
+            // setPopupNotification(await updateMyBooksDb(myBooksNew, msg)) // FIXME i want that popup, but conflicts with "should collapse"
+        }
+
+        // setPopupNotification(await updateMyBooksDb(myBooksNew, msg)) // FIXME i want that popup, but conflicts with "should collapse"
     }
 
     async function updateMyBooksDb(myBooksNew: Books, msg: string) {
