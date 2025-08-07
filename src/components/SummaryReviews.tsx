@@ -2,27 +2,35 @@
 import ReviewTropes from "./ReviewTropes"
 import BookSummaryReview from "./BookSummaryReview"
 
-const pagesShowReviewTextAndTropes: Page[] = ["finished", "favourites", "savedbooks", "tropes"]
+const pagesShowReviewTropes: Page[] = ["finished", "favourites", "savedbooks", "tropes"]
+const pagesShowReviewText: Page[] = ["finished", "favourites", "savedbooks", "tropes"]
+const pagesShowReviewQuote: Page[] = ["quoted", "dashboard", "tropes"]
 
-export default function SummaryReviews({ currentPage, book }: { currentPage: Page; book: Book }) {
+export default function SummaryReviews({
+    currentPage,
+    book,
+    readOnly,
+}: { currentPage: Page; book: Book; readOnly?: boolean }) {
     return (
         <div className="reviews">
-            {currentPage === "quoted" && (
+            {pagesShowReviewQuote.includes(currentPage) && (
                 <BookSummaryReview
                     book_id={book.id}
                     o_key="review_fav_quote"
                     review_text={book.review_fav_quote}
+                    readOnly={readOnly}
                 />
             )}
-            {pagesShowReviewTextAndTropes.includes(currentPage) && (
-                <>
-                    <BookSummaryReview
-                        book_id={book.id}
-                        o_key="review_text"
-                        review_text={book.review_text}
-                    />
-                    <ReviewTropes book={book} tropes={book.review_tropes} />
-                </>
+            {pagesShowReviewText.includes(currentPage) && (
+                <BookSummaryReview
+                    book_id={book.id}
+                    o_key="review_text"
+                    review_text={book.review_text}
+                    readOnly={readOnly}
+                />
+            )}
+            {pagesShowReviewTropes.includes(currentPage) && (
+                <ReviewTropes book={book} tropes={book.review_tropes} />
             )}
         </div>
     )

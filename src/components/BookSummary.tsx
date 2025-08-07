@@ -15,7 +15,7 @@ import BookSummarySynopsis from "./BookSummarySynopsis"
 import ExpandableContainer from "./ui/ExpandableContainer"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
-const pagesMedianPages: Page[] = ["search", "reading", "finished", "dashboard","favourites"]
+const pagesMedianPages: Page[] = ["search", "reading", "finished", "dashboard", "favourites"]
 const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 const pagesHideHeart: Page[] = ["dashboard", "tossed"]
 const pagesReadOnly: Page[] = ["dashboard"]
@@ -26,7 +26,8 @@ const BookSummary = ({
     currentPage,
     refer,
     special,
-}: { book: Book; currentPage: Page; refer?: Page; special?: "quote2" }) => {
+    readOnly,
+}: { book: Book; currentPage: Page; refer?: Page; special?: "quote2"; readOnly?: boolean }) => {
     const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
 
     const bookAnchor: string = `${cleanAnchor(book.title_short)}_${book.id}`
@@ -79,22 +80,26 @@ const BookSummary = ({
                                 <BookPages
                                     book_id={book.id}
                                     book_number_of_pages_median={book.number_of_pages_median}
-                                    readOnly={currentPage==='dashboard'}
+                                    readOnly={currentPage === "dashboard"}
                                 />
                             )}
                         </header>
 
                         <div className="summary-actions pt05">
-                            <SummaryReviews book={book} currentPage={currentPage} />
                             {book.list > 1 && currentPage !== "search" && (
                                 <BookStartedFinished
                                     date_started={book.date_reading}
                                     date_finished={book.date_finished}
                                     book_id={book.id}
                                     list={book.list}
-                                    readOnly={currentPage==='dashboard'}
+                                    readOnly={currentPage === "dashboard"}
                                 />
                             )}
+                            <SummaryReviews
+                                book={book}
+                                currentPage={currentPage}
+                                readOnly={readOnly}
+                            />
                             <div>
                                 {currentPage === "search" && (
                                     <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
@@ -111,34 +116,37 @@ const BookSummary = ({
                     </>
                 )}
             </div>
-            {currentPage !== "dashboard" && (
-                <footer className="footer">
-                    {pagesReviewQuotes.includes(currentPage) && (
-                        <>
+            <footer className="footer">
+                {pagesReviewQuotes.includes(currentPage) && (
+                    <>
+                        <BookSummaryReview
+                            book_id={book.id}
+                            o_key="review_fav_quote"
+                            review_text={book.review_fav_quote}
+                            readOnly={readOnly}
+                        />
+                        {book.review_fav_quote && (
                             <BookSummaryReview
                                 book_id={book.id}
-                                o_key="review_fav_quote"
-                                review_text={book.review_fav_quote}
+                                o_key="review_fav_quote2"
+                                review_text={book.review_fav_quote2}
                             />
-                            {book.review_fav_quote && (
-                                <BookSummaryReview
-                                    book_id={book.id}
-                                    o_key="review_fav_quote2"
-                                    review_text={book.review_fav_quote2}
-                                />
-                            )}
-                        </>
-                    )}
-                    {currentPage === "search" && book.subject && (
-                        <SearchSubjects book_id={book.id} subjects={book.subject} />
-                    )}
-                    {synopsisPages.includes(currentPage) && synopsis && (
-                        <ExpandableContainer buttonText="Synopsis" extraClass="synopsis">
-                            <BookSummarySynopsis synopsis={synopsis} />
-                        </ExpandableContainer>
-                    )}
-                </footer>
-            )}
+                        )}
+                    </>
+                )}
+                {currentPage !== "dashboard" && (
+                    <>
+                        {currentPage === "search" && book.subject && (
+                            <SearchSubjects book_id={book.id} subjects={book.subject} />
+                        )}
+                        {synopsisPages.includes(currentPage) && synopsis && (
+                            <ExpandableContainer buttonText="Synopsis" extraClass="synopsis">
+                                <BookSummarySynopsis synopsis={synopsis} />
+                            </ExpandableContainer>
+                        )}
+                    </>
+                )}
+            </footer>
         </article>
     )
 }
