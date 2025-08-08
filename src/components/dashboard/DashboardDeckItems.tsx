@@ -1,5 +1,5 @@
 import { HashLink as Link } from "react-router-hash-link"
-import DashboardDeckCovers from "./DashboardDeckCovers"
+import DashboardDeckCovers from "@/components/dashboard/DashboardDeckCovers"
 
 const DashboardDeckItems = ({ props }: { props: DeckItem }) => {
     if (props.books !== undefined) {

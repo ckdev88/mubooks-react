@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { supabase } from "../../utils/supabase"
-import { AppContext } from "../App"
+import { AppContext } from "@/App"
 
 /** re-sets users email address from database if none is available in state */
 async function useResetUsermail(): Promise<void> {

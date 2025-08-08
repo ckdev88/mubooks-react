@@ -4,9 +4,9 @@ https://ckdev88.github.io/mubooks/#error=access_denied&error_code=403&error_desc
 */
 import { useCallback, useContext, useEffect, useMemo } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AppContext } from "../App"
+import { AppContext } from "@/App"
 import { supabase, localStorageKey } from "../../utils/supabase"
-import { getUrlParamVal } from "../Helpers"
+import { getUrlParamVal } from "@/Helpers"
 
 const RootPage = () => {
     const navigate = useNavigate()
@@ -65,7 +65,7 @@ const RootPage = () => {
         if (hasApiError) {
             navigateTo = `/error?error_description=${encodeURIComponent(apiErrors.error_description)}`
         } else if (isAuthenticated) {
-            navigateTo = "/dashboard"
+            navigateTo = "/@/utils"
             setUsermail(userInLs.user.email)
             setPopupNotification("Logged in, redirecting")
             setPopupNotificationShow(true)
@@ -101,7 +101,7 @@ const RootPage = () => {
         <main id="main">
             <div>
                 Redirecting to wherever you should be right now... <br />
-                <Link to="/dashboard">dashboard</Link>
+                <Link to="/@/utils">@/utils</Link>
                 <br />
                 <Link to="/auth/resetpassword">password reset page</Link>
             </div>

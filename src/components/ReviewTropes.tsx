@@ -1,11 +1,11 @@
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "../App"
-import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
-import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
-import updateEntriesDbxxx from "../functions/updateEntriesDb"
-import BaseBadge from "./ui/BaseBadge"
-import BtnCancel from "./ui/buttons/BtnCancel"
-import BtnAddTrope from "./ui/buttons/BtnAddTrope"
+import { AppContext } from "@/App"
+import { cleanIndexKey, cleanInput } from "@/helpers/cleanInput"
+import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
+import updateEntriesDbxxx from "@/functions/updateEntriesDb"
+import BaseBadge from "@/components/ui/BaseBadge"
+import BtnCancel from "@/components/ui/buttons/BtnCancel"
+import BtnAddTrope from "@/components/ui/buttons/BtnAddTrope"
 
 const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)

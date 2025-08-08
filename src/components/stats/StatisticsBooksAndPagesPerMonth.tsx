@@ -1,6 +1,6 @@
-import StatisticsFinishedInMonth from "./StatisticsFinishedInMonth"
-import BooksWithoutPagesList from "./BooksWithoutPagesList"
-import getMonthName from "../../utils/monthName"
+import StatisticsFinishedInMonth from "@/components/stats/StatisticsFinishedInMonth"
+import BooksWithoutPagesList from "@/components/stats/BooksWithoutPagesList"
+import getMonthName from "@/utils/monthName"
 
 function StatisticsBooksAndPagesPerMonth({
     countBooksFinishedMonthly,

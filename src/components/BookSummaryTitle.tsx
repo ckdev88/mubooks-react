@@ -1,4 +1,4 @@
-import BookAuthorList from "./BookAuthorList"
+import BookAuthorList from "@/components/BookAuthorList"
 const BookSummaryTitle = ({
     book_title_short,
     book_first_publish_year,

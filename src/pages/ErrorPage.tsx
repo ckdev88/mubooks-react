@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react"
 import { useState } from "react"
-import { getUrlParamVal } from "../Helpers"
+import { getUrlParamVal } from "@/Helpers"
 import { useNavigate } from "react-router-dom"
-import { cleanSigns } from "../helpers/cleanInput"
-import HeaderBranding from "../components/HeaderBranding"
-import { AppContext } from "../App"
+import { cleanSigns } from "@/helpers/cleanInput"
+import HeaderBranding from "@/components/HeaderBranding"
+import { AppContext } from "@/App"
 
 const url = window.location.href
 

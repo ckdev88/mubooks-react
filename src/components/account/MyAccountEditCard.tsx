@@ -1,10 +1,10 @@
-import useCardRotate from "../../hooks/useCardRotate"
-import { AppContext } from "../../App"
+import useCardRotate from "@/hooks/useCardRotate"
+import { AppContext } from "@/App"
 import { useContext } from "react"
-import { supabase } from "../../../utils/supabase"
-import Heading from "../ui/Heading"
-import BtnBig from "../ui/buttons/BtnBig"
-import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import { supabase } from "@/../utils/supabase"
+import Heading from "@/components/ui/Heading"
+import BtnBig from "@/components/ui/buttons/BtnBig"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 
 export default function MyAccountEditCard() {
     const { see } = useCardRotate()

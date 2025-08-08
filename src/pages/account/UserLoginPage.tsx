@@ -1,11 +1,11 @@
 import { useEffect, useContext } from "react"
-import LoginCard from "../../components/account/LoginCard"
-import SignupCard from "../../components/account/SignupCard"
-import RecoverCard from "../../components/account/RecoverCard"
-import setDraaideurHeight from "../../functions/setDraaideurHeight"
-import { AppContext } from "../../App"
+import LoginCard from "@/components/account/LoginCard"
+import SignupCard from "@/components/account/SignupCard"
+import RecoverCard from "@/components/account/RecoverCard"
+import setDraaideurHeight from "@/functions/setDraaideurHeight"
+import { AppContext } from "@/App"
 import { useNavigate } from "react-router-dom"
-import HeaderBranding from "../../components/HeaderBranding"
+import HeaderBranding from "@/components/HeaderBranding"
 
 export default function UserLoginPage() {
     const navigate = useNavigate()

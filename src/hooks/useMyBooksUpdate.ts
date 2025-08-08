@@ -1,7 +1,7 @@
 // FIXME not used right now, probably redundant, but the wish is to harmonize actions of useMyBooksRemove and useMyBooksAdd together
 import { useContext } from "react"
-import { AppContext } from "./../App"
-import useUpdateDb from "./useUpdateDb"
+import { AppContext } from "@/App"
+import useUpdateDb from "@/hooks/useUpdateDb"
 
 const useMyBooksUpdate = (myBooksNew: Books) => {
     const { setUserMyBooks, setPopupNotification } = useContext(AppContext)

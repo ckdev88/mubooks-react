@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
-import { AppContext } from "../App"
-import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
-import BtnRate from "./ui/buttons/BtnRate"
+import { AppContext } from "@/App"
+import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
+import BtnRate from "@/components/ui/buttons/BtnRate"
 
 const ReviewRating = ({
     book_id,

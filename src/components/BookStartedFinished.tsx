@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
-import { debounce, openCalendarPopUp } from "../Helpers"
-import { AppContext } from "../App"
-import { convertDate } from "../helpers/convertDate"
-import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-import useMyBooksUpdateDb from "../hooks/useMyBooksUpdateDb"
+import { debounce, openCalendarPopUp } from "@/Helpers"
+import { AppContext } from "@/App"
+import { convertDate } from "@/helpers/convertDate"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
+import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 
 const BookStartedFinished = ({
     date_started,

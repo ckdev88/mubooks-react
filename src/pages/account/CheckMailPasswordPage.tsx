@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/App"
 import { Link, redirect } from "react-router-dom"
-import HeaderBranding from "../../components/HeaderBranding"
-import { getTabTitle } from "../../Helpers"
+import HeaderBranding from "@/components/HeaderBranding"
+import { getTabTitle } from "@/Helpers"
 
 const pageTitle = "Check your mailbox"
 document.title = getTabTitle()

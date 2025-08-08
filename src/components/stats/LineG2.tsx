@@ -1,7 +1,7 @@
 // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart
 import Chart from "react-google-charts"
 import { memo, useContext, useMemo } from "react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/App"
 
 const months = [
     "January",

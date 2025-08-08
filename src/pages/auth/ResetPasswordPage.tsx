@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
-import { supabase } from "../../../utils/supabase"
+import { supabase } from "@/../utils/supabase"
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "../../App"
-import HeaderBranding from "../../components/HeaderBranding"
-import Heading from "../../components/ui/Heading"
-import { localStorageKey } from "../../../utils/supabase"
-import BtnBig from "../../components/ui/buttons/BtnBig"
+import { AppContext } from "@/App"
+import HeaderBranding from "@/components/HeaderBranding"
+import Heading from "@/components/ui/Heading"
+import { localStorageKey } from "@/../utils/supabase"
+import BtnBig from "@/components/ui/buttons/BtnBig"
 
 const ResetPasswordPage = () => {
     const { userIsLoggedIn, setPopupNotification, setPopupNotificationShow } =
@@ -15,7 +15,7 @@ const ResetPasswordPage = () => {
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    if (userIsLoggedIn) navigate("/dashboard")
+    if (userIsLoggedIn) navigate("/@/utils")
 
     const updateSbUser = async (form_userpass: string) => {
         const { error } = await supabase.auth.updateUser({
@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
         else {
             setPopupNotification("Password updated...")
             setPopupNotificationShow(true)
-            setTimeout(() => navigate("/dashboard"), 800)
+            setTimeout(() => navigate("/@/utils"), 800)
         }
     }
 
@@ -113,7 +113,7 @@ const ResetPasswordPage = () => {
                         </form>
                     </main>
                     <footer>
-                        <Link className="btn-text" to="/dashboard">
+                        <Link className="btn-text" to="/@/utils">
                             Login without changing password.
                         </Link>
                     </footer>

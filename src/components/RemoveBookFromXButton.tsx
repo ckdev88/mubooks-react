@@ -1,10 +1,10 @@
 import { useMemo, useCallback } from "react"
-import getListName from "../functions/getListName"
-import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-import collapseItem from "../utils/uiMisc"
-import BtnHeart from "./ui/buttons/BtnHeart"
-import useMyBooksRemove from "../hooks/useMyBooksRemove"
-import shouldCollapse from "../utils/shouldCollapse"
+import getListName from "@/functions/getListName"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
+import collapseItem from "@/utils/uiMisc"
+import BtnHeart from "@/components/ui/buttons/BtnHeart"
+import useMyBooksRemove from "@/hooks/useMyBooksRemove"
+import shouldCollapse from "@/utils/shouldCollapse"
 
 /**
  * Remove book from list where 1=Wishlist 2=Reading 3=Finished 4=Favourite or toss
@@ -51,7 +51,7 @@ const RemoveBookFromXButton = ({
     }
     const actionIcon = actionIconFn()
 
-    // TODO animation check if book.id dependency would be faster than book, 
+    // TODO animation check if book.id dependency would be faster than book,
     // TODO animation check if all dependencies are necessary
     const handleClick = useCallback(
         // biome-ignore lint/complexity/useArrowFunction: <TODO: arrow function call better?>

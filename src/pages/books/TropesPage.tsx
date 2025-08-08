@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState, useContext } from "react"
-import TropesInMyBooks from "../../components/TropesInMyBooks"
-import TropesPrefs from "../../components/TropesPrefs"
-import Heading from "../../components/ui/Heading"
+import TropesInMyBooks from "@/components/TropesInMyBooks"
+import TropesPrefs from "@/components/TropesPrefs"
+import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/App"
 
 export const TropesPageContext = createContext<TropesPageContextType>({} as TropesPageContextType)
 

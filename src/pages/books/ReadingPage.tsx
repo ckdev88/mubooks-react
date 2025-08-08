@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import BooksOverviewPage from "./BooksOverviewPage"
-import { AppContext } from "../../App"
+import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
+import { AppContext } from "@/App"
 import { Link } from "react-router-dom"
-import Heading from "../../components/ui/Heading"
+import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
 
 const pageTitle = `What I'm reading now`

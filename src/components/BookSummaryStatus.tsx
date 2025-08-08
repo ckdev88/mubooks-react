@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import convertDate from "../helpers/convertDate"
+import convertDate from "@/helpers/convertDate"
 
 const BookSummaryStatus = ({
     book,

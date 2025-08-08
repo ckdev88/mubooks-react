@@ -1,5 +1,5 @@
-import BookSummaryCover from "./BookSummaryCover"
-import ReviewRating from "./ReviewRating"
+import BookSummaryCover from "@/components/BookSummaryCover"
+import ReviewRating from "@/components/ReviewRating"
 
 const reviewRatingPages: Page[] = ["finished", "favourites", "tropes"]
 const BookSummaryAside = ({ book, currentPage }: { book: Book; currentPage: Page }) => {

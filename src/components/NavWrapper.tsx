@@ -1,11 +1,11 @@
 import { useContext, useState } from "react"
-import { AppContext } from "../App"
+import { AppContext } from "@/App"
 import { useNavigate, NavLink } from "react-router-dom"
-import updatePreferences from "../functions/updatePreferences"
-import { isLocal, getTabTitle, getNavTitle } from "../Helpers"
-import BtnNavBurgerToggle from "./ui/buttons/BtnNavBurgerToggle"
-import BtnNavZoek from "./ui/buttons/BtnNavZoek"
-import BtnNavDarkmodeToggle from "./ui/buttons/BtnNavDarkmodeToggle"
+import updatePreferences from "@/functions/updatePreferences"
+import { isLocal, getTabTitle, getNavTitle } from "@/Helpers"
+import BtnNavBurgerToggle from "@/components/ui/buttons/BtnNavBurgerToggle"
+import BtnNavZoek from "@/components//ui/buttons/BtnNavZoek"
+import BtnNavDarkmodeToggle from "@/components//ui/buttons/BtnNavDarkmodeToggle"
 
 const NavWrapper = () => {
     const navigate = useNavigate()

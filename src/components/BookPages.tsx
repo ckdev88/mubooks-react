@@ -1,5 +1,5 @@
 import { createContext, useState } from "react"
-import BookModifyPages from "./BookModifyPages"
+import BookModifyPages from "@/components/BookModifyPages"
 
 export const IsModdingPagesContext = createContext<IsModdingPagesContextType>(
     {} as IsModdingPagesContextType,

@@ -1,4 +1,4 @@
-import BookSummary from "./BookSummary"
+import BookSummary from "@/components/BookSummary"
 const BooksOverviewPageQuoted = ({ books, page }: { books: Books; page: Page }) => (
     <>
         {books?.flatMap((book) =>

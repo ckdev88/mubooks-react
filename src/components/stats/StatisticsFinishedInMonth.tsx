@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/App"
 import { HashLink } from "react-router-hash-link"
-import { cleanAnchor } from "../../helpers/cleanInput"
+import { cleanAnchor } from "@/helpers/cleanInput"
 
 const StatisticsFinishedInMonth = ({ yearmonth }: { yearmonth: number }) => {
     const { userMyBooks } = useContext(AppContext)

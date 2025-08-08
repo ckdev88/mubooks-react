@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { AppContext } from "../App"
-import useMyBooksUpdateDb from "./useMyBooksUpdateDb"
-import { cleanInput } from "../helpers/cleanInput"
-import { IsModdingReviewContext } from "../components/BookSummaryReview"
-import { notification as nm } from "../i18n/notifications"
+import { AppContext } from "@/App"
+import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
+import { cleanInput } from "@/helpers/cleanInput"
+import { IsModdingReviewContext } from "@/components/BookSummaryReview"
+import { notification as nm } from "@/i18n/notifications"
 
 const useChangeReview = (
     book_id: Book["id"],

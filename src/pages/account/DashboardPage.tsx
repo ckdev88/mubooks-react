@@ -1,8 +1,8 @@
 import { useContext, useMemo } from "react"
-import QuoteCard from "../../components/QuoteCard"
-import DashboardDeck from "../../components/dashboard/DashboardDeck"
+import QuoteCard from "@/components/QuoteCard"
+import DashboardDeck from "@/components/dashboard/DashboardDeck"
 import { motion } from "motion/react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/App"
 
 export default function DashboardPage() {
     const { userMyBooks, darkTheme, GLOBALS } = useContext(AppContext)
@@ -53,7 +53,7 @@ export default function DashboardPage() {
             books: booksNotTossed?.filter((book) => book.list > 0),
             btnIconAdd: "img/save-books-icon.png",
             icon: "savedbooks.svg",
-            noBooksText: "Let\'s start saving books.",
+            noBooksText: "Let's start saving books.",
             page: "savedbooks",
             title: "All of Mu Books",
         },

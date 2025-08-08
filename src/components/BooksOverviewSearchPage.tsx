@@ -1,6 +1,6 @@
-import BookSummary from "./BookSummary"
+import BookSummary from "@/components/BookSummary"
 import { useContext } from "react"
-import { AppContext } from "../App"
+import { AppContext } from "@/App"
 
 /**
  * Maps through search results to match with saved books to show data, e.g. date_reading, date_finished

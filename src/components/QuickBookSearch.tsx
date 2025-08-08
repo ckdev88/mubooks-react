@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { getOlCover } from "../Helpers"
-import Heading from "./ui/Heading"
-import BtnCancel from "./ui/buttons/BtnCancel"
+import { getOlCover } from "@/Helpers"
+import Heading from "@/components/ui/Heading"
+import BtnCancel from "@/components/ui/buttons/BtnCancel"
 // TODO currently not used anywhere, this would be nice for cases where a search is executed on every keypress, and easily selects one of the results, which is also only useful if zoomin in on 1 result is utilized
 
 /*

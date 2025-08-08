@@ -2,10 +2,10 @@
  isModding, on showing, pick a random quote of the array, quotes page don't know how to visualize this yet
  */
 import { useContext, useEffect } from "react"
-import { IsModdingReviewContext } from "./BookSummaryReview"
-import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
-import useChangeReview from "../hooks/useChangeReview"
-import BtnCancel from "./ui/buttons/BtnCancel"
+import { IsModdingReviewContext } from "@/components/BookSummaryReview"
+import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
+import useChangeReview from "@/hooks/useChangeReview"
+import BtnCancel from "@/components/ui/buttons/BtnCancel"
 
 /** Modify review, triggered when state of isModding is true */
 const BookModifyReview = ({

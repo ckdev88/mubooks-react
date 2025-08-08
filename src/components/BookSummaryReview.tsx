@@ -1,6 +1,6 @@
 import { createContext, useState } from "react"
-import BookModifyReview from "./BookModifyReview"
-import { getCurrentPage } from "../Helpers"
+import BookModifyReview from "@/components/BookModifyReview"
+import { getCurrentPage } from "@/Helpers"
 
 export const IsModdingReviewContext = createContext<IsModdingReviewContextType>(
     {} as IsModdingReviewContextType,
