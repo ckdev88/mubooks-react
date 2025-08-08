@@ -22,13 +22,15 @@
         padding: 0;
     }
 }
+
 @media screen and (max-width: 379.98px) {
     .adder main {
         padding: 0;
     }
 }
+.adder{ 
 
-.adder main.toadd {
+main.toadd {
     display: flex;
     line-height: 2em;
     justify-content: left;
@@ -36,12 +38,13 @@
     align-items: center;
     font-size: 0.9rem;
 }
-.adder .btn-icon {
+.btn-icon {
     display: block;
 }
 
-.adder aside {
+aside {
     font-size: 0.9rem;
+}
 }
 
 .adder.alt header {

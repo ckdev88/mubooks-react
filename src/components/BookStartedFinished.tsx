@@ -10,11 +10,13 @@ const BookStartedFinished = ({
     date_finished,
     book_id,
     list,
+    readOnly,
 }: {
     date_started: Book["date_reading"]
     date_finished: Book["date_finished"]
     book_id: Book["id"]
     list: Book["list"]
+    readOnly?: boolean
 }) => {
     const { userMyBooks, setUserMyBooks, todaysDateInput } = useContext(AppContext)
     const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
@@ -47,6 +49,37 @@ const BookStartedFinished = ({
         setShowFinishedDate,
         dateFinished,
     ])
+
+    if (readOnly) {
+        return (
+            <div className="book-started-finished">
+                <div>
+                    {list === 2 && (
+                        // reading since <date>
+                        <em className="btn-text readonly">
+                            <span className="icon icon-reading" />
+                            <BtnTextGeneral
+                                bText={dateStarted && convertDate(dateStarted, "human")}
+                                readOnly={true}
+                            />
+                        </em>
+                    )}
+                    {
+                        // finished at <date>
+                        list > 2 && (
+                            <em className="btn-text readonly">
+                                <span className="icon icon-finished" />
+                                <BtnTextGeneral
+                                    bText={date_finished && convertDate(date_finished, "human")}
+                                    readOnly={true}
+                                />
+                            </em>
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
 
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
         if (fieldName !== "date_reading" && fieldName !== "date_finished") {
@@ -101,6 +134,7 @@ const BookStartedFinished = ({
         const newDate = Number.parseInt(newDateArr[0] + newDateArr[1] + newDateArr[2], 10)
         changeDates(field, newDate)
     }
+
     useEffect(() => {
         if (dateStarted && showStartedDate) {
             const eleDateReading = document.getElementById(

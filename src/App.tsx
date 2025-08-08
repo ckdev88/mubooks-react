@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom"
 import { supabase, localStorageKey } from "../utils/supabase"
 import "./functions/miscEventListeners.ts"
 
+import useInsertEmptyArray from "./hooks/useInsertEmptyArray.ts"
+const insertEmptyArray = useInsertEmptyArray()
+
 // utils TODO move into ./utils/
 import { isLocal } from "./Helpers.ts"
 import { timestampConverter } from "./helpers/convertDate.ts"
@@ -99,6 +102,7 @@ const App = () => {
             },
             userid: userid,
             bookRemoveAnimationDuration: 250, // in ms // TODO this is currenly not used, remove?
+
         }),
         [userid],
     )
@@ -114,11 +118,13 @@ const App = () => {
 
     // add persistency to userMyBooks state throughout page refreshes
     const persistMyBooks = async () => {
-        let booksArr: Books
+        let booksArr: Books = []
         const res = await supabase.from("user_entries").select("json")
         if (res.data) {
+            // first visit, lets put an empty array in there
+            if (res.data.length === 0) await insertEmptyArray().catch(() => console.log("ging wat fout yo"))
+            else booksArr = res.data[0].json
             setInitialMyBooksSet(true)
-            booksArr = res.data[0].json
             setUserMyBooks(booksArr)
             return
         }

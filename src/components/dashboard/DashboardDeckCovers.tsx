@@ -14,6 +14,7 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
                     key={`BookSummary${book.id}`}
                     currentPage="dashboard"
                     refer={page}
+                    readOnly={true}
                 />
             )
         })

@@ -8,14 +8,16 @@ button,
 .btn-sm {
     cursor: pointer;
 }
-input[type="text"],
-input[type="url"],
-input[type="password"],
-input[type="number"],
-input[type="email"],
-input[type="file"] {
-    background-color: white;
-    color: black;
+input {
+    &[type="text"],
+    &[type="url"],
+    &[type="password"],
+    &[type="number"],
+    &[type="email"],
+    &[type="file"] {
+        background-color: white;
+        color: black;
+    }
 }
 input[type="file"] {
     cursor: pointer;
@@ -44,18 +46,6 @@ textarea,
         text-decoration 0.18s linear;
 }
 
-.btn-sm,
-.btn-lg {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    color: #ffffff;
-    font-weight: bold;
-}
-.btn.btn-red {
-    background-color: var(--red);
-    border-color: var(--red);
-}
-
 input[type="text"]:focus,
 input[type="text"]:focus-visible,
 input[type="url"]:focus,
@@ -73,47 +63,53 @@ textarea:focus,
     border-color: var(--primary);
     outline: none;
 }
-.btn-sm:hover,
-.btn-lg:hover {
-    box-shadow: var(--shade-around);
-    background-color: var(--primary-darker);
-    border-color: var(--primary-darker);
+
+.btn-sm {
+    .badge:hover {
+        color: white;
+        background-color: var(--primary-darker);
+    }
 }
 
-.btn-sm.badge:hover {
-    color: white;
-    background-color: var(--primary-darker);
+.btn {
+    &.btn-red {
+        background-color: var(--red);
+        border-color: var(--red);
+        &:hover,
+        &:active,
+        &:active:hover {
+            background-color: var(--red-darker);
+            outline-color: var(--red-darker);
+        }
+    }
 }
 
-.btn-lg:active,
-.btn-sm:active,
-.btn-lg:active:hover,
-.btn-sm:active:hover,
-.btn-lg:focus-active,
-.btn-sm:focus-active,
-.btn-lg:focus-active:hover,
-.btn-sm:focus-active:hover {
-    background-color: var(--primary-darker2);
-    outline-color: var(--primary-darker2);
-}
-.btn.btn-red:hover,
-.btn.btn-red:active,
-.btn.btn-red:active:hover {
-    background-color: var(--red-darker);
-    outline-color: var(--red-darker);
-}
-
-.btn-sm:disabled,
-.btn-sm:disabled:hover,
-.btn-sm:disabled:active,
-.btn-sm:disabled:focus,
-.btn-lg:disabled,
-.btn-lg:disabled:hover,
-.btn-lg:disabled:active,
-.btn-lg:disabled:focus {
-    border-color: transparent;
-    background-color: var(--disabled);
-    cursor: not-allowed;
+.btn-sm,
+.btn-lg {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+    font-weight: bold;
+    &:hover {
+        box-shadow: var(--shade-around);
+        background-color: var(--primary-darker);
+        border-color: var(--primary-darker);
+    }
+    &:active,
+    &:active:hover,
+    &:focus-active,
+    &:focus-active:hover {
+        background-color: var(--primary-darker2);
+        outline-color: var(--primary-darker2);
+    }
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:active,
+    &:disabled:focus {
+        border-color: transparent;
+        background-color: var(--disabled);
+        cursor: not-allowed;
+    }
 }
 
 main button.alt,
@@ -122,31 +118,40 @@ main button.alt,
     color: #333;
     border-color: transparent;
 }
-.adder .btn-icon {
-    background-size: cover;
-    height: 2.5rem;
-    margin-right: 0.75rem;
-    overflow: hidden;
-    padding: 0;
-    width: 2.5rem;
-}
-.adder button img {
-    box-sizing: border-box;
-    height: 100%;
-    padding: 0.25rem;
-    width: auto;
+
+.adder {
+    .btn-icon {
+        background-size: cover;
+        height: 2.5rem;
+        margin-right: 0.75rem;
+        overflow: hidden;
+        padding: 0;
+        width: 2.5rem;
+    }
+    button img {
+        box-sizing: border-box;
+        height: 100%;
+        padding: 0.25rem;
+        width: auto;
+    }
 }
 .a-text,
 .btn-text,
 .btn-icon {
     text-decoration: none;
     color: var(--link);
+    &.readonly {
+        color: var(--text-primary);
+    }
 }
 .btn-text,
 .btn-icon {
     background: none;
     border: 0;
     cursor: pointer;
+    &.readonly {
+        cursor: default;
+    }
     display: inline-block;
     font-size: 1rem;
     font-weight: normal;
@@ -154,39 +159,40 @@ main button.alt,
     line-height: 1.3rem;
     padding: 0;
     text-align: left;
+    &:disabled,
+    &:disabled:hover,
+    &:active,
+    &:active:hover,
+    &:focus,
+    &:hover {
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+    }
 }
-.btn-text:disabled,
-.btn-text:disabled:hover,
-.btn-text:active,
-.btn-text:active:hover,
-.btn-text:focus,
-.btn-icon:active,
-.btn-icon:active:hover,
-.btn-icon:focus,
-.btn-icon:hover {
-    background: transparent;
-    outline: none;
-    box-shadow: none;
+
+.a-text,
+.btn-text {
+    &:hover,
+    &:active {
+        color: var(--link-hover);
+        text-decoration: none;
+    }
+    &.readonly {
+        &:hover {
+            color: inherit;
+        }
+    }
 }
-.btn-text:disabled,
-.btn-text:disabled:hover {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+
 .btn-text {
     border: none;
     box-shadow: none;
-}
-
-.a-text:hover,
-.a-text:active,
-.btn-text:hover,
-.btn-text:active {
-    color: var(--link-hover);
-    text-decoration: none;
-}
-
-.btn-text {
+    &:disabled,
+    &:disabled:hover {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
     &.synopsis {
         font-weight: bold;
     }
@@ -256,8 +262,8 @@ main button.alt,
     transform: scaleY(1);
 }
 .expandable-container.synopsis .btn-text {
-    margin-left: .4rem;
-    margin-top: .4rem;
+    margin-left: 0.4rem;
+    margin-top: 0.4rem;
 }
 
 .expandable {
@@ -266,6 +272,10 @@ main button.alt,
     &.expanded {
         height: auto;
         opacity: 1;
+    }
+    &.collapsed {
+        opacity: 0;
+        height: 0;
     }
 }
 ul.expandable {
@@ -282,46 +292,41 @@ ul.expandable {
 ul.expandable-list a {
     text-decoration: none;
 }
-.expandable.collapsed {
-    opacity: 0;
-    height: 0;
-}
-
 .btn-lg {
     font-size: 1rem;
-}
-.btn-lg:first-letter {
-    text-transform: uppercase;
+    &:first-letter {
+        text-transform: uppercase;
+    }
 }
 .btn-text,
 .btn-icon {
     margin-bottom: 0;
 }
+
 .btn-calendar {
     font-style: inherit;
-}
-.btn-calendar::after {
-    display: inline-block;
-    height: 1em;
-    width: 1em;
-    line-height: 1em;
-    padding: 0;
-    margin: 0;
-    content: " ";
-    background-color: transparent;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: 100%;
-    max-width: 1em;
-    background-image: var(--icon-calendar);
-    max-height: 1em;
-    opacity: 0;
-    transition: opacity 0.18s ease-in-out;
-}
-
-.btn-calendar:focus::after,
-.btn-calendar:hover::after {
-    opacity: 1;
+    &::after {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        line-height: 1em;
+        padding: 0;
+        margin: 0;
+        content: " ";
+        background-color: transparent;
+        background-size: 80%;
+        background-repeat: no-repeat;
+        background-position: 100%;
+        max-width: 1em;
+        background-image: var(--icon-calendar);
+        max-height: 1em;
+        opacity: 0;
+        transition: opacity 0.18s ease-in-out;
+    }
+    &:focus::after,
+    &:hover::after {
+        opacity: 1;
+    }
 }
 
 .btn-submit-inside-caret-right {
@@ -341,38 +346,39 @@ ul.expandable-list a {
     transform: rotate(90deg);
     transition: background-color 0.18s ease-in-out, border-color 0.18s ease-in-out;
     width: 1rem;
-}
 
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none;
+        background-image: url("/img/cv-caret-medium.dark.svg");
+        border-color: white;
+        background-color: var(--primary);
+        box-shadow: none;
+    }
+}
 input[type="number"] + .btn-submit-inside-caret-right {
     margin-top: 0.25rem;
     margin-right: 0.25rem;
 }
-.btn-submit-inside-caret-right:hover,
-.btn-submit-inside-caret-right:focus,
-.btn-submit-inside-caret-right:active {
-    outline: none;
-    background-image: url("/img/cv-caret-medium.dark.svg");
-    border-color: white;
-    background-color: var(--primary);
-    box-shadow: none;
-}
+
 .btn-sm {
     color: #ffffff;
-}
-.btn-sm.active {
-    background-color: transparent;
-    border-color: transparent;
-    color: var(--primary);
-}
-.btn-sm .icon {
-    display: inline-block;
-}
-.btn-sm .icon::before {
-    margin-left: -2px;
-    margin-right: 0.2rem;
-}
-.btn-sm .icon-add::before {
-    content: "+";
+    &.active {
+        background-color: transparent;
+        border-color: transparent;
+        color: var(--primary);
+    }
+    .icon {
+        display: inline-block;
+        &::before {
+            margin-left: -2px;
+            margin-right: 0.2rem;
+        }
+    }
+    .icon-add::before {
+        content: "+";
+    }
 }
 .badge,
 .btn-sm {
@@ -384,6 +390,14 @@ input[type="number"] + .btn-submit-inside-caret-right {
     padding: 0 0.4rem;
     margin: 0.35rem 0.35rem 0 0;
     width: auto;
+    &.cgreen {
+        background-color: var(--lightgreen);
+        color: var(--green);
+    }
+    &.cred {
+        background-color: var(--lightred);
+        color: var(--red);
+    }
 }
 .badge,
 .btn-sm,
@@ -391,6 +405,7 @@ input[type="number"] + .btn-submit-inside-caret-right {
     display: inline-flex;
     align-items: center;
 }
+
 .badge {
     background-color: var(--badgebg);
     color: var(--badgefg);
@@ -402,55 +417,47 @@ input[type="number"] + .btn-submit-inside-caret-right {
         background-color: transparent;
         color: var(--text-primary-dimmed);
     }
-}
-.badge.cgreen,
-.btn-sm.cgreen {
-    background-color: var(--lightgreen);
-    color: var(--green);
+    .btn-x {
+        background-color: red;
+        border-radius: 50%;
+        border: 0;
+        box-sizing: content-box;
+        color: white;
+        cursor: pointer;
+        font-size: 0.6em;
+        height: 11px;
+        line-height: 11px;
+        padding: 0;
+        position: absolute;
+        right: -0.3rem;
+        text-align: center;
+        top: -0.2rem;
+        transition: background-color 0.18s linear, color 0.18s linear;
+        width: 11px;
+    }
+    &.cgreen {
+        .btn-x {
+            background-color: var(--green);
+            &:hover {
+                border-color: var(--green);
+            }
+        }
+    }
+    &.cred .btn-x {
+        background-color: var(--red);
+        &:hover {
+            border-color: var(--red);
+        }
+    }
+    .btn-x:hover,
+    &.cgreen .btn-x:hover,
+    &.cred .btn-x:hover {
+        outline: none;
+        background-color: white;
+        color: red;
+    }
 }
 
-.badge.cred,
-.btn-sm.cred {
-    background-color: var(--lightred);
-    color: var(--red);
-}
-.badge .btn-x {
-    background-color: red;
-    border-radius: 50%;
-    border: 0;
-    box-sizing: content-box;
-    color: white;
-    cursor: pointer;
-    font-size: 0.6em;
-    height: 11px;
-    line-height: 11px;
-    padding: 0;
-    position: absolute;
-    right: -0.3rem;
-    text-align: center;
-    top: -0.2rem;
-    transition: background-color 0.18s linear, color 0.18s linear;
-    width: 11px;
-}
-.badge.cgreen .btn-x {
-    background-color: var(--green);
-}
-.badge.cgreen .btn-x:hover {
-    border-color: var(--green);
-}
-.badge.cred .btn-x {
-    background-color: var(--red);
-}
-.badge.cred .btn-x:hover {
-    border-color: var(--red);
-}
-.badge .btn-x:hover,
-.badge.cgreen .btn-x:hover,
-.badge.cred .btn-x:hover {
-    outline: none;
-    background-color: white;
-    color: red;
-}
 .btn-text,
 .btn-icon {
     .icon {
@@ -555,15 +562,6 @@ input[type="number"] + .btn-submit-inside-caret-right {
 }
 
 button.icon-heart {
-    &:hover,
-    &:focus,
-    &:active,
-    &:active:hover {
-        background: none;
-    }
-}
-
-button.icon-heart {
     background: none;
     border: 0;
     border: none;
@@ -576,11 +574,12 @@ button.icon-heart {
     display: flex;
     align-items: center;
     justify-content: center;
-    &.inactive {
-        opacity: 0.25;
-    }
-    &.active {
-        opacity: 1;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:active:hover {
+        background: none;
     }
     &.shrink {
         animation: icon-heart-popin .4s linear;
@@ -606,34 +605,29 @@ button.icon-heart {
             left: -.4rem;
         }
     }
-}
-button.icon-heart.active {
-    background: none;
-}
-button.icon-heart .inside,
-button.icon-heart .inside::before,
-button.icon-heart .inside::after {
-    content: "";
-    height: .8rem;
-    width: .8rem;
-}
-button.icon-heart .inside::before,
-button.icon-heart .inside::after {
-    position: absolute;
-}
-button.icon-heart.inactive {
     .inside,
     .inside::before,
     .inside::after {
-        background-color: var(--text-primary-dimmed);
+        content: "";
+        height: .8rem;
+        width: .8rem;
     }
-}
-
-button.icon-heart.active {
-    .inside,
-    .inside::before,
-    .inside::after {
-        background-color: var(--red);
+    &.inactive {
+        opacity: 0.25;
+        .inside,
+        .inside::before,
+        .inside::after {
+            background-color: var(--text-primary-dimmed);
+        }
+    }
+    &.active {
+        background: none;
+        opacity: 1;
+        .inside,
+        .inside::before,
+        .inside::after {
+            background-color: var(--red);
+        }
     }
 }
 
@@ -691,27 +685,22 @@ button.icon-heart.active {
     border: none;
     position: relative;
     transition: transform 0.18s linear;
-}
-#accessibility-darkmode:hover {
-    transform: rotate(20deg);
-}
-
-#accessibility-darkmode svg {
-    position: absolute;
-    transition: opacity 0.18s ease-in-out;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-#accessibility-darkmode #sun-svg {
-    opacity: 0;
-}
-#accessibility-darkmode #moon-svg {
-    opacity: 1;
-}
-#accessibility-darkmode.active #sun-svg {
-    opacity: 1;
-}
-#accessibility-darkmode.active #moon-svg {
-    opacity: 0;
+    &:hover {
+        transform: rotate(20deg);
+    }
+    svg {
+        position: absolute;
+        transition: opacity 0.18s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #sun-svg,
+    &.active #moon-svg {
+        opacity: 0;
+    }
+    &.active #sun-svg,
+    #moon-svg {
+        opacity: 1;
+    }
 }
