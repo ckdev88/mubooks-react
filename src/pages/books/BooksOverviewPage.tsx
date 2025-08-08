@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, createContext, useMemo } from "react"
 import BookSummary from "@/components/BookSummary"
 import BooksOverviewFilterSort from "@/components/BooksOverviewFilterSort"
-import { TropesPageContext } from "@/pages/books/TropesPage"
+import { TropesPageContext } from "@/pages/TropesPage"
 import BooksOverviewPageQuoted from "@/components/BooksOverviewPageQuoted"
 import BooksOverviewFilterResultsMessage from "@/components/BooksOverviewFilterResultsMessage"
 import BooksOverviewSearchPage from "@/components/BooksOverviewSearchPage"
