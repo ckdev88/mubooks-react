@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { BooksOverviewFilterContext } from "@/pages/books/BooksOverviewPage"
+import { BooksOverviewFilterContext } from "@/components/BooksOverview/BooksOverview"
 import BtnCancel from "@/components/ui/buttons/BtnCancel"
 const BooksOverviewFilterSort = () => {
     const { setBooksFilter, booksFilter } = useContext(BooksOverviewFilterContext)

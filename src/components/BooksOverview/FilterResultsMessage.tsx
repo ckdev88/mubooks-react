@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { BooksOverviewFilterContext } from "@/pages/books/BooksOverviewPage"
+import { BooksOverviewFilterContext } from "@/components/BooksOverview/BooksOverview"
 
 const BooksOverviewFilterResultsMessage = () => {
     const { booksFilter, booksOverview } = useContext(BooksOverviewFilterContext)

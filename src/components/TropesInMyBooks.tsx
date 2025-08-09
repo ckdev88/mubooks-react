@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react"
 import { cleanIndexKey, cleanAnchor } from "@/utils/cleanInput"
 import { AppContext } from "@/context/AppContext"
-import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
+import BooksOverviewPage from "@/components/BooksOverview/BooksOverview"
 import { TropesPageContext } from "@/pages/Tropes"
 import { Link } from "react-router-dom"
 import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"

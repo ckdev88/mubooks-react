@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
+import BooksOverviewPage from "@/components/BooksOverview/BooksOverview"
 import { getOlCover } from "@/utils/Helpers"
 import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"

@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect, createContext, useMemo } from "react"
 import BookSummary from "@/components/BookSummary/BookSummary"
-import BooksOverviewFilterSort from "@/components/BooksOverviewFilterSort"
+import BooksOverviewFilterSort from "@/components/BooksOverview/FilterSort"
 import { TropesPageContext } from "@/pages/Tropes"
-import BooksOverviewPageQuoted from "@/components/BooksOverviewPageQuoted"
-import BooksOverviewFilterResultsMessage from "@/components/BooksOverviewFilterResultsMessage"
-import BooksOverviewSearchPage from "@/components/BooksOverviewSearchPage"
+import BooksOverviewPageQuoted from "@/components/BooksOverview/PageQuoted"
+import BooksOverviewFilterResultsMessage from "@/components/BooksOverview/FilterResultsMessage"
+import BooksOverviewSearchPage from "@/components/BooksOverview/SearchPage"
 
 // Array of pages which should have a search field to filter the list
 const fsPages: Page[] = ["wishlist", "finished", "favourites", "savedbooks"]

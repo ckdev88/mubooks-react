@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
+import BooksOverviewPage from "@/components/BooksOverview/BooksOverview"
 import { AppContext } from "@/context/AppContext"
 import { Link } from "react-router-dom"
 import Heading from "@/components/ui/Heading"

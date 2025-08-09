@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
+import BooksOverviewPage from "@/components/BooksOverview/BooksOverview"
 import { AppContext } from "@/context/AppContext"
 import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
