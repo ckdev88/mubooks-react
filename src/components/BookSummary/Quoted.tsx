@@ -1,5 +1,5 @@
-import BookSummaryReview from "@/components/BookSummaryReview"
-import BookSummaryTitle from "@/components/BookSummaryTitle"
+import BookSummaryReview from "@/components/BookSummary/Review"
+import BookSummaryTitle from "@/components/BookSummary/Title"
 
 const BookSummaryQuoted = ({
     book,

@@ -2,7 +2,7 @@
 // TODO openlibrary: make this form interact with openlibrary.org to help append to their database
 import { useContext, useState, useLayoutEffect } from "react"
 import { isUrl } from "@/utils/Helpers"
-import BookSummaryTitle from "@/components/BookSummaryTitle"
+import BookSummaryTitle from "@/components/BookSummary/Title"
 import { AppContext } from "@/context/AppContext"
 import updateEntriesDb from "@/functions/updateEntriesDb"
 import { cleanAnchor, cleanIndexKey } from "@/utils/cleanInput"

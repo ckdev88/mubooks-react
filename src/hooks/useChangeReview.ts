@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 import { cleanInput } from "@/utils/cleanInput"
-import { IsModdingReviewContext } from "@/components/BookSummaryReview"
+import { IsModdingReviewContext } from "@/components/BookSummary/Review"
 import { notification as nm } from "@/i18n/notifications"
 
 const useChangeReview = (

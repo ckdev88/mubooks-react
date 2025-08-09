@@ -1,4 +1,4 @@
-import BookSummaryCover from "@/components/BookSummaryCover"
+import BookSummaryCover from "@/components/BookSummary/Cover"
 import ReviewRating from "@/components/ReviewRating"
 
 const reviewRatingPages: Page[] = ["finished", "favourites", "tropes"]

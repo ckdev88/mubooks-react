@@ -1,4 +1,4 @@
-import BookSummary from "@/components/BookSummary"
+import BookSummary from "@/components/BookSummary/BookSummary"
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 
