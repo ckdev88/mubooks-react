@@ -3,7 +3,7 @@ import "@/functions/miscEventListeners.ts"
 import { isLocal } from "@/utils/Helpers.ts"
 
 // components
-import AppFooter from "@/components/AppFooter.tsx"
+import Footer from "@/components/layout/Footer.tsx"
 import NavWrapper from "@/components/NavWrapper"
 import PopupNotification from "@/components/ui/PopupNotification"
 
@@ -101,7 +101,7 @@ const AppWrapper = () => {
 
                 {userIsLoggedIn && (
                     <div id="footer" className="sf">
-                        <AppFooter />
+                        <Footer />
                     </div>
                 )}
             </>
