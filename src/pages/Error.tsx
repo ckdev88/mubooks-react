@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
 import { useState } from "react"
-import { getUrlParamVal } from "@/Helpers"
+import { getUrlParamVal } from "@/utils/Helpers"
 import { useNavigate } from "react-router-dom"
-import { cleanSigns } from "@/helpers/cleanInput"
+import { cleanSigns } from "@/utils/cleanInput"
 import HeaderBranding from "@/components/HeaderBranding"
 import { AppContext } from "@/context/AppContext"
 

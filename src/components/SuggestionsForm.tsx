@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react"
 import { AppContext } from "@/context/AppContext"
-import { cleanInput } from "@/helpers/cleanInput"
+import { cleanInput } from "@/utils/cleanInput"
 import useResetUsermail from "@/hooks/useResetUsermail"
-import { isLocal } from "@/Helpers"
+import { isLocal } from "@/utils/Helpers"
 import { Link } from "react-router-dom"
 import BtnBig from "@/components/ui/buttons/BtnBig"
 

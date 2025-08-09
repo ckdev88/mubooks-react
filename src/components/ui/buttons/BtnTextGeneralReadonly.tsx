@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react"
-import { cleanIndexKey } from "@/helpers/cleanInput"
+import { cleanIndexKey } from "@/utils/cleanInput"
 import { AppContext } from "@/context/AppContext"
 import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
 import { TropesPageContext } from "@/pages/Tropes"
-import { cleanAnchor } from "@/helpers/cleanInput"
+import { cleanAnchor } from "@/utils/cleanInput"
 import { Link } from "react-router-dom"
 import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 

@@ -6,7 +6,7 @@ import { useCallback, useContext, useEffect, useMemo } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AppContext } from "@/context/AppContext"
 import { supabase, localStorageKey } from "../../utils/supabase"
-import { getUrlParamVal } from "@/Helpers"
+import { getUrlParamVal } from "@/utils/Helpers"
 
 const RootPage = () => {
     const navigate = useNavigate()

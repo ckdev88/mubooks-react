@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import { AppContext } from "@/context/AppContext"
-import { cleanIndexKey, cleanInput } from "@/helpers/cleanInput"
+import { cleanIndexKey, cleanInput } from "@/utils/cleanInput"
 import { supabase } from "@/../utils/supabase"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
 import { TropesPageContext } from "@/pages/Tropes"

@@ -1,4 +1,4 @@
-import { getBookCover } from "@/Helpers"
+import { getBookCover } from "@/utils/Helpers"
 
 const BookSummaryCover = ({
     book_cover = "",

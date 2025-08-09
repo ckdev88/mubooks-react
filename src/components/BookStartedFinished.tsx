@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { debounce, openCalendarPopUp } from "@/Helpers"
+import { debounce, openCalendarPopUp } from "@/utils/Helpers"
 import { AppContext } from "@/context/AppContext"
-import { convertDate } from "@/helpers/convertDate"
+import { convertDate } from "@/utils/convertDate"
 import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 

@@ -1,8 +1,8 @@
 import BookSummary from "../BookSummary"
 import BookSummaryCover from "../BookSummaryCover"
 import { Link } from "react-router-dom"
-import { shuffleArray } from "@/Helpers"
-import { cleanAnchor } from "@/helpers/cleanInput"
+import { shuffleArray } from "@/utils/Helpers"
+import { cleanAnchor } from "@/utils/cleanInput"
 
 function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }) {
     if (booksarr === undefined) return <>Just wait a sec...</>

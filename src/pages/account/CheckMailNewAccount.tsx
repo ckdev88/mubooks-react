@@ -1,7 +1,7 @@
 // TODO account_emails: design & copywrite confirmation email
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
-import { getNavTitle } from "@/Helpers"
+import { getNavTitle } from "@/utils/Helpers"
 
 document.title = getNavTitle()
 

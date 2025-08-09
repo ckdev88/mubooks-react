@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import "@/functions/miscEventListeners.ts"
-import { isLocal } from "@/Helpers.ts"
+import { isLocal } from "@/utils/Helpers.ts"
 
 // components
 import AppFooter from "@/components/AppFooter.tsx"

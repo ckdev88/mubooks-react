@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
-import { cleanInput } from "@/helpers/cleanInput"
+import { cleanInput } from "@/utils/cleanInput"
 import { IsModdingPagesContext } from "@/components/BookPages"
 import { notification as nm } from "@/i18n/notifications"
 

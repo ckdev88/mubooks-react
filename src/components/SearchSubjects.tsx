@@ -1,6 +1,6 @@
 import { useState } from "react"
 import BaseBadge from "@/components/ui/BaseBadge"
-import { cleanIndexKey } from "@/helpers/cleanInput"
+import { cleanIndexKey } from "@/utils/cleanInput"
 import BtnMoreToggle from "@/components/ui/buttons/BtnMoreToggle"
 
 const subjectExpandLimit = 5

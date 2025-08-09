@@ -5,7 +5,7 @@ import assignListById from "@/utils/assignListById"
 import updateDb from "@/utils/updateDb"
 import { notification as nm } from "@/i18n/notifications"
 import shouldCollapse from "@/utils/shouldCollapse"
-import { getCurrentPage } from "@/Helpers"
+import { getCurrentPage } from "@/utils/Helpers"
 const currentPage = getCurrentPage()
 
 // TODO: apply these messages for better feedback

@@ -2,8 +2,8 @@
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
-import { getDurationDays } from "@/Helpers"
-import { cleanAnchor } from "@/helpers/cleanInput"
+import { getDurationDays } from "@/utils/Helpers"
+import { cleanAnchor } from "@/utils/cleanInput"
 
 interface ConciseDaysPerBook {
     id: Book["id"]

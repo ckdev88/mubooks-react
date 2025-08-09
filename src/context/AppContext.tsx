@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect, useMemo } from "react"
 import { supabase, localStorageKey } from "@/../utils/supabase"
 import useInsertEmptyArray from "@/hooks/useInsertEmptyArray.ts"
-import { timestampConverter } from "@/helpers/convertDate"
+import { timestampConverter } from "@/utils/convertDate"
 const insertEmptyArray = useInsertEmptyArray()
 
 const BG_COLORS = { dark: "#152129", light: "#f4f1ea" }

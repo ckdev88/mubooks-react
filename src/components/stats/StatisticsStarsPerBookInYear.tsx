@@ -1,7 +1,7 @@
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
-import { cleanAnchor } from "@/helpers/cleanInput"
+import { cleanAnchor } from "@/utils/cleanInput"
 
 interface ConciseStarsPerBook {
     id: Book["id"]
