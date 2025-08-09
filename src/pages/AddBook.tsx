@@ -8,7 +8,7 @@ import updateEntriesDb from "@/functions/updateEntriesDb"
 import { cleanAnchor, cleanIndexKey } from "@/utils/cleanInput"
 import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
-import BaseBadge from "@/components/ui/BaseBadge"
+import Badge from "@/components/ui/Badge"
 import { checkSimilar } from "@/utils/checks"
 import { formatBookTitle, formatBookAuthor } from "@/utils/formatInput"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
@@ -262,7 +262,7 @@ const AddBookPage = () => {
                             {bookAuthors.map((author, index) => {
                                 const key = cleanIndexKey("abpRemoveAuthor", index)
                                 return (
-                                    <BaseBadge
+                                    <Badge
                                         key={key}
                                         text={author}
                                         removeText={removeAuthor}
@@ -386,7 +386,7 @@ const AddBookPage = () => {
                             {bookTropes.map((trope, index) => {
                                 const key = cleanIndexKey("abpRemoveTrope" + trope, index)
                                 return (
-                                    <BaseBadge
+                                    <Badge
                                         key={key}
                                         text={trope}
                                         removeText={removeTrope}
@@ -429,7 +429,7 @@ const AddBookPage = () => {
                                         ) {
                                             return
                                         }
-                                        return <BaseBadge key={key} text={trope} type="trope" />
+                                        return <Badge key={key} text={trope} type="trope" />
                                     }
                                 })
                             }

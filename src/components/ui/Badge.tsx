@@ -1,4 +1,4 @@
-const BaseBadge = ({
+const Badge = ({
     text,
     removeText,
     removeTrope,
@@ -34,4 +34,4 @@ const BaseBadge = ({
         </div>
     )
 }
-export default BaseBadge
+export default Badge

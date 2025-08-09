@@ -3,7 +3,7 @@ import { AppContext } from "@/context/AppContext"
 import { cleanIndexKey, cleanInput } from "@/utils/cleanInput"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
 import updateEntriesDbxxx from "@/functions/updateEntriesDb"
-import BaseBadge from "@/components/ui/BaseBadge"
+import Badge from "@/components/ui/Badge"
 import BtnCancel from "@/components/ui/buttons/BtnCancel"
 import BtnAddTrope from "@/components/ui/buttons/BtnAddTrope"
 
@@ -48,7 +48,7 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                 {bookTropes.map((trope, index) => {
                     const key = cleanIndexKey("review_tropes" + bookid, index)
                     return (
-                        <BaseBadge key={key} text={trope} removeText={removeTrope} type="trope" />
+                        <Badge key={key} text={trope} removeText={removeTrope} type="trope" />
                     )
                 })}
                 <BtnAddTrope

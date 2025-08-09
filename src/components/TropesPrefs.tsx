@@ -5,7 +5,7 @@ import { supabase } from "@/../utils/supabase"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
 import { TropesPageContext } from "@/pages/Tropes"
 import updateTropesDb from "@/functions/updateTropesDb"
-import BaseBadge from "@/components/ui/BaseBadge"
+import Badge from "@/components/ui/Badge"
 import BtnCancel from "@/components/ui/buttons/BtnCancel"
 import BtnAddTrope from "@/components/ui/buttons/BtnAddTrope"
 
@@ -116,7 +116,7 @@ const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): 
                 {tropes.map((trope, index) => {
                     const key = cleanIndexKey(trope, index)
                     return (
-                        <BaseBadge
+                        <Badge
                             key={key}
                             text={trope}
                             removeTrope={removeTrope}
