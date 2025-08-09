@@ -3,7 +3,7 @@ import "@/functions/miscEventListeners.ts"
 import { isLocal } from "@/utils/Helpers.ts"
 
 // components
-import Footer from "@/components/layout/Footer.tsx"
+import Footer from "@/components/layout/Footer"
 import Navbar from "@/components/Navbar"
 import PopupNotification from "@/components/ui/PopupNotification"
 
