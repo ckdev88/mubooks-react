@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import getFinishedBooksStatsYears from "@/functions/getFinishedBooksStatsYears"
 import StatisticsYear from "@/components/stats/StatisticsYear"
 import Heading from "@/components/ui/Heading"

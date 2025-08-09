@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { cleanInput } from "@/helpers/cleanInput"
 import useResetUsermail from "@/hooks/useResetUsermail"
 import { isLocal } from "@/Helpers"

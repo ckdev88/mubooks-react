@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { Link, redirect } from "react-router-dom"
 import HeaderBranding from "@/components/HeaderBranding"
 import { getTabTitle } from "@/Helpers"

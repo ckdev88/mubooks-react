@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { supabase } from "@/../utils/supabase"
 import useCardRotate from "@/hooks/useCardRotate"
 import Heading from "@/components/ui/Heading"

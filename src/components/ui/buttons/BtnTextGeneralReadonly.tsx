@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react"
 import { cleanIndexKey } from "@/helpers/cleanInput"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
 import { TropesPageContext } from "@/pages/TropesPage"
 import { cleanAnchor } from "@/helpers/cleanInput"

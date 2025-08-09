@@ -3,7 +3,7 @@ import LoginCard from "@/components/account/LoginCard"
 import SignupCard from "@/components/account/SignupCard"
 import RecoverCard from "@/components/account/RecoverCard"
 import setDraaideurHeight from "@/functions/setDraaideurHeight"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { useNavigate } from "react-router-dom"
 import HeaderBranding from "@/components/HeaderBranding"
 

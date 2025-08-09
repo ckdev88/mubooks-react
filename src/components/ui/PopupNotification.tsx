@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 function PopupNotification() {
     const { popupNotification, setPopupNotification } = useContext(AppContext)

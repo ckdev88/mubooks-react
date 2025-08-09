@@ -1,7 +1,7 @@
 // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart
 import Chart from "react-google-charts"
 import { memo, useContext, useMemo } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 function LineG3({ data }: { data: number[] }) {
     const { bodyBgColor, darkTheme } = useContext(AppContext)

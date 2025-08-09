@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { cleanIndexKey, cleanInput } from "@/helpers/cleanInput"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
 import updateEntriesDbxxx from "@/functions/updateEntriesDb"

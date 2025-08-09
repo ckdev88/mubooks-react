@@ -2,7 +2,7 @@ import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
 import { Link } from "react-router-dom"
 import Heading from "@/components/ui/Heading"
 import { useContext, useEffect, useState } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { motion } from "motion/react"
 
 const pageTitle = "Finished books"

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import BooksOverviewPage from "@/pages/books/BooksOverviewPage"
 import { useContext, useEffect, useState } from "react"
 import Heading from "@/components/ui/Heading"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { motion } from "motion/react"
 
 const pageTitle = "Saved books"

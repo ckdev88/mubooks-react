@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import SuggestionsForm from "@/components/SuggestionsForm"
 import { motion } from "motion/react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 function SuggestionsPage() {
     const { GLOBALS } = useContext(AppContext)

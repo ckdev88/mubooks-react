@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "@/../utils/supabase"
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import HeaderBranding from "@/components/HeaderBranding"
 import Heading from "@/components/ui/Heading"
 import { localStorageKey } from "@/../utils/supabase"

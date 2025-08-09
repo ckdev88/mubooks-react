@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import getListName from "@/functions/getListName"
 import assignListById from "@/utils/assignListById"
 import updateDb from "@/utils/updateDb"

@@ -2,7 +2,7 @@ import { useContext, useMemo } from "react"
 import QuoteCard from "@/components/QuoteCard"
 import DashboardDeck from "@/components/dashboard/DashboardDeck"
 import { motion } from "motion/react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 export default function DashboardPage() {
     const { userMyBooks, darkTheme, GLOBALS } = useContext(AppContext)

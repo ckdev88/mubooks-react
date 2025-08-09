@@ -5,7 +5,7 @@ import Heading from "@/components/ui/Heading"
 import { motion } from "motion/react"
 import BtnBig from "@/components/ui/buttons/BtnBig"
 import SearchResultsMessage from "@/components/SearchResultsMessage"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 const pageTitle = "Search"
 const currentPage = "search"

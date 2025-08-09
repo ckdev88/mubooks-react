@@ -4,7 +4,7 @@ https://ckdev88.github.io/mubooks/#error=access_denied&error_code=403&error_desc
 */
 import { useCallback, useContext, useEffect, useMemo } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { supabase, localStorageKey } from "../../utils/supabase"
 import { getUrlParamVal } from "@/Helpers"
 
@@ -103,7 +103,7 @@ const RootPage = () => {
                 Redirecting to wherever you should be right now... <br />
                 <Link to="/dashboard">Dashboard</Link>
                 <br />
-                <Link to="/auth/resetpassword">password reset page</Link>
+                <Link to="/auth/resetpassword">Password reset page</Link>
             </div>
         </main>
     )

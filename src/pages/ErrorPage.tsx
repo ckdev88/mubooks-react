@@ -4,7 +4,7 @@ import { getUrlParamVal } from "@/Helpers"
 import { useNavigate } from "react-router-dom"
 import { cleanSigns } from "@/helpers/cleanInput"
 import HeaderBranding from "@/components/HeaderBranding"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 
 const url = window.location.href
 

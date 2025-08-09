@@ -1,5 +1,5 @@
 import useCardRotate from "@/hooks/useCardRotate"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { useContext } from "react"
 import { supabase } from "@/../utils/supabase"
 import Heading from "@/components/ui/Heading"

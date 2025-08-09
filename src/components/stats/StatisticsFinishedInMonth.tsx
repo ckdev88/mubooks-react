@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { HashLink } from "react-router-hash-link"
 import { cleanAnchor } from "@/helpers/cleanInput"
 

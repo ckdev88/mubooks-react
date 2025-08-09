@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import useUpdateDb from "@/hooks/useUpdateDb"
 import { notification as nm } from "@/i18n/notifications"
 

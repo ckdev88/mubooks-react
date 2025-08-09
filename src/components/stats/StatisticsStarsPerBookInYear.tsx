@@ -1,6 +1,6 @@
 import { HashLink } from "react-router-hash-link"
 import { useContext } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { cleanAnchor } from "@/helpers/cleanInput"
 
 interface ConciseStarsPerBook {

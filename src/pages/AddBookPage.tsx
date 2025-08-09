@@ -3,7 +3,7 @@
 import { useContext, useState, useLayoutEffect } from "react"
 import { isUrl } from "@/Helpers"
 import BookSummaryTitle from "@/components/BookSummaryTitle"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import updateEntriesDb from "@/functions/updateEntriesDb"
 import { cleanAnchor, cleanIndexKey } from "@/helpers/cleanInput"
 import Heading from "@/components/ui/Heading"

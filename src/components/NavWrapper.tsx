@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import { useNavigate, NavLink } from "react-router-dom"
 import updatePreferences from "@/functions/updatePreferences"
 import { isLocal, getTabTitle, getNavTitle } from "@/Helpers"

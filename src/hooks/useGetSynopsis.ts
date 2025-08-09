@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 const useGetSynopsis = (
     book_id: Book["id"],
     book_cover_edition_key: Book["cover_edition_key"],

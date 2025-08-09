@@ -1,6 +1,6 @@
 import { memo, useContext } from "react"
 import { Link } from "react-router-dom"
-import { AppContext } from "@/App"
+import { AppContext } from "@/context/AppContext"
 import Heading from "@/components/ui/Heading"
 import BtnBig from "@/components/ui/buttons/BtnBig"
 import useCardRotate from "@/hooks/useCardRotate"

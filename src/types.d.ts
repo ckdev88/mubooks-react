@@ -22,6 +22,13 @@ interface AppContextType {
     setPageName(pageName: pageName): void
     GLOBALS: GlobalSettings
 }
+interface GlobalSettings {
+    headingIconsEnabled: boolean
+    synopsisEnabled: boolean
+    userid: string | null
+    bookRemoveAnimationDuration: number
+    motionPageProps: MotionProps
+}
 
 interface IsModdingPagesContextType {
     isModding: boolean
