@@ -7,7 +7,7 @@ import BtnNavBurgerToggle from "@/components/ui/buttons/BtnNavBurgerToggle"
 import BtnNavZoek from "@/components//ui/buttons/BtnNavZoek"
 import BtnNavDarkmodeToggle from "@/components//ui/buttons/BtnNavDarkmodeToggle"
 
-const NavWrapper = () => {
+const Navbar = () => {
     const navigate = useNavigate()
     const { userIsLoggedIn, darkTheme, setDarkTheme } = useContext(AppContext)
 
@@ -187,4 +187,4 @@ quoted
 tropes
 clear my books
 */
-export default NavWrapper
+export default Navbar

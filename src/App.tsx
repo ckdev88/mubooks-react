@@ -4,7 +4,7 @@ import { isLocal } from "@/utils/Helpers.ts"
 
 // components
 import Footer from "@/components/layout/Footer.tsx"
-import NavWrapper from "@/components/NavWrapper"
+import Navbar from "@/components/Navbar"
 import PopupNotification from "@/components/ui/PopupNotification"
 
 // pages
@@ -52,7 +52,7 @@ const AppWrapper = () => {
             <>
                 {userIsLoggedIn && (
                     <header id="header" className="shade">
-                        <NavWrapper />
+                        <Navbar />
                     </header>
                 )}
 
