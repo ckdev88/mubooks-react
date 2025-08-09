@@ -65,7 +65,7 @@ const RootPage = () => {
         if (hasApiError) {
             navigateTo = `/error?error_description=${encodeURIComponent(apiErrors.error_description)}`
         } else if (isAuthenticated) {
-            navigateTo = "/@/utils"
+            navigateTo = "/dashboard"
             setUsermail(userInLs.user.email)
             setPopupNotification("Logged in, redirecting")
             setPopupNotificationShow(true)
@@ -101,7 +101,7 @@ const RootPage = () => {
         <main id="main">
             <div>
                 Redirecting to wherever you should be right now... <br />
-                <Link to="/@/utils">@/utils</Link>
+                <Link to="/dashboard">Dashboard</Link>
                 <br />
                 <Link to="/auth/resetpassword">password reset page</Link>
             </div>

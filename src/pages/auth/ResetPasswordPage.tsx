@@ -15,7 +15,7 @@ const ResetPasswordPage = () => {
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    if (userIsLoggedIn) navigate("/@/utils")
+    if (userIsLoggedIn) navigate("/dashboard")
 
     const updateSbUser = async (form_userpass: string) => {
         const { error } = await supabase.auth.updateUser({
@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
         else {
             setPopupNotification("Password updated...")
             setPopupNotificationShow(true)
-            setTimeout(() => navigate("/@/utils"), 800)
+            setTimeout(() => navigate("/dashboard"), 800)
         }
     }
 
@@ -113,7 +113,7 @@ const ResetPasswordPage = () => {
                         </form>
                     </main>
                     <footer>
-                        <Link className="btn-text" to="/@/utils">
+                        <Link className="btn-text" to="/dashboard">
                             Login without changing password.
                         </Link>
                     </footer>

@@ -27,7 +27,7 @@ const RecoverCard = () => {
         else {
             setUsermail(email)
             setIsLoading(false)
-            if (userIsLoggedIn) navigate("/@/utils")
+            if (userIsLoggedIn) navigate("/dashboard")
             else navigate("/account/forgotpassword")
         }
     }
