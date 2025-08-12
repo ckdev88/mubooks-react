@@ -17,7 +17,17 @@ const BookSummaryReview = ({
     review_text: Book["review_text"]
     readOnly?: boolean
 }) => {
-    if (readOnly) return <div className={`review-text ${o_key} pt05 pb05 ${getCurrentPage()==='dashboard'&&'on-dashboard'}`}>“{review_text}”</div>
+    if (readOnly) {
+        if (review_text !== undefined && review_text.length > 0)
+            return (
+                <div
+                    className={`review-text ${o_key} pt05 pb05 ${getCurrentPage() === "dashboard" && "on-dashboard"}`}
+                >
+                    “{review_text}”
+                </div>
+            )
+        return
+    }
 
     let addButtonTitle: string
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
