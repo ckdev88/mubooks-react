@@ -1,5 +1,5 @@
 // NOTE: tropes only shown when book is finished and/or user populated, possible via AddBookPage
-import ReviewTropes from "@/components/ReviewTropes"
+import ReviewTropes from "@/components/BookSummary/ReviewTropes"
 import BookSummaryReview from "@/components/BookSummary/Review"
 
 const pagesShowReviewTropes: Page[] = ["finished", "favourites", "savedbooks", "tropes"]

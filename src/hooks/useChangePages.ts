@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 import { cleanInput } from "@/utils/cleanInput"
-import { IsModdingPagesContext } from "@/components/BookPages"
+import { IsModdingPagesContext } from "@/components/BookSummary/PagesAmount"
 import { notification as nm } from "@/i18n/notifications"
 
 const useChangePages = (book_id: Book["id"]): [(e: React.FormEvent<HTMLFormElement>) => void] => {

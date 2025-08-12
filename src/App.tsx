@@ -4,13 +4,13 @@ import { isLocal } from "@/utils/Helpers.ts"
 
 // components
 import Footer from "@/components/layout/Footer"
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/layout/Navbar"
 import PopupNotification from "@/components/ui/PopupNotification"
 
 // pages
 import AuthConfirm from "@/pages/auth/AuthConfirm"
 import ResetPasswordPage from "@/pages/auth/ResetPassword"
-import DashboardPage from "@/pages/account/Dashboard"
+import DashboardPage from "@/pages/Dashboard"
 import CheckMailNewAccountPage from "@/pages/account/CheckMailNewAccount"
 import CheckMailPasswordPage from "@/pages/account/CheckMailPassword"
 import UserLoginPage from "@/pages/account/UserLogin"

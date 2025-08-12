@@ -109,7 +109,7 @@ const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): 
         setShowTropesForm(!showTropesForm)
     }
 
-    // NOTE: similar, but not same as TropesList in ./ReviewTropes.tsx
+    // NOTE: similar, but not same as TropesList in ./BookSummary/ReviewTropes.tsx
     const TropesList = ({ tropes }: { tropes: BookTropes }) => {
         return (
             <div className="tropes">

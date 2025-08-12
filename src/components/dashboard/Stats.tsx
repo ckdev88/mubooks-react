@@ -1,3 +1,4 @@
+// TODO remove or use
 export default function Stats() {
     return (
         <>

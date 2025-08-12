@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { IsModdingPagesContext } from "@/components/BookPages"
+import { IsModdingPagesContext } from "@/components/BookSummary/PagesAmount"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
 import useChangePages from "@/hooks/useChangePages"
 import BtnCancel from "@/components/ui/buttons/BtnCancel"
