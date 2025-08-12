@@ -1,11 +1,11 @@
 import { useContext } from "react"
-import { AppContext } from "../App"
-import getListName from "../functions/getListName"
-import assignListById from "../utils/assignListById"
-import updateDb from "../utils/updateDb"
-import { notification as nm } from "../i18n/notifications"
-import shouldCollapse from "../utils/shouldCollapse"
-import { getCurrentPage } from "../Helpers"
+import { AppContext } from "@/context/AppContext"
+import getListName from "@/functions/getListName"
+import assignListById from "@/utils/assignListById"
+import updateDb from "@/utils/updateDb"
+import { notification as nm } from "@/i18n/notifications"
+import shouldCollapse from "@/utils/shouldCollapse"
+import { getCurrentPage } from "@/utils/Helpers"
 const currentPage = getCurrentPage()
 
 // TODO: apply these messages for better feedback

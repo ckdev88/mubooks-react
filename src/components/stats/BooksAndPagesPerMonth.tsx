@@ -1,6 +1,6 @@
-import LineG2 from "./LineG2"
-import StatisticsBooksAndPagesPerMonth from "./StatisticsBooksAndPagesPerMonth"
-import ExpandableContainer from "../ui/ExpandableContainer"
+import LineG2 from "@/components/stats/LineG2"
+import StatisticsBooksAndPagesPerMonth from "@/components/stats/StatisticsBooksAndPagesPerMonth"
+import ExpandableContainer from "@/components/ui/ExpandableContainer"
 
 const BooksAndPagesPerMonth = ({
     averagePagesPerDay,

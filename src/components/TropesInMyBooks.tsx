@@ -1,11 +1,10 @@
 import { useState, useContext, useEffect } from "react"
-import { cleanIndexKey } from "../helpers/cleanInput"
-import { AppContext } from "../App"
-import BooksOverviewPage from "../routes/books/BooksOverviewPage"
-import { TropesPageContext } from "../routes/books/TropesPage"
-import { cleanAnchor } from "../helpers/cleanInput"
+import { cleanIndexKey, cleanAnchor } from "@/utils/cleanInput"
+import { AppContext } from "@/context/AppContext"
+import BooksOverviewPage from "@/components/BooksOverview/BooksOverview"
+import { TropesPageContext } from "@/pages/Tropes"
 import { Link } from "react-router-dom"
-import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 
 const TropesInMyBooks = ({ page }: { page: Page }) => {
     const { userMyBooks } = useContext(AppContext)

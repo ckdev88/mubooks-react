@@ -1,6 +1,6 @@
 // OPTIMIZE themes_icons: apply smart way of determining light or dark icon based on current theme, currently turned off via GLOBALS.headingIconsEnabled=false
 import { useContext } from "react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/context/AppContext"
 
 const Heading = ({
     el = "h1",

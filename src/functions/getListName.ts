@@ -1,4 +1,4 @@
-import logError from "../utils/logError"
+import logError from "@/utils/logError"
 import { listNameMap } from "../i18n/listnames"
 
 const getListName = (listId: BookList, capitalize = false): string => {

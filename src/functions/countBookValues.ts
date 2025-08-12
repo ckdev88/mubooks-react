@@ -1,4 +1,4 @@
-import { getDurationDays } from "../Helpers"
+import { getDurationDays } from "@/utils/Helpers"
 
 const now: Date = new Date()
 const curYear = now.getFullYear()

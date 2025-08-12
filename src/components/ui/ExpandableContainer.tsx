@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, type ReactNode, useCallback } from "react"
-import BtnTextGeneral from "./buttons/BtnTextGeneral"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 
 export default function ExpandableContainer({
     children,

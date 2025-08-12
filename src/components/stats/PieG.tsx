@@ -1,7 +1,7 @@
 // https://developers.google.com/chart/interactive/docs/gallery/piechart#options
 import Chart from "react-google-charts"
 import { useContext, useMemo } from "react"
-import { AppContext } from "../../App"
+import { AppContext } from "@/context/AppContext"
 export default function PieG({ data }: { data: number[] }) {
     const { bodyBgColor, darkTheme } = useContext(AppContext)
 

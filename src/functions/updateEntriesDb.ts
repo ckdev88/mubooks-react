@@ -2,7 +2,7 @@ import { supabase } from "../../utils/supabase"
 import { notification as nm } from "../i18n/notifications"
 
 // very much alike ./src/functions/updateTropesDb.ts
-// used in ./src/routes/books/AddBookPage
+// used in ./src/pages/books/AddBookPage
 async function updateEntriesDbxxx(newArr: Books, userid: string): Promise<string> {
     let msg = ""
     const { error } = await supabase

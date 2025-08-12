@@ -1,7 +1,7 @@
-import AddBookToXButton from "./AddBookToXButton"
-import RemoveBookFromXButton from "./RemoveBookFromXButton"
+import AddBookToXButton from "@/components/AddBookToXButton"
+import RemoveBookFromXButton from "@/components/RemoveBookFromXButton"
 import { useState } from "react"
-import getListName from "../functions/getListName"
+import getListName from "@/functions/getListName"
 
 /**
  * Show button which can add/remove

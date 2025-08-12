@@ -1,7 +1,7 @@
 import { useState } from "react"
-import BaseBadge from "./ui/BaseBadge"
-import { cleanIndexKey } from "../helpers/cleanInput"
-import BtnMoreToggle from "./ui/buttons/BtnMoreToggle"
+import Badge from "@/components/ui/Badge"
+import { cleanIndexKey } from "@/utils/cleanInput"
+import BtnMoreToggle from "@/components/ui/buttons/BtnMoreToggle"
 
 const subjectExpandLimit = 5
 
@@ -21,10 +21,10 @@ const SearchSubjects = ({ book_id, subjects }: { book_id: Book["id"]; subjects: 
             {subjects.map((subject, index) => {
                 const key = cleanIndexKey("subject" + book_id, index)
                 if (showMore === true) {
-                    return <BaseBadge key={key} type="subject" text={subject} />
+                    return <Badge key={key} type="subject" text={subject} />
                 }
                 if (!showMore && index < subjectExpandLimit) {
-                    return <BaseBadge key={key} type="subject" text={subject} />
+                    return <Badge key={key} type="subject" text={subject} />
                 }
             })}
             {toggleSubjects && (

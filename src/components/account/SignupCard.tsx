@@ -1,12 +1,12 @@
 import { useState } from "react"
-import useCardRotate from "../../hooks/useCardRotate"
+import useCardRotate from "@/hooks/useCardRotate"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
-import { AppContext } from "../../App"
-import { supabase } from "../../../utils/supabase"
-import Heading from "../ui/Heading"
-import BtnBig from "../ui/buttons/BtnBig"
-import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
+import { AppContext } from "@/context/AppContext"
+import { supabase } from "@/../utils/supabase"
+import Heading from "@/components/ui/Heading"
+import BtnBig from "@/components/ui/buttons/BtnBig"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 
 async function userSignup(user: User) {
     const signup = await supabase.auth.signUp(user)

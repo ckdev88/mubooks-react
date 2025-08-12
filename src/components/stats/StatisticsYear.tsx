@@ -1,9 +1,9 @@
 import countBookValues from "../../functions/countBookValues"
-import Heading from "../ui/Heading"
-import { getTotalBooksFinished, getTotalReadingDays } from "../../utils/stats/statsTotals"
-import DaysPerBook from "./DaysPerBook"
-import Ratings from "./Ratings"
-import BooksAndPagesPerMonth from "./BooksAndPagesPerMonth"
+import Heading from "@/components/ui/Heading"
+import { getTotalBooksFinished, getTotalReadingDays } from "@/utils/stats/statsTotals"
+import DaysPerBook from "@/components/stats/DaysPerBook"
+import Ratings from "@/components/stats/Ratings"
+import BooksAndPagesPerMonth from "@/components/stats/BooksAndPagesPerMonth"
 
 function StatisticsYear({ myBooksArr, year }: { myBooksArr: Books; year: number }) {
     const bookMetrics = countBookValues({ myBooksArr, year })

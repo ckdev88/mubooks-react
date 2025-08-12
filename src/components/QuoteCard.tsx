@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import getRandomQuote from "../utils/getRandomQuote"
+import getRandomQuote from "@/utils/getRandomQuote"
 
 function QuoteCard({ booksToQuote }: { booksToQuote: Books }) {
     if (booksToQuote === undefined) return <></>

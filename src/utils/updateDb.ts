@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabase"
+import { supabase } from "@/../utils/supabase"
 
 /** Updates database json, returns either error message or msg prop */
 export default async function updateDb({

@@ -1,8 +1,8 @@
 import { memo, useMemo } from "react"
-import PieG from "./PieG"
-import StatisticsStarsPerBookInYear from "./StatisticsStarsPerBookInYear"
-import BooksWithoutStarsList from "./BooksWithoutStarsList"
-import ExpandableContainer from "../ui/ExpandableContainer"
+import PieG from "@/components/stats/PieG"
+import StatisticsStarsPerBookInYear from "@/components/stats/StatisticsStarsPerBookInYear"
+import BooksWithoutStarsList from "@/components/stats/BooksWithoutStarsList"
+import ExpandableContainer from "@/components/ui/ExpandableContainer"
 
 interface RatingsProps {
     countStarsPerBook: number[]

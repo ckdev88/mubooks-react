@@ -1,4 +1,4 @@
-import useBtnHeartAnimation from "../../../hooks/useBtnHeartAnimation"
+import useBtnHeartAnimation from "@/hooks/useBtnHeartAnimation"
 const BtnHeart = ({ fn, faved }: { fn: () => void; faved: boolean }): React.ReactNode => {
     const { showAnimation, isFaved, buttonClassName } = useBtnHeartAnimation(faved)
     function handleClick() {
