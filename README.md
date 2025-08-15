@@ -1,4 +1,6 @@
-# Clone of Mubooks written with the following technologies:
+# Mubooks
+
+## Technologies
 - Main library:			React 
 - Routing:				React router
 - Types:				TypeScript 
@@ -10,4 +12,4 @@
 - User data handling:	Supabase & PostGreSQL
 - Styling:				Vanilla CSS (cleanup by purgeCSS)
 - Data:					JSON
-- Data sanitation:		Shell script
+- Deployment:		    Shell script
