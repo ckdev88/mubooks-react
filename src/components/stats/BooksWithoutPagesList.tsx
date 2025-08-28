@@ -1,5 +1,5 @@
 import { HashLink } from "react-router-hash-link"
-import { cleanAnchor } from "../../helpers/cleanInput"
+import { cleanAnchor } from "@/utils/cleanInput"
 const BooksWithoutPagesList = ({
     booksWithoutPages,
     year,

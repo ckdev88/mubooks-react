@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
-import { IsModdingPagesContext } from "./BookPages"
-import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
-import useChangePages from "../hooks/useChangePages"
-import BtnCancel from "./ui/buttons/BtnCancel"
+import { IsModdingPagesContext } from "@/components/BookSummary/PagesAmount"
+import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
+import useChangePages from "@/hooks/useChangePages"
+import BtnCancel from "@/components/ui/buttons/BtnCancel"
 
 const BookModifyPages = ({
     book_id,

@@ -1,6 +1,6 @@
-import LineG3 from "./LineG3"
-import StatisticsDaysPerBookInYear from "./StatisticsDaysPerBookInYear"
-import ExpandableContainer from "../ui/ExpandableContainer"
+import LineG3 from "@/components/stats/LineG3"
+import StatisticsDaysPerBookInYear from "@/components/stats/StatisticsDaysPerBookInYear"
+import ExpandableContainer from "@/components/ui/ExpandableContainer"
 
 const DaysPerBook = ({
     daysPerBook,

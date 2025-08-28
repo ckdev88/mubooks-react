@@ -1,5 +1,5 @@
 // OPTIMIZE animation - the set of page:targetList could be a bit more dynamic, no?
-import { getCurrentPage } from "../Helpers"
+import { getCurrentPage } from "@/utils/Helpers"
 
 /** Check if the element should be allowed to notify, based on the event and the current page. */
 export default function shouldNotify(targetList?: number): boolean {

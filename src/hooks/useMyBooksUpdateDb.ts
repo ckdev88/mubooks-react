@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { AppContext } from "../App"
-import useUpdateDb from "./useUpdateDb"
-import { notification as nm } from "../i18n/notifications"
+import { AppContext } from "@/context/AppContext"
+import useUpdateDb from "@/hooks/useUpdateDb"
+import { notification as nm } from "@/i18n/notifications"
 
 function useMyBooksUpdateDb({
     myBooksNew,

@@ -1,11 +1,11 @@
-import useCardRotate from "../../hooks/useCardRotate"
+import useCardRotate from "@/hooks/useCardRotate"
 import { useNavigate } from "react-router-dom"
-import { supabase } from "../../../utils/supabase"
+import { supabase } from "@/../utils/supabase"
 import { useState, useContext } from "react"
-import { AppContext } from "../../App"
-import Heading from "../ui/Heading"
-import BtnTextGeneral from "../ui/buttons/BtnTextGeneral"
-import BtnBig from "../ui/buttons/BtnBig"
+import { AppContext } from "@/context/AppContext"
+import Heading from "@/components/ui/Heading"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
+import BtnBig from "@/components/ui/buttons/BtnBig"
 
 const RecoverCard = () => {
     const { setUsermail, userIsLoggedIn } = useContext(AppContext)

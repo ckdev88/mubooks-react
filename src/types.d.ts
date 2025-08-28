@@ -1,3 +1,5 @@
+// TODO: apply `export` declaration, mv file to types.ts, import explicitly in components
+
 interface AppContextType {
     username: string | null
     setUsername(username: username): void
@@ -21,6 +23,13 @@ interface AppContextType {
     pageName: string
     setPageName(pageName: pageName): void
     GLOBALS: GlobalSettings
+}
+interface GlobalSettings {
+    headingIconsEnabled: boolean
+    synopsisEnabled: boolean
+    userid: string | null
+    bookRemoveAnimationDuration: number
+    motionPageProps: MotionProps
 }
 
 interface IsModdingPagesContextType {

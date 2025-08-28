@@ -1,12 +1,12 @@
-import convertDate from "../helpers/convertDate"
+import convertDate from "@/utils/convertDate"
 import { useContext } from "react"
-import { AppContext } from "../App"
-import getListName from "../functions/getListName"
-import { getBookCover } from "../Helpers"
-import useUpdateDb from "./useUpdateDb"
-import { notification as nm } from "../i18n/notifications"
-import shouldCollapse from "../utils/shouldCollapse"
-import shouldNotify from "../utils/shouldNotify"
+import { AppContext } from "@/context/AppContext"
+import getListName from "@/functions/getListName"
+import { getBookCover } from "@/utils/Helpers"
+import useUpdateDb from "@/hooks/useUpdateDb"
+import { notification as nm } from "@/i18n/notifications"
+import shouldCollapse from "@/utils/shouldCollapse"
+import shouldNotify from "@/utils/shouldNotify"
 
 const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList }) => {
     const { userMyBooks, setUserMyBooks, todaysDateDigit, setPopupNotification } =

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import DashboardDeckItems from "./DashboardDeckItems"
-import Heading from "../ui/Heading"
+import DashboardDeckItems from "@/components/dashboard/DashboardDeckItems"
+import Heading from "@/components/ui/Heading"
 
 function DashboardDeck({ props }: { props: DeckItem | undefined }) {
     return (

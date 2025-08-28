@@ -1,5 +1,5 @@
-import BtnBig from "./ui/buttons/BtnBig"
-import useMyBooksRemove from "../hooks/useMyBooksRemove"
+import BtnBig from "@/components/ui/buttons/BtnBig"
+import useMyBooksRemove from "@/hooks/useMyBooksRemove"
 
 const TossTossers = () => {
     // const newArr: Books = userMyBooks.filter((book) => !book.tossed)

@@ -1,10 +1,10 @@
 import { useCallback } from "react"
-import getListName from "../functions/getListName"
-import useMyBooksAdd from "../hooks/useMyBooksAdd"
-import BtnTextGeneral from "./ui/buttons/BtnTextGeneral"
-import collapseItem from "../utils/uiMisc"
-import BtnHeart from "./ui/buttons/BtnHeart"
-import shouldCollapse from "../utils/shouldCollapse"
+import getListName from "@/functions/getListName"
+import useMyBooksAdd from "@/hooks/useMyBooksAdd"
+import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
+import collapseItem from "@/utils/uiMisc"
+import BtnHeart from "@/components/ui/buttons/BtnHeart"
+import shouldCollapse from "@/utils/shouldCollapse"
 
 function AddBookToXButton({
     bookProp,

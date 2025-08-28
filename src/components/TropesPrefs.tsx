@@ -1,13 +1,13 @@
 import { useState, useContext, useEffect } from "react"
-import { AppContext } from "../App"
-import { cleanIndexKey, cleanInput } from "../helpers/cleanInput"
-import { supabase } from "../../utils/supabase"
-import BtnInsideCaret from "./ui/buttons/BtnInsideCaret"
-import { TropesPageContext } from "../routes/books/TropesPage"
-import updateTropesDb from "../functions/updateTropesDb"
-import BaseBadge from "./ui/BaseBadge"
-import BtnCancel from "./ui/buttons/BtnCancel"
-import BtnAddTrope from "./ui/buttons/BtnAddTrope"
+import { AppContext } from "@/context/AppContext"
+import { cleanIndexKey, cleanInput } from "@/utils/cleanInput"
+import { supabase } from "@/../utils/supabase"
+import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
+import { TropesPageContext } from "@/pages/Tropes"
+import updateTropesDb from "@/functions/updateTropesDb"
+import Badge from "@/components/ui/Badge"
+import BtnCancel from "@/components/ui/buttons/BtnCancel"
+import BtnAddTrope from "@/components/ui/buttons/BtnAddTrope"
 
 const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): JSX.Element => {
     const {
@@ -109,14 +109,14 @@ const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): 
         setShowTropesForm(!showTropesForm)
     }
 
-    // NOTE: similar, but not same as TropesList in ./ReviewTropes.tsx
+    // NOTE: similar, but not same as TropesList in ./BookSummary/ReviewTropes.tsx
     const TropesList = ({ tropes }: { tropes: BookTropes }) => {
         return (
             <div className="tropes">
                 {tropes.map((trope, index) => {
                     const key = cleanIndexKey(trope, index)
                     return (
-                        <BaseBadge
+                        <Badge
                             key={key}
                             text={trope}
                             removeTrope={removeTrope}
