@@ -44,7 +44,7 @@
     --hr: rgba(0, 0, 0, 0.1);
     --icon-faded-bg: #bbb;
 
-    --icon-wishlist: url("/assets/img/icon-wishlist-black.png");
+    --icon-wishlist: url("/img/icon-wishlist.png");
     --icon-reading: url("/img/icon-reading.png");
     --icon-finished: url("/img/icon-finished.png");
     --icon-favourite: url("/img/icon-favourites.png");
@@ -79,7 +79,7 @@
     --draaideurbg: hsl(204, 33%, 9%);
     --badgebg: hsl(204, 33%, 15%);
     --accentbg: rgba(0, 0, 0, 0.4);
-    --icon-wishlist: url("./assets/img/icon-wishlist-white.png");
+    --icon-wishlist: url("/img/icon-wishlist-white.png");
     --icon-reading: url("/img/icon-reading-white.png");
     --icon-finished: url("/img/icon-finished-white.png");
     --icon-favourite: url("/img/icon-favourites-white.png");

@@ -1,3 +1,5 @@
+// TODO: apply `export` declaration, mv file to types.ts, import explicitly in components
+
 interface AppContextType {
     username: string | null
     setUsername(username: username): void
