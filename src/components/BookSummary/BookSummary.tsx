@@ -95,11 +95,13 @@ const BookSummary = ({
                                     readOnly={currentPage === "dashboard"}
                                 />
                             )}
+                            {book.list > 2 && (
                             <SummaryReviews
                                 book={book}
                                 currentPage={currentPage}
                                 readOnly={readOnly}
                             />
+                            )}
                             <div>
                                 {currentPage === "search" && (
                                     <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
@@ -117,7 +119,7 @@ const BookSummary = ({
                 )}
             </div>
             <footer className="footer">
-                {pagesReviewQuotes.includes(currentPage) && (
+                {pagesReviewQuotes.includes(currentPage) && book.list > 2 && (
                     <>
                         <BookSummaryReview
                             book_id={book.id}
