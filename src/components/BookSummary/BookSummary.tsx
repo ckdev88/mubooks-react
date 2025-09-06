@@ -47,7 +47,7 @@ const BookSummary = ({
             <BookSummaryAside book={book} currentPage={currentPage} />
             <div className="article-main">
                 {currentPage === "quoted" ? (
-                    <BookSummaryQuoted book={book} special={special} currentPage={currentPage} />
+                    <BookSummaryQuoted book={book} special={special} currentPage={currentPage} refer={refer} />
                 ) : (
                     <>
                         <header style={{ position: "relative", width: "100%" }}>
@@ -96,11 +96,11 @@ const BookSummary = ({
                                 />
                             )}
                             {book.list > 2 && (
-                            <SummaryReviews
-                                book={book}
-                                currentPage={currentPage}
-                                readOnly={readOnly}
-                            />
+                                <SummaryReviews
+                                    book={book}
+                                    currentPage={currentPage}
+                                    readOnly={readOnly}
+                                />
                             )}
                             <div>
                                 {currentPage === "search" && (

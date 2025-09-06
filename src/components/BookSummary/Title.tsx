@@ -1,4 +1,5 @@
 import BookAuthorList from "@/components/BookAuthorList"
+import { Link } from "react-router-dom"
 const BookSummaryTitle = ({
     book_title_short,
     book_first_publish_year,
@@ -6,6 +7,7 @@ const BookSummaryTitle = ({
     book_author_name,
     book_id,
     style = "normal",
+    refer,
 }: {
     book_title_short: Book["title_short"]
     book_first_publish_year: Book["first_publish_year"]
@@ -13,11 +15,13 @@ const BookSummaryTitle = ({
     book_author_name: Book["author_name"]
     book_id: Book["id"]
     style?: "normal" | "quoted"
+    refer?: string
 }) => {
     if (style === "quoted")
         return (
             <div className="tcenter sf2 bi">
-                {book_title_short},&nbsp;
+                <Link to={`/${refer}`} style={{textDecoration:'none'}} >{book_title_short}</Link>
+                ,&nbsp;
                 <BookAuthorList book_id={book_id} book_author_name={book_author_name} />
             </div>
         )
