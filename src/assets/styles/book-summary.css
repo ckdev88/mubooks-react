@@ -104,6 +104,9 @@
     footer {
         margin-bottom: 1rem;
     }
+    .review-text {
+        font-size: 0.9rem;
+    }
     &.quoted {
         .article-main {
             margin-top: 0.75rem;
@@ -112,10 +115,8 @@
         align-items: center;
         .review-text.review_fav_quote {
             padding-top: 0;
+            font-size: 1.1rem;
         }
-    }
-    .review-text {
-        font-size: 0.9rem;
     }
     .calendar-hidden {
         overflow: hidden;
