@@ -20,14 +20,16 @@ const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 const pagesHideHeart: Page[] = ["dashboard", "tossed"]
 const pagesReadOnly: Page[] = ["dashboard"]
 
+interface BookSummaryProps {
+    book: Book
+    currentPage: Page
+    refer?: Page
+    special?: "quote2"
+    readOnly?: boolean
+}
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
-const BookSummary = ({
-    book,
-    currentPage,
-    refer,
-    special,
-    readOnly,
-}: { book: Book; currentPage: Page; refer?: Page; special?: "quote2"; readOnly?: boolean }) => {
+const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummaryProps) => {
+
     const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
 
     const bookAnchor: string = `${cleanAnchor(book.title_short)}_${book.id}`

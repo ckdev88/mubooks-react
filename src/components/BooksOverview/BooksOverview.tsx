@@ -25,13 +25,11 @@ const filterBooks = (books: Books, filterValue: string): Books => {
     )
 }
 
-const BooksOverviewPage = ({
-    books,
-    page,
-}: {
+interface BooksOverviewPageParams {
     books: Books
     page: Page
-}) => {
+}
+const BooksOverviewPage = ({ books, page }: BooksOverviewPageParams) => {
     const { tropesInMyBooksArr } = useContext(TropesPageContext)
     const [booksFilter, setBooksFilter] = useState<BooksFilterValue>(undefined)
 

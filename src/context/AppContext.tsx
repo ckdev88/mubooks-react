@@ -51,7 +51,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                 transition: { duration: 1, delay: 0.19 },
                 animate: { opacity: 1 },
             },
-            userid: userid,
+            userid: userid, // TODO check if used and/or remove
             bookRemoveAnimationDuration: 250,
         }),
         [userid],
@@ -64,7 +64,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         let booksArr: Books = []
         const res = await supabase.from("user_entries").select("json")
         if (res.data) {
-            if (res.data.length === 0) await insertEmptyArray().catch(() => console.log("ging wat fout yo"))
+            if (res.data.length === 0)
+                await insertEmptyArray().catch(() => console.log("ging wat fout yo"))
             else booksArr = res.data[0].json
             setInitialMyBooksSet(true)
             setUserMyBooks(booksArr)
