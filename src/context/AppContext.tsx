@@ -8,22 +8,26 @@ const BG_COLORS = { dark: "#152129", light: "#f4f1ea" }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const initVal = {
-        userIsLoggedIn: false,
-        username: null,
-        userid: null,
-        usermail: null,
-        darkTheme: undefined,
-    }
-    if (localStorage.getItem(localStorageKey)) {
-        const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
-        initVal.userIsLoggedIn = true
-        initVal.username = parsed.user.user_metadata.screenname
-        initVal.userid = parsed.user.id
-        initVal.usermail = parsed.user.email
-        initVal.darkTheme = parsed.user.user_metadata.darktheme
-    }
+interface AppContextProviderProps {
+    children: React.ReactNode
+}
+const initVal = {
+    userIsLoggedIn: false,
+    username: null,
+    userid: null,
+    usermail: null,
+    darkTheme: undefined,
+}
+if (localStorage.getItem(localStorageKey)) {
+    const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
+    initVal.userIsLoggedIn = true
+    initVal.username = parsed.user.user_metadata.screenname
+    initVal.userid = parsed.user.id
+    initVal.usermail = parsed.user.email
+    initVal.darkTheme = parsed.user.user_metadata.darktheme
+}
+
+export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(initVal.userIsLoggedIn)
     const [userid, setUserid] = useState<string | null>(initVal.userid)
     const [username, setUsername] = useState<string | null>(initVal.username)
