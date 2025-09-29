@@ -1,4 +1,3 @@
-// TODO should be removed in favor of BookSummary/StartedFinished.tsx
 import { useContext, useEffect, useState } from "react"
 import { debounce, openCalendarPopUp } from "@/utils/Helpers"
 import { AppContext } from "@/context/AppContext"
@@ -6,7 +5,7 @@ import { convertDate } from "@/utils/convertDate"
 import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 
-const BookStartedFinished = ({
+const BookSummaryStartedFinished = ({
     date_started,
     date_finished,
     book_id,
@@ -52,37 +51,6 @@ const BookStartedFinished = ({
         setShowFinishedDate,
         dateFinished,
     ])
-
-    if (readOnly || editMode===false) {
-        return (
-            <div className="book-started-finished">
-                <div>
-                    {list === 2 && (
-                        // reading since <date>
-                        <em className="btn-text readonly">
-                            <span className="icon icon-reading" />
-                            <BtnTextGeneral
-                                bText={dateStarted && convertDate(dateStarted, "human")}
-                                readOnly={true}
-                            />
-                        </em>
-                    )}
-                    {
-                        // finished at <date>
-                        list > 2 && (
-                            <em className="btn-text readonly">
-                                <span className="icon icon-finished" />
-                                <BtnTextGeneral
-                                    bText={date_finished && convertDate(date_finished, "human")}
-                                    readOnly={true}
-                                />
-                            </em>
-                        )
-                    }
-                </div>
-            </div>
-        )
-    }
 
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
         if (fieldName !== "date_reading" && fieldName !== "date_finished") {
@@ -153,6 +121,38 @@ const BookStartedFinished = ({
         }
     }, [dateStarted, dateFinished, book_id, showStartedDate, showFinishedDate])
 
+
+    if (readOnly || editMode===false) {
+        return (
+            <div className="book-started-finished">
+                <div>
+                    {list === 2 && (
+                        // reading since <date>
+                        <em className="btn-text readonly">
+                            <span className="icon icon-reading" />
+                            <BtnTextGeneral
+                                bText={dateStarted && convertDate(dateStarted, "human")}
+                                readOnly={true}
+                            />
+                        </em>
+                    )}
+                    {
+                        // finished at <date>
+                        list > 2 && (
+                            <em className="btn-text readonly">
+                                <span className="icon icon-finished" />
+                                <BtnTextGeneral
+                                    bText={date_finished && convertDate(date_finished, "human")}
+                                    readOnly={true}
+                                />
+                            </em>
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="book-started-finished">
             <div>
@@ -204,4 +204,4 @@ const BookStartedFinished = ({
         </div>
     )
 }
-export default BookStartedFinished
+export default BookSummaryStartedFinished

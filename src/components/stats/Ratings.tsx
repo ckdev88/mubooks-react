@@ -13,14 +13,7 @@ interface RatingsProps {
 }
 
 const Ratings = memo(
-    ({
-        countStarsPerBook,
-        averageStarsPerBook,
-        year,
-        booksWithoutStars,
-    }: RatingsProps) => {
-
-        // Memoize the expandable content to prevent unnecessary re-renders
+    ({ countStarsPerBook, averageStarsPerBook, year, booksWithoutStars }: RatingsProps) => {
         const expandableContent = useMemo(
             () => (
                 <>

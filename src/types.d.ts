@@ -24,6 +24,10 @@ interface AppContextType {
     setPageName(pageName: pageName): void
     GLOBALS: GlobalSettings
 }
+interface EditModeContextType {
+    editMode:boolean
+    setEditMode(editMode:editMode):void
+}
 interface GlobalSettings {
     headingIconsEnabled: boolean
     synopsisEnabled: boolean
@@ -238,6 +242,7 @@ interface BookDaysPerBook {
     id: Book["id"]
     title_short: Book["title_short"]
 }
+type ReviewRatingType = "rate_stars" | "rate_spice"
 // interface CountBookValues {
 // 	/** Count books finished */
 // 	cbf: number

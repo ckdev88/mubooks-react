@@ -11,30 +11,42 @@ const BookSummaryReview = ({
     o_key,
     review_text,
     readOnly,
+    editMode,
 }: {
     book_id: Book["id"]
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
     review_text: Book["review_text"]
     readOnly?: boolean
+    editMode?: boolean
 }) => {
+    // TODO readOnly and editMode seem to have overlap, see if they can be merged
+    if (readOnly === undefined && editMode === false) readOnly = true
+
+    // Return review in view-mode/readonly-mode, before the more elaborate view/edit toggle and its methods are defined
     if (readOnly) {
         if (review_text !== undefined && review_text.length > 0)
             return (
                 <div
-                    className={`review-text ${o_key} pt05 pb05 ${getCurrentPage() === "dashboard" && "on-dashboard"}`}
+                    className={`review-text ${o_key} pt05 pb05${getCurrentPage() === "dashboard" ? " on-dashboard" : ""}`}
                 >
-                    “{review_text}”
+                    {o_key === "review_fav_quote" || o_key === "review_fav_quote2" ? (
+                        <>{`“${review_text}”`}</>
+                    ) : (
+                        <>{review_text}</>
+                    )}
                 </div>
             )
         return
     }
 
+    // This is the default behavior:
+    // Quotes & review are first shown as view, onKeyDown on it will enable modification, used in /quoted/ page
+    // The modification of an (empty) quote or review also uses this
+    if (review_text === undefined) review_text = ""
     let addButtonTitle: string
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
     else if (o_key === "review_fav_quote2") addButtonTitle = "one more quote"
     else addButtonTitle = "Review"
-
-    if (review_text === undefined) review_text = ""
     const [reviewText, setReviewText] = useState<string>(review_text)
     const [isModding, setIsModding] = useState<boolean>(false)
 
@@ -53,7 +65,7 @@ const BookSummaryReview = ({
                     <BookModifyReview book_id={book_id} o_key={o_key} review_text={reviewText} />
                 ) : (
                     <>
-                        {reviewText && (
+                        {reviewText && !readOnly && (
                             <div
                                 onKeyDown={(event) => {
                                     if (event.key === "Enter") setIsModding(true)
