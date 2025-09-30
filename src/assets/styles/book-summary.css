@@ -103,9 +103,12 @@
             width: auto;
             display: flex;
             margin: .5rem 0;
-            padding:0;
+            padding: 0;
             justify-content: space-evenly;
         }
+    }
+    &.view-mode .review-rates button {
+        cursor: default;
     }
     .rating {
         text-align: center;
