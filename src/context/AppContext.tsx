@@ -16,7 +16,7 @@ const initVal = {
     username: null,
     userid: null,
     usermail: null,
-    darkTheme: undefined,
+    darkTheme: undefined
 }
 if (localStorage.getItem(localStorageKey)) {
     const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
@@ -39,7 +39,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
     const [bodyBgColor, setBodyBgColor] = useState<string>(
-        darkTheme ? BG_COLORS.dark : BG_COLORS.light,
+        darkTheme ? BG_COLORS.dark : BG_COLORS.light
     )
     const [pageName, setPageName] = useState<string>("default")
 
@@ -49,16 +49,16 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
             synopsisEnabled: false,
             motionPageProps: {
                 initial: {
-                    opacity: 0,
+                    opacity: 0
                 },
                 exit: { opacity: 0 },
                 transition: { duration: 1, delay: 0.19 },
-                animate: { opacity: 1 },
+                animate: { opacity: 1 }
             },
             userid: userid, // TODO check if used and/or remove
-            bookRemoveAnimationDuration: 250,
+            bookRemoveAnimationDuration: 250
         }),
-        [userid],
+        [userid]
     )
 
     const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
@@ -126,7 +126,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
                 bodyBgColor,
                 pageName,
                 setPageName,
-                GLOBALS,
+                GLOBALS
             }}
         >
             {children}

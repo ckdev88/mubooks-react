@@ -83,6 +83,9 @@ img {
     top: 0;
     background-color: var(--primary);
     width: 100vw;
+    @media screen and (min-width: 600px) {
+        border-radius: 0 0 .5rem .5rem;
+    }
 }
 
 .loggedin #header {

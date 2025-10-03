@@ -17,7 +17,7 @@ function getOlCover(id: string, size: CoverSize = undefined): string {
     return "https://covers.openlibrary.org/b/isbn/" + id + appendSize + ".jpg"
 }
 
-function getBookCover(url = "", size: CoverSize = undefined): string {
+function getBookCover(url = "", size: CoverSize = undefined): Book["cover"] {
     // NOTE set showOLImages to false when archive/OpenLibrary is unavailable
     const showOLImages = true
 
@@ -37,7 +37,7 @@ async function getOlPagesMedian(id: string): Promise<number> {
     const ret = await fetch(
         "https://openlibrary.org/search.json?q=/works/" +
             id +
-            "&mode=number_of_pages_median&fields=number_of_pages_median&limit=1",
+            "&mode=number_of_pages_median&fields=number_of_pages_median&limit=1"
     )
         .then((res) => res.json())
         .then((json) => json.docs[0].number_of_pages_median)
@@ -88,7 +88,7 @@ function getUrlParamVal(url: string, key: string, hash = false): string {
 
 function getDurationDays(
     date_reading: Book["date_reading"],
-    date_finished: Book["date_finished"],
+    date_finished: Book["date_finished"]
 ): number {
     /** Date Reading .. leftover will be Day Reading */
     if (date_reading === undefined || date_finished === undefined) return -1
@@ -153,6 +153,10 @@ function getTabTitle() {
 function getCurrentPage(): PageWithoutParameters {
     return window.location.pathname.slice(1) as PageWithoutParameters
 }
+
+// TODO function to place global header behind elements spawning from main (zindex)
+// function hinterHeader(status=false){
+// }
 
 export {
     isUrl,

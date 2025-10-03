@@ -61,6 +61,7 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
                             <BookSummaryCover
                                 book_cover={book.cover}
                                 book_cover_redir={book.cover_redir}
+                                book_title_short={book.title_short}
                             />
                         </Link>
                     </article>

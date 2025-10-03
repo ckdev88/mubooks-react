@@ -10,7 +10,7 @@ interface Props {
 const BookSummaryAside = ({ book, currentPage, editMode }: Props) => {
     return (
         <aside className="aside">
-            <BookSummaryCover book_cover={book.cover} book_cover_redir={book.cover_redir} />
+            <BookSummaryCover book_title_short={book.title_short} book_cover={book.cover} book_cover_redir={book.cover_redir} />
             {reviewRatingPages.includes(currentPage) && book.list > 2 && (
                 <ReviewRating
                     book_id={book.id}

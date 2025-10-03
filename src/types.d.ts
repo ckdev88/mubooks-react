@@ -25,8 +25,8 @@ interface AppContextType {
     GLOBALS: GlobalSettings
 }
 interface EditModeContextType {
-    editMode:boolean
-    setEditMode(editMode:editMode):void
+    editMode: boolean
+    setEditMode(editMode: editMode): void
 }
 interface GlobalSettings {
     headingIconsEnabled: boolean
@@ -34,6 +34,11 @@ interface GlobalSettings {
     userid: string | null
     bookRemoveAnimationDuration: number
     motionPageProps: MotionProps
+}
+interface CoverModalProps {
+    bookTitle: Book["title_short"]
+    bookCoverM: Book["cover"]
+    bookCoverSource: Book["cover"]
 }
 
 interface IsModdingPagesContextType {
@@ -157,7 +162,7 @@ type BookData = [
         cover_redir?: string
         img?: string
         title_short?: string
-    },
+    }
 ]
 interface Book {
     author_key?: string[]
