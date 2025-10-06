@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from "react"
+// OPTIMIZE could use some memoization and/or useCallback, and maybe codesplitting into ReviewTropesView, ReviewTropesEdit, but not too use about that yet
+import { useState, useContext, useEffect, useCallback } from "react"
 import { AppContext } from "@/context/AppContext"
 import { cleanIndexKey, cleanInput } from "@/utils/cleanInput"
 import BtnInsideCaret from "@/components/ui/buttons/BtnInsideCaret"
@@ -7,7 +8,13 @@ import Badge from "@/components/ui/Badge"
 import BtnCancel from "@/components/ui/buttons/BtnCancel"
 import BtnAddTrope from "@/components/ui/buttons/BtnAddTrope"
 
-const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
+interface Props {
+    book: Book
+    tropes: BookTropes
+    editMode: boolean
+}
+
+const ReviewTropes = ({ book, tropes, editMode }: Props) => {
     const { userMyBooks, setPopupNotification, userid } = useContext(AppContext)
     if (userMyBooks === undefined) return <>Loading tropes...</>
     const [bookTropes, setBookTropes] = useState<BookTropes>(tropes)
@@ -18,14 +25,20 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
     useEffect(() => {
         if (bookTropes.length > 0) setBookTropesLowercase(bookTropes.map((t) => t.toLowerCase()))
     }, [bookTropes])
+    // useEffect(() => {
+    //     setShowTropesForm(editMode)
+    // }, [editMode])
 
-    function removeTrope(trope: string): void {
-        let newArr: BookTropes
-        if (bookTropes) {
-            newArr = bookTropes.filter((bt) => bt !== trope)
-            updateTropes(newArr)
-        }
-    }
+    const removeTrope = useCallback(
+        (trope: string): void => {
+            let newArr: BookTropes
+            if (bookTropes) {
+                newArr = bookTropes.filter((bt) => bt !== trope)
+                updateTropes(newArr)
+            }
+        },
+        [bookTropes]
+    )
 
     async function updateTropes(newArr: BookTropes) {
         if (userid !== null && userMyBooks !== undefined) {
@@ -48,14 +61,21 @@ const ReviewTropes = ({ book, tropes }: { book: Book; tropes: BookTropes }) => {
                 {bookTropes.map((trope, index) => {
                     const key = cleanIndexKey("review_tropes" + bookid, index)
                     return (
-                        <Badge key={key} text={trope} removeText={removeTrope} type="trope" />
+                        <Badge
+                            key={key}
+                            text={trope}
+                            removeText={editMode ? removeTrope : undefined}
+                            type="trope"
+                        />
                     )
                 })}
-                <BtnAddTrope
-                    bOnClick={() => setShowTropesForm(!showTropesForm)}
-                    bText={tropes.length === 0 ? "Add tropes" : "+"}
-                    bActiveForm={showTropesForm}
-                />
+                {editMode && (
+                    <BtnAddTrope
+                        bOnClick={() => setShowTropesForm(!showTropesForm)}
+                        bText={tropes.length === 0 ? "Add tropes" : "+"}
+                        bActiveForm={showTropesForm}
+                    />
+                )}
             </div>
         )
     }

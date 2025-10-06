@@ -7,6 +7,8 @@
     --smallerfont: .8em;
     --smallfontrem: .9rem;
     --smallerfontrem: .8rem;
+    --width-standard: 600px;
+    --width-mobile: 360px;
 }
 :root {
     --bg: var(--lightbg);

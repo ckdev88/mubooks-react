@@ -8,22 +8,26 @@ const BG_COLORS = { dark: "#152129", light: "#f4f1ea" }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
 
-export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const initVal = {
-        userIsLoggedIn: false,
-        username: null,
-        userid: null,
-        usermail: null,
-        darkTheme: undefined,
-    }
-    if (localStorage.getItem(localStorageKey)) {
-        const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
-        initVal.userIsLoggedIn = true
-        initVal.username = parsed.user.user_metadata.screenname
-        initVal.userid = parsed.user.id
-        initVal.usermail = parsed.user.email
-        initVal.darkTheme = parsed.user.user_metadata.darktheme
-    }
+interface AppContextProviderProps {
+    children: React.ReactNode
+}
+const initVal = {
+    userIsLoggedIn: false,
+    username: null,
+    userid: null,
+    usermail: null,
+    darkTheme: undefined
+}
+if (localStorage.getItem(localStorageKey)) {
+    const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
+    initVal.userIsLoggedIn = true
+    initVal.username = parsed.user.user_metadata.screenname
+    initVal.userid = parsed.user.id
+    initVal.usermail = parsed.user.email
+    initVal.darkTheme = parsed.user.user_metadata.darktheme
+}
+
+export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(initVal.userIsLoggedIn)
     const [userid, setUserid] = useState<string | null>(initVal.userid)
     const [username, setUsername] = useState<string | null>(initVal.username)
@@ -35,7 +39,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     const [popupNotificationShow, setPopupNotificationShow] = useState<boolean>(false)
     const [initialMyBooksSet, setInitialMyBooksSet] = useState<boolean>(false)
     const [bodyBgColor, setBodyBgColor] = useState<string>(
-        darkTheme ? BG_COLORS.dark : BG_COLORS.light,
+        darkTheme ? BG_COLORS.dark : BG_COLORS.light
     )
     const [pageName, setPageName] = useState<string>("default")
 
@@ -45,16 +49,16 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             synopsisEnabled: false,
             motionPageProps: {
                 initial: {
-                    opacity: 0,
+                    opacity: 0
                 },
                 exit: { opacity: 0 },
                 transition: { duration: 1, delay: 0.19 },
-                animate: { opacity: 1 },
+                animate: { opacity: 1 }
             },
-            userid: userid,
-            bookRemoveAnimationDuration: 250,
+            userid: userid, // TODO check if used and/or remove
+            bookRemoveAnimationDuration: 250
         }),
-        [userid],
+        [userid]
     )
 
     const todaysDateDigit = Number(timestampConverter(Date.now(), "digit"))
@@ -64,7 +68,8 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
         let booksArr: Books = []
         const res = await supabase.from("user_entries").select("json")
         if (res.data) {
-            if (res.data.length === 0) await insertEmptyArray().catch(() => console.log("ging wat fout yo"))
+            if (res.data.length === 0)
+                await insertEmptyArray().catch(() => console.log("ging wat fout yo"))
             else booksArr = res.data[0].json
             setInitialMyBooksSet(true)
             setUserMyBooks(booksArr)
@@ -121,7 +126,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
                 bodyBgColor,
                 pageName,
                 setPageName,
-                GLOBALS,
+                GLOBALS
             }}
         >
             {children}

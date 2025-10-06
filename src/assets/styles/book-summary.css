@@ -16,6 +16,20 @@
     flex-wrap: wrap;
 
     margin: 0;
+    &.edit-mode {
+        background-color: var(--bg-invert1);
+        border: 2px dashed var(--bg);
+        .seperator {
+            background-color: transparent;
+            border-color: transparent;
+        }
+        .aside {
+            padding-left: .5rem;
+        }
+        .article-main {
+            padding-right: .5rem;
+        }
+    }
     &.tropes {
         margin: 0;
         padding-bottom: 0.5rem;
@@ -37,7 +51,9 @@
         max-width: 100%;
         border-radius: 0.5rem;
         display: block;
+        cursor: zoom-in;
     }
+
 
     .seperator {
         width: 100%;
@@ -85,6 +101,16 @@
 
     .review-rates {
         margin: 0.5rem 0;
+        & > div {
+            width: auto;
+            display: flex;
+            margin: .5rem 0;
+            padding: 0;
+            justify-content: space-evenly;
+        }
+    }
+    &.view-mode .review-rates button {
+        cursor: default;
     }
     .rating {
         text-align: center;
@@ -104,6 +130,9 @@
     footer {
         margin-bottom: 1rem;
     }
+    .review-text {
+        font-size: 0.9rem;
+    }
     &.quoted {
         .article-main {
             margin-top: 0.75rem;
@@ -112,10 +141,8 @@
         align-items: center;
         .review-text.review_fav_quote {
             padding-top: 0;
+            font-size: 1.1rem;
         }
-    }
-    .review-text {
-        font-size: 0.9rem;
     }
     .calendar-hidden {
         overflow: hidden;
@@ -260,12 +287,4 @@
 .tropes {
     padding: 0;
     margin-bottom: 0;
-}
-
-.review-rates > div {
-    width: 6rem;
-    display: flex;
-    margin: 0 auto;
-    padding-right: 0.1rem;
-    margin-top: 0.5rem;
 }

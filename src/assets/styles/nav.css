@@ -1,7 +1,7 @@
 @import "./navToggleBurger.css";
 
 .nav-collapsable {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: var(--width-standard)) {
         left: 1rem;
     }
 }

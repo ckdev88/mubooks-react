@@ -51,13 +51,17 @@ function DashboardDeckCovers({ booksarr, page }: { booksarr: Books; page: Page }
                         key={`deck_${page}_books${book.id}`}
                         style={{
                             zIndex: 10 - index,
-                            marginLeft: marginLeftStyle,
+                            marginLeft: marginLeftStyle
                         }}
                     >
-                        <Link to={"/" + page + "#" + bookAnchor}>
+                        <Link
+                            to={"/" + page + "#" + bookAnchor}
+                            onContextMenu={(e) => e.preventDefault()}
+                        >
                             <BookSummaryCover
                                 book_cover={book.cover}
                                 book_cover_redir={book.cover_redir}
+                                book_title_short={book.title_short}
                             />
                         </Link>
                     </article>

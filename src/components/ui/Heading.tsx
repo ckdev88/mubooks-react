@@ -27,6 +27,7 @@ const Heading = ({
             )
         }
     }
+
     return (
         <div className={el}>
             {text}

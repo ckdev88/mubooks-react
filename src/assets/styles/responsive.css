@@ -1,4 +1,4 @@
-@media screen and (min-width: 600px) {
+@media screen and (min-width: var(--width-standard)) {
     .quote.shade-light {
         box-shadow: none;
     }
@@ -13,7 +13,7 @@
     }
 }
 
-@media screen and (max-width: 600px) and (min-width: 360px) {
+@media screen and (max-width: var(--width-standard)) and (min-width: 360px) {
     #navIcons {
         padding-left: 0;
     }

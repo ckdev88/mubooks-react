@@ -6,11 +6,13 @@ const pagesShowReviewTropes: Page[] = ["finished", "favourites", "savedbooks", "
 const pagesShowReviewText: Page[] = ["finished", "favourites", "savedbooks", "tropes"]
 const pagesShowReviewQuote: Page[] = ["quoted", "dashboard", "tropes"]
 
-export default function SummaryReviews({
-    currentPage,
-    book,
-    readOnly,
-}: { currentPage: Page; book: Book; readOnly?: boolean }) {
+interface Props {
+    currentPage: Page
+    book: Book
+    readOnly?: boolean
+    editMode: boolean
+}
+export default function SummaryReviews({ currentPage, book, readOnly, editMode }: Props) {
     return (
         <div className="reviews">
             {pagesShowReviewQuote.includes(currentPage) && (
@@ -19,6 +21,7 @@ export default function SummaryReviews({
                     o_key="review_fav_quote"
                     review_text={book.review_fav_quote}
                     readOnly={readOnly}
+                    editMode={editMode}
                 />
             )}
             {pagesShowReviewText.includes(currentPage) && (
@@ -27,10 +30,11 @@ export default function SummaryReviews({
                     o_key="review_text"
                     review_text={book.review_text}
                     readOnly={readOnly}
+                    editMode={editMode}
                 />
             )}
             {pagesShowReviewTropes.includes(currentPage) && (
-                <ReviewTropes book={book} tropes={book.review_tropes} />
+                <ReviewTropes book={book} tropes={book.review_tropes} editMode={editMode} />
             )}
         </div>
     )
