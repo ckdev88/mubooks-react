@@ -12,6 +12,13 @@
 <body>
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
+    <script>
+        // Detect Chromium/KHTML browsers
+        if (navigator.userAgent.includes('KHTML')) {
+
+            document.documentElement.classList.add('khtml');
+        }
+    </script>
 </body>
 
 </html>
