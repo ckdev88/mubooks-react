@@ -14,7 +14,7 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
 
     const initUpdateDb = useUpdateDb({
         msg: nm.Added_to + getListName(targetList, true),
-        logMsg: book.title_short + nm.added_to + getListName(targetList).toUpperCase(),
+        logMsg: book.title_short + nm.added_to + getListName(targetList).toUpperCase()
     })
 
     async function MyBooksUpdate(myBooksNew: Books) {
@@ -30,7 +30,7 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
     }
 
     // TODO move into utils/
-    const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<string> => {
+    const fetchBookCoverRedir = async (bookCoverM: Book["cover"]): Promise<Book["cover"]> => {
         const bookCoverSrcRedir: string = await fetch(bookCoverM).then((res) => res.url)
         return bookCoverSrcRedir
     }
@@ -73,7 +73,7 @@ const useMyBooksAdd = ({ book, targetList }: { book: Book; targetList: BookList 
                 review_tropes: [],
                 title: book.title,
                 title_short: title_short,
-                tossed: false,
+                tossed: false
             }
             newUserMyBooks?.push(newBook)
         } else newUserMyBooks = userMyBooks // TODO: just update or keep intact.. not sure

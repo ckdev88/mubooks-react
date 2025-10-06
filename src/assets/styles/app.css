@@ -15,7 +15,7 @@
 .nav-collapsable,
 #header,
 #navIcons {
-    max-width: 600px;
+    max-width: var(--width-standard);
 }
 
 #header {
@@ -51,7 +51,7 @@ html:not(.loggedin) .h1 {
     position: fixed;
     background: #df8506ee;
     width: 100%;
-    max-width: calc(600px - 0.5rem);
+    max-width: calc(var(--width-standard) - 0.5rem);
     border-radius: 0.75rem;
     text-align: center;
     bottom: 3rem;

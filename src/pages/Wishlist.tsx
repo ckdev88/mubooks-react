@@ -12,7 +12,6 @@ const booklist = 1
 
 const WishlistPage = () => {
     const { userMyBooks, GLOBALS } = useContext(AppContext)
-
     const [books, setBooks] = useState<Books | undefined>(undefined)
 
     useEffect(() => {

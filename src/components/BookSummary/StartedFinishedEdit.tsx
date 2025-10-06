@@ -1,107 +1,42 @@
-// TODO should be removed in favor of BookSummary/StartedFinished.tsx
-import { useContext, useEffect, useState } from "react"
-import { debounce, openCalendarPopUp } from "@/utils/Helpers"
+/*
+import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
-import { convertDate } from "@/utils/convertDate"
-import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 import useMyBooksUpdateDb from "@/hooks/useMyBooksUpdateDb"
 
-const BookStartedFinished = ({
-    date_started,
-    date_finished,
+interface Props {
+    book_id: Book["id"]
+    list: number
+    setNewArrayInit: (arr: Books) => void
+    setDateStartedInit: (dateStarted: Book["date_reading"]) => void
+    setDateFinishedInit: (dateFinished: Book["date_finished"]) => void
+}
+
+export default function StartedFinishedEdit({
     book_id,
     list,
-    readOnly,
-    editMode
-}: {
-    date_started: Book["date_reading"]
-    date_finished: Book["date_finished"]
-    book_id: Book["id"]
-    list: Book["list"]
-    readOnly?: boolean
-    editMode?:boolean
-}) => {
+    setNewArrayInit,
+    setDateStartedInit,
+    setDateFinishedInit
+}: Props) {
     const { userMyBooks, setUserMyBooks, todaysDateInput } = useContext(AppContext)
-    const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
-    const [dateFinished, setDateFinished] = useState<Book["date_finished"]>(date_finished)
-    const [showStartedDate, setShowStartedDate] = useState<boolean>(false)
-    const [showFinishedDate, setShowFinishedDate] = useState<boolean>(false)
-
-    const [newArray, setNewArray] = useState<Books>(userMyBooks)
-    const msg = "Book starting / finished date changed"
-    const updateMyBooksDb = useMyBooksUpdateDb({
-        myBooksNew: newArray,
-        book_id: null,
-        msg,
-    })
-
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    useEffect(() => {
-        if (date_finished === 0) {
-            setShowStartedDate(true)
-            setShowFinishedDate(false)
-        } else {
-            setShowStartedDate(false)
-            setShowFinishedDate(true)
-        }
-    }, [
-        date_finished,
-        userMyBooks,
-        date_started,
-        setShowStartedDate,
-        setShowFinishedDate,
-        dateFinished,
-    ])
-
-    if (readOnly || editMode===false) {
-        return (
-            <div className="book-started-finished">
-                <div>
-                    {list === 2 && (
-                        // reading since <date>
-                        <em className="btn-text readonly">
-                            <span className="icon icon-reading" />
-                            <BtnTextGeneral
-                                bText={dateStarted && convertDate(dateStarted, "human")}
-                                readOnly={true}
-                            />
-                        </em>
-                    )}
-                    {
-                        // finished at <date>
-                        list > 2 && (
-                            <em className="btn-text readonly">
-                                <span className="icon icon-finished" />
-                                <BtnTextGeneral
-                                    bText={date_finished && convertDate(date_finished, "human")}
-                                    readOnly={true}
-                                />
-                            </em>
-                        )
-                    }
-                </div>
-            </div>
-        )
-    }
-
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
         if (fieldName !== "date_reading" && fieldName !== "date_finished") {
             console.warn("changeDates: Wrong fieldName given")
             return
         }
 
-        if (fieldName === "date_reading") setDateStarted(fieldVal)
+        if (fieldName === "date_reading") setDateStartedInit(fieldVal)
         else {
             // fieldName === "date_finished"
             if (Number.isNaN(fieldVal)) {
-                setDateFinished(undefined)
+                setDateFinishedInit(undefined)
                 list = 2
-            } else setDateFinished(fieldVal)
+            } else setDateFinishedInit(fieldVal)
         }
 
         let myBooks: Books
         if (userMyBooks === null || userMyBooks === undefined) myBooks = []
-        else myBooks = userMyBooks
+        else myBooks = userMyBooks.slice()
         for (let i = 0; i < myBooks.length; i++) {
             if (myBooks[i].id === book_id) {
                 if (fieldName === "date_reading") myBooks[i].date_reading = fieldVal
@@ -120,7 +55,7 @@ const BookStartedFinished = ({
                 }
             }
         }
-        setNewArray(myBooks)
+        setNewArrayInit(myBooks)
         updateMyBooks(myBooks)
     }
 
@@ -141,13 +76,13 @@ const BookStartedFinished = ({
     useEffect(() => {
         if (dateStarted && showStartedDate) {
             const eleDateReading = document.getElementById(
-                "date_reading" + book_id,
+                "date_reading" + book_id
             ) as HTMLInputElement | null
             if (eleDateReading !== null) eleDateReading.value = convertDate(dateStarted, "input")
         }
         if (dateFinished && showFinishedDate) {
             const eleDateFinished = document.getElementById(
-                "date_finished" + book_id,
+                "date_finished" + book_id
             ) as HTMLInputElement | null
             if (eleDateFinished !== null) eleDateFinished.value = convertDate(dateFinished, "input")
         }
@@ -204,4 +139,4 @@ const BookStartedFinished = ({
         </div>
     )
 }
-export default BookStartedFinished
+*/

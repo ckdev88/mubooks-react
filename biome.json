@@ -45,7 +45,8 @@
     "javascript": {
         "formatter": {
             "semicolons": "asNeeded",
-            "quoteStyle": "double"
+            "quoteStyle": "double",
+            "trailingCommas":"none"
         }
     }
 }

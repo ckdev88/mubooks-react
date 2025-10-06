@@ -24,12 +24,21 @@ interface AppContextType {
     setPageName(pageName: pageName): void
     GLOBALS: GlobalSettings
 }
+interface EditModeContextType {
+    editMode: boolean
+    setEditMode(editMode: editMode): void
+}
 interface GlobalSettings {
     headingIconsEnabled: boolean
     synopsisEnabled: boolean
     userid: string | null
     bookRemoveAnimationDuration: number
     motionPageProps: MotionProps
+}
+interface CoverModalProps {
+    bookTitle: Book["title_short"]
+    bookCoverM: Book["cover"]
+    bookCoverSource: Book["cover"]
 }
 
 interface IsModdingPagesContextType {
@@ -153,7 +162,7 @@ type BookData = [
         cover_redir?: string
         img?: string
         title_short?: string
-    },
+    }
 ]
 interface Book {
     author_key?: string[]
@@ -238,6 +247,7 @@ interface BookDaysPerBook {
     id: Book["id"]
     title_short: Book["title_short"]
 }
+type ReviewRatingType = "rate_stars" | "rate_spice"
 // interface CountBookValues {
 // 	/** Count books finished */
 // 	cbf: number

@@ -3,7 +3,7 @@ import "@/functions/miscEventListeners.ts"
 import { isLocal } from "@/utils/Helpers.ts"
 
 // components
-import Footer from "@/components/layout/Footer"
+import Footer from "@/components/layout/Footer.tsx"
 import Navbar from "@/components/layout/Navbar"
 import PopupNotification from "@/components/ui/PopupNotification"
 
@@ -48,14 +48,12 @@ const AppWrapper = () => {
     return (
         <>
             <div id="top" style={{ position: "absolute" }} />
-
             <>
                 {userIsLoggedIn && (
                     <header id="header" className="shade">
                         <Navbar />
                     </header>
                 )}
-
                 <main id="main" className={pageName + " main"}>
                     <PopupNotification />
                     <Routes>
@@ -82,15 +80,15 @@ const AppWrapper = () => {
                                 <Route path="/dashboard" element={<DashboardPage />} />
                                 <Route path="/search" element={<SearchPage />} />
                                 <Route path="/addbook" element={<AddBookPage />} />
-                                <Route path="/savedbooks" element={<SavedBooksPage />} />
                                 <Route path="/tossed" element={<TossedPage />} />
+                                <Route path="/quoted" element={<QuotedPage />} />
+                                <Route path="/tropes" element={<TropesPage />} />
+                                <Route path="/statistics" element={<StatisticsPage />} />
                                 <Route path="/wishlist" element={<WishlistPage />} />
                                 <Route path="/reading" element={<ReadingPage />} />
                                 <Route path="/finished" element={<FinishedPage />} />
                                 <Route path="/favourites" element={<FavouritesPage />} />
-                                <Route path="/quoted" element={<QuotedPage />} />
-                                <Route path="/tropes" element={<TropesPage />} />
-                                <Route path="/statistics" element={<StatisticsPage />} />
+                                <Route path="/savedbooks" element={<SavedBooksPage />} />
                                 {isLocal() && (
                                     <Route path="/clear-my-books" element={<ClearMyBooks />} />
                                 )}
@@ -104,6 +102,7 @@ const AppWrapper = () => {
                         <Footer />
                     </div>
                 )}
+
             </>
         </>
     )

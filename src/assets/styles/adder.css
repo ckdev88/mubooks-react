@@ -28,23 +28,22 @@
         padding: 0;
     }
 }
-.adder{ 
+.adder {
+    main.toadd {
+        display: flex;
+        line-height: 2em;
+        justify-content: left;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+    .btn-icon {
+        display: block;
+    }
 
-main.toadd {
-    display: flex;
-    line-height: 2em;
-    justify-content: left;
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-}
-.btn-icon {
-    display: block;
-}
-
-aside {
-    font-size: 0.9rem;
-}
+    aside {
+        font-size: 0.9rem;
+    }
 }
 
 .adder.alt header {
@@ -103,13 +102,20 @@ aside {
     background: white;
     position: relative;
     border: 2px solid white;
-}
+    transition: transform .2s ease-in-out, z-index .2s ease-in-out;
+    &:hover,
+    &:focus,
+    &:active {
+        transform: scale(1.1);
+        z-index: 11 !important;
+    }
 
-.deck-container .book-cover img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 0.5rem;
-    object-fit: cover;
-    box-shadow: none;
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        object-fit: cover;
+        box-shadow: none;
+    }
 }
