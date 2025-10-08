@@ -20,12 +20,15 @@ function isValidUUID(string $uuid): bool
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Add CORS headers
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Allow-Headers: Content-Type");
 
     //Load Composer's autoloader
-    require 'vendor/autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-    //load env credentials
-    require_once('./protected/.mailenv.php');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/protected/.mailenv.php';
 
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -43,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $toname = $mailenv['BUGSTONAME'];
     $subject = "Suggestion report";
 
-    $message .= '<b>Suggestion:</b><br/>';
+    $message = '<b>Suggestion:</b><br/>';
     $message .= $suggestion . '<br/>';
     if ($anythingElse != '') {
         $message .= '<br/><b>And...</b><br/>';
@@ -92,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $mail->send();
         echo 'OK';
-        return false;
+        return;
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

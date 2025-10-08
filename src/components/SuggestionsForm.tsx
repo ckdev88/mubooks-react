@@ -50,7 +50,7 @@ const SuggestionsForm: React.FC = () => {
                             border: "1px solid rgba(0,0,0,.3)",
                             borderRadius: "0.2rem",
                             margin: 0,
-                            padding: ".5rem",
+                            padding: ".5rem"
                         }}
                         className="sf"
                     >
@@ -63,15 +63,15 @@ const SuggestionsForm: React.FC = () => {
                         <br />
                         {formdata_anythingElse !== "" ? formdata_anythingElse : "Not right now"}
                     </blockquote>
-                </div>,
+                </div>
             )
         }
-        function setFailMessage($msg: string) {
+        function setFailMessage(msg: string) {
             setMessage(
                 <div>
                     <div className="h2">Something went wrong...</div>
-                    <div className="sub">{$msg}</div>
-                </div>,
+                    <div className="sub">{msg}</div>
+                </div>
             )
         }
 
@@ -81,17 +81,24 @@ const SuggestionsForm: React.FC = () => {
             setIsLoading(false)
             return
         }
-        fetch("ProcessSuggestion.php", {
+        fetch("/ProcessSuggestion.php", {
             method: "POST",
-            body: formdata,
+            body: formdata
         })
-            .then((response) => response.text())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+                return response.text()
+            })
             .then((data) => {
                 setIsPosted(true)
                 if (data === "OK") setSuccessMessage()
                 else setFailMessage(data)
             })
-            .catch((error) => console.error("Error:", error))
+            .catch((error) => {
+                setFailMessage(`Network error: ${error.message}`)
+            })
             .finally(() => setIsLoading(false))
     }
 
