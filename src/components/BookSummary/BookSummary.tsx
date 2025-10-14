@@ -110,7 +110,12 @@ const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummar
                                 )}
                             </header>
 
-                            <EditModeToggler onUserAction={changeEditMode} editMode={editMode} />
+                            {currentPage !== "dashboard" && (
+                                <EditModeToggler
+                                    onUserAction={changeEditMode}
+                                    editMode={editMode}
+                                />
+                            )}
 
                             <div className="summary-actions pt05">
                                 {book.list > 1 && currentPage !== "search" && (

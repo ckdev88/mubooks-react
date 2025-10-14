@@ -686,6 +686,18 @@ button.icon-heart {
     }
 }
 
+.editModeTogglerArea {
+    position: absolute;
+    top: 2.5rem;
+    right: 0;
+}
+
+.book-summary.reading,
+.book-summary.wishlist {
+    .editModeTogglerArea {
+        top: 0;
+    }
+}
 #accessibility-darkmode {
     margin-right: 0.2em;
     height: 1.5rem;

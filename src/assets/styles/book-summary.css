@@ -19,15 +19,11 @@
     &.edit-mode {
         background-color: var(--bg-invert1);
         border: 2px dashed var(--bg);
+        padding-left: .5rem;
+        padding-right: .5rem;
         .seperator {
             background-color: transparent;
             border-color: transparent;
-        }
-        .aside {
-            padding-left: .5rem;
-        }
-        .article-main {
-            padding-right: .5rem;
         }
     }
     &.tropes {
