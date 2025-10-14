@@ -14,7 +14,7 @@ const currentPage = getCurrentPage()
 const useMyBooksRemove = ({
     removeType,
     book,
-    targetList,
+    targetList
 }: {
     removeType: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
     book?: Book
@@ -61,7 +61,7 @@ const useMyBooksRemove = ({
         return updateDb({
             msg: msg,
             newJson: myBooksNew,
-            userid: userid,
+            userid: userid
         })
     }
 
@@ -76,7 +76,7 @@ const useMyBooksRemove = ({
         if (userMyBooks !== undefined) myBooks = userMyBooks
         return updateMyBooks(
             myBooks.filter((mybook) => !mybook.tossed),
-            nm.permatossed_tossers,
+            nm.permatossed_tossers
         )
     }
 
@@ -97,19 +97,19 @@ const useMyBooksRemove = ({
                             case 4:
                                 return updateMyBooks(
                                     assignListById(myBooks, book.id, 3),
-                                    nm.reading_added,
+                                    nm.reading_added
                                 ) // favourite > finished
                             default:
                                 // FIXME klopt dit? in /finished het verwijderen van fave status geeft problemen
                                 return updateMyBooks(
                                     assignListById(myBooks, book.id, 3),
-                                    nm.favourite_removed,
+                                    nm.favourite_removed
                                 ) // favourite > finished
                         }
                     case 3:
                         return updateMyBooks(
                             assignListById(myBooks, book.id, 2),
-                            nm.finished_to_reading,
+                            nm.finished_to_reading
                         ) // finished > reading
                     case 2:
                         return updateMyBooks(assignListById(myBooks, book.id, 1), nm.wishlist_added) // reading > wishlist
@@ -122,12 +122,12 @@ const useMyBooksRemove = ({
             case "untoss": // restore tossed > book.list
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "untoss"),
-                    nm.restored_to + getListName(book.list),
+                    nm.restored_to + getListName(book.list)
                 )
             case "permatoss": // remove book completely
                 return updateMyBooks(
                     assignListById(myBooks, book.id, book.list, "permatoss"),
-                    nm.permatossed,
+                    nm.permatossed
                 )
             case "permatoss_tossers":
                 return

@@ -11,7 +11,7 @@ const BtnCancel = ({
     bType,
     bOnClick,
     bClassName,
-    bStyle,
+    bStyle
 }: {
     bText?: string
     bType?: "button" | "submit" | "reset"

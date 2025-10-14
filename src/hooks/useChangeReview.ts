@@ -7,7 +7,7 @@ import { notification as nm } from "@/i18n/notifications"
 
 const useChangeReview = (
     book_id: Book["id"],
-    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2",
+    o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
 ): [(e: React.FormEvent<HTMLFormElement>) => void] => {
     const { userMyBooks } = useContext(AppContext)
     const { setIsModding, setReviewText } = useContext(IsModdingReviewContext)
@@ -16,7 +16,7 @@ const useChangeReview = (
     const updateMyBooksDb = useMyBooksUpdateDb({
         myBooksNew: userMyBooks,
         book_id,
-        msg,
+        msg
     })
 
     function processForm(e: React.FormEvent<HTMLFormElement>): void {

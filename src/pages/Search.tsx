@@ -40,7 +40,7 @@ const SearchPage = () => {
                     "&mode=everything&limit=" +
                     maximumSearchResults +
                     "&fields=" +
-                    searchfields,
+                    searchfields
             )
                 .then((response) => response.json())
                 .then((json) =>
@@ -49,8 +49,8 @@ const SearchPage = () => {
                             r.author_key !== undefined &&
                             r.edition_key !== undefined &&
                             r.key !== undefined &&
-                            r.cover_edition_key !== undefined,
-                    ),
+                            r.cover_edition_key !== undefined
+                    )
                 )
                 .then((filtered) => {
                     setResultCount(filtered.length)

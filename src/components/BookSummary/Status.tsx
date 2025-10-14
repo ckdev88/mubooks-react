@@ -3,7 +3,7 @@ import convertDate from "@/utils/convertDate"
 
 const BookSummaryStatus = ({
     book,
-    bookAnchor,
+    bookAnchor
 }: {
     book: Book
     bookAnchor: string

@@ -13,8 +13,8 @@ const BooksOverviewPageQuoted = ({ books, page }: { books: Books; page: Page }) 
                         currentPage={page}
                         special="quote2"
                     />
-                ),
-            ].filter(Boolean),
+                )
+            ].filter(Boolean)
         )}
     </>
 )

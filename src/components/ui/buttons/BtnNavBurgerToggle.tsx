@@ -1,6 +1,6 @@
 const BtnToggleNavBurger = ({
     bOnClick,
-    bClassname,
+    bClassname
 }: { bOnClick?: () => Promise<void> | void; bIsLoading?: boolean; bClassname: string }) => {
     return (
         <button id="toggleNavBurger" type="button" className={bClassname} onClick={bOnClick}>

@@ -48,7 +48,7 @@ const QuickBookSearch = () => {
                 "https://openlibrary.org/search.json?q=" +
                     search_term +
                     "&mode=everything&limit=8&fields=" +
-                    searchfields,
+                    searchfields
             )
             await wacht
                 .json()
@@ -58,8 +58,8 @@ const QuickBookSearch = () => {
                             r.author_key !== undefined &&
                             r.edition_key !== undefined &&
                             r.isbn !== undefined &&
-                            r.cover_edition_key !== undefined,
-                    ),
+                            r.cover_edition_key !== undefined
+                    )
                 )
                 .then((filtered) => {
                     for (let i = 0; i < filtered.length; i++) {
@@ -70,7 +70,7 @@ const QuickBookSearch = () => {
                     filtered.length > 30
                         ? setResultsMessage("Showing only 30 results. Specify a bit more.")
                         : setResultsMessage(
-                              "Showing " + filtered.length + " results for " + search_term + ".",
+                              "Showing " + filtered.length + " results for " + search_term + "."
                           )
                     return filtered
                 })

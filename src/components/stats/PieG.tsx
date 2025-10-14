@@ -12,9 +12,9 @@ export default function PieG({ data }: { data: number[] }) {
             ["2 stars", data[1]],
             ["3 stars", data[2]],
             ["4 stars", data[3]],
-            ["5 stars", data[4]],
+            ["5 stars", data[4]]
         ],
-        [data],
+        [data]
     )
 
     const chartOptions = useMemo(
@@ -22,13 +22,13 @@ export default function PieG({ data }: { data: number[] }) {
             backgroundColor: bodyBgColor,
             legend: {
                 textStyle: {
-                    color: darkTheme ? "white" : "black",
-                },
+                    color: darkTheme ? "white" : "black"
+                }
             },
             chartArea: { left: 0, width: "100%" },
-            fontSize: 14,
+            fontSize: 14
         }),
-        [bodyBgColor, darkTheme],
+        [bodyBgColor, darkTheme]
     )
 
     return <Chart chartType="PieChart" data={chartData} options={chartOptions} />

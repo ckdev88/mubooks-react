@@ -77,6 +77,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
         }
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
         if (userIsLoggedIn === true && userMyBooks === undefined) {
             persistMyBooks()

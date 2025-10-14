@@ -7,7 +7,7 @@ const BtnTextGeneral = ({
     bIcon,
     bText,
     bAlign,
-    readOnly,
+    readOnly
 }: {
     bOnClick?: () => Promise<void> | void
     bIsLoading?: boolean

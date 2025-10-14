@@ -16,7 +16,7 @@ const TropesPrefs = ({ field }: { field: "tropes_liked" | "tropes_disliked" }): 
         likedTropesLowercase,
         setDislikedTropes,
         dislikedTropes,
-        dislikedTropesLowercase,
+        dislikedTropesLowercase
     } = useContext(TropesPageContext)
 
     const { setPopupNotification, userid } = useContext(AppContext)

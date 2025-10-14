@@ -3,7 +3,7 @@ import BookModifyReview from "@/components/BookModifyReview"
 import { getCurrentPage } from "@/utils/Helpers"
 
 export const IsModdingReviewContext = createContext<IsModdingReviewContextType>(
-    {} as IsModdingReviewContextType,
+    {} as IsModdingReviewContextType
 )
 
 const BookSummaryReview = ({
@@ -11,7 +11,7 @@ const BookSummaryReview = ({
     o_key,
     review_text,
     readOnly,
-    editMode,
+    editMode
 }: {
     book_id: Book["id"]
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
@@ -57,7 +57,7 @@ const BookSummaryReview = ({
                 setIsModding,
                 reviewText,
                 setReviewText,
-                o_key,
+                o_key
             }}
         >
             <div className={`review-text ${o_key} pt05`}>

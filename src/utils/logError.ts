@@ -2,7 +2,7 @@ export default function logError(
     functionName: string,
     fileName: string,
     lineNr: number,
-    msgText?: string,
+    msgText?: string
 ) {
     console.warn(
         "ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR Error caused! Function " +
@@ -12,6 +12,6 @@ export default function logError(
             ":" +
             lineNr +
             ". " +
-            (msgText ? msgText + "." : ""),
+            (msgText ? msgText + "." : "")
     )
 }

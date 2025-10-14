@@ -6,7 +6,7 @@ import BtnCancel from "@/components/ui/buttons/BtnCancel"
 
 const BookModifyPages = ({
     book_id,
-    book_number_of_pages_median,
+    book_number_of_pages_median
 }: {
     book_id: Book["id"]
     book_number_of_pages_median: Book["number_of_pages_median"]
@@ -20,7 +20,7 @@ const BookModifyPages = ({
         name: "pagesAmount",
         id: "pages_" + book_id,
         default: book_number_of_pages_median,
-        placeholder: "0",
+        placeholder: "0"
     }
 
     useEffect(() => {

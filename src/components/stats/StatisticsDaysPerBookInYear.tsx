@@ -26,12 +26,12 @@ type OutputPerDaysAmountArray = OutputPerDaysAmount[]
 function getBooksFinishedInYear(
     inputArray: Books,
     year: number,
-    format: "concise" | "concise_daysperbook" | "full",
+    format: "concise" | "concise_daysperbook" | "full"
 ): Books | ConciseDaysPerBookArray {
     const arrayFull =
         inputArray !== undefined
             ? inputArray.filter(
-                  (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
+                  (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year
               )
             : []
 
@@ -42,7 +42,7 @@ function getBooksFinishedInYear(
             const bookToPush: ConciseDaysPerBook = {
                 id: arrayFull[i].id,
                 title_short: arrayFull[i].title_short,
-                days: getDurationDays(arrayFull[i].date_reading, arrayFull[i].date_finished),
+                days: getDurationDays(arrayFull[i].date_reading, arrayFull[i].date_finished)
             }
             arrayConcise[i] = bookToPush
         }

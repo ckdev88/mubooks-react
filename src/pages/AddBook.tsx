@@ -38,7 +38,7 @@ const AddBookPage = () => {
     const [bookTropes, setBookTropes] = useState<BookTropes>([])
 
     const [selectedImageType, setSelectedImageType] = useState<undefined | "url" | "upload">(
-        undefined,
+        undefined
     )
 
     function changePages(e: React.ChangeEvent<HTMLInputElement>) {
@@ -78,7 +78,7 @@ const AddBookPage = () => {
             try {
                 const response = await fetch("ProcessCover.php", {
                     method: "POST",
-                    body: formData,
+                    body: formData
                 })
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`)
@@ -124,7 +124,7 @@ const AddBookPage = () => {
             cover_edition_key: "",
             rate_stars: rate_stars,
             rate_spice: rate_spice,
-            tossed: false,
+            tossed: false
         }
         newArr?.push(book)
 
@@ -170,7 +170,7 @@ const AddBookPage = () => {
         if (authorToAdd !== undefined && authorToAdd.trim().length > 1) {
             // find duplicate author value: if found, splice it
             returnAuthors = bookAuthors.filter(
-                (author) => author.toLowerCase() !== authorInputValue.trim().toLowerCase(),
+                (author) => author.toLowerCase() !== authorInputValue.trim().toLowerCase()
             )
             returnAuthors.push(formatAuthor(authorToAdd))
             if (addAnother) {
@@ -192,7 +192,7 @@ const AddBookPage = () => {
         let returnTropes: BookTropes = []
         if (tropeInputValue !== undefined && tropeInputValue.trim().length > 1) {
             returnTropes = bookTropes.filter(
-                (trope) => trope.toLowerCase() !== tropeInputValue.trim().toLowerCase(),
+                (trope) => trope.toLowerCase() !== tropeInputValue.trim().toLowerCase()
             )
             returnTropes.push(tropeInputValue)
             returnTropes.sort((a, b) => a.localeCompare(b))
@@ -278,7 +278,7 @@ const AddBookPage = () => {
                             display: "flex",
                             alignContent: "center",
                             justifyContent: "space-between",
-                            gap: "1rem",
+                            gap: "1rem"
                         }}
                     >
                         <label htmlFor="abYearPublished">

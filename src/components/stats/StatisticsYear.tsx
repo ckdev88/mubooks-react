@@ -19,7 +19,7 @@ function StatisticsYear({ myBooksArr, year }: { myBooksArr: Books; year: number 
         countPagesFinished,
         countPagesFinishedMonthly,
         countStarsPerBook,
-        daysPerBook,
+        daysPerBook
     } = bookMetrics
 
     const readingStats = (() => {
@@ -29,7 +29,7 @@ function StatisticsYear({ myBooksArr, year }: { myBooksArr: Books; year: number 
             totalDays,
             totalBooks,
             avgDaysPerBook: Math.round(totalDays / totalBooks),
-            hasRatings: countStarsPerBook.reduce((sum, rating) => sum + rating, 0) > 0,
+            hasRatings: countStarsPerBook.reduce((sum, rating) => sum + rating, 0) > 0
         }
     })()
 

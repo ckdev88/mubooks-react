@@ -5,7 +5,7 @@ const BookSummaryQuoted = ({
     book,
     currentPage,
     special,
-    refer,
+    refer
 }: { book: Book; currentPage: Page; special?: "quote" | "quote2"; refer?: Page }) => {
     return (
         <div className="quoteblock">

@@ -9,7 +9,7 @@ const BtnAddTrope = ({
     bText,
     bType,
     bOnClick,
-    bActiveForm,
+    bActiveForm
 }: {
     bText: string
     bType?: "button" | "submit" | "reset"

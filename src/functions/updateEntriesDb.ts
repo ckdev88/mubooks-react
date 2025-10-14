@@ -9,7 +9,7 @@ async function updateEntriesDbxxx(newArr: Books, userid: string): Promise<string
         .from("user_entries")
         .update({
             json: newArr,
-            testdata: "updated... some specific message will be built later",
+            testdata: "updated... some specific message will be built later"
         })
         .eq("user_id", userid)
         .select("*")

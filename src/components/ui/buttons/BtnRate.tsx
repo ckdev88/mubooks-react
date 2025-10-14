@@ -1,7 +1,7 @@
 const BtnRate = ({
     bOnClick,
     rateType,
-    bActive = false,
+    bActive = false
 }: {
     bOnClick: () => void
     rateType: "eraser" | "star" | "spice"

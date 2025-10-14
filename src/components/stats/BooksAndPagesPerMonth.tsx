@@ -10,7 +10,7 @@ const BooksAndPagesPerMonth = ({
     countBooksWithoutPages,
     countPagesFinished,
     countPagesFinishedMonthly,
-    year,
+    year
 }: {
     averagePagesPerDay: number
     booksWithoutPages: BooksWithoutPages

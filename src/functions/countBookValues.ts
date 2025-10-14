@@ -120,7 +120,7 @@ const countBookValues = ({ myBooksArr, year }: { myBooksArr: Books; year: number
         booksWithoutPages,
         booksWithoutStars,
         countBooksWithoutStars,
-        daysPerBook,
+        daysPerBook
     }
 }
 export default countBookValues

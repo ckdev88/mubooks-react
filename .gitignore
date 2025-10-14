@@ -24,8 +24,7 @@ dist-ssr
 *.sw?
 
 data
-release.sh
-release_beta.sh
+*.sh
 notes
 ideas
 todos.md

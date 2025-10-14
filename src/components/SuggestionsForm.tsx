@@ -50,7 +50,7 @@ const SuggestionsForm: React.FC = () => {
                             border: "1px solid rgba(0,0,0,.3)",
                             borderRadius: "0.2rem",
                             margin: 0,
-                            padding: ".5rem",
+                            padding: ".5rem"
                         }}
                         className="sf"
                     >
@@ -63,7 +63,7 @@ const SuggestionsForm: React.FC = () => {
                         <br />
                         {formdata_anythingElse !== "" ? formdata_anythingElse : "Not right now"}
                     </blockquote>
-                </div>,
+                </div>
             )
         }
         function setFailMessage($msg: string) {
@@ -71,7 +71,7 @@ const SuggestionsForm: React.FC = () => {
                 <div>
                     <div className="h2">Something went wrong...</div>
                     <div className="sub">{$msg}</div>
-                </div>,
+                </div>
             )
         }
 
@@ -83,7 +83,7 @@ const SuggestionsForm: React.FC = () => {
         }
         fetch("ProcessSuggestion.php", {
             method: "POST",
-            body: formdata,
+            body: formdata
         })
             .then((response) => response.text())
             .then((data) => {

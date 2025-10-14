@@ -8,7 +8,7 @@ function LineG3({ data }: { data: number[] }) {
 
     const chartData = useMemo(() => {
         const result: Array<[number | string, number | string]> = [
-            ["Days from start to finish", "Finished books per days per book"],
+            ["Days from start to finish", "Finished books per days per book"]
         ]
 
         for (let i = 0; i < data.length; i++) {
@@ -25,31 +25,31 @@ function LineG3({ data }: { data: number[] }) {
                 position: "top",
                 textStyle: {
                     color: darkTheme ? "white" : "black",
-                    fontSize: "14px",
-                },
+                    fontSize: "14px"
+                }
             },
             hAxis: {
                 title: "Days per book",
                 titleTextStyle: {
-                    color: darkTheme ? "white" : "black",
+                    color: darkTheme ? "white" : "black"
                 },
                 textStyle: { color: darkTheme ? "white" : "black" },
                 gridlines: {
-                    count: 0,
-                },
+                    count: 0
+                }
             },
             vAxis: {
                 title: "Finished books",
                 titleTextStyle: {
-                    color: darkTheme ? "white" : "black",
+                    color: darkTheme ? "white" : "black"
                 },
-                textStyle: { color: darkTheme ? "white" : "black" },
+                textStyle: { color: darkTheme ? "white" : "black" }
             },
             colors: ["#ff5f00"],
             chartArea: { left: 40, right: 30 },
-            pointSize: 5,
+            pointSize: 5
         }),
-        [bodyBgColor, darkTheme],
+        [bodyBgColor, darkTheme]
     )
 
     return (

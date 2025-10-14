@@ -14,10 +14,10 @@ const TropesPage = () => {
     const [likedTropes, setLikedTropes] = useState<BookTropes>([])
     const [dislikedTropes, setDislikedTropes] = useState<BookTropes>([])
     const [dislikedTropesLowercase, setDislikedTropesLowercase] = useState(
-        dislikedTropes.map((trope) => trope.toLowerCase()),
+        dislikedTropes.map((trope) => trope.toLowerCase())
     )
     const [likedTropesLowercase, setLikedTropesLowercase] = useState(
-        likedTropes.map((trope) => trope.toLowerCase()),
+        likedTropes.map((trope) => trope.toLowerCase())
     )
     const [tropesInMyBooksArr, setTropesInMyBooksArr] = useState<Books>([])
 
@@ -39,7 +39,7 @@ const TropesPage = () => {
                 likedTropesLowercase,
                 dislikedTropesLowercase,
                 tropesInMyBooksArr,
-                setTropesInMyBooksArr,
+                setTropesInMyBooksArr
             }}
         >
             <motion.div {...GLOBALS.motionPageProps}>

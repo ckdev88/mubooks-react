@@ -14,7 +14,7 @@ const RemoveBookFromXButton = ({
     targetList = bookProp.list,
     icon = false,
     button_title = "",
-    removeType,
+    removeType
 }: {
     bookProp: Book
     targetList?: BookList
@@ -59,7 +59,7 @@ const RemoveBookFromXButton = ({
             if (shouldCollapse(targetList, removeType)) await collapseItem(book.id)
             removeBookFromXButtonAct() // OPTIMIZE to await or not to await here?
         },
-        [targetList, removeType, book, removeBookFromXButtonAct],
+        [targetList, removeType, book, removeBookFromXButtonAct]
     )
 
     // Show heart icon in top right, depending on targetList & icon args

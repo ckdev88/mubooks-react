@@ -10,7 +10,7 @@ import BooksOverviewSearchPage from "@/components/BooksOverview/SearchPage"
 const fsPages: Page[] = ["wishlist", "finished", "favourites", "savedbooks"]
 
 export const BooksOverviewFilterContext = createContext<BooksOverviewFilterContextType>(
-    {} as BooksOverviewFilterContextType,
+    {} as BooksOverviewFilterContextType
 )
 
 // Memoize the filter function to prevent recreation on every render
@@ -21,7 +21,7 @@ const filterBooks = (books: Books, filterValue: string): Books => {
     return books?.filter(
         (book) =>
             book.title_short.toLowerCase().includes(lowerFilter) ||
-            book.author_name.join("").toLowerCase().includes(lowerFilter),
+            book.author_name.join("").toLowerCase().includes(lowerFilter)
     )
 }
 
@@ -63,9 +63,9 @@ const BooksOverviewPage = ({ books, page }: BooksOverviewPageParams) => {
         () => ({
             setBooksFilter,
             booksFilter,
-            booksOverview: filteredBooks,
+            booksOverview: filteredBooks
         }),
-        [booksFilter, filteredBooks],
+        [booksFilter, filteredBooks]
     )
 
     // Render different views based on page type

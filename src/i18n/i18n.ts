@@ -20,21 +20,21 @@ const translations: Translations = {
         /** n = Notifications */
         n: {
             add_to_reading: "add to started",
-            add_to_finished: "add to finished",
+            add_to_finished: "add to finished"
         },
         welcome: "Welcome",
         goodbye: "Goodbye",
         // Can add more keys
-        hello: "Hello",
+        hello: "Hello"
     },
     nl: {
         welcome: "Welkom",
-        goodbye: "Doei",
+        goodbye: "Doei"
     },
     pt: {
         welcome: "Bem vindo",
-        goodbye: "Tchau",
-    },
+        goodbye: "Tchau"
+    }
 }
 
 let currentLanguage: LanguageCode = "en"

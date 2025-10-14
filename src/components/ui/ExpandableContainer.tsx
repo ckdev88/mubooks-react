@@ -4,7 +4,7 @@ import BtnTextGeneral from "@/components/ui/buttons/BtnTextGeneral"
 export default function ExpandableContainer({
     children,
     buttonText = "Details",
-    extraClass,
+    extraClass
 }: { children: ReactNode; buttonText?: string; extraClass?: string }) {
     const [isExpanded, setIsExpanded] = useState(false)
     const contentRef = useRef<HTMLDivElement>(null)
@@ -66,7 +66,7 @@ export default function ExpandableContainer({
                 ref={contentRef}
                 style={{
                     overflow: "hidden",
-                    height: "0",
+                    height: "0"
                 }}
                 aria-hidden={!isExpanded}
             >

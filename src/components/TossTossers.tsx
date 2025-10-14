@@ -6,7 +6,7 @@ const TossTossers = () => {
     const removeBookFromXButtonAct = useMyBooksRemove({
         book: undefined,
         removeType: "permatoss_tossers",
-        targetList: undefined,
+        targetList: undefined
     })
 
     // function clearbooksyes() {

@@ -26,7 +26,7 @@ export default function getRandomQuote(books: Books | undefined): BookQuote | nu
     const quote = {
         title: randomBook.title,
         quote: chosenQuote,
-        authors: randomBook.author_name.join(", "),
+        authors: randomBook.author_name.join(", ")
     }
     return quote
 }

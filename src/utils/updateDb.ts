@@ -4,14 +4,14 @@ import { supabase } from "@/../utils/supabase"
 export default async function updateDb({
     msg,
     newJson,
-    userid,
+    userid
 }: { msg: string; newJson: Books; userid: string }) {
     async function runUpdateDb() {
         const { error } = await supabase
             .from("user_entries")
             .update({
                 json: newJson,
-                testdata: msg,
+                testdata: msg
             })
             .eq("user_id", userid)
             .select("*")

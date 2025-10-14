@@ -23,7 +23,7 @@ export default function DashboardPage() {
             icon: "icon-reading.svg",
             noBooksText: "Already reading a book? Let's add it here.",
             page: "reading",
-            title: "What I'm reading now",
+            title: "What I'm reading now"
         },
         wishlist: {
             books: booksNotTossed?.filter((book) => book.list === 1),
@@ -31,7 +31,7 @@ export default function DashboardPage() {
             icon: "icon-wishlist.svg",
             noBooksText: "Next in line.",
             page: "wishlist",
-            title: "Mu Wishlist",
+            title: "Mu Wishlist"
         },
         favourites: {
             books: booksNotTossed?.filter((book) => book.list === 4),
@@ -39,7 +39,7 @@ export default function DashboardPage() {
             icon: "icon-favourites.svg",
             noBooksText: "Only the best ones here",
             page: "favourites",
-            title: "Mu Favourites",
+            title: "Mu Favourites"
         },
         finished: {
             books: booksNotTossed?.filter((book) => book.list === 3),
@@ -47,7 +47,7 @@ export default function DashboardPage() {
             icon: "icon-finished.svg",
             noBooksText: "Only the best ones here",
             page: "finished",
-            title: "Mu Finished books",
+            title: "Mu Finished books"
         },
         savedbooks: {
             books: booksNotTossed?.filter((book) => book.list > 0),
@@ -55,8 +55,8 @@ export default function DashboardPage() {
             icon: "savedbooks.svg",
             noBooksText: "Let's start saving books.",
             page: "savedbooks",
-            title: "All of Mu Books",
-        },
+            title: "All of Mu Books"
+        }
     }
 
     if (deck !== undefined)

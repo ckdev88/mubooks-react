@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getBookCover } from "@/utils/Helpers"
 import CoverModal from "@/components/BookSummary/CoverModal"
 
@@ -13,12 +13,17 @@ const BookSummaryCover = ({
 }) => {
     const [showCoverModal, setShowCoverModal] = useState(false)
 
+    // TODO abstract to global helper
+    useEffect(() => {
+        const headerElement = document.getElementById("header")
+        if (headerElement) {
+            headerElement.style.zIndex = showCoverModal ? "10" : "1"
+            if (showCoverModal) headerElement.style.zIndex = "1"
+            else headerElement.style.zIndex = "10"
+        }
+    }, [showCoverModal])
     function toggleModal() {
         setShowCoverModal(!showCoverModal)
-
-        // reverse logic to make #header fall behind the modal, TODO put this in a helper function
-        const headerElement = document.getElementById("header")
-        if (headerElement) headerElement.style.zIndex = showCoverModal ? "10" : "1"
     }
 
     let bookCover: Book["cover"]

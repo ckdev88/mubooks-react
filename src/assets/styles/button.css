@@ -2,6 +2,7 @@ a,
 button {
     transition: background-color 0.18s linear, color 0.18s linear;
 }
+
 a,
 button,
 .btn-lg,
@@ -19,6 +20,7 @@ input {
         color: black;
     }
 }
+
 input[type="file"] {
     cursor: pointer;
 }
@@ -75,6 +77,7 @@ textarea:focus,
     &.btn-red {
         background-color: var(--red);
         border-color: var(--red);
+
         &:hover,
         &:active,
         &:active:hover {
@@ -90,11 +93,13 @@ textarea:focus,
     border-color: var(--primary);
     color: #ffffff;
     font-weight: bold;
+
     &:hover {
         box-shadow: var(--shade-around);
         background-color: var(--primary-darker);
         border-color: var(--primary-darker);
     }
+
     &:active,
     &:active:hover,
     &:focus-active,
@@ -102,6 +107,7 @@ textarea:focus,
         background-color: var(--primary-darker2);
         outline-color: var(--primary-darker2);
     }
+
     &:disabled,
     &:disabled:hover,
     &:disabled:active,
@@ -128,6 +134,7 @@ main button.alt,
         padding: 0;
         width: 2.5rem;
     }
+
     button img {
         box-sizing: border-box;
         height: 100%;
@@ -135,23 +142,28 @@ main button.alt,
         width: auto;
     }
 }
+
 .a-text,
 .btn-text,
 .btn-icon {
     text-decoration: none;
     color: var(--link);
+
     &.readonly {
         color: var(--text-primary);
     }
 }
+
 .btn-text,
 .btn-icon {
     background: none;
     border: 0;
     cursor: pointer;
+
     &.readonly {
         cursor: default;
     }
+
     display: inline-block;
     font-size: 1rem;
     font-weight: normal;
@@ -159,6 +171,7 @@ main button.alt,
     line-height: 1.3rem;
     padding: 0;
     text-align: left;
+
     &:disabled,
     &:disabled:hover,
     &:active,
@@ -178,6 +191,7 @@ main button.alt,
         color: var(--link-hover);
         text-decoration: none;
     }
+
     &.readonly {
         &:hover {
             color: inherit;
@@ -188,14 +202,17 @@ main button.alt,
 .btn-text {
     border: none;
     box-shadow: none;
+
     &:disabled,
     &:disabled:hover {
         opacity: 0.5;
         cursor: not-allowed;
     }
+
     &.synopsis {
         font-weight: bold;
     }
+
     &.caret-toggle::before {
         background-image: url("/img/cv-caret-medium.light.svg");
         background-position-x: center;
@@ -224,27 +241,33 @@ main button.alt,
 
             transition: .18s linear;
         }
+
         &.badge::after {
             background-position-y: 25%;
         }
+
         &.active {
             &::after {
                 background-position-y: -10%;
                 transform: scaleY(1);
             }
+
             &.synopsis {
                 font-weight: bold;
             }
         }
+
         &.notext::after {
             margin-left: 0;
         }
+
         &.active {
             color: var(--text-primary);
             text-decoration: underline;
         }
     }
 }
+
 .dark-mode .btn-text.caret-right-toggle::after {
     background-image: url("/img/cv-caret-medium.dark.svg");
 }
@@ -261,6 +284,7 @@ main button.alt,
     background-position-y: top;
     transform: scaleY(1);
 }
+
 .expandable-container.synopsis .btn-text {
     margin-left: 0.4rem;
     margin-top: 0.4rem;
@@ -269,35 +293,44 @@ main button.alt,
 .expandable {
     transition: opacity 0.18s ease-in-out;
     overflow: hidden;
+
     &.expanded {
         height: auto;
         opacity: 1;
     }
+
     &.collapsed {
         opacity: 0;
         height: 0;
     }
 }
+
 ul.expandable {
     margin: 0;
     padding: 0;
     list-style: none;
+
     li {
         font-size: 0.9rem;
     }
+
     a {
         text-decoration: none;
     }
 }
+
 ul.expandable-list a {
     text-decoration: none;
 }
+
 .btn-lg {
     font-size: 1rem;
+
     &:first-letter {
         text-transform: uppercase;
     }
 }
+
 .btn-text,
 .btn-icon {
     margin-bottom: 0;
@@ -305,6 +338,7 @@ ul.expandable-list a {
 
 .btn-calendar {
     font-style: inherit;
+
     &::after {
         display: inline-block;
         height: 1em;
@@ -323,6 +357,7 @@ ul.expandable-list a {
         opacity: 0;
         transition: opacity 0.18s ease-in-out;
     }
+
     &:focus::after,
     &:hover::after {
         opacity: 1;
@@ -357,6 +392,7 @@ ul.expandable-list a {
         box-shadow: none;
     }
 }
+
 input[type="number"] + .btn-submit-inside-caret-right {
     margin-top: 0.25rem;
     margin-right: 0.25rem;
@@ -364,22 +400,27 @@ input[type="number"] + .btn-submit-inside-caret-right {
 
 .btn-sm {
     color: #ffffff;
+
     &.active {
         background-color: transparent;
         border-color: transparent;
         color: var(--primary);
     }
+
     .icon {
         display: inline-block;
+
         &::before {
             margin-left: -2px;
             margin-right: 0.2rem;
         }
     }
+
     .icon-add::before {
         content: "+";
     }
 }
+
 .badge,
 .btn-sm {
     font-size: var(--smallerfontrem);
@@ -390,15 +431,18 @@ input[type="number"] + .btn-submit-inside-caret-right {
     padding: 0 0.4rem;
     margin: 0.35rem 0.35rem 0 0;
     width: auto;
+
     &.cgreen {
         background-color: var(--lightgreen);
         color: var(--green);
     }
+
     &.cred {
         background-color: var(--lightred);
         color: var(--red);
     }
 }
+
 .badge,
 .btn-sm,
 .tropes .trope_add {
@@ -409,14 +453,17 @@ input[type="number"] + .btn-submit-inside-caret-right {
 .badge {
     background-color: var(--badgebg);
     color: var(--badgefg);
+
     &.subject {
         background-color: var(--bg-invert1);
         color: var(--bgInvert);
     }
+
     &.badge-invis {
         background-color: transparent;
         color: var(--text-primary-dimmed);
     }
+
     .btn-x {
         background-color: red;
         border-radius: 50%;
@@ -435,20 +482,25 @@ input[type="number"] + .btn-submit-inside-caret-right {
         transition: background-color 0.18s linear, color 0.18s linear;
         width: 11px;
     }
+
     &.cgreen {
         .btn-x {
             background-color: var(--green);
+
             &:hover {
                 border-color: var(--green);
             }
         }
     }
+
     &.cred .btn-x {
         background-color: var(--red);
+
         &:hover {
             border-color: var(--red);
         }
     }
+
     .btn-x:hover,
     &.cgreen .btn-x:hover,
     &.cred .btn-x:hover {
@@ -472,30 +524,39 @@ input[type="number"] + .btn-submit-inside-caret-right {
         text-align: center;
     }
 }
+
 .btn-text {
     display: flex;
     width: auto;
+
     &:hover {
         background: none;
     }
+
     .icon {
         margin-right: 0.35em;
     }
+
     .icon-reading {
         background-image: var(--icon-reading);
     }
+
     .icon-wishlist {
         background-image: var(--icon-wishlist);
     }
+
     .icon-finished {
         background-image: var(--icon-finished);
     }
+
     .icon-favourite {
         background-image: var(--icon-favourite);
     }
+
     .icon-remove {
         background-image: var(--icon-remove);
     }
+
     .icon-toss {
         background-image: var(--icon-toss);
     }
@@ -507,27 +568,32 @@ input[type="number"] + .btn-submit-inside-caret-right {
         opacity: 0.2;
         transition: opacity 0.18s ease-in-out;
     }
+
     .icon-eraser {
         background-image: var(--icon-eraser);
         width: 16px;
     }
+
     .icon-pencil {
         background-image: var(--icon-pencil);
         width: 12px;
         height: 12px;
     }
+
     &.lg .icon-pencil {
         width: 1.4rem;
         height: 1.4rem;
         box-sizing: border-box;
         line-height: 1.4rem;
     }
+
     &:hover {
         .icon-pencil,
         .icon-eraser {
             opacity: 1;
         }
     }
+
     .icon-star,
     .icon-spice {
         font-weight: normal;
@@ -547,19 +613,23 @@ input[type="number"] + .btn-submit-inside-caret-right {
             background-color: #555;
         }
     }
+
     .icon-spice {
         --svg-icon: url('data:image/svg+xml,\ <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">\ <path d="M330.67 263.12V173.4l-52.75-24.22C219.44 218.76 197.58 400 56 400a56 56 0 0 0 0 112c212.64 0 370.65-122.87 419.18-210.34l-37.05-38.54zm131.09-128.37C493.92 74.91 477.18 26.48 458.62 3a8 8 0 0 0-11.93-.59l-22.9 23a8.06 8.06 0 0 0-.89 10.23c6.86 10.36 17.05 35.1-1.4 72.32A142.85 142.85 0 0 0 364.34 96c-28 0-54 8.54-76.34 22.59l74.67 34.29v78.24h89.09L506.44 288c3.26-12.62 5.56-25.63 5.56-39.31a154 154 0 0 0-50.24-113.94z"/>\ </svg>');
         mask-image: var(--svg-icon);
-        height:1rem;
+        height: 1rem;
+
         &.active {
             background-color: #c90000;
         }
     }
+
     .icon-star {
         --svg-icon: url("/img/icon-star.svg");
         mask-image: var(--svg-icon);
         background-size: contain;
         height: calc(1rem - 1px);
+
         &.active {
             background-color: gold;
         }
@@ -590,30 +660,37 @@ button.icon-heart {
     &:active:hover {
         background: none;
     }
+
     &.shrink {
         animation: icon-heart-popin .4s linear;
     }
+
     &.grow {
         animation: icon-heart-popup .4s linear;
     }
+
     .inside {
         content: "";
         text-indent: -10rem;
         transform: rotate(45deg);
+
         &::before,
         &::after {
             border-radius: 50%;
             position: absolute;
         }
+
         &::before {
             top: -0.4rem;
             left: 0;
         }
+
         &::after {
             top: 0;
             left: -.4rem;
         }
     }
+
     .inside,
     .inside::before,
     .inside::after {
@@ -621,17 +698,21 @@ button.icon-heart {
         height: .8rem;
         width: .8rem;
     }
+
     &.inactive {
         opacity: 0.25;
+
         .inside,
         .inside::before,
         .inside::after {
             background-color: var(--text-primary-dimmed);
         }
     }
+
     &.active {
         background: none;
         opacity: 1;
+
         .inside,
         .inside::before,
         .inside::after {
@@ -645,19 +726,23 @@ button.icon-heart {
         transform: scale(1);
         opacity: 0.25;
     }
+
     50% {
         transform: scale(1.3);
         opacity: 1;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
     }
 }
+
 @keyframes icon-heart-popup-inside {
     0% {
         background-color: var(--text-primary-dimmed);
     }
+
     100% {
         background-color: var(--red);
     }
@@ -668,15 +753,18 @@ button.icon-heart {
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(0.7);
         opacity: 0.25;
     }
+
     100% {
         transform: scale(1);
         opacity: 0.25;
     }
 }
+
 @keyframes icon-heart-popin-inside {
     0% {
         background-color: var(--red);
@@ -698,6 +786,7 @@ button.icon-heart {
         top: 0;
     }
 }
+
 #accessibility-darkmode {
     margin-right: 0.2em;
     height: 1.5rem;
@@ -706,9 +795,11 @@ button.icon-heart {
     border: none;
     position: relative;
     transition: transform 0.18s linear;
+
     &:hover {
         transform: rotate(20deg);
     }
+
     svg {
         position: absolute;
         transition: opacity 0.18s ease-in-out;
@@ -716,10 +807,12 @@ button.icon-heart {
         top: 0;
         left: 0;
     }
+
     #sun-svg,
     &.active #moon-svg {
         opacity: 0;
     }
+
     &.active #sun-svg,
     #moon-svg {
         opacity: 1;

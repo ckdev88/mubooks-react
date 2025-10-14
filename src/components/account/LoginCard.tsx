@@ -14,7 +14,7 @@ const LoginCard = () => {
     const UserLogin = async (user: User) => {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: user.email,
-            password: user.password,
+            password: user.password
         })
         return { error, data }
     }
@@ -24,7 +24,7 @@ const LoginCard = () => {
         setIsLoading(true)
         const user: User = {
             email: event.currentTarget.login_email.value,
-            password: event.currentTarget.login_password.value,
+            password: event.currentTarget.login_password.value
         }
         await UserLogin(user as User)
             .then((res) => {

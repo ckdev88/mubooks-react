@@ -6,7 +6,7 @@ const Heading = ({
     el = "h1",
     text,
     icon,
-    sub,
+    sub
 }: {
     el?: "h1" | "h2" | "adder-header"
     text: string

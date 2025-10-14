@@ -2,13 +2,13 @@ import { createContext, useState } from "react"
 import BookModifyPages from "@/components/BookModifyPages"
 
 export const IsModdingPagesContext = createContext<IsModdingPagesContextType>(
-    {} as IsModdingPagesContextType,
+    {} as IsModdingPagesContextType
 )
 
 const BookPages = ({
     book_id,
     book_number_of_pages_median,
-    readOnly,
+    readOnly
 }: {
     book_id: Book["id"]
     book_number_of_pages_median: Book["number_of_pages_median"]

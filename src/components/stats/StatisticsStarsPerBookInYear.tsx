@@ -23,11 +23,11 @@ type OutputPerStarsAmount = {
 function getBooksFinishedInYear(
     inputArray: Books,
     year: number,
-    format: "concise" | "concise_starsperbook" | "full",
+    format: "concise" | "concise_starsperbook" | "full"
 ): Books | ArrayConciseStarsPerBook {
     if (inputArray === undefined) return undefined
     const arrayFull = inputArray.filter(
-        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year,
+        (book) => book.date_finished && Math.floor(book.date_finished / 10000) === year
     )
     if (format === "concise_starsperbook") {
         const arrayConcise: ArrayConciseStarsPerBook = []
@@ -35,7 +35,7 @@ function getBooksFinishedInYear(
             const bookToPush: ConciseStarsPerBook = {
                 id: arrayFull[i].id,
                 title_short: arrayFull[i].title_short,
-                rate_stars: arrayFull[i].rate_stars,
+                rate_stars: arrayFull[i].rate_stars
             }
             arrayConcise[i] = bookToPush
         }
@@ -59,7 +59,7 @@ function getDpbData(userMyBooks: Books, year: number): OutputPerStarsAmount[] {
                     groupedItems[rate_stars] = {
                         rate_stars: rate_stars,
                         amount: 0,
-                        books: [],
+                        books: []
                     }
                 }
 

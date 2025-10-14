@@ -3,6 +3,7 @@ interface EditModeTogglerProps {
     editMode: boolean
 }
 // export default function EditModeToggler({ onUserAction, editMode }: EditModeTogglerProps) {
+
 export default function EditModeToggler({ onUserAction }: EditModeTogglerProps) {
     return (
         <div className="editModeTogglerArea">

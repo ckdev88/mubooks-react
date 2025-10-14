@@ -12,7 +12,7 @@ const BtnInsideCaret = ({
     bStyle,
     bOnClick,
     bClassName,
-    bDisabled,
+    bDisabled
 }: {
     bType?: "button" | "submit"
     bStyle?: React.CSSProperties

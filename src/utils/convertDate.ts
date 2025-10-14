@@ -1,6 +1,6 @@
 export default function convertDate(
     dateToConvert: number | string,
-    outputFormat: "human" | "input" | "digit",
+    outputFormat: "human" | "input" | "digit"
 ): string {
     const months = [
         "Jan",
@@ -14,7 +14,7 @@ export default function convertDate(
         "Sep",
         "Oct",
         "Nov",
-        "Dec",
+        "Dec"
     ]
     let a: string[] | Date
     let monthNum = 0
@@ -59,7 +59,7 @@ export default function convertDate(
 
 function timestampConverter(
     UNIX_timestamp: number,
-    outputFormat: "human" | "input" | "digit",
+    outputFormat: "human" | "input" | "digit"
 ): string {
     if (UNIX_timestamp !== undefined) {
         const a = new Date(UNIX_timestamp)
@@ -75,7 +75,7 @@ function timestampConverter(
             "Sep",
             "Oct",
             "Nov",
-            "Dec",
+            "Dec"
         ]
         const year = a.getFullYear()
         const monthNum = a.getMonth() + 1 // jan is 0, feb is 1, etc

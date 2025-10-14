@@ -20,5 +20,5 @@ export const notification = {
     wishlist_added: "Added to Wishlist",
     x_to_wishlist: "Moved back to Wishlist",
     for_book_: "for book: ",
-    Books_cleared: "Books cleared",
+    Books_cleared: "Books cleared"
 } as const

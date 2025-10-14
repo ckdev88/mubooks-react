@@ -2,7 +2,7 @@ import { HashLink } from "react-router-hash-link"
 import { cleanAnchor } from "@/utils/cleanInput"
 const BooksWithoutPagesList = ({
     booksWithoutPages,
-    year,
+    year
 }: { booksWithoutPages: BooksWithoutPages; year: number }) => {
     return (
         <div>

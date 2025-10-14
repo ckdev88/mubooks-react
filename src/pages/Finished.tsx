@@ -20,7 +20,7 @@ const FinishedPage = () => {
             setBooks(
                 userMyBooks
                     ?.filter((b) => (b.list === booklist || b.list === 4) && !b.tossed)
-                    .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0)),
+                    .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
             )
     }, [userMyBooks])
 

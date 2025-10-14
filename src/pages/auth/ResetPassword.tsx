@@ -19,7 +19,7 @@ const ResetPasswordPage = () => {
 
     const updateSbUser = async (form_userpass: string) => {
         const { error } = await supabase.auth.updateUser({
-            password: form_userpass,
+            password: form_userpass
         })
         if (error) setError(error.message)
         else {

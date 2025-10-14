@@ -80,7 +80,7 @@ export default function ReviewRatingEdit({
                 </div>
             )
         },
-        [book_id,updateRatingInit]
+        [book_id, updateRatingInit]
     )
 
     return (

@@ -12,7 +12,7 @@ import getListName from "@/functions/getListName"
 function AddToRemoveFromX({
     book,
     currentPage,
-    limit,
+    limit
 }: {
     book: Book
     currentPage: Page

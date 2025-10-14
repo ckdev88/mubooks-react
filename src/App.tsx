@@ -102,7 +102,6 @@ const AppWrapper = () => {
                         <Footer />
                     </div>
                 )}
-
             </>
         </>
     )

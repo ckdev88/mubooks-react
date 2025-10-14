@@ -15,14 +15,14 @@ const months = [
     "September",
     "October",
     "November",
-    "December",
+    "December"
 ] as const
 
 function LineG2({
     data,
     data2,
     subjects,
-    year,
+    year
 }: { data: number[]; data2: number[]; subjects: [string, string]; year: number }) {
     const { bodyBgColor, darkTheme } = useContext(AppContext)
 
@@ -38,8 +38,8 @@ function LineG2({
             ...monthsToShow.map((month, index) => [
                 month,
                 data[index] ?? null,
-                data2[index] ?? null,
-            ]),
+                data2[index] ?? null
+            ])
         ]
     }, [data, data2, subjects, currentMonthIndex, currentYear, year]) // Added currentMonthIndex to dependencies
 
@@ -49,38 +49,38 @@ function LineG2({
             legend: {
                 textStyle: {
                     color: darkTheme ? "white" : "black",
-                    fontSize: "14px",
-                },
+                    fontSize: "14px"
+                }
             },
             vAxes: {
                 0: {
                     title: "",
                     textStyle: {
-                        color: darkTheme ? "lightblue" : "#3366cc",
+                        color: darkTheme ? "lightblue" : "#3366cc"
                     },
                     titleTextStyle: {
-                        color: darkTheme ? "white" : "black",
-                    },
+                        color: darkTheme ? "white" : "black"
+                    }
                 },
                 1: {
                     title: "",
                     textStyle: { color: darkTheme ? "pink" : "#dc3912" },
                     titleTextStyle: {
-                        color: darkTheme ? "white" : "black",
-                    },
-                },
+                        color: darkTheme ? "white" : "black"
+                    }
+                }
             },
             hAxis: {
                 textStyle: { color: darkTheme ? "white" : "black" },
-                showTextEvery: 3,
+                showTextEvery: 3
             },
             series: {
                 0: { targetAxisIndex: 0 },
-                1: { targetAxisIndex: 1 },
+                1: { targetAxisIndex: 1 }
             },
-            chartArea: { left: 17, right: 40 },
+            chartArea: { left: 17, right: 40 }
         }),
-        [bodyBgColor, darkTheme],
+        [bodyBgColor, darkTheme]
     )
 
     return (

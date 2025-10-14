@@ -5,7 +5,7 @@ import ExpandableContainer from "@/components/ui/ExpandableContainer"
 const DaysPerBook = ({
     daysPerBook,
     year,
-    avgReadingPerFinished,
+    avgReadingPerFinished
 }: { daysPerBook: number[]; year: number; avgReadingPerFinished: number }) => {
     return (
         <>

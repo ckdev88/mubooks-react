@@ -1,3 +1,3 @@
-export default function ReviewTropesEdit(){
-    return (<>REVIEWTROPESEDIT</>)
+export default function ReviewTropesEdit() {
+    return <>REVIEWTROPESEDIT</>
 }

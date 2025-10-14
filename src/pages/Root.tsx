@@ -18,9 +18,9 @@ const RootPage = () => {
         () => ({
             url: window.location.href,
             accessToken: getUrlParamVal(window.location.href, "access_token", true),
-            refreshToken: getUrlParamVal(window.location.href, "refresh_token", true),
+            refreshToken: getUrlParamVal(window.location.href, "refresh_token", true)
         }),
-        [],
+        []
     )
 
     // Memoize user from localStorage
@@ -37,9 +37,9 @@ const RootPage = () => {
         () => ({
             error: getUrlParamVal(url, "error", true),
             error_code: getUrlParamVal(url, "error_code", true),
-            error_description: getUrlParamVal(url, "error_description", true),
+            error_description: getUrlParamVal(url, "error_description", true)
         }),
-        [url],
+        [url]
     )
 
     // Handle token login
@@ -48,7 +48,7 @@ const RootPage = () => {
 
         const { error } = await supabase.auth.setSession({
             access_token: accessToken,
-            refresh_token: refreshToken,
+            refresh_token: refreshToken
         })
         if (error) {
             console.error("Error logging in with token:", error.message)
@@ -94,7 +94,7 @@ const RootPage = () => {
         setUsermail,
         userIsLoggedIn,
         setPopupNotification,
-        setPopupNotificationShow,
+        setPopupNotificationShow
     ])
 
     return (

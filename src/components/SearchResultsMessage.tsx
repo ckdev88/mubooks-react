@@ -1,7 +1,7 @@
 const SearchResultsMessage = ({
     searchTerm,
     resultsMessage,
-    resultCount,
+    resultCount
 }: {
     searchTerm: string
     resultsMessage: string

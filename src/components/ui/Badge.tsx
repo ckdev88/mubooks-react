@@ -3,7 +3,7 @@ const Badge = ({
     removeText,
     removeTrope,
     field,
-    type,
+    type
 }: {
     text: string
     removeText?: (text: string) => void

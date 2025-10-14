@@ -7,7 +7,7 @@ function StatisticsBooksAndPagesPerMonth({
     currentMonth,
     year,
     countPagesFinishedMonthly,
-    booksWithoutPages,
+    booksWithoutPages
 }: {
     countBooksFinishedMonthly: number[]
     currentMonth: number

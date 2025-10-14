@@ -9,7 +9,7 @@ const useMyBooksUpdate = (myBooksNew: Books) => {
     const initUpdateDb = useUpdateDb({
         msg: "zo gaat ie goed",
         logMsg: "ja prima",
-        newJson: myBooksNew,
+        newJson: myBooksNew
     })
 
     // TODO animation also ./useMyBooksAdd.ts -- DRY

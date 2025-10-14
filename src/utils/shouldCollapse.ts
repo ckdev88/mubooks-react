@@ -4,7 +4,7 @@ import { getCurrentPage } from "@/utils/Helpers"
 /** Check if the element should be allowed to collapse, based on the event and the current page. */
 export default function shouldCollapse(
     targetList?: number,
-    removeType?: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers",
+    removeType?: "move" | "toss" | "untoss" | "permatoss" | "permatoss_tossers"
 ): boolean {
     const currentPage = getCurrentPage()
 

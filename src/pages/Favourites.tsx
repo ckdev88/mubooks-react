@@ -19,7 +19,7 @@ const FavouritesPage = () => {
             setBooks(
                 userMyBooks
                     .filter((i) => i.list === booklist && !i.tossed)
-                    .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0)),
+                    .sort((a, b) => (b.date_finished ?? 0) - (a.date_finished ?? 0))
             )
     }, [userMyBooks])
 

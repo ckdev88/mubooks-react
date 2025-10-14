@@ -11,7 +11,7 @@ function ClearMyBooks() {
     const clearbooks = useMyBooksUpdateDb({
         myBooksNew: newArr,
         book_id: null,
-        msg: nm.Books_cleared,
+        msg: nm.Books_cleared
     })
     function clearbooksyes() {
         clearbooks()

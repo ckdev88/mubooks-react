@@ -10,7 +10,7 @@ const BtnBig = ({
     bType,
     bOnClick,
     bIsLoading,
-    bClassName,
+    bClassName
 }: {
     bOnClick?: () => Promise<void> | void
     bIsLoading?: boolean

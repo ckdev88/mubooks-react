@@ -8,7 +8,7 @@ async function useResetUsermail(): Promise<void> {
 
     if (usermail !== undefined && usermail !== "") return
     const {
-        data: { user },
+        data: { user }
     } = await supabase.auth.getUser()
     if (user) setUsermail(String(user?.email))
 }

@@ -12,7 +12,7 @@ const BtnMoreToggle = ({
     bType,
     bOnClick,
     bClassName,
-    bStyle,
+    bStyle
 }: {
     bText?: string
     bType?: "button" | "submit"

@@ -52,7 +52,7 @@ const Navbar = () => {
                         justifyContent: "flex-start",
                         alignContent: "space-around",
                         alignItems: "flex-start",
-                        gap: ".25rem",
+                        gap: ".25rem"
                     }}
                     className={
                         nav0Expanded ? "expanded nav-collapsable" : "collapsed nav-collapsable"
@@ -64,7 +64,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/dashboard"} onClick={toggleNav0}>
@@ -80,7 +80,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/reading"} onClick={toggleNav0}>
@@ -96,7 +96,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/wishlist"} onClick={toggleNav0}>
@@ -112,7 +112,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/favourites"} onClick={toggleNav0}>
@@ -127,7 +127,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/finished"} onClick={toggleNav0}>
@@ -142,7 +142,7 @@ const Navbar = () => {
                             display: "flex",
                             width: "calc(100% - .3rem)",
                             justifyContent: "space-between",
-                            alignItems: "center",
+                            alignItems: "center"
                         }}
                     >
                         <NavLink to={"/savedbooks"} onClick={toggleNav0}>

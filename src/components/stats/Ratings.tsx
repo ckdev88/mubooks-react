@@ -33,7 +33,7 @@ const Ratings = memo(
                     )}
                 </>
             ),
-            [countStarsPerBook.length, booksWithoutStars, year],
+            [countStarsPerBook.length, booksWithoutStars, year]
         )
 
         const averageStarsText = useMemo(
@@ -43,7 +43,7 @@ const Ratings = memo(
                     <span className="sf2">*</span>
                 </sub>
             ),
-            [averageStarsPerBook],
+            [averageStarsPerBook]
         )
 
         return (
@@ -56,7 +56,7 @@ const Ratings = memo(
                 <ExpandableContainer>{expandableContent}</ExpandableContainer>
             </article>
         )
-    },
+    }
 )
 
 // Custom comparison function for memo
@@ -71,7 +71,7 @@ function areEqual(prevProps: RatingsProps, nextProps: RatingsProps) {
         prevProps.booksWithoutStars.every(
             (book, index) =>
                 book.id === nextProps.booksWithoutStars[index]?.id &&
-                book.title_short === nextProps.booksWithoutStars[index]?.title_short,
+                book.title_short === nextProps.booksWithoutStars[index]?.title_short
         )
     )
 }

@@ -6,7 +6,7 @@ import { supabase } from "../../utils/supabase"
 export default function useUpdateDb({
     msg,
     logMsg,
-    newJson,
+    newJson
 }: { msg: string; logMsg?: string; newJson?: Books }) {
     const { userid, userMyBooks } = useContext(AppContext)
 
@@ -15,7 +15,7 @@ export default function useUpdateDb({
             .from("user_entries")
             .update({
                 json: newJson ? newJson : userMyBooks,
-                testdata: logMsg,
+                testdata: logMsg
             })
             .eq("user_id", userid)
             .select("*")

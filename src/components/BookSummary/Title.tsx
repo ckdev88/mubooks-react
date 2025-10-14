@@ -7,7 +7,7 @@ const BookSummaryTitle = ({
     book_author_name,
     book_id,
     style = "normal",
-    refer,
+    refer
 }: {
     book_title_short: Book["title_short"]
     book_first_publish_year: Book["first_publish_year"]
@@ -20,7 +20,9 @@ const BookSummaryTitle = ({
     if (style === "quoted")
         return (
             <div className="tcenter sf2 bi">
-                <Link to={`/${refer}`} style={{textDecoration:'none'}} >{book_title_short}</Link>
+                <Link to={`/${refer}`} style={{ textDecoration: "none" }}>
+                    {book_title_short}
+                </Link>
                 ,&nbsp;
                 <BookAuthorList book_id={book_id} book_author_name={book_author_name} />
             </div>

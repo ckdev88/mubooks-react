@@ -4,7 +4,7 @@ const useGetSynopsis = (
     book_id: Book["id"],
     book_cover_edition_key: Book["cover_edition_key"],
     synopsisPages: string[],
-    currentPage: string,
+    currentPage: string
 ): string => {
     const { GLOBALS } = useContext(AppContext)
     const [synopsis, setSynopsis] = useState<string>("")

@@ -18,7 +18,7 @@ const BookSummaryStartedFinished = ({
     book_id: Book["id"]
     list: Book["list"]
     readOnly?: boolean
-    editMode?:boolean
+    editMode?: boolean
 }) => {
     const { userMyBooks, setUserMyBooks, todaysDateInput } = useContext(AppContext)
     const [dateStarted, setDateStarted] = useState<Book["date_reading"]>(date_started)
@@ -31,7 +31,7 @@ const BookSummaryStartedFinished = ({
     const updateMyBooksDb = useMyBooksUpdateDb({
         myBooksNew: newArray,
         book_id: null,
-        msg,
+        msg
     })
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -49,7 +49,7 @@ const BookSummaryStartedFinished = ({
         date_started,
         setShowStartedDate,
         setShowFinishedDate,
-        dateFinished,
+        dateFinished
     ])
 
     function changeDates(fieldName: "date_reading" | "date_finished", fieldVal: number) {
@@ -109,20 +109,19 @@ const BookSummaryStartedFinished = ({
     useEffect(() => {
         if (dateStarted && showStartedDate) {
             const eleDateReading = document.getElementById(
-                "date_reading" + book_id,
+                "date_reading" + book_id
             ) as HTMLInputElement | null
             if (eleDateReading !== null) eleDateReading.value = convertDate(dateStarted, "input")
         }
         if (dateFinished && showFinishedDate) {
             const eleDateFinished = document.getElementById(
-                "date_finished" + book_id,
+                "date_finished" + book_id
             ) as HTMLInputElement | null
             if (eleDateFinished !== null) eleDateFinished.value = convertDate(dateFinished, "input")
         }
     }, [dateStarted, dateFinished, book_id, showStartedDate, showFinishedDate])
 
-
-    if (readOnly || editMode===false) {
+    if (readOnly || editMode === false) {
         return (
             <div className="book-started-finished">
                 <div>

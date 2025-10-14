@@ -13,7 +13,7 @@ const useChangePages = (book_id: Book["id"]): [(e: React.FormEvent<HTMLFormEleme
     const updateMyBooksDb = useMyBooksUpdateDb({
         myBooksNew: userMyBooks,
         book_id,
-        msg,
+        msg
     })
 
     function processForm(e: React.FormEvent<HTMLFormElement>): void {

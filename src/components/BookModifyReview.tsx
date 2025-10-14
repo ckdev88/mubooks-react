@@ -11,7 +11,7 @@ import BtnCancel from "@/components/ui/buttons/BtnCancel"
 const BookModifyReview = ({
     book_id,
     o_key,
-    review_text,
+    review_text
 }: {
     book_id: Book["id"]
     o_key: "review_text" | "review_fav_quote" | "review_fav_quote2"
@@ -30,7 +30,7 @@ const BookModifyReview = ({
         name: "review_text",
         id: o_key + "_" + book_id,
         default: review_text,
-        placeholder: inputPlaceholder,
+        placeholder: inputPlaceholder
     }
 
     useEffect(() => {

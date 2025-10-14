@@ -21,8 +21,8 @@ const QuotedPage = () => {
                     (book) =>
                         book.tossed !== true &&
                         ((book.review_fav_quote && book.review_fav_quote !== "") ||
-                            (book.review_fav_quote2 && book.review_fav_quote2 !== "")),
-                ),
+                            (book.review_fav_quote2 && book.review_fav_quote2 !== ""))
+                )
             )
         }
     }, [userMyBooks])

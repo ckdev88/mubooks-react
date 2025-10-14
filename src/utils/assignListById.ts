@@ -2,7 +2,7 @@ export default function assignListById(
     myBooksArg: Books,
     bookId: Book["id"],
     listId: Book["list"],
-    toss: "no" | "toss" | "untoss" | "permatoss" = "no",
+    toss: "no" | "toss" | "untoss" | "permatoss" = "no"
 ): Books {
     if (myBooksArg === undefined) return // revert to login?
     const myBooks: Books = myBooksArg

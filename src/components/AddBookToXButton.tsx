@@ -10,7 +10,7 @@ function AddBookToXButton({
     bookProp,
     targetList,
     icon = false,
-    button_title = "",
+    button_title = ""
 }: {
     bookProp: Book
     targetList: BookList
@@ -36,7 +36,7 @@ function AddBookToXButton({
             } else AddBookToXButtonAct()
         },
         // TODO animations check if book.list dependency is necessary
-        [targetList, book.id, book.list, AddBookToXButtonAct],
+        [targetList, book.id, book.list, AddBookToXButtonAct]
     )
 
     // Show heart icon in top right, depending on targetList & icon args

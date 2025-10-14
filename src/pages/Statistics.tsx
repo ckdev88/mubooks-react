@@ -29,7 +29,7 @@ const StatisticsPage = () => {
                                 const filteredByYear = userMyBooks?.filter(
                                     (b) =>
                                         b.date_finished !== undefined &&
-                                        Math.floor(b.date_finished / 10000) === y,
+                                        Math.floor(b.date_finished / 10000) === y
                                 )
                                 return (
                                     <StatisticsYear

@@ -20,14 +20,14 @@ export default function MyAccountEditCard() {
     const updateSbUser = async (
         form_username: string,
         form_usermail: string,
-        form_userpass: string,
+        form_userpass: string
     ) => {
         if (form_userpass !== "") {
             const { error } = await supabase.auth.updateUser({
                 // data, error
                 email: form_usermail,
                 password: form_userpass,
-                data: { screenname: form_username },
+                data: { screenname: form_username }
             })
             if (error) console.log("Error updating user (24):", error)
             else {
@@ -37,7 +37,7 @@ export default function MyAccountEditCard() {
             const { error } = await supabase.auth.updateUser({
                 // data, error
                 email: form_userpass,
-                data: { screenname: form_username },
+                data: { screenname: form_username }
             })
             if (error) console.log("Error updating user (34):", error)
             else afterSbUpdate(form_username, form_usermail)

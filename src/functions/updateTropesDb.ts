@@ -4,7 +4,7 @@ import { notification as nm } from "../i18n/notifications"
 async function updateTropesDb(
     newArr: BookTropes,
     userid: string,
-    field: "tropes_liked" | "tropes_disliked",
+    field: "tropes_liked" | "tropes_disliked"
 ): Promise<string> {
     let msg = ""
     if (field === "tropes_liked") {
@@ -12,7 +12,7 @@ async function updateTropesDb(
             .from("user_entries")
             .update({
                 tropes_liked: newArr,
-                testdata: "updated tropes",
+                testdata: "updated tropes"
             })
             .eq("user_id", userid)
             .select("*")
@@ -23,7 +23,7 @@ async function updateTropesDb(
             .from("user_entries")
             .update({
                 tropes_disliked: newArr,
-                testdata: "updated tropes",
+                testdata: "updated tropes"
             })
             .eq("user_id", userid)
             .select("*")

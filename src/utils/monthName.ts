@@ -10,7 +10,7 @@ const monthNames: string[] = [
     "September",
     "October",
     "November",
-    "December",
+    "December"
 ]
 export default function getMonthName(i: number): string {
     return monthNames[i]

@@ -1,6 +1,6 @@
 export default function BookAuthorList({
     book_id,
-    book_author_name,
+    book_author_name
 }: {
     book_id: Book["id"]
     book_author_name: Book["author_name"]

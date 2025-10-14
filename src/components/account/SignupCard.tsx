@@ -26,7 +26,7 @@ export default function SignupCard() {
         const user: User = {
             email: event.currentTarget.email.value,
             screenname: event.currentTarget.screenname.value,
-            password: event.currentTarget.password.value,
+            password: event.currentTarget.password.value
         }
         const signup = await userSignup(user)
 
