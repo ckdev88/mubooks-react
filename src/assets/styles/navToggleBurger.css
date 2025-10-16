@@ -14,6 +14,7 @@
 }
 #navIcons button:active,
 #navIcons button.expanded {
+    /* biome-ignore lint/complexity/noImportantStyles: <TODO: see if this needs an improvement> */
     background: #b73581 !important;
 }
 #toggleNavBurger:hover .burgerbar,
@@ -43,7 +44,9 @@
 }
 .bar2,
 .bar2duplo {
-    transition: width 0.18s linear, transform 0.18s linear;
+    transition:
+        width 0.18s linear,
+        transform 0.18s linear;
 }
 .bar2duplo {
     margin-top: -6px;

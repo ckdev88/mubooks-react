@@ -11,7 +11,9 @@
 /* start .book-summary */
 .book-summary {
     list-style: none;
-    transition: padding 0.18s linear, background-color 0.18s linear;
+    transition:
+        padding 0.18s linear,
+        background-color 0.18s linear;
     display: flex;
     flex-wrap: wrap;
 
@@ -19,8 +21,8 @@
     &.edit-mode {
         background-color: var(--bg-invert1);
         border: 2px dashed var(--bg);
-        padding-left: .5rem;
-        padding-right: .5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
         .seperator {
             background-color: transparent;
             border-color: transparent;
@@ -48,6 +50,8 @@
         border-radius: 0.5rem;
         display: block;
         cursor: zoom-in;
+        border: 0;
+        padding: 0;
     }
 
     .seperator {
@@ -99,7 +103,7 @@
         & > div {
             width: auto;
             display: flex;
-            margin: .5rem 0;
+            margin: 0.5rem 0;
             padding: 0;
             justify-content: space-evenly;
         }

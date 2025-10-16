@@ -33,7 +33,6 @@
         display: flex;
         line-height: 2em;
         justify-content: left;
-        display: flex;
         align-items: center;
         font-size: 0.9rem;
     }
@@ -102,11 +101,14 @@
     background: white;
     position: relative;
     border: 2px solid white;
-    transition: transform .2s ease-in-out, z-index .2s ease-in-out;
+    transition:
+        transform 0.2s ease-in-out,
+        z-index 0.2s ease-in-out;
     &:hover,
     &:focus,
     &:active {
         transform: scale(1.1);
+        /* biome-ignore lint/complexity/noImportantStyles: <TODO: check if really necessary> */
         z-index: 11 !important;
     }
 

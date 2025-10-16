@@ -320,7 +320,7 @@ const AddBookPage = () => {
                                     }}
                                     value={coverImg ? coverImg : ""}
                                     placeholder="Paste the URL here, or Choose File below..."
-                                    className={coverImg ? "" : "mb0o"}
+                                    className={coverImg ? "" : "mb0i"}
                                 />
                                 {coverImg && (
                                     <span
@@ -341,7 +341,7 @@ const AddBookPage = () => {
                                 accept="image/*"
                                 onChange={handleFileChange}
                                 name="myImage"
-                                className={coverImg ? "" : "mb0o"}
+                                className={coverImg ? "" : "mb0i"}
                             />
                         )}
                         <div className="dnone">

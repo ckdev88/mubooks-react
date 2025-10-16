@@ -87,7 +87,7 @@ img {
     background-color: var(--primary);
     width: 100vw;
     @media screen and (min-width: 600px) {
-        border-radius: 0 0 .5rem .5rem;
+        border-radius: 0 0 0.5rem 0.5rem;
     }
 }
 
@@ -144,8 +144,11 @@ label .description {
     border-radius: 0.3rem;
     font-size: var(--smallerfontrem);
     color: var(--gray);
-    transition: 0.18s font-weight ease-in-out, 0.18s background-color ease-in-out, 0.18s color
-        ease-in-out, 0.18s margin-left ease-in-out;
+    transition:
+        0.18s font-weight ease-in-out,
+        0.18s background-color ease-in-out,
+        0.18s color ease-in-out,
+        0.18s margin-left ease-in-out;
 }
 
 label:focus-within .description {

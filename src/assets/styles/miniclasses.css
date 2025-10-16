@@ -22,6 +22,7 @@
     margin-top: 0;
 }
 .mt0i {
+    /* biome-ignore lint/complexity/noImportantStyles: <intended use with suffix `i` in `mt0i`> */
     margin-top: 0 !important;
 }
 .mt-05 {
@@ -42,7 +43,8 @@
 .mb0 {
     margin-bottom: 0;
 }
-.mb0o {
+.mb0i {
+    /* biome-ignore lint/complexity/noImportantStyles: <intended use with suffix `i` in `mt0i`> */
     margin-bottom: 0 !important;
 }
 .mb1 {
@@ -244,16 +246,6 @@ input[type="submit"].dnone {
 .cbadgefg {
     color: var(--badgefg);
 }
-/* for testing purposes */
-.bgred {
-    background-color: red !important;
-}
-.bgblue {
-    background-color: blue !important;
-}
-.bglime {
-    background-color: lime !important;
-}
 .loader-dots:after {
     content: "";
     animation: loader-dots 2.5s linear infinite;
@@ -281,4 +273,18 @@ input[type="submit"].dnone {
     75% {
         content: "..";
     }
+}
+
+/* for testing purposes */
+.bgred {
+    /* biome-ignore lint/complexity/noImportantStyles: <for testing> */
+    background-color: red !important;
+}
+.bgblue {
+    /* biome-ignore lint/complexity/noImportantStyles: <for testing> */
+    background-color: blue !important;
+}
+.bglime {
+    /* biome-ignore lint/complexity/noImportantStyles: <for testing> */
+    background-color: lime !important;
 }
