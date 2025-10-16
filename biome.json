@@ -1,18 +1,12 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
     "vcs": {
         "enabled": false,
         "clientKind": "git",
         "useIgnoreFile": false
     },
     "files": {
-        "ignoreUnknown": false,
-        "ignore": [
-            "./node_modules",
-            "./.git",
-            "./dist",
-            "./src/main.tsx"
-        ]
+        "ignoreUnknown": false
     },
     "formatter": {
         "enabled": true,
@@ -21,32 +15,39 @@
         "lineWidth": 100,
         "bracketSpacing": true
     },
-    "organizeImports": {
-        "enabled": true
-    },
     "linter": {
         "enabled": true,
         "rules": {
             "recommended": true,
             "correctness": {
-                "useExhaustiveDependencies": "warn"
+                "useExhaustiveDependencies": "warn",
+                "useUniqueElementIds": "off"
             },
             "suspicious": {
                 "noArrayIndexKey": "info"
             },
             "style": {
-                "useTemplate": "off"
+                "useTemplate": "off",
+                "noDescendingSpecificity": "off"
             }
-        },
-        "ignore": [
-            "**/*.test.*"
-        ]
+        }
     },
     "javascript": {
         "formatter": {
             "semicolons": "asNeeded",
             "quoteStyle": "double",
-            "trailingCommas":"none"
+            "trailingCommas": "none"
+        }
+    },
+    "json": {
+        "formatter": { "trailingCommas": "none" }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "off"
+            }
         }
     }
 }
