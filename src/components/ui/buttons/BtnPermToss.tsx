@@ -1,7 +1,10 @@
 const BtnPermToss = ({
     bOnClick,
     bIsLoading
-}: { bOnClick?: () => Promise<void> | void; bIsLoading?: boolean }) => {
+}: {
+    bOnClick?: () => Promise<void> | void
+    bIsLoading?: boolean
+}) => {
     return (
         <button
             type="button"

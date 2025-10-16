@@ -86,6 +86,7 @@ const BooksOverviewPage = ({ books, page }: BooksOverviewPageParams) => {
                         book={book}
                         key={`BookSummary${book.list}${book.id}`}
                         currentPage={page}
+                        editOnly={page === "tossed"}
                     />
                 ))
         }

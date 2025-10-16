@@ -17,10 +17,17 @@ import { useState, createContext, useEffect } from "react"
 import EditModeToggler from "@/components/BookSummary/EditModeToggler"
 
 const synopsisPages: Page[] = ["search", "wishlist"]
-const pagesMedianPages: Page[] = ["search", "reading", "finished", "dashboard", "favourites"]
+const pagesMedianPages: Page[] = [
+    "search",
+    "wishlist",
+    "reading",
+    "finished",
+    "dashboard",
+    "favourites"
+]
 const pagesReviewQuotes: Page[] = ["finished", "favourites", "savedbooks"]
 const pagesHideHeart: Page[] = ["dashboard", "tossed"]
-const pagesReadOnly: Page[] = ["dashboard"]
+const pagesReadOnly: Page[] = ["dashboard", "search"]
 
 interface BookSummaryProps {
     book: Book
@@ -28,17 +35,25 @@ interface BookSummaryProps {
     refer?: Page
     special?: "quote2"
     readOnly?: boolean
+    editOnly?: boolean
 }
 /** Organism of BookSummary, containing title, thumbnail, authors, reading date, review, quotes, etc */
 export const EditModeContext = createContext<EditModeContextType>({} as EditModeContextType)
 
-const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummaryProps) => {
+const BookSummary = ({
+    book,
+    currentPage,
+    refer,
+    special,
+    readOnly,
+    editOnly = false
+}: BookSummaryProps) => {
     const synopsis = useGetSynopsis(book.id, book.cover_edition_key, synopsisPages, currentPage)
 
     const bookAnchor: string = `${cleanAnchor(book.title_short)}_${book.id}`
     if (currentPage === "quoted") refer = "savedbooks#" + bookAnchor
 
-    const [editMode, setEditMode] = useState<boolean>(false)
+    const [editMode, setEditMode] = useState<boolean>(editOnly)
 
     useEffect(() => {
         if (readOnly !== true && editMode === false) readOnly = true
@@ -56,11 +71,13 @@ const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummar
                     book.list > 0 && currentPage === "search"
                         ? "book-summary saved"
                         : `book-summary ${currentPage} transition-wrapper`
-                } ${editMode ? "edit-mode" : "view-mode"}`}
+                } ${editMode ? "edit-mode" : "view-mode"} ${book.list > 2 && "status-finished"}`}
             >
                 <div style={{ marginTop: "-4rem", position: "absolute" }} id={bookAnchor} />
                 <div className="seperator" />
+
                 <BookSummaryAside book={book} currentPage={currentPage} editMode={editMode} />
+
                 <div className="article-main">
                     {currentPage === "quoted" ? (
                         <BookSummaryQuoted
@@ -105,17 +122,19 @@ const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummar
                                     <BookPages
                                         book_id={book.id}
                                         book_number_of_pages_median={book.number_of_pages_median}
-                                        readOnly={currentPage === "dashboard" || !editMode}
+                                        readOnly={pagesReadOnly.includes(currentPage) || !editMode}
                                     />
                                 )}
                             </header>
 
-                            {currentPage !== "dashboard" && (
-                                <EditModeToggler
-                                    onUserAction={changeEditMode}
-                                    editMode={editMode}
-                                />
-                            )}
+                            {currentPage !== "dashboard" &&
+                                currentPage !== "search" &&
+                                !editOnly && (
+                                    <EditModeToggler
+                                        onUserAction={changeEditMode}
+                                        editMode={editMode}
+                                    />
+                                )}
 
                             <div className="summary-actions pt05">
                                 {book.list > 1 && currentPage !== "search" && (
@@ -124,7 +143,7 @@ const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummar
                                         date_finished={book.date_finished}
                                         book_id={book.id}
                                         list={book.list}
-                                        readOnly={currentPage === "dashboard"}
+                                        readOnly={pagesReadOnly.includes(currentPage)}
                                         editMode={editMode}
                                     />
                                 )}
@@ -137,8 +156,22 @@ const BookSummary = ({ book, currentPage, refer, special, readOnly }: BookSummar
                                     />
                                 )}
                                 <div>
-                                    {currentPage === "search" && (
-                                        <BookSummaryStatus book={book} bookAnchor={bookAnchor} />
+                                    {pagesReadOnly.includes(currentPage) && (
+                                        <>
+                                            {currentPage === "search" ? (
+                                                <BookSummaryStatus
+                                                    book={book}
+                                                    bookAnchor={bookAnchor}
+                                                />
+                                            ) : (
+                                                <br />
+                                            )}
+                                            <AddToRemoveFromX
+                                                book={book}
+                                                limit={0}
+                                                currentPage={currentPage}
+                                            />
+                                        </>
                                     )}
                                     {!pagesReadOnly.includes(currentPage) && editMode && (
                                         <AddToRemoveFromX
