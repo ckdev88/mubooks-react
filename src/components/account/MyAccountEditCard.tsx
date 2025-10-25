@@ -53,57 +53,52 @@ export default function MyAccountEditCard() {
     }
 
     return (
-        <>
-            <div className="card">
-                <header>
-                    <Heading
-                        text="Edit my account"
-                        sub="Change my preferences"
-                        icon="icon-profile.svg"
-                    />
-                </header>
-                <main>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="account_screenname">
-                            <div className="description">Screen name</div>
-                            <input
-                                type="text"
-                                id="account_screenname"
-                                name="account_screenname"
-                                defaultValue={username ? username : ""}
-                                autoComplete="off"
-                            />
-                        </label>
-                        <label htmlFor="account_email">
-                            <div className="description">Email address</div>
-                            <input
-                                type="email"
-                                id="account_email"
-                                name="account_email"
-                                defaultValue={usermail}
-                                autoComplete="username"
-                            />
-                        </label>
-                        <label htmlFor="account_password">
-                            <div className="description">
-                                Password (leave empty to keep current)
-                            </div>
-                            <input
-                                type="password"
-                                id="account_password"
-                                name="account_password"
-                                defaultValue=""
-                                autoComplete="new-password"
-                            />
-                        </label>
-                        <BtnBig bType="submit" bText="Save and return" />
-                    </form>
-                </main>
-                <footer>
-                    <BtnTextGeneral bOnClick={see} bText="Return without saving" />
-                </footer>
-                )
-            </div>
-        </>
+        <div className="card">
+            <header>
+                <Heading
+                    text="Edit my account"
+                    sub="Change my preferences"
+                    icon="icon-profile.svg"
+                />
+            </header>
+            <main>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="account_screenname">
+                        <div className="description">Screen name</div>
+                        <input
+                            type="text"
+                            id="account_screenname"
+                            name="account_screenname"
+                            defaultValue={username ? username : ""}
+                            autoComplete="off"
+                        />
+                    </label>
+                    <label htmlFor="account_email">
+                        <div className="description">Email address</div>
+                        <input
+                            type="email"
+                            id="account_email"
+                            name="account_email"
+                            defaultValue={usermail}
+                            autoComplete="username"
+                        />
+                    </label>
+                    <label htmlFor="account_password">
+                        <div className="description">Password (leave empty to keep current)</div>
+                        <input
+                            type="password"
+                            id="account_password"
+                            name="account_password"
+                            defaultValue=""
+                            autoComplete="new-password"
+                        />
+                    </label>
+                    <BtnBig bType="submit" bText="Save and return" />
+                </form>
+            </main>
+            <footer>
+                <BtnTextGeneral bOnClick={see} bText="Return without saving" />
+            </footer>
+        </div>
     )
 }
