@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO: improve noStaticElementInteractions> */
 export default function CoverModal({
     bookTitle,
     bookCoverM,

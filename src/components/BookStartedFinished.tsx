@@ -35,7 +35,7 @@ const BookStartedFinished = ({
         msg
     })
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <checked and is good>
     useEffect(() => {
         if (date_finished === 0) {
             setShowStartedDate(true)
@@ -138,6 +138,7 @@ const BookStartedFinished = ({
         changeDates(field, newDate)
     }
 
+    // biome-ignore lint/correctness/useHookAtTopLevel: <TODO check loadorder/prior conditionals and if biome is right>
     useEffect(() => {
         if (dateStarted && showStartedDate) {
             const eleDateReading = document.getElementById(

@@ -71,7 +71,7 @@ const BookSummary = ({
                     book.list > 0 && currentPage === "search"
                         ? "book-summary saved"
                         : `book-summary ${currentPage} transition-wrapper`
-                } ${editMode ? "edit-mode" : "view-mode"} ${book.list > 2 && "status-finished"}`}
+                } ${editMode ? "edit-mode" : "view-mode"} ${book.list > 2 ? "status-finished" : ""}`}
             >
                 <div style={{ marginTop: "-4rem", position: "absolute" }} id={bookAnchor} />
                 <div className="seperator" />

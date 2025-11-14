@@ -1,7 +1,11 @@
 const BtnNavDarkmodeToggle = ({
     bOnClick,
     bClassname
-}: { bOnClick?: () => Promise<void> | void; bIsLoading?: boolean; bClassname: string }) => {
+}: {
+    bOnClick?: () => Promise<void> | void
+    bIsLoading?: boolean
+    bClassname: string
+}) => {
     return (
         <button type="button" id="accessibility-darkmode" className={bClassname} onClick={bOnClick}>
             <svg

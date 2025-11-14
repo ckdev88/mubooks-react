@@ -3,7 +3,10 @@ import { cleanAnchor } from "@/utils/cleanInput"
 const BooksWithoutPagesList = ({
     booksWithoutPages,
     year
-}: { booksWithoutPages: BooksWithoutPages; year: number }) => {
+}: {
+    booksWithoutPages: BooksWithoutPages
+    year: number
+}) => {
     return (
         <div>
             <br />

@@ -22,13 +22,12 @@ export default function BooksOverviewSearchPage({ books }: { books: Books }) {
                     }
                 })
                 return (
-                    <>
-                        <BookSummary
-                            book={book}
-                            key={`BookSummary${book.id}${index}`}
-                            currentPage={page}
-                        />
-                    </>
+                    <BookSummary
+                        book={book}
+                        key={`BookSummary${book.id}${index}`}
+                        currentPage={page}
+                        readOnly={true}
+                    />
                 )
             })}
         </>

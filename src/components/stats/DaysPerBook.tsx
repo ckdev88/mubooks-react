@@ -6,7 +6,11 @@ const DaysPerBook = ({
     daysPerBook,
     year,
     avgReadingPerFinished
-}: { daysPerBook: number[]; year: number; avgReadingPerFinished: number }) => {
+}: {
+    daysPerBook: number[]
+    year: number
+    avgReadingPerFinished: number
+}) => {
     return (
         <>
             <article className="stats-item">

@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom"
 import convertDate from "@/utils/convertDate"
 
-const BookSummaryStatus = ({
-    book,
-    bookAnchor
-}: {
-    book: Book
-    bookAnchor: string
-}) => {
+/** Show the status: wistlist | reading | finished | favorites */
+const BookSummaryStatus = ({ book, bookAnchor }: { book: Book; bookAnchor: string }) => {
     return (
         <div className="status" style={{ marginBottom: ".5rem" }}>
             {book.list > 0 && (

@@ -48,8 +48,7 @@ function AddToRemoveFromX({
         return (
             <>
                 {currentPage !== "tossed" ? (
-                    <>
-                        {!book.list ? (
+                    !book.list ? (
                             // Add book to wishlist
                             <AddBookToXButton bookProp={book} targetList={1} icon={true} />
                         ) : book.list === 1 ||
@@ -69,8 +68,7 @@ function AddToRemoveFromX({
                                     button_title="Finish reading"
                                 />
                             )
-                        )}
-                    </>
+                        )
                 ) : (
                     <RemoveBookFromXButton
                         bookProp={book}

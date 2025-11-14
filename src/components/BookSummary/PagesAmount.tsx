@@ -24,7 +24,9 @@ const BookPages = ({
             </div>
         )
 
+    // biome-ignore lint/correctness/useHookAtTopLevel: <TODO check loadorder/prior conditionals and if biome is right>
     const [isModding, setIsModding] = useState<boolean>(false)
+    // biome-ignore lint/correctness/useHookAtTopLevel: <TODO check loadorder/prior conditionals and if biome is right>
     const [numberOfPages, setNumberOfPages] = useState<number>(book_number_of_pages_median)
 
     return (

@@ -11,6 +11,7 @@ button,
 .btn-sm {
     cursor: pointer;
 }
+
 input {
     &[type="text"],
     &[type="url"],
@@ -108,9 +109,9 @@ textarea:focus,
     &:active,
     &:active:hover,
     /* biome-ignore lint/correctness/noUnknownPseudoClass: <biome is wrong> */
-        &:focus-active,
+    &:focus-active,
     /* biome-ignore lint/correctness/noUnknownPseudoClass: <biome is wrong> */
-        &:focus-active:hover {
+    &:focus-active:hover {
         background-color: var(--primary-darker2);
         outline-color: var(--primary-darker2);
     }
@@ -779,6 +780,7 @@ button.icon-heart {
     0% {
         background-color: var(--red);
     }
+
     100% {
         background-color: var(--text-primary-dimmed);
     }

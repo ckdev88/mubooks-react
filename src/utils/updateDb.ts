@@ -5,7 +5,11 @@ export default async function updateDb({
     msg,
     newJson,
     userid
-}: { msg: string; newJson: Books; userid: string }) {
+}: {
+    msg: string
+    newJson: Books
+    userid: string
+}) {
     async function runUpdateDb() {
         const { error } = await supabase
             .from("user_entries")

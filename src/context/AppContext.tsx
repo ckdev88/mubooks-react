@@ -17,6 +17,7 @@ const initVal = {
     userid: null,
     usermail: null,
     darkTheme: undefined
+    rateSpice: false
 }
 if (localStorage.getItem(localStorageKey)) {
     const parsed = JSON.parse(localStorage.getItem(localStorageKey) as string)
@@ -32,7 +33,8 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     const [userid, setUserid] = useState<string | null>(initVal.userid)
     const [username, setUsername] = useState<string | null>(initVal.username)
     const [usermail, setUsermail] = useState<string | null>(initVal.usermail)
-    const [darkTheme, setDarkTheme] = useState<undefined | boolean>(initVal.darkTheme)
+    const [darkTheme, setDarkTheme] = useState<boolean>(initVal.darkTheme)
+    const [rateSpice, setRateSpice] = useState<boolean>(initVal.rateSpice)
 
     const [userMyBooks, setUserMyBooks] = useState<Books | undefined>(undefined)
     const [popupNotification, setPopupNotification] = useState<string>("")
@@ -127,6 +129,8 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
                 bodyBgColor,
                 pageName,
                 setPageName,
+                rateSpice,
+                setRateSpice,
                 GLOBALS
             }}
         >

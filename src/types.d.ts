@@ -5,6 +5,8 @@ interface AppContextType {
     setUsername(username: username): void
     usermail: string | null
     setUsermail(usermail: username): void
+    rateSpice: boolean
+    setRateSpice(rateSpice: rateSpice): void
     userid: string | null
     setUserid(userid: userid): void
     userMyBooks: Books
@@ -17,17 +19,19 @@ interface AppContextType {
     setPopupNotificationShow(popupNotificationShow: popupNotificationShow): void
     todaysDateInput: string
     todaysDateDigit: number
-    darkTheme: undefined | boolean
+    darkTheme: boolean
     setDarkTheme(darkTheme: darkTheme): void
     bodyBgColor: string
     pageName: string
     setPageName(pageName: pageName): void
     GLOBALS: GlobalSettings
 }
+
 interface EditModeContextType {
     editMode: boolean
     setEditMode(editMode: editMode): void
 }
+
 interface GlobalSettings {
     headingIconsEnabled: boolean
     synopsisEnabled: boolean
@@ -35,6 +39,7 @@ interface GlobalSettings {
     bookRemoveAnimationDuration: number
     motionPageProps: MotionProps
 }
+
 interface CoverModalProps {
     bookTitle: Book["title_short"]
     bookCoverM: Book["cover"]

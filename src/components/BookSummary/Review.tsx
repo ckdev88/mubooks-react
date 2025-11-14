@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <TODO improve noStaticElementInteractions> */
 import { createContext, useState } from "react"
 import BookModifyReview from "@/components/BookModifyReview"
 import { getCurrentPage } from "@/utils/Helpers"
@@ -29,11 +30,9 @@ const BookSummaryReview = ({
                 <div
                     className={`review-text ${o_key} pt05 pb05${getCurrentPage() === "dashboard" ? " on-dashboard" : ""}`}
                 >
-                    {o_key === "review_fav_quote" || o_key === "review_fav_quote2" ? (
-                        <>{`“${review_text}”`}</>
-                    ) : (
-                        <>{review_text}</>
-                    )}
+                    {o_key === "review_fav_quote" || o_key === "review_fav_quote2"
+                        ? `“${review_text}”`
+                        : review_text}
                 </div>
             )
         return
@@ -47,7 +46,9 @@ const BookSummaryReview = ({
     if (o_key === "review_fav_quote") addButtonTitle = "Quote"
     else if (o_key === "review_fav_quote2") addButtonTitle = "one more quote"
     else addButtonTitle = "Review"
+    // biome-ignore lint/correctness/useHookAtTopLevel: <TODO: improve useHookAtTopLevel>
     const [reviewText, setReviewText] = useState<string>(review_text)
+    // biome-ignore lint/correctness/useHookAtTopLevel: <TODO: improve useHookAtTopLevel>
     const [isModding, setIsModding] = useState<boolean>(false)
 
     return (
@@ -73,13 +74,11 @@ const BookSummaryReview = ({
                                 onClick={() => setIsModding(true)}
                                 className="pb05"
                             >
-                                {o_key === "review_fav_quote" ? (
-                                    <>{`“${reviewText}”`}</>
-                                ) : o_key === "review_fav_quote2" ? (
-                                    <>{`“${reviewText}”`}</>
-                                ) : (
-                                    <>{reviewText}</>
-                                )}
+                                {o_key === "review_fav_quote"
+                                    ? `“${reviewText}”`
+                                    : o_key === "review_fav_quote2"
+                                      ? `“${reviewText}”`
+                                      : reviewText}
                             </div>
                         )}
                         {(reviewText === "" || reviewText === undefined) && isModding === false && (

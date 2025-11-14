@@ -5,7 +5,11 @@ export default function ExpandableContainer({
     children,
     buttonText = "Details",
     extraClass
-}: { children: ReactNode; buttonText?: string; extraClass?: string }) {
+}: {
+    children: ReactNode
+    buttonText?: string
+    extraClass?: string
+}) {
     const [isExpanded, setIsExpanded] = useState(false)
     const contentRef = useRef<HTMLDivElement>(null)
     const animationDuration = "400ms"

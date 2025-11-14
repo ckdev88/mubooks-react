@@ -7,7 +7,11 @@ export default function useUpdateDb({
     msg,
     logMsg,
     newJson
-}: { msg: string; logMsg?: string; newJson?: Books }) {
+}: {
+    msg: string
+    logMsg?: string
+    newJson?: Books
+}) {
     const { userid, userMyBooks } = useContext(AppContext)
 
     async function runUpdateDb() {

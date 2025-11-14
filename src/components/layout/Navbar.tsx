@@ -29,7 +29,7 @@ const Navbar = () => {
     const navTitle: string = getNavTitle()
     document.title = getTabTitle()
 
-    if (userIsLoggedIn === true)
+    if (userIsLoggedIn === true) {
         return (
             <div className={nav0Expanded ? "anyexpanded" : "allcollapsed"}>
                 <nav id="navIcons">

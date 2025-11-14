@@ -12,12 +12,13 @@ const BooksOverviewFilterResultsMessage = () => {
                     {booksOverview.length} book
                     {booksOverview.length !== 1 && "s"} found for <em>"{booksFilter}"</em>
                 </>
-            ) : booksOverview !== undefined && booksOverview.length === 0 ? (
-                <>
-                    No books found for <em>"{booksFilter}"</em>
-                </>
             ) : (
-                <></>
+                booksOverview !== undefined &&
+                booksOverview.length === 0 && (
+                    <>
+                        No books found for <em>"{booksFilter}"</em>
+                    </>
+                )
             )}
         </div>
     )

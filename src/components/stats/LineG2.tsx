@@ -23,7 +23,12 @@ function LineG2({
     data2,
     subjects,
     year
-}: { data: number[]; data2: number[]; subjects: [string, string]; year: number }) {
+}: {
+    data: number[]
+    data2: number[]
+    subjects: [string, string]
+    year: number
+}) {
     const { bodyBgColor, darkTheme } = useContext(AppContext)
 
     const currentMonthIndex = new Date().getMonth() // Get current month index (0-11)

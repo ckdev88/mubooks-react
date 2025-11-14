@@ -3,7 +3,10 @@ import { cleanAnchor } from "@/utils/cleanInput"
 const BooksWithoutStarsList = ({
     booksWithoutStars,
     year
-}: { booksWithoutStars: BooksWithoutStars; year: number }) => {
+}: {
+    booksWithoutStars: BooksWithoutStars
+    year: number
+}) => {
     return booksWithoutStars.map((b) => {
         const refer: string = "finished" + `#${cleanAnchor(b.title_short)}_${b.id}`
         return (
